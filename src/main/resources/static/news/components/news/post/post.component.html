@@ -1,0 +1,50 @@
+<div ng-app="postApp" class="container post-wrapper pl-0 pr-0 mb-3">
+    <div class="row m-0">
+        <div class="col-1 p-0 text-center align-self-center mt-2 mb-2">
+            <div>
+                <img id="ownerAvatar" src="{{$ctrl.post.postOwnerAvatar}}" class="post-avatar" alt="ava">
+            </div>
+            <div>
+                <a id="ownerPage" href=""><i class="fa fa-id-card-o"></i></a>
+            </div>
+            <div>
+                <a id="ownerMessage" href=""><i class="fa fa-envelope-o"></i></a>
+            </div>
+            <div>
+                <a id="ownerStatistic" href=""><i class="fa fa-bar-chart-o"></i></a>
+            </div>
+        </div>
+
+        <div class="col-11 p-0">
+            <div class="container">
+                <div class="row bg-light alert alert-info p-1 mb-0 text-left">
+                    <div class="postOwner col-3 text-left">{{$ctrl.post.postOwner}}</div>
+                    <div class="postTopic col-6 text-left">{{$ctrl.post.postTitle}}</div>
+                    <div class="postDate col-3 text-right">{{$ctrl.post.postDate| date:'HH:mm MM/dd/yyyy'}}</div>
+                </div>
+                <div class="row post-body align-items-center m-0 p-0 ">
+                    <div class="postText col text-left ">{{$ctrl.post.postText}}</div>
+                </div>
+                <div class="row bg-light alert alert-info p-1 mb-0 text-left">
+                    <div class="col-3">
+                        <a href="">Comments: {{$ctrl.post.postCommentCount}} <i class="fa fa-comments-o"></i></a>
+                    </div>
+                    <div ng-click="changePostLike($ctrl.post.postId, $ctrl.post.isPostLike)" class="col-3">
+                        <a href="">Likes: <span class="postLike">{{$ctrl.post.postLikeCount}}</span>
+                            <i ng-if="$ctrl.post.isPostLike" class="fa fa-thumbs-up"></i>
+                            <i ng-if="!$ctrl.post.isPostLike" class="fa fa-thumbs-o-up"></i>
+                        </a>
+                    </div>
+                    <div ng-click="changePostFavorite($ctrl.post.postId, $ctrl.post.isPostFavorite)" class="col-3">
+                        <!--postFavorite fa fa-star-->
+                        <!--postFavorite fa fa-star-o-->
+                        <a ng-if="$ctrl.post.isPostFavorite" href="">My Favorite <i
+                                class="postFavorite fa fa-star"></i></a>
+                        <a ng-if="!$ctrl.post.isPostFavorite" href="">My Favorite <i
+                                class="postFavorite fa fa-star-o"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

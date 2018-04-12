@@ -1,0 +1,49 @@
+html {
+    font-size: 10px
+}
+
+body {
+    font-size: 1.6rem;
+}
+
+.content-wrapper {
+    max-width: 1400px;
+}
+
+.post-wrapper {
+    position: relative;
+    border: 1px solid #b8daff;
+    border-radius: 0.25rem;
+}
+
+.post-body {
+    min-height: 7rem;
+}
+
+.post-avatar {
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    border: 1px solid  #b8daff;
+    border-radius: 0.25rem;
+}
+
+.friend-select-all{
+    border-radius: 0.5rem;
+    border: 1px solid #b8daff;
+}
+
+.friend-select-all:hover, .friend-select-all:active{
+    color: #856404;
+    background-color: #b8daff;
+}
+.friend-select-all:checked{
+    color: #856404;
+    background-color: #b8daff;
+}
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>news</title>
+    <link rel="stylesheet" href="../css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="../css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="../css/styles.css" type="text/css">
+</head>
+<body>
+<header class="container-fluid text-right content-wrapper">
+    <div class="row bg-light alert alert-info m-0 mt-1 p-1 mb-3 ">
+        <div class="col-12 p-0 ">
+            <form name="userId" method="post" action="#" class="">
+                <input type="text" #idInput (keyup.enter)="changeUUID(idInput)">
+                <button type="button" class="btn btn-lg btn-outline-primary mb-1" (click)="changeUUID(idInput)">Enter
+                </button>
+                <button type="button" class="btn btn-lg btn-outline-primary mb-1" (click)="setDefaultUUID()"
+                        *ngIf="!defaultUUIDStatus">
+                    Default
+                </button>
+            </form>
+        </div>
+    </div>
+</header>
+<main class="container-fluid content-wrapper">
+    <div class="row m-0 mt-1 mb-1">
+        <div class="col-2 bg-light alert alert-info m-0 mb-3">
+            Left Menu
+        </div>
+        <div class="col-10 m-0 pl-1 pl-3 pr-0">
+            <div class="container post-wrapper pl-0 pr-0 mb-3">
+                <div class="row m-0 p-3 ">
+                    <div class="friend-select-all align-self-center text-center p-3 mr-3">
+                        <div class="col">All</div>
+                    </div>
+                    <div class="align-self-center pr-2">
+                        <a href="">
+                            <img src="../../../../../images/11.jpg" class="post-avatar" alt="ava">
+                        </a>
+                    </div>
+                    <div class="align-self-center pr-2">
+                        <a href="">
+                            <img src="../../../../../images/16.jpg" class="post-avatar" alt="ava">
+                        </a>
+                    </div>
+                    <div class="align-self-center pr-2">
+                        <a href="">
+                            <img src="../../../../../images/914.gif" class="post-avatar" alt="ava">
+                        </a>
+                    </div>
+                    <div class="align-self-center pr-2">
+                        <a href="">
+                            <img src="../../../../../images/1397.jpg" class="post-avatar" alt="ava">
+                        </a>
+                    </div>
+                    <div class="align-self-center pr-2">
+                        <a href="">
+                            <img src="../../../../../images/2874.gif" class="post-avatar" alt="ava">
+                        </a>
+                    </div>
+                    <div class="align-self-center pr-2">
+                        <a href="">
+                            <img src="../../../../../images/68572.jpeg" class="post-avatar" alt="ava">
+                        </a>
+                    </div>
+                    <div class="align-self-center pr-2">
+                        <a href="">
+                            <img src="../../../../../images/lion.jpg" class="post-avatar" alt="ava">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container post-wrapper pl-0 pr-0 mb-3"></div>
+
+            <div id="postTemplate" hidden="hidden" class="container post-wrapper pl-0 pr-0 mb-3">
+                <div class="row m-0">
+                    <div class="col-1 p-0 text-center align-self-center mt-2 mb-2">
+                        <div>
+                            <img id="ownerAvatar" src="../../../../../images/11.jpg" class="post-avatar" alt="ava">
+                        </div>
+                        <div>
+                            <a id="ownerPage" href=""><i class="fa fa-id-card-o"></i></a>
+                        </div>
+                        <div>
+                            <a id="ownerMessage" href=""><i class="fa fa-envelope-o"></i></a>
+                        </div>
+                        <div>
+                            <a id="ownerStatistic" href=""><i class="fa fa-bar-chart-o"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-11 p-0">
+                        <div class="container">
+                            <div class="row bg-light alert alert-info p-1 mb-0 text-left">
+                                <div class="postOwner col-3 text-left"><a href="">Alexander Popov</a></div>
+                                <div class="postTopic col-6 text-left">Гоу все на пьянку!</div>
+                                <div class="postDate col-3 text-right">22.02.2018 13:23</div>
+                            </div>
+                            <div class="row post-body align-items-center m-0 p-0 ">
+                                <div class="postText col text-left ">Гоу все на пьянку!</div>
+                            </div>
+                            <div class="row bg-light alert alert-info p-1 mb-0 text-left">
+                                <div class="col-3">
+                                    <a href="">Comments: <span class="postComment" >1</span> <i class="fa fa-comments-o"></i></a>
+                                </div>
+                                <div class="col-3">
+                                    <a href="">Likes: <span class="postLike" >10</span> <i class="fa fa-thumbs-o-up"></i></a>
+                                </div>
+                                <div class="col-3">
+                                    <a href="">Add to Favorites <i class="postFavorite fa fa-star-o"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+<footer class="container-fluid content-wrapper">
+    <div class="row m-0 mt-1 p-0">
+        <div class="col-12 bg-light alert alert-info m-0">
+            Java Advanced <a href="http://a-level.com.ua">A-Level</a> 2018
+        </div>
+    </div>
+</footer>
+</div>
+<div class="test">
+    <div onclick="toHidePost()">hidden/visible post</div>
+    <div onclick="toAddPost()">add new post</div>
+</div>
+<!--<script src="temp/jquery-3.3.1.temp"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.js" integrity="sha256-ubLEQwr53FjvE/hMBvPTVinRBPUWl9FWKn2MW59CiM4=" crossorigin="anonymous"></script>
+<script src="newsApp_old.js"></script>
+</body>
+</html>

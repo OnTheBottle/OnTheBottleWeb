@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>news</title>
+    <script src="../common/lib/angularjs/angular.min.js"></script>
+    <script src="../common/lib/angularjs/angular-route.min.js"></script>
+    <script src="components/news/news.component.js"></script>
+    <script src="components/news/post/post.component.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+</head>
+<body>
+<header class="container-fluid text-right content-wrapper">
+    <div class="row bg-light alert alert-info m-0 mt-1 p-1 mb-3 ">
+        <div class="col-12 p-0 ">
+            <form name="userId" method="post" action="#" class="">
+                <input type="text" #idInput (keyup.enter)="changeUUID(idInput)">
+                <button type="button" class="btn btn-lg btn-outline-primary mb-1" (click)="changeUUID(idInput)">Enter
+                </button>
+                <button type="button" class="btn btn-lg btn-outline-primary mb-1" (click)="setDefaultUUID()"
+                        *ngIf="!defaultUUIDStatus">
+                    Default
+                </button>
+            </form>
+        </div>
+    </div>
+</header>
+<main class="container-fluid content-wrapper">
+    <div class="row m-0 mt-1 mb-1">
+        <div class="col-2 bg-light alert alert-info m-0 mb-3">
+            Left Menu
+        </div>
+        <div ng-app="newsApp" class="col-10 m-0 pl-1 pl-3 pr-0">
+            <app-news userId="userId"></app-news>
+        </div>
+    </div>
+</main>
+<footer class="container-fluid content-wrapper">
+    <div class="row m-0 mt-1 p-0">
+        <div class="col-12 bg-light alert alert-info m-0">
+            Java Advanced <a href="http://a-level.com.ua">A-Level</a> 2018
+        </div>
+    </div>
+</footer>
+</div>
+
+</body>
+</html>
