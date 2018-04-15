@@ -1,0 +1,288 @@
+html {
+    font-size: 10px
+}
+
+body {
+    background-color: #eeeeee;
+    font-size: 1.4rem;
+    font-family: Arial, Tahoma, sans-serif;
+}
+
+.header-container {
+    background: #d8d7d3;
+}
+
+header a img {
+    max-width: 6rem;
+    padding: 1rem;
+}
+
+.search-form {
+    padding: 1.8rem 0 0 0;
+    margin: 0;
+}
+
+.search-form input.search-input {
+    border: 1px solid #4c4c4c;
+    box-shadow: none;
+    height: 2.7rem;
+    color: #eeeeee;
+    padding: 0 6px;
+    width: 20rem;
+}
+
+.search-form button {
+    border: 1px solid #4c4c4c;
+    font-size: 1.4rem;
+    font-weight: bold;
+    padding: 0 1.2rem;
+    height: 2.7rem;
+    vertical-align: top;
+    box-shadow: none;
+    color: #eeeeee;
+    background-color: black;
+}
+
+.header-container .col-sm {
+    padding: 0 7rem;
+}
+
+.header-container .col-sm,
+.header-container .col-sm-4 {
+    border-right: 1px solid #4c4c4c;
+}
+
+.header-container .col-sm:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.header-container .col-sm p {
+    padding-top: 1.4rem;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.main-content {
+    margin-top: 2rem;
+    background-color: #d8d7d3;
+}
+
+.main-content .btn {
+    border: 1px solid #4c4c4c;
+    margin: 1rem 0;
+    padding: 0 1.2rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    height: 2.7rem;
+    color: black;
+    background-color: #ecebe8;
+}
+
+.ui-datepicker,
+.ui-datepicker table,
+.ui-datepicker tr,
+.ui-datepicker td,
+.ui-datepicker th {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-spacing: 0;
+}
+
+.ui-datepicker {
+    display: none;
+    width: 100%;
+    padding: 7px;
+    margin-bottom: 5px;
+    cursor: default;
+    text-transform: uppercase;
+    font-size: 1rem;
+    background: #e5e5e5;
+    border-radius: 3px;
+}
+
+.ui-datepicker-header {
+    position: relative;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.ui-datepicker-title {
+    text-align: center;
+}
+
+.ui-datepicker-month {
+    position: relative;
+    color: #565656;
+    font-size: 1.4rem;
+    padding-right: 13px;
+}
+
+.ui-datepicker-year {
+    color: #565656;
+    font-size: 1.4rem;
+    padding-left: 5px;
+}
+
+.ui-datepicker-month:before {
+    display: block;
+    position: absolute;
+    top: 4px;
+    right: 0;
+    width: 7px;
+    height: 7px;
+    content: '';
+    background: #a7a3a4;
+    background: linear-gradient(top, #ebe6eb 0%, #8f8e8c 100%);
+    border-radius: 50%;
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next {
+    position: absolute;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.ui-datepicker-prev {
+    left: 0;
+    padding-left: 0;
+}
+
+.ui-datepicker-next {
+    right: 0;
+    padding-right: 0;
+}
+
+.ui-datepicker-prev span,
+.ui-datepicker-next span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    text-indent: -9999px;
+}
+
+.ui-datepicker-prev span {
+    background: url(../images/arrow_prev.svg) no-repeat center;
+    background-size: 10px 10px;
+}
+
+.ui-datepicker-next span {
+    background: url(../images/arrow_next.svg) no-repeat center;
+    background-size: 10px 10px;
+}
+
+.ui-datepicker-prev-hover span {
+    background-position: -2px 0;
+}
+
+.ui-datepicker-next-hover span {
+    background-position: 2px 0;
+}
+
+.ui-datepicker-calendar {
+    width: 100%;
+}
+
+.ui-datepicker-calendar th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 1.4rem;
+    color: #8f8e8c;
+}
+
+.ui-datepicker-calendar td {
+    text-align: center;
+}
+
+.ui-datepicker-calendar .ui-state-default {
+    display: block;
+    outline: none;
+    text-decoration: none;
+    padding: 0.05rem;
+    color: #8f8e8c;
+    border: 1px solid transparent;
+}
+
+.ui-datepicker-calendar .ui-state-active {
+    color: #555253;
+    border: 1px solid #555253;
+}
+
+.ui-datepicker-other-month .ui-state-default {
+    color: #b6b6b6;
+}
+
+.main-content .event {
+    position: relative;
+    background-color: #d4d2cf;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.main-content .event img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    max-width: 90px;
+    max-height: 90px;
+    float: left;
+    margin: 5px 0;
+}
+
+.main-content .event .title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.main-content .event .description,
+.main-content .event .time,
+.main-content .event .people {
+    font-size: 1.4rem;
+    padding: 0;
+    margin: 0 10px;
+}
+
+.main-content .event .description {
+    width: 85%;
+    position: absolute;
+    top: 52%;
+    left: 55%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.main-content .event .time {
+    position: absolute;
+    bottom: 0;
+    left: 90px;
+    font-size: 1.2rem;
+    color: #8f8e8c;
+}
+
+.main-content .event .people {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    font-size: 1.2rem;
+    color: #8f8e8c;
+    vertical-align: middle;
+}
+
+.main-content .event .people p{
+    display: inline-block;
+    margin: 0;
+}
+
+.main-content .event .people img{
+    max-width: 12px;
+    max-height: 12px;
+}
