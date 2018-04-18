@@ -12,50 +12,59 @@
 <body>
 
 <div class="container-fluid header-container">
-    <header>
-        <div class="row">
-            <div class="col-sm">
-                <a href="/">
-                    <img src="images/logo.svg" alt="beer-bottle" data-toggle="tooltip" data-placement="right"
-                         data-html="true" title="<b>На главную</b>">
-                </a>
+    <header> <!--TODO: адекватное выравнивание-->
+        <nav class="navbar navbar-expand-lg">
+            <div class="row">
+                <div class="col-2">
+                    <a href="/">
+                        <img src="images/logo.svg" alt="beer-bottle" data-toggle="tooltip" data-placement="right"
+                             data-html="true" title="<b>На главную</b>">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse col-10" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto col-12">
+                        <form class="form-inline my-1 my-lg-0 search-form col-12">
+                            <input class="form-control form-control-lg mr-sm-2" type="search" placeholder="Search"
+                                   aria-label="Search">
+                            <button class="btn my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+
+                        <li class="nav-item active col-5">
+                            <a href="#">
+                                <img src="images/event.svg" alt="events" data-toggle="tooltip" data-placement="right"
+                                     data-html="true" title="<b>Ивенты</b>">
+                            </a>
+                        </li>
+
+                        <li class="nav-item col-5">
+                            <a href="#">
+                                <img src="images/message.svg" alt="message" data-toggle="tooltip" data-placement="right"
+                                     data-html="true" title="<b>Сообщения</b>">
+                            </a>
+                        </li>
+
+                        <li class="nav-item col-5">
+                            <a href="#">
+                                <img src="images/friend.svg" alt="friend" data-toggle="tooltip" data-placement="right"
+                                     data-html="true" title="<b>Друзья</b>">
+                            </a>
+                        </li>
+
+                        <li class="nav-item col-5">
+                            <p class="userName">@user</p>
+                        </li>
+
+                        <li class="nav-item col-5">
+                            <a href="#">
+                                <img src="images/settings.svg" alt="settings" data-toggle="tooltip"
+                                     data-placement="right"
+                                     data-html="true" title="<b>Настройки</b>">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-sm-4">
-                <form name="search" action="#" class="search-form">
-                    <label for="search">
-                        <input type="search" id="search" class="search-input">
-                    </label>
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-            <div class="col-sm">
-                <a href="#">
-                    <img src="images/event.svg" alt="events" data-toggle="tooltip" data-placement="right"
-                         data-html="true" title="<b>Ивенты</b>">
-                </a>
-            </div>
-            <div class="col-sm">
-                <a href="#">
-                    <img src="images/message.svg" alt="message" data-toggle="tooltip" data-placement="right"
-                         data-html="true" title="<b>Сообщения</b>">
-                </a>
-            </div>
-            <div class="col-sm">
-                <a href="#">
-                    <img src="images/friend.svg" alt="message" data-toggle="tooltip" data-placement="right"
-                         data-html="true" title="<b>Друзья</b>">
-                </a>
-            </div>
-            <div class="col-sm">
-                <p>@user</p>
-            </div>
-            <div class="col-sm">
-                <a href="#">
-                    <img src="images/settings.svg" alt="settings" data-toggle="tooltip" data-placement="right"
-                         data-html="true" title="<b>Настройки</b>">
-                </a>
-            </div>
-        </div>
+        </nav>
     </header>
 </div>
 <div class="container main-content">
@@ -74,14 +83,40 @@
                         <div class="modal-content">
 
                             <div class="modal-header">
-                                <h5 class="modal-title" id="createEventLongTitle">Modal title</h5>
+                                <h2 class="modal-title" id="createEventLongTitle">Где бухаем?</h2>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
 
                             <div class="modal-body">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque odio quos sapiente veniam. Enim expedita fugiat, illo in iure minima molestias obcaecati quis unde veritatis. Accusamus delectus dolor dolorem eaque et eveniet facere id, illo incidunt ipsa iure labore laboriosam minima nobis odit quaerat quidem quis totam unde voluptas voluptatem?
+                                <div class="form-group">
+                                    <label for="title" class="col-form-label col-form-label-lg">Название ивента</label>
+                                    <input type="text" class="form-control form-control-lg" id="title"
+                                           aria-describedby="titleEvent" placeholder="Title">
+                                    <small id="titleHelp" class="form-text text-muted">Введите название ивента</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description" class="col-form-label col-form-label-lg">Описание
+                                        ивента</label>
+                                    <input type="text" class="form-control form-control-lg" id="description"
+                                           aria-describedby="descriptionEvent" placeholder="Description">
+                                    <small id="descriptionHelp" class="form-text text-muted">Введите описание ивента
+                                    </small>
+                                </div>
+                                <div>
+                                    <label for="startTime" class="col-form-label col-form-label-lg">Время старта</label>
+                                    <input type="datetime-local" class="form-control form-control-lg" id="startTime"
+                                           required/>
+                                    <label for="endTime" class="col-form-label col-form-label-lg">Время
+                                        завершения</label>
+                                    <input type="datetime-local" class="form-control form-control-lg" id="endTime"
+                                           required/>
+                                </div>
+                                <div>
+                                    <label for="places" class="col-form-label col-form-label-lg">Выбирете место</label>
+                                    <select class="form-control form-control-lg" id="places"></select>
+                                </div>
                             </div>
 
                             <div class="modal-footer">
@@ -94,6 +129,84 @@
                 </div>
             </div>
             <div class="col-sm-10">
+                <div class="event">
+                    <img src="images/temp_pab.jpg">
+                    <p class="title">Вечер бухла</p>
+                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem corporis id
+                        itaque necessitatibus non, sint. Atque doloribus eaque in natus, odio repellat saepe sed? A
+                        autem cumque dolore doloremque earum enim, fugiat fugit itaque minus omnis optio possimus quam
+                        rerum!</p>
+                    <p class="time">18:00 - 22:00 / 20.04</p>
+                    <div class="people">
+                        <img src="images/user.svg">
+                        <p>10</p>
+                    </div>
+                </div>
+                <div class="event">
+                    <img src="images/temp_pab.jpg">
+                    <p class="title">Вечер бухла</p>
+                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem corporis id
+                        itaque necessitatibus non, sint. Atque doloribus eaque in natus, odio repellat saepe sed? A
+                        autem cumque dolore doloremque earum enim, fugiat fugit itaque minus omnis optio possimus quam
+                        rerum!</p>
+                    <p class="time">18:00 - 22:00 / 20.04</p>
+                    <div class="people">
+                        <img src="images/user.svg">
+                        <p>10</p>
+                    </div>
+                </div>
+                <div class="event">
+                    <img src="images/temp_pab.jpg">
+                    <p class="title">Вечер бухла</p>
+                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem corporis id
+                        itaque necessitatibus non, sint. Atque doloribus eaque in natus, odio repellat saepe sed? A
+                        autem cumque dolore doloremque earum enim, fugiat fugit itaque minus omnis optio possimus quam
+                        rerum!</p>
+                    <p class="time">18:00 - 22:00 / 20.04</p>
+                    <div class="people">
+                        <img src="images/user.svg">
+                        <p>10</p>
+                    </div>
+                </div>
+                <div class="event">
+                    <img src="images/temp_pab.jpg">
+                    <p class="title">Вечер бухла</p>
+                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem corporis id
+                        itaque necessitatibus non, sint. Atque doloribus eaque in natus, odio repellat saepe sed? A
+                        autem cumque dolore doloremque earum enim, fugiat fugit itaque minus omnis optio possimus quam
+                        rerum!</p>
+                    <p class="time">18:00 - 22:00 / 20.04</p>
+                    <div class="people">
+                        <img src="images/user.svg">
+                        <p>10</p>
+                    </div>
+                </div>
+                <div class="event">
+                    <img src="images/temp_pab.jpg">
+                    <p class="title">Вечер бухла</p>
+                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem corporis id
+                        itaque necessitatibus non, sint. Atque doloribus eaque in natus, odio repellat saepe sed? A
+                        autem cumque dolore doloremque earum enim, fugiat fugit itaque minus omnis optio possimus quam
+                        rerum!</p>
+                    <p class="time">18:00 - 22:00 / 20.04</p>
+                    <div class="people">
+                        <img src="images/user.svg">
+                        <p>10</p>
+                    </div>
+                </div>
+                <div class="event">
+                    <img src="images/temp_pab.jpg">
+                    <p class="title">Вечер бухла</p>
+                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem corporis id
+                        itaque necessitatibus non, sint. Atque doloribus eaque in natus, odio repellat saepe sed? A
+                        autem cumque dolore doloremque earum enim, fugiat fugit itaque minus omnis optio possimus quam
+                        rerum!</p>
+                    <p class="time">18:00 - 22:00 / 20.04</p>
+                    <div class="people">
+                        <img src="images/user.svg">
+                        <p>10</p>
+                    </div>
+                </div>
                 <div class="event">
                     <img src="images/temp_pab.jpg">
                     <p class="title">Вечер бухла</p>

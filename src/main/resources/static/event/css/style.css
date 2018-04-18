@@ -8,18 +8,13 @@ body {
     font-family: Arial, Tahoma, sans-serif;
 }
 
-.header-container {
+.header-container .navbar {
     background: #d8d7d3;
 }
 
 header a img {
-    max-width: 6rem;
-    padding: 1rem;
-}
-
-.search-form {
-    padding: 1.8rem 0 0 0;
-    margin: 0;
+    max-width: 4rem;
+    padding: 1rem 0;
 }
 
 .search-form input.search-input {
@@ -43,28 +38,21 @@ header a img {
     background-color: black;
 }
 
-.header-container .col-sm {
-    padding: 0 7rem;
-}
-
-.header-container .col-sm,
-.header-container .col-sm-4 {
-    border-right: 1px solid #4c4c4c;
-}
-
 .header-container .col-sm:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.header-container .col-sm p {
-    padding-top: 1.4rem;
-    text-align: center;
+.header-container .userName {
+    padding: 1.5rem 0;
+    vertical-align: center;
     font-size: 2rem;
+    margin: 0;
 }
 
 .main-content {
     margin-top: 2rem;
     background-color: #d8d7d3;
+    border-radius: 5px;
 }
 
 .main-content .btn-create {
@@ -76,6 +64,7 @@ header a img {
     height: 2.7rem;
     color: black;
     background-color: #ecebe8;
+    border-radius: 5px;
 }
 
 .ui-datepicker,
@@ -98,7 +87,7 @@ header a img {
     text-transform: uppercase;
     font-size: 1rem;
     background: #e5e5e5;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .ui-datepicker-header {
@@ -189,7 +178,7 @@ header a img {
     padding-bottom: 5px;
     text-align: center;
     font-weight: normal;
-    font-size: 1.4rem;
+    font-size: 1rem;
     color: #8f8e8c;
 }
 
@@ -277,12 +266,16 @@ header a img {
     vertical-align: middle;
 }
 
-.main-content .event .people p{
+.main-content .event .people p {
     display: inline-block;
     margin: 0;
 }
 
-.main-content .event .people img{
+.main-content .event .people img {
     max-width: 12px;
     max-height: 12px;
+}
+
+.main-content .close {
+    font-size: 2.5rem;
 }
