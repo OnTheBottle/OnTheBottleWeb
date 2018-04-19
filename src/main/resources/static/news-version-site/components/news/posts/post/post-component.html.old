@@ -29,7 +29,7 @@
                     <div class="col-3">
                         <a href="">Comments: {{$ctrl.post.postCommentCount}} <i class="fa fa-comments-o"></i></a>
                     </div>
-                    <div ng-click="changePostLike($ctrl.post.postId, $ctrl.post.isPostLike)" class="col-3">
+                    <div ng-click="changePostLike($ctrl)" class="col-3">
                         <a href="">Likes: <span class="postLike">{{$ctrl.post.postLikeCount}}</span>
                             <i ng-if="$ctrl.post.isPostLike" class="fa fa-thumbs-up"></i>
                             <i ng-if="!$ctrl.post.isPostLike" class="fa fa-thumbs-o-up"></i>
