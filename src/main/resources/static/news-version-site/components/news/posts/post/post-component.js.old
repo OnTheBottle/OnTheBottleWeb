@@ -4,17 +4,21 @@ app.controller('postCtrl', function ($scope, $http, $interval) {
 
     //test user uuid
     $scope.userId = '57c49497-918c-4ece-81d9-629d11c5ad6b';
-    const SUBMESSAGEPATH = 'http://127.0.0.1:8083';
+    $scope.friends = [];
+    $scope.posts = [];
+    const NEWS_PATH = 'http://127.0.0.1:8083/news-version-site-OLD';
 
     $scope.getFriendsPosts = function (userId) {
         $http({
             method: "POST",
-            url: SUBMESSAGEPATH + "/news/getfriendsposts",
+            url: NEWS_PATH + "/getfriendsposts",
             params: {id: userId}
         }).then(function mySuccess(response) {
             //console.log('response: ', response.data);
             $scope.friends = adapterFriendArray(response.data[0]);
             $scope.posts = adapterPostArray(response.data[1]);
+            console.log('response data1:\n', response.data[1]);
+            console.log('response posts:\n', $scope.posts);
         }, function myError(response) {
             alert(response.statusText);
         });
@@ -87,7 +91,7 @@ app.controller('postCtrl', function ($scope, $http, $interval) {
     $scope.getUserPosts = function (userId) {
         $http({
             method: "POST",
-            url: SUBMESSAGEPATH + "/news/getuserposts",
+            url: NEWS_PATH + "/getuserposts",
             params: {id: userId}
         }).then(function mySuccess(response) {
             $scope.posts = response.data;
@@ -99,7 +103,7 @@ app.controller('postCtrl', function ($scope, $http, $interval) {
     $scope.getFriends = function (userId) {
         $http({
             method: "POST",
-            url: SUBMESSAGEPATH + "/news/getfriends",
+            url: NEWS_PATH + "/getfriends",
             params: {id: userId}
         }).then(function mySuccess(response) {
             $scope.friends = response.data;
@@ -109,19 +113,24 @@ app.controller('postCtrl', function ($scope, $http, $interval) {
         });
     };
 
-    $scope.changePostLike = function (postId, isPostLike) {
+    $scope.changePostLike = function (ctrl) {
         var userId = $scope.userId;
-        console.log('userid: ', userId, ' postid: ', postId, ' isLike: ', isPostLike);
+        var postId = ctrl.post.postId;
+        //console.log('ctrl: ', ctrl);
+        console.log('SEND to Server userid: ', userId, ' postid: ', postId);
         $http({
             method: "POST",
-            url: SUBMESSAGEPATH + "/news/setlike",
+            url: NEWS_PATH + "/like/change",
             params: {
                 userId: userId,
                 postId: postId,
-                isLike: isPostLike
             }
         }).then(function mySuccess(response) {
-            console.log(response.data);
+            console.log('before: \n',$scope.posts)
+            //$scope.posts[postIndex].isPostLike = !$scope.posts[postIndex].isPostLike;
+            $scope.getFriendsPosts($scope.userId);
+            console.log('after: \n',$scope.posts);
+
             //if (response.data)//alert(response.statusText, ' All right!');
         }, function myError(response) {
             alert(response.statusText, ' Sorry, I am tired');
@@ -133,7 +142,7 @@ app.controller('postCtrl', function ($scope, $http, $interval) {
         console.log('userid: ', userId, ' postid: ', postId, ' isFavorite: ', isFavorite);
         $http({
             method: "POST",
-            url: SUBMESSAGEPATH + "/news/favorite/change",
+            url: NEWS_PATH + "/favorite/change",
             params: {
                 userId: userId,
                 postId: postId,
@@ -215,9 +224,11 @@ app.controller('postCtrl', function ($scope, $http, $interval) {
 
 app.component('appPost', {
     controller: 'postCtrl',
-    templateUrl: 'components/news/post/post.component.html',
+    templateUrl: 'components/news-version-site-OLD/post/post.component.html',
     bindings: {
-        post: '='
+        post: '=',
+        posts: '=',
+        postindex: '='
     }
 });
 
