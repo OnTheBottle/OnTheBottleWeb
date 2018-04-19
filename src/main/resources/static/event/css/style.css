@@ -38,6 +38,10 @@ body {
     background-color: black;
 }
 
+.header-container .navbar .col-2 .container-fluid {
+    padding: 0;
+}
+
 .header-container .userName {
     padding: 1rem 0;
     font-size: 2rem;
