@@ -10,56 +10,68 @@
     <title>Events</title>
 </head>
 <body>
-
 <div class="container-fluid header-container">
-    <header> <!--TODO: адекватное выравнивание-->
+    <header>
         <nav class="navbar navbar-expand-lg">
-            <div class="row">
-                <div class="col-2">
-                    <a href="/">
-                        <img src="images/logo.svg" alt="beer-bottle" data-toggle="tooltip" data-placement="right"
-                             data-html="true" title="<b>На главную</b>">
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse col-10" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto col-12">
-                        <form class="form-inline my-1 my-lg-0 search-form col-12">
-                            <input class="form-control form-control-lg mr-sm-2" type="search" placeholder="Search"
-                                   aria-label="Search">
-                            <button class="btn my-2 my-sm-0" type="submit">Search</button>
-                        </form>
+            <a class="navbar-brand" href="#">
+                <img src="images/logo.svg" alt="beer-bottle" data-toggle="tooltip" data-placement="right"
+                     data-html="true" title="<b>На главную</b>">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                        <li class="nav-item active col-5">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="form-inline my-1 col-auto">
+                    <input class="form-control form-control-lg mr-sm-2" type="search" placeholder="Search"
+                           aria-label="Search">
+                    <button class="btn btn-lg my-sm-0" type="submit">Search</button>
+                </form>
+                <div class="col-8">
+                    <ul class="navbar-nav container-fluid">
+                        <li class="nav-item col-4 text-center ">
                             <a href="#">
-                                <img src="images/event.svg" alt="events" data-toggle="tooltip" data-placement="right"
+                                <img src="images/event.svg" alt="events" data-toggle="tooltip"
+                                     data-placement="right"
                                      data-html="true" title="<b>Ивенты</b>">
                             </a>
                         </li>
-
-                        <li class="nav-item col-5">
+                        <li class="nav-item col-4 text-center">
                             <a href="#">
-                                <img src="images/message.svg" alt="message" data-toggle="tooltip" data-placement="right"
+                                <img src="images/message.svg" alt="message" data-toggle="tooltip"
+                                     data-placement="right"
                                      data-html="true" title="<b>Сообщения</b>">
                             </a>
                         </li>
-
-                        <li class="nav-item col-5">
+                        <li class="nav-item col-4 text-center">
                             <a href="#">
-                                <img src="images/friend.svg" alt="friend" data-toggle="tooltip" data-placement="right"
+                                <img src="images/friend.svg" alt="friend" data-toggle="tooltip"
+                                     data-placement="right"
                                      data-html="true" title="<b>Друзья</b>">
                             </a>
                         </li>
-
-                        <li class="nav-item col-5">
-                            <p class="userName">@user</p>
+                    </ul>
+                </div>
+                <div class="col-2">
+                    <ul class="navbar-nav container-fluid">
+                        <li class="nav-item col-6 text-center userName">
+                            @User
                         </li>
-
-                        <li class="nav-item col-5">
-                            <a href="#">
+                        <li class="nav-item dropdown col-6 text-center">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="images/settings.svg" alt="settings" data-toggle="tooltip"
                                      data-placement="right"
                                      data-html="true" title="<b>Настройки</b>">
                             </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -78,7 +90,7 @@
                 <div id="calendar"></div>
 
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
-                     aria-hidden="true"> <!--TODO: https://getbootstrap.com/docs/4.0/components/modal/-->
+                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
 

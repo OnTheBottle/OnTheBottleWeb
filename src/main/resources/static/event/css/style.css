@@ -10,23 +10,23 @@ body {
 
 .header-container .navbar {
     background: #d8d7d3;
+    border-radius: 5px;
 }
 
-header a img {
+.header-container .navbar img {
     max-width: 4rem;
-    padding: 1rem 0;
 }
 
-.search-form input.search-input {
+.header-container .navbar-collapse .form-inline input {
     border: 1px solid #4c4c4c;
     box-shadow: none;
     height: 2.7rem;
-    color: #eeeeee;
+    color: black;
     padding: 0 6px;
     width: 20rem;
 }
 
-.search-form button {
+.header-container .navbar-collapse .form-inline button {
     border: 1px solid #4c4c4c;
     font-size: 1.4rem;
     font-weight: bold;
@@ -38,15 +38,9 @@ header a img {
     background-color: black;
 }
 
-.header-container .col-sm:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
 .header-container .userName {
-    padding: 1.5rem 0;
-    vertical-align: center;
+    padding: 1rem 0;
     font-size: 2rem;
-    margin: 0;
 }
 
 .main-content {
