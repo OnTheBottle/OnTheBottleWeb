@@ -3,21 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../event/lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../event/lib/bootstrap/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="../event/lib/bootstrap/css/bootstrap-reboot.css">
 </head>
 <body>
 <div class="container text-center">
-    <p>Тестирование системы сообщений</p>
-    <a href="../event/index.html"><input type="button" class="btn btn-lg btn-outline-primary" value="Event"></a>
-    <br>
-    <a href="../event/event.html"><input type="button" class="btn btn-lg btn-outline-primary" value="Event 2"></a>
-    <br>
-    <br>
-    <a href="../wall/index.html"><input type="button" class="btn btn-lg btn-outline-primary" value="Wall"></a>
-    <br>
-    <br>
-    <a href="../news-version-site/index.html"><input type="button" class="btn btn-lg btn-outline-primary" value="News"></a>
+    <div class="btn-group-vertical">
+        <h2 class="text-primary">Тестирование системы сообщений</h2>
+        <a href="../event/index.html"><input type="button" class="btn btn-lg btn-outline-primary" value="Event (back)"></a>
+        <a href="../event/event.html"><input type="button" class="btn btn-lg btn-outline-primary" value="Event (front)"></a>
+        <a href="#"><input type="button" class="btn btn-lg btn-outline-primary disabled" value="Wall"></a>
+        <a href="../news-version-site/index.html"><input type="button" class="btn btn-lg btn-outline-primary"
+                                                         value="News"></a>
+    </div>
 </div>
+<br>
+<br>
+<div class="container">
+    <div class="btn-group-vertical">
+        <button type="button" class="btn btn-outline-primary иет-ё">
+            Создать пользователя
+        </button>
+        <button type="button" class="btn btn-outline-primary">
+            Создать место
+        </button>
+        <p class="text-info">Выбрать пользователя для дружбы</p>
+        <select class="custom-select" title="userOne"></select>
+        <select class="custom-select" title="userTwo"></select>
+        <button type="button" class="btn btn-outline-primary">
+            Подружить пользователей
+        </button>
+        <p class="text-info">Войти в систему под пользователем</p>
+        <select class="custom-select" title="user"></select>
+        <a href="#">
+            <button type="button" class="btn btn-outline-primary">
+                Войти
+            </button>
+        </a>
+    </div>
+</div>
+
+<script src="../event/lib/jquery-1.11.1.js"></script>
+<script src="../event/lib/bootstrap/js/popper_1.12.9.js"></script>
+<script src="../event/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="../event/lib/bootstrap/js/jquery-ui.min.js"></script>
+<script src="../event/lib/bootstrap/js/bootstrap_4.0.0.js"></script>
 </body>
 </html>
