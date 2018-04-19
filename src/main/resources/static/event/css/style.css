@@ -6,11 +6,11 @@ body {
     background-color: #eeeeee;
     font-size: 1.4rem;
     font-family: Arial, Tahoma, sans-serif;
+    padding-top: 60px;
 }
 
 .header-container .navbar {
     background: #d8d7d3;
-    border-radius: 5px;
 }
 
 .header-container .navbar img {
@@ -42,9 +42,30 @@ body {
     padding: 0;
 }
 
-.header-container .userName {
+.header-container .navbar .userName {
     padding: 1rem 0;
     font-size: 2rem;
+}
+
+.header-container .navbar .dropdown:hover .dropdown-menu {
+    width: 100%;
+    margin-top: 0;
+    display: block;
+}
+
+.header-container .navbar .dropdown-menu {
+    font-size: 1.2rem;
+    background-color: #dcdbd7;
+    border-radius: 5px;
+}
+
+.header-container .navbar .dropdown-menu a {
+    color: black;
+    text-decoration: none;
+}
+
+.header-container .navbar .dropdown-toggle::after {
+    display: none;
 }
 
 .main-content {

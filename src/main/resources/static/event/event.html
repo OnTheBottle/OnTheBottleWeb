@@ -12,7 +12,7 @@
 <body>
 <div class="container-fluid header-container">
     <header>
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg fixed-top">
             <a class="navbar-brand" href="../home/home.html">
                 <img src="images/logo.svg" alt="beer-bottle" data-toggle="tooltip" data-placement="right"
                      data-html="true" title="<b>На главную</b>">
@@ -60,18 +60,24 @@
                             @User
                         </li>
                         <li class="nav-item dropdown col-6 text-center">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a data-toggle="dropdown" class="nav-link dropdown-toggle disabled" href="#">
                                 <img src="images/settings.svg" alt="settings" data-toggle="tooltip"
                                      data-placement="right"
                                      data-html="true" title="<b>Настройки</b>">
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
+                            <ul class="dropdown-menu">
+                                <li class="text-center">
+                                    <div class="form-check">
+                                        <label class="form-check-label mr-4" for="defaultCheck1">
+                                            Настройка 1
+                                        </label>
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    </div>
+                                </li>
+                                <li class="text-center"><a href="#">Настройка 2</a></li>
+                                <li class="dropdown-divider"></li>
+                                <li class="text-center"><a href="#">Выйти</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -127,7 +133,7 @@
                                 </div>
                                 <div>
                                     <label for="places" class="col-form-label col-form-label-lg">Выбирете место</label>
-                                    <select class="form-control form-control-lg" id="places"></select>
+                                    <select class="form-control form-control-lg custom-select" id="places"></select>
                                 </div>
                             </div>
 
