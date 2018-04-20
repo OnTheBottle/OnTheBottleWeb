@@ -2,9 +2,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-grid.css">
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="../../common/lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../common/lib/bootstrap/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="../../common/lib/bootstrap/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="../../common/css/style.css">
     <link rel="stylesheet" href="css/style.css">
 
     <title>Events</title>
@@ -13,8 +14,8 @@
 <div class="container-fluid header-container">
     <header>
         <nav class="navbar navbar-expand-lg fixed-top">
-            <a class="navbar-brand" href="../home/home.html">
-                <img src="images/logo.svg" alt="beer-bottle" data-toggle="tooltip" data-placement="right"
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../common/images/logo.svg" alt="beer-bottle" data-toggle="tooltip" data-placement="right"
                      data-html="true" title="<b>На главную</b>">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -33,21 +34,21 @@
                     <ul class="navbar-nav container-fluid">
                         <li class="nav-item col-4 text-center ">
                             <a href="#">
-                                <img src="images/event.svg" alt="events" data-toggle="tooltip"
+                                <img src="../../common/images/event.svg" alt="events" data-toggle="tooltip"
                                      data-placement="right"
                                      data-html="true" title="<b>Ивенты</b>">
                             </a>
                         </li>
                         <li class="nav-item col-4 text-center">
-                            <a href="#">
-                                <img src="images/message.svg" alt="message" data-toggle="tooltip"
+                            <a href="../../components/news/news-component.html">
+                                <img src="../../common/images/news.svg" alt="message" data-toggle="tooltip"
                                      data-placement="right"
-                                     data-html="true" title="<b>Сообщения</b>">
+                                     data-html="true" title="<b>Новости</b>">
                             </a>
                         </li>
                         <li class="nav-item col-4 text-center">
                             <a href="#">
-                                <img src="images/friend.svg" alt="friend" data-toggle="tooltip"
+                                <img src="../../common/images/friend.svg" alt="friend" data-toggle="tooltip"
                                      data-placement="right"
                                      data-html="true" title="<b>Друзья</b>">
                             </a>
@@ -61,7 +62,7 @@
                         </li>
                         <li class="nav-item dropdown col-6 text-center">
                             <a data-toggle="dropdown" class="nav-link dropdown-toggle disabled" href="#">
-                                <img src="images/settings.svg" alt="settings">
+                                <img src="../../common/images/settings.svg" alt="settings">
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="text-center">
@@ -223,29 +224,16 @@
                         <p>10</p>
                     </div>
                 </div>
-                <div class="event">
-                    <img src="images/temp_pab.jpg">
-                    <p class="title">Вечер бухла</p>
-                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem corporis id
-                        itaque necessitatibus non, sint. Atque doloribus eaque in natus, odio repellat saepe sed? A
-                        autem cumque dolore doloremque earum enim, fugiat fugit itaque minus omnis optio possimus quam
-                        rerum!</p>
-                    <p class="time">18:00 - 22:00 / 20.04</p>
-                    <div class="people">
-                        <img src="images/user.svg">
-                        <p>10</p>
-                    </div>
-                </div>
             </div>
         </div>
     </main>
 </div>
 
-<script src="lib/jquery-1.11.1.js"></script>
-<script src="lib/bootstrap/js/popper_1.12.9.js"></script>
-<script src="lib/bootstrap/js/bootstrap.bundle.js"></script>
-<script src="lib/bootstrap/js/jquery-ui.min.js"></script>
-<script src="lib/bootstrap/js/bootstrap_4.0.0.js"></script>
+<script src="../../common/lib/jquery/jquery-2.1.4.min.js"></script>
+<script src="../../common/lib/bootstrap/js/popper_1.12.9.js"></script>
+<script src="../../common/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="../../common/lib/bootstrap/js/jquery-ui.min.js"></script>
+<script src="../../common/lib/bootstrap/js/bootstrap_4.0.0.js"></script>
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
