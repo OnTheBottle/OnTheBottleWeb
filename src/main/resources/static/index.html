@@ -2,43 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>news</title>
+    <title>On The Bottle</title>
     <!--CSS-->
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="lib/awesome/css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="common/lib/bootstrap/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="common/lib/awesome/css/font-awesome.css" type="text/css">
     <link rel="stylesheet" href="css/news-style.css" type="text/css">
     <!--scripts-->
-    <script src="lib/angularjs/angular.min.js"></script>
-    <script src="lib/angularjs/angular-route.min.js"></script>
+    <script src="common/lib/angularjs/angular.min.js"></script>
+    <script src="common/lib/angularjs/angular-route.min.js"></script>
     <script src="js/mainApp.js"></script>
     <script src="components/news/news-component.js"></script>
     <script src="components/news/posts/posts-component.js"></script>
     <script src="components/news/posts/post/post-component.js"></script>
+    <script src="components/registration/registration-component.js"></script>
 </head>
 <body ng-app="mainApp" ng-controller="MainController as ctrl">
 <header class="container-fluid text-right content-wrapper">
     <div class="row bg-light alert alert-info m-0 mt-1 p-1 mb-3 ">
         <div class="col-12 p-0">
-<!--
-            <form name="userId" method="post" action="#" class="">
-                <input type="text" #idInput (keyup.enter)="changeUUID(idInput)">
-                <button type="button" class="btn btn-lg btn-outline-primary mb-1" (click)="changeUUID(idInput)">Enter
-                </button>
-                <button type="button" class="btn btn-lg btn-outline-primary mb-1" (click)="setDefaultUUID()"
-                        *ngIf="!defaultUUIDStatus">
-                    Default
-                </button>
-            </form>
--->
+            <header-menu-comp></header-menu-comp>
         </div>
     </div>
 </header>
 <main class="container-fluid content-wrapper">
     <div class="row m-0 mt-1 mb-1">
-        <div class="col-2 bg-light alert alert-info m-0 mb-3">
-            Left Menu
+        <div class="col-3 bg-light alert alert-info m-0 mb-3">
+            <reg-comp user-id="ctrl.userId"></reg-comp>
+
         </div>
-        <div class="col-10 m-0 pl-1 pl-3 pr-0">
+        <div class="col-9 m-0 pl-1 pl-3 pr-0">
             <news-comp user-id="ctrl.userId"></news-comp>
             <!--The end news component-->
         </div>

@@ -1,0 +1,43 @@
+<div class="container">
+    <p class="text-info h2 text-center">Регистрация пользователя</p>
+        <div>
+            <label for="login">Login:</label>
+            <input type="text" ng-model="model.newUser.login" class="form-control" id="login" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" ng-model="model.newUser.password" class="form-control" id="password" required>
+        </div>
+        <div>
+            <label for="email">E-Mail:</label>
+            <input type="email" ng-model="model.newUser.email" class="form-control" id="email" required>
+        </div>
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" ng-model="model.newUser.name" class="form-control" id="name" required>
+        </div>
+        <div>
+            <label for="surname">Surname:</label>
+            <input type="text" ng-model="model.newUser.surname" class="form-control" id="surname">
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="text" ng-model="model.newUser.age" class="form-control" id="age">
+        </div>
+        <div>
+            <label for="avatarUrl">Avatar URL:</label>
+            <input type="text" ng-model="model.newUser.avatarUrl" class="form-control" id="avatarUrl">
+        </div>
+        <div>
+            <label for="country">Country:</label>
+            <input type="text" ng-model="model.newUser.country" class="form-control" id="country" required>
+        </div>
+        <div class="mb-3">
+            <label for="city">City:</label>
+            <input type="text" ng-model="model.newUser.city" class="form-control" id="city" required>
+        </div>
+        <div class="text-right">
+            {{model.isAddNewUser}}
+            <button type="button" ng-click="model.addRegistration()" class="btn btn-primary p-3">Зарегистрировать</button>
+        </div>
+</div>

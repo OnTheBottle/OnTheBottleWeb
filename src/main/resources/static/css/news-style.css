@@ -47,3 +47,10 @@ body {
     background-color: #fff3cd;
     border-color: #ffeeba;
 }
+
+input.ng-invalid {
+    background-color:lightgoldenrodyellow;
+}
+input.ng-valid {
+    background-color:white;
+}

@@ -18,10 +18,10 @@
         const NEWS_PATH = 'http://127.0.0.1:8083';
 
         model.$onInit = function () {
-            getNewsPosts(model.userId);
+            getNewsPosts($http, model.userId);
         }
 
-        function getNewsPosts(userId) {
+        function getNewsPosts($http, userId) {
             $http({
                 method: "POST",
                 url: NEWS_PATH + "/getfriendsposts",
