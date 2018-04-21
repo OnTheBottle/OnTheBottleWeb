@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular.module('mainApp')
-        .component('regComp', {
+        .component('registrationComp', {
             templateUrl: 'components/registration/registration-component.html',
             controller: ['$http', regController],
             controllerAs: 'model',

@@ -15,6 +15,8 @@
     <script src="components/news/posts/posts-component.js"></script>
     <script src="components/news/posts/post/post-component.js"></script>
     <script src="components/registration/registration-component.js"></script>
+    <script src="components/friends/friends-component.js"></script>
+
 </head>
 <body ng-app="mainApp" ng-controller="MainController as ctrl">
 <header class="container-fluid text-right content-wrapper">
@@ -28,10 +30,12 @@
 <main class="container-fluid content-wrapper">
     <div class="row m-0 mt-1 mb-1">
         <div class="col-3 bg-light alert alert-info m-0 mb-3">
-            <reg-comp user-id="ctrl.userId"></reg-comp>
-
+            <registration-comp user-id="ctrl.userId"></registration-comp>
         </div>
-        <div class="col-9 m-0 pl-1 pl-3 pr-0">
+        <div class="col-3 bg-light alert alert-info m-0 mb-3">
+            <friends-comp user-id="ctrl.userId"></friends-comp>
+        </div>
+        <div class="col-6 m-0 pl-1 pl-3 pr-0">
             <news-comp user-id="ctrl.userId"></news-comp>
             <!--The end news component-->
         </div>
