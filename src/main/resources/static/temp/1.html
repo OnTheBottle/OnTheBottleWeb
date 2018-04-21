@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>On The Bottle</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="../common/lib/bootstrap/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="../common/lib/awesome/css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="../common/css/news-style.css" type="text/css">
+    <!--scripts-->
+    <script src="../common/lib/angularjs/angular.min.js"></script>
+    <script src="../common/lib/angularjs/angular-route.min.js"></script>
+    <script src="../js/mainApp.js"></script>
+    <script src="../components/news/news-component.js"></script>
+    <script src="../components/news/posts/posts-component.js"></script>
+    <script src="../components/news/posts/post/post-component.js"></script>
+    <script src="registration-component.js"></script>
+</head>
+<body ng-app="mainApp" ng-controller="MainController as ctrl">
+<header class="container-fluid text-right content-wrapper">
+    <div class="row bg-light alert alert-info m-0 mt-1 p-1 mb-3 ">
+        <div class="col-12 p-0">
+            <!--Top Menu Component-->
+            <header-menu-comp></header-menu-comp>
+        </div>
+    </div>
+</header>
+<main class="container-fluid content-wrapper">
+    <div class="row m-0 mt-1 mb-1">
+        <div class="col-3 bg-light alert alert-info m-0 mb-3">
+            <reg-comp user-id="ctrl.userId"></reg-comp>
+
+        </div>
+        <div class="col-9 m-0 pl-1 pl-3 pr-0">
+            <news-comp user-id="ctrl.userId"></news-comp>
+            <!--The end news component-->
+        </div>
+    </div>
+</main>
+<footer class="container-fluid content-wrapper">
+    <div class="row m-0 mt-1 p-0">
+        <div class="col-12 bg-light alert alert-info m-0">
+            Java Advanced <a href="http://a-level.com.ua">A-Level</a> 2018
+        </div>
+    </div>
+    <a href="message-subsystem.html"><button class="mt-2 btn-lg btn-light btn-outline-secondary">Test message-subsystem</button></a>
+</footer>
+
+</div>
+</body>
+</html>
