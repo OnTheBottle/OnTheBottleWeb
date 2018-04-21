@@ -1,0 +1,28 @@
+<div class="container">
+    <p class="text-info h2 text-center">Дружеские связи</p>
+
+    <div >
+        <label>От: {{firstFriend.name}} {{firstFriend.surname}}</label>
+        <select class="form-control" ng-model="firstFriend"
+                ng-options="fromUser.name group by fromUser.surname for fromUser in model.friends"
+                class="custom-select form-control">
+            <option value="">-- choose Name --</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Кому: {{secondFriend.name}} {{secondFriend.surname}}</label>
+        <select class="form-control" ng-model="secondFriend"
+                ng-options="fromUser.name group by fromUser.surname for fromUser in model.friends"
+                class="custom-select form-control">
+            <option value="">-- choose Name --</option>
+        </select>
+    </div>
+    <div class="text-center">
+        <button type="button" ng-click="model.addOneWayRelation(firstFriend, secondFriend)"
+                class="btn btn-primary p-3 mr-3">Одинарная связь
+        </button>
+        <button type="button" ng-click="model.addTwoWayRelation(firstFriend, secondFriend)" class="btn btn-primary p-3">
+            Двойная связь
+        </button>
+    </div>
+</div>
