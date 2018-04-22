@@ -9,7 +9,12 @@ module('event').factory('EventFactory', ['$resource',
                 url: 'http://localhost:8083/getEvents',
                 method: "GET",
                 isArray: true
-                }
+                },
+            getPlaces: {
+                url: 'http://localhost:8083/getPlaces',
+                method: "GET",
+                isArray: true
+            }
         });
     }
 ]);

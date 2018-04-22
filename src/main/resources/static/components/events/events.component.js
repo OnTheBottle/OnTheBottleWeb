@@ -2,14 +2,15 @@
 
 angular.module('events').component('events', {
     templateUrl: 'components/events/events.template.html',
-    controller: ['$routeParams', 'EventFactory', '$scope',
-        function UserController($routeParams, $scope) {
+    controller: ['$routeParams', 'EventFactory',
+        function UserController($routeParams, EventFactory) {
             var self = this;
             self.userId = $routeParams.userId;
-            this.orderProp = 'date';
+            this.orderProp = 'date'; //TODO понять принцип сортировки
             self.events = EventFactory.getEvents({user_Id: this.userId});
+            self.places = EventFactory.getPlaces();
 
-            console.log(self.events);
+            console.log(self.places);
         }]
 });
 

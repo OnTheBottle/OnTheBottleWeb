@@ -1,7 +1,3 @@
-body {
-    font-family: Arial, Tahoma, sans-serif;
-}
-
 .main-content {
     margin-top: 2rem;
     border-radius: 5px;
@@ -37,7 +33,7 @@ body {
     margin-bottom: 5px;
     cursor: default;
     text-transform: uppercase;
-    font-size: 1rem;
+    font-size: 0.7rem;
     background: #e5e5e5;
     border-radius: 5px;
 }
@@ -55,20 +51,20 @@ body {
 .ui-datepicker-month {
     position: relative;
     color: #565656;
-    font-size: 1.4rem;
+    font-size: 0.8rem;
     padding-right: 13px;
 }
 
 .ui-datepicker-year {
     color: #565656;
-    font-size: 1.4rem;
+    font-size: 0.8rem;
     padding-left: 5px;
 }
 
 .ui-datepicker-month:before {
     display: block;
     position: absolute;
-    top: 4px;
+    top: 6px;
     right: 0;
     width: 7px;
     height: 7px;
@@ -130,7 +126,7 @@ body {
     padding-bottom: 5px;
     text-align: center;
     font-weight: normal;
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #8f8e8c;
 }
 
@@ -157,6 +153,7 @@ body {
 }
 
 .main-content .event {
+    width: 100%;
     position: relative;
     background-color: #d4d2cf;
     border: 1px solid black;

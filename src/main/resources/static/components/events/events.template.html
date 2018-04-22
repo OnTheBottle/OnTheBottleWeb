@@ -48,7 +48,10 @@
                                 </div>
                                 <div>
                                     <label for="places" class="col-form-label col-form-label-lg">Выбирете место</label>
-                                    <select class="form-control form-control-lg custom-select" id="places"></select>
+                                    <select class="form-control form-control-lg custom-select" id="places"
+                                            ng-options="option.name for option in places track by option.id"
+                                            ng-model="places">
+                                    </select>
                                 </div>
                             </div>
 
@@ -73,26 +76,20 @@
                         <p>10</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-sm-10">
-                <div class="event" ng-repeat="event in $ctrl.event| filter:$ctrl.getEvents|orderBy:$ctrl.orderProp">
-                    <img class="pub-img" ng-src="{{event.pub.avatarUrl}}">
+                <div class="event" ng-repeat="event in $ctrl.events| filter:$ctrl.getEvents|orderBy:$ctrl.orderProp">
+                    <img class="pub-img" ng-src="{{event.place.avatar}}">
                     <div class="title-event"><p>{{event.title}}</p></div>
-                    <p class="description">{{event.description}}</p>
+                    <p class="description">{{event.text}}</p>
                     <p class="time">{{event.startTime}} - {{event.endTime}}</p>
                     <div class="people">
                         <img src="images/events/user.svg">
-                        <p>{{event.people}}</p>
+                        <p>{{event.users.length}}</p>
                     </div>
                 </div>
             </div>
-
         </div>
     </main>
 </div>
-<script src="common/lib/bootstrap/js/jquery-ui.min.js"></script>
-<script src="common/lib/bootstrap/js/bootstrap_4.0.0.js"></script>
 <script>
     $('#calendar').datepicker({
         inline: true,
