@@ -1,9 +1,10 @@
 <link rel="stylesheet" href="common/css/messagesystem.css" type="text/css">
 <header class="header">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" role="navigation">
-        <a class="navbar-brand" href="#" role="banner">  Java Advanced A-Level 2018</a>
+        <a class="navbar-brand" href="#" role="banner"> Java Advanced A-Level 2018</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Переключить навигацию">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault"
+                aria-controls="navbarsDefault" aria-expanded="false" aria-label="Переключить навигацию">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -16,13 +17,13 @@
                     <a class="nav-link" href="#!/registration">Registration</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#!/events">Events</a>
+                    <a class="nav-link" ng-click="$ctrl.value('events')" href="">Events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#!/messagesystem/{{user.id}}/news">News</a>
+                    <a class="nav-link" ng-click="$ctrl.value('news')" href="">News</a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link" ng-click="posts=!posts"  href="">Posts</a>
+                    <a class="nav-link" ng-click="$ctrl.value('posts')" href="">Posts</a>
                 </li>
             </ul>
 
@@ -62,10 +63,21 @@
                 </div>
             </div>
             <div class="col-md-8">
-               <div class="container" ng-show="posts">
-                   <posts></posts>
-               </div>
+                <div class="container" ng-switch="$ctrl.selection.value">
+                    <div class="container-switch" ng-switch-when="posts">
+                        <posts></posts>
+                    </div>
+                </div>
+                <div class="container" ng-switch="$ctrl.selection.value">
+                    <div class="container-switch" ng-switch-when="news">
 
+                    </div>
+                    <div class="container" ng-switch="$ctrl.selection.value">
+                        <div class="container-switch" ng-switch-when="events">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

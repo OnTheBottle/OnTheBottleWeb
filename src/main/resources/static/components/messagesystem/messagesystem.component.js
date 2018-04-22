@@ -16,7 +16,8 @@ angular.module('messagesystem')
 
                      function addUser() {
                         UserFactory.addUser({name:self.user.name,surname:self.user.surname},function (data) {
-                            getUsers()
+                            getUsers();
+                            self.user={name:'',surname:''}
                         }, function (errResponse) {
                             console.error('Error while creating Post');
                         });

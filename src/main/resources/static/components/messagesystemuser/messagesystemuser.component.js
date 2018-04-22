@@ -8,5 +8,12 @@ angular.module('messagesystemuser')
                 var self = this;
                 self.userId = $routeParams.userId;
                 this.user = UserFactory.getUser({user_Id: this.userId});
+                self.selection={value:''};
+                self.value=value;
+                function value(value) {
+                    self.selection={value:value}
+                }
+
+
             }]
     });
