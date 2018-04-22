@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="common/css/event.css">
+<link rel="stylesheet" href="common/css/event.css" type="text/css">
 
 <div class="container main-content">
     <main>
@@ -16,7 +16,7 @@
                         <div class="modal-content">
 
                             <div class="modal-header">
-                                <h2 class="modal-title" id="createEventLongTitle">Где бухаем?</h2>
+                                <h3 class="modal-title" id="createEventLongTitle">Где бухаем?</h3>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -24,22 +24,22 @@
 
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="title" class="col-form-label col-form-label-lg">Название ивента</label>
-                                    <input type="text" class="form-control form-control-lg" id="title"
+                                    <label for="title" class="col-form-label">Название ивента</label>
+                                    <input type="text" class="form-control" id="title"
                                            aria-describedby="titleEvent" placeholder="Title">
                                     <small id="titleHelp" class="form-text text-muted">Введите название ивента</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="description" class="col-form-label col-form-label-lg">Описание
+                                    <label for="description" class="col-form-label">Описание
                                         ивента</label>
-                                    <input type="text" class="form-control form-control-lg" id="description"
+                                    <input type="text" class="form-control" id="description"
                                            aria-describedby="descriptionEvent" placeholder="Description">
                                     <small id="descriptionHelp" class="form-text text-muted">Введите описание ивента
                                     </small>
                                 </div>
                                 <div>
-                                    <label for="startTime" class="col-form-label col-form-label-lg">Время старта</label>
-                                    <input type="datetime-local" class="form-control form-control-lg" id="startTime"
+                                    <label for="startTime" class="col-form-label">Время старта</label>
+                                    <input type="datetime-local" class="form-control" id="startTime"
                                            required/>
                                     <label for="endTime" class="col-form-label col-form-label-lg">Время
                                         завершения</label>
@@ -66,9 +66,7 @@
                     <img src="images/events/temp_pab.jpg" class="pub-img">
                     <div class="title-event"><p>Вечер бухла</p></div>
                     <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem corporis id
-                        itaque necessitatibus non, sint. Atque doloribus eaque in natus, odio repellat saepe sed? A
-                        autem cumque dolore doloremque earum enim, fugiat fugit itaque minus omnis optio possimus quam
-                        rerum!</p>
+                        itaque necessitatibus non.</p>
                     <p class="time">18:00 - 22:00 / 20.04</p>
                     <div class="people">
                         <img src="images/events/user.svg">
@@ -76,10 +74,23 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-sm-10">
+                <div class="event" ng-repeat="event in $ctrl.event| filter:$ctrl.getEvents|orderBy:$ctrl.orderProp">
+                    <img class="pub-img" ng-src="{{event.pub.avatarUrl}}">
+                    <div class="title-event"><p>{{event.title}}</p></div>
+                    <p class="description">{{event.description}}</p>
+                    <p class="time">{{event.startTime}} - {{event.endTime}}</p>
+                    <div class="people">
+                        <img src="images/events/user.svg">
+                        <p>{{event.people}}</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 </div>
-
 <script src="common/lib/bootstrap/js/jquery-ui.min.js"></script>
 <script src="common/lib/bootstrap/js/bootstrap_4.0.0.js"></script>
 <script>

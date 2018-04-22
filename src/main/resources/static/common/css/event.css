@@ -1,16 +1,9 @@
-html {
-    font-size: 10px
-}
-
 body {
-    background-color: #eeeeee;
-    font-size: 1.4rem;
     font-family: Arial, Tahoma, sans-serif;
 }
 
 .main-content {
     margin-top: 2rem;
-    background-color: #d8d7d3;
     border-radius: 5px;
 }
 
@@ -18,7 +11,7 @@ body {
     border: 1px solid #4c4c4c;
     margin: 1rem 0;
     padding: 0 1.2rem;
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: bold;
     height: 2.7rem;
     color: black;
@@ -191,7 +184,7 @@ body {
 .main-content .event .title-event p {
     position: relative;
     left: -50%;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     font-weight: bold;
     padding: 0;
     margin: 0;
@@ -200,7 +193,7 @@ body {
 .main-content .event .description,
 .main-content .event .time,
 .main-content .event .people {
-    font-size: 1.4rem;
+    font-size: 1rem;
     padding: 0;
     margin: 0 10px;
 }
@@ -218,7 +211,6 @@ body {
     position: absolute;
     bottom: 4px;
     left: 90px;
-    font-size: 1.2rem;
     color: #8f8e8c;
 }
 
@@ -226,7 +218,6 @@ body {
     position: absolute;
     bottom: 4px;
     right: 5px;
-    font-size: 1.2rem;
     color: #8f8e8c;
     vertical-align: middle;
 }
@@ -241,6 +232,6 @@ body {
     max-height: 12px;
 }
 
-.main-content .close {
-    font-size: 2.5rem;
+.main-content .modal .close {
+    font-size: 2rem;
 }
