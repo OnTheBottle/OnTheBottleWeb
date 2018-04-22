@@ -19,9 +19,11 @@
                     <a class="nav-link" href="#!/events">Events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#!/news">News</a>
+                    <a class="nav-link" href="#!/messagesystem/{{user.id}}/news">News</a>
                 </li>
-
+                <li class="nav-item">
+                        <a class="nav-link" ng-click="posts=!posts"  href="">Posts</a>
+                </li>
             </ul>
 
             <form class="form-inline my-2 my-lg-0" role="search">
@@ -58,6 +60,12 @@
                         <p class="card-text">Live in</p>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-8">
+               <div class="container" ng-show="posts">
+                   <posts></posts>
+               </div>
+
             </div>
         </div>
     </div>

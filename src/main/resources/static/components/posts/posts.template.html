@@ -1,35 +1,5 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card border-secondary mb-3" style="max-width: 18rem;">
-                <div class="card-header">About</div>
-                <div class="card-body text-secondary">
-                    <h5 class="card-title">{{$ctrl.user.name}} {{$ctrl.user.surname}}</h5>
-                    <p class="card-text">
-                        <img class="rounded-circle-lg" ng-src="{{$ctrl.user.avatarUrl}}" alt="{{$ctrl.user.name}}">
-                    </p>
-                    <p class="card-text">{{$ctrl.user.id}}</p>
-                    <p class="card-text">Date of Birth</p>
-                    <p class="card-text">Job</p>
-                    <p class="card-text">Live in</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <p>
-                Search:
-                <label><input ng-model="$ctrl.query"/></label>
-            </p>
+<link rel="stylesheet" href="common/css/app.css" type="text/css">
 
-            <p>
-                Sort by:
-                <select ng-model="$ctrl.orderProp" title="Change sort option">
-                    <option value="date">Date</option>
-                </select>
-            </p>
-
-        </div>
-        <div class="col-md-6">
 
             <div class="card">
                 <div class="card-body container-fluid">
@@ -186,7 +156,7 @@
                         <div class="border-bottom ">
 
                             <button type="button" class="likeButton btn"
-                                    title="{{post.likes}}"><img src="../posts/images/forPages/like.png"/>{{post.likes.length}}
+                                    title="{{post.likes}}"><img src="images/forPages/like.png"/>{{post.likes.length}}
                             </button>
 
                         </div>
@@ -229,8 +199,7 @@
                     </button>
                 </div>
             </div>
-        </div>
 
-    </div>
-</div>
+
+
 

@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Start page</title>
-    <link rel="stylesheet" href="common/css/start.css" type="text/css">
-    <link rel="stylesheet" href="common/lib/bootstrap/css/bootstrap.css" type="text/css">
+
+    <link rel="stylesheet" href="common/lib/bootstrap4/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="common/lib/font-awesome/css/fontawesome-all.css"/>
     <link rel="stylesheet" href="common/lib/awesome/css/font-awesome.css" type="text/css">
-    <link rel="stylesheet" href="common/css/news-style.css" type="text/css">
     <script src="common/lib/jquery/jquery-2.1.4.min.js"></script>
     <script src="common/lib/angularjs/angular.min.js"></script>
     <script src="common/lib/angularjs/angular-route.min.js"></script>
@@ -22,6 +21,8 @@
     <div ng-view class="view-frame"></div>
 </div>
 
+<script src="common/lib/bootstrap/js/popper_1.12.9.js"></script>
+<script src="common/lib/bootstrap4/js/bootstrap.js"></script>
 <script src="mainApp.module.js"></script>
 <script src="mainApp.config.js"></script>
 <script src="components/start/start.module.js"></script>
@@ -30,6 +31,8 @@
 <script src="components/registration/registration.component.js"></script>
 <script src="components/user/user.modul.js"></script>
 <script src="components/user/user.service.js"></script>
+<script src="components/friends/friends.component.js"></script>
+<script src="components/friends/friends.module.js"></script>
 <script src="components/messagesystem/messagesystem.module.js"></script>
 <script src="components/messagesystem/messagesystem.component.js"></script>
 <script src="components/messagesystemuser/messagesystemuser.module.js"></script>
@@ -37,9 +40,14 @@
 <script src="components/news/news-component.js"></script>
 <script src="components/news/posts/posts-component.js"></script>
 <script src="components/news/posts/post/post-component.js"></script>
-
-
-
+<script src="components/security/security.modul.js"></script>
+<script src="components/security/security.service.js"></script>
+<script src="components/post/post.module.js"></script>
+<script src="components/post/post.service.js"></script>
+<script src="components/posts/posts.modul.js"></script>
+<script src="components/posts/posts.component.js"></script>
+<script src="components/comment/comment.module.js"></script>
+<script src="components/comment/comment.service.js"></script>
 
 </body>
 </html>
