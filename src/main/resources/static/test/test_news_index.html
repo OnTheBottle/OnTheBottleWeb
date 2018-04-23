@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>On The Bottle</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="../common/lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../common/lib/bootstrap/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="../common/lib/bootstrap/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="../common/lib/awesome/css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="../common/css/news-style.css" type="text/css">
+    <link rel="stylesheet" href="../common/css/style.css">
+    <!--scripts-->
+    <script src="../common/lib/angularjs/angular.min.js"></script>
+    <script src="../common/lib/angularjs/angular-route.min.js"></script>
+    <script src="../common/lib/jquery/jquery-2.1.4.min.js"></script>
+    <script src="../common/lib/bootstrap/js/popper_1.12.9.js"></script>
+    <script src="../common/lib/bootstrap/js/bootstrap_4.0.0.js"></script>
+
+    <script src="../js/mainApp.js"></script>
+    <script src="../components/header/header-component.js"></script>
+    <script src="../components/news/news-component.js"></script>
+    <script src="../components/news/posts/posts-component.js"></script>
+    <script src="../components/news/posts/post/post-component.js"></script>
+    <script src="../components/registration/registration.module.js"></script>
+    <script src="../components/registration/registration.component.js"></script>
+    <script src="../components/friends/friends.module.js"></script>
+    <script src="../components/friends/friends.component.js"></script>
+
+</head>
+<body ng-app="mainApp" ng-controller="MainController as ctrl">
+
+<!--Top Menu Component-->
+<header-comp></header-comp>
+
+<main class="container-fluid content-wrapper">
+    <div class="row m-0 mt-1 mb-1">
+        <div class="col-3 bg-light alert alert-info m-0 mb-3">
+            <!--Registration Form Component-->
+            <registration-comp user-id="ctrl.userId"></registration-comp>
+        </div>
+        <div class="col-3 bg-light alert alert-info m-0 mb-3">
+            <!--Create Relationship Form Component-->
+            <friends-comp user-id="ctrl.userId"></friends-comp>
+        </div>
+        <div class="col-6 m-0 pl-1 pl-3 pr-0">
+            <!--News Component-->
+            <news-comp user-id="ctrl.userId"></news-comp>
+        </div>
+    </div>
+</main>
+<footer class="container-fluid content-wrapper">
+    <div class="row m-0 mt-1 p-0">
+        <div class="col-12 bg-light alert alert-info m-0">
+            Java Advanced <a href="http://a-level.com.ua">A-Level</a> 2018
+        </div>
+    </div>
+</footer>
+
+</div>
+</body>
+</html>

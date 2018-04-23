@@ -2,7 +2,7 @@
     'use strict';
     angular.module('mainApp')
         .component('newsComp', {
-            templateUrl: 'components/news/news-component.html',
+            templateUrl: 'components/news/news.component.html',
             controller: ['$http', '$interval', NewsController],
             controllerAs: 'model',
             bindings: {
