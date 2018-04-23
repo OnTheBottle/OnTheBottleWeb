@@ -2,31 +2,52 @@
 
 angular.module('posts').component('posts', {
     templateUrl: 'components/posts/posts.template.html',
-    controller: ['$routeParams', 'UserFactory', 'PostFactory', 'SecurityFactory', 'CommentFactory', '$scope',
-        function UserController($routeParams, UserFactory, PostFactory, SecurityFactory, CommentFactory, $scope) {
+    controller: ['$routeParams', 'UserFactory', 'PostFactory', 'SecurityFactory', 'CommentFactory','LikeFactory',
+        function PostController($routeParams, UserFactory, PostFactory, SecurityFactory, CommentFactory,LikeFactory) {
             var self = this;
-            self.userId = $routeParams.userId;
-            this.user = UserFactory.getUser({user_Id: this.userId});
+            this.userId = $routeParams.userId;
+            self.user = UserFactory.getUser({user_Id: this.userId});
             self.posts = PostFactory.getPosts({user_Id: this.userId});
-            this.orderProp = 'date';
+            self.orderProp = 'date';
 
-            this.securities = SecurityFactory.getSecurities();
+
+            self.securities = SecurityFactory.getSecurities();
             //        self.comments=CommentFactory.getComments({post_Id:self.post_id});
-            self.post = {id: null, user_id: self.userId, security: {description: ''}, text: '', title: ''};
+            self.post = {id: null, user_id: $routeParams.userId, security: {description: ''}, text: '', title: ''};
 
             self.commenting = '';
-            self.comment = {id: null, user_id: self.userId, post_id: null, comment: ''};
+            this.comment = {id: null, user_id: $routeParams.userId, post_id: null, comment: ''};
             self.reset = reset;
             self.submit = submit;
             self.edit = edit;
             self.deletePost = deletePost;
+            self.keyPressed=keyPressed;
+self.like=like;
+self.dislike=dislike;
 
-            $scope.keyPressed = function (keyEvent, post_id) {
+function like(id){
+    LikeFactory.addLike({post_id: id,user_id:$routeParams.userId,status:'like'}, function (data) {
+        console.log('like added')
+
+    }, function (errResponse) {
+        console.error('Error while adding like');
+    })
+}
+function dislike(id){
+    LikeFactory.addLike({post_id: id,user_id:$routeParams.userId,status:'dislike'}, function (data) {
+        console.log('dislike added')
+
+    }, function (errResponse) {
+        console.error('Error while adding dislike');
+    })
+}
+
+             function keyPressed(keyEvent, post_id) {
                 if (keyEvent.keyCode === 13) {
                     console.log('comm', self.commenting);
                     submitComment(post_id, self.commenting);
                 }
-            };
+            }
 
             function submitComment(post_id, comment) {
                 if (post_id === null) {
@@ -47,34 +68,35 @@ angular.module('posts').component('posts', {
                 }
             }
 
-            function resetComment(){
-                self.commenting='';
-                $scope.commentForm.$setPristine();
+            function resetComment() {
+                self.commenting = '';
             }
-
 
             function submit() {
                 if (self.post.id === null) {
                     console.log('Saving New Post', self.post);
                     savePost(self.post);
+
                 } else {
                     updatePost(self.post);
                     console.log('Post updated with id ', self.post.id);
                 }
-                reset();
+
             }
 
             function savePost(post) {
                 PostFactory.createPost({postDTO: post}, function (data) {
-                    getPosts()
+                    reset();
+                    getPosts();
+
                 }, function (errResponse) {
                     console.error('Error while creating Post');
                 })
             }
 
             function reset() {
-                self.post = {id: null, text: '', title: '', security: {description: ''}};
-                $scope.myForm.$setPristine();
+                self.post = {id: null,user_id:$routeParams.userId, text: '', title: '', security: {description: ''}};
+                //       self.myForm.$setPristine();
 
             }
 
@@ -84,6 +106,7 @@ angular.module('posts').component('posts', {
 
             function updatePost(post) {
                 PostFactory.rewritePost({postDTO: post}, function (data) {
+                    reset();
                     getPosts()
                 }, function (errResponse) {
                     console.error('Error while updating Post');
@@ -91,7 +114,7 @@ angular.module('posts').component('posts', {
             }
 
             function deletePost(id) {
-                PostFactory.dropPost({id: id}, function () {
+                PostFactory.dropPost({id: id}, function (data) {
                     getPosts()
 
                 }, function (errResponse) {
@@ -108,6 +131,14 @@ angular.module('posts').component('posts', {
                     }
                 }
             }
-        }]
+        }],
+    bindings: {
+        commenting: '<'
+    }
+
 });
+
+
+
+
 

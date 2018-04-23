@@ -55,10 +55,10 @@
                                         <div class="col-md-9">
                                             <label for="Select1">
                                                 <select class="form-control select" id="Select1" ng-model="$ctrl.post.security.description">
-                                                    <option selected value="{{post.security.description}}">{{post.security.description}}</option>
-                                                    <option disabled>Choose vision..</option>
+                                                    <option  value="{{post.security.description}}">{{post.security.description}}</option>
+                                                    <option selected disabled>Choose vision..</option>
                                                     <option ng-repeat="security in $ctrl.securities"
-                                                    value="{{security.description}}">{{security.description}}
+                                                    value="{{security.description}}" >{{security.description}}
                                                     </option>
 
                                                 </select></label>
@@ -71,7 +71,7 @@
                                             value="{{!$ctrl.post.id ? 'Add' : 'Update'}}"
                                             ng-click="$ctrl.submit"><i class="far fa-paper-plane fa-lg "></i></button>
                                     <button type="button" data-toggle="tooltip" data-placement="top" title="Clean form"
-                                            class="btn" ng-disabled="myForm.$pristine"
+                                            class="btn"
                                             ng-click="$ctrl.reset()"><i class="fas fa-undo-alt fa-lg"></i>
                                     </button>
                                 </div>
@@ -129,15 +129,23 @@
                     </div>
                     <div class="stats container-fluid">
                         <div class="row">
-                            <div class="col-md-4 text-center">
-                                <button class="btn " type="button"
+                            <div class="col-md-4 text-center dropdown">
+                                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"
                                         title="Add like..."><i
                                         class="fas fa-thumbs-up fa-lg"></i> Like
                                 </button>
+                                <div class="dropdown-menu row">
+                                    <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.like({{post.id}})">
+                                        <i class="far fa-thumbs-up" ></i>Like
+                                    </a>
+                                    <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.dislike({{post.id}})">
+                                        <i class="far fa-thumbs-down"></i>Dislike
+                                    </a>
+                                </div>
                             </div>
                             <div class="col-md-4 text-center">
                                 <button class="btn " type="button"
-                                        title="Add your comment..." onclick="$('').focus()"><i
+                                        title="Add your comment..." ng-click=""><i
                                         class="fas fa-comments fa-lg"></i> Comment
                                 </button>
                             </div>
@@ -187,7 +195,7 @@
                         <form name="commentForm" ng-submit="$ctrl.submitComment()">
                         <input id="{{$index}}" class="form-control add-comment-input example2" placeholder="Add a comment..."
                                ng-model="$ctrl.commenting"
-                               type="text" ng-keypress="keyPressed($event,post.id)"/>
+                               type="text" ng-keypress="$ctrl.keyPressed($event,post.id)"/>
                         <p class="key">Press ..Enter.. to commit...</p>
 
                         </form>
