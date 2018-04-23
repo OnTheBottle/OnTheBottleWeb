@@ -12,62 +12,91 @@
 
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
                      aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
+                    <form name="eventCreateForm" ng-submit="$ctrl.submit()">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
 
-                            <div class="modal-header">
-                                <h3 class="modal-title" id="createEventLongTitle">Где бухаем?</h3>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="createEventLongTitle">Где бухаем?</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
 
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="title" class="col-form-label">Название ивента</label>
-                                    <input type="text" class="form-control" id="title"
-                                           aria-describedby="titleEvent" placeholder="Title"
-                                           ng-model="$ctrl.title">
-                                    <small id="titleHelp" class="form-text text-muted">Введите название ивента</small>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="title" class="col-form-label">Название ивента</label>
+                                        <input type="text" class="form-control" id="title"
+                                               aria-describedby="titleEvent" placeholder="Title"
+                                               ng-model="$ctrl.title">
+                                        <small id="titleHelp" class="form-text text-muted">Введите название ивента
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description" class="col-form-label">Описание
+                                            ивента</label>
+                                        <input type="text" class="form-control" id="description"
+                                               aria-describedby="descriptionEvent" placeholder="Description"
+                                               ng-model="$ctrl.text">
+                                        <small id="descriptionHelp" class="form-text text-muted">Введите описание ивента
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <label for="startTime" class="col-form-label">Время старта</label>
+                                        <input type="datetime-local" class="form-control" id="startTime"
+                                               ng-model="$ctrl.startTime" required/>
+                                        <label for="endTime" class="col-form-label">Время
+                                            завершения</label>
+                                        <input type="datetime-local" class="form-control" id="endTime"
+                                               ng-model="$ctrl.endTime" required/>
+                                    </div>
+                                    <div>
+                                        <label for="places" class="col-form-label col-form-label-lg">Выбирете
+                                            место</label>
+                                        <select class="form-control form-control-lg custom-select" id="places"
+                                                ng-options="place.id as place.title for place in $ctrl.places"
+                                                ng-model="$ctrl.place" required>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="description" class="col-form-label">Описание
-                                        ивента</label>
-                                    <input type="text" class="form-control" id="description"
-                                           aria-describedby="descriptionEvent" placeholder="Description"
-                                           ng-model="$ctrl.text">
-                                    <small id="descriptionHelp" class="form-text text-muted">Введите описание ивента
-                                    </small>
-                                </div>
-                                <div>
-                                    <label for="startTime" class="col-form-label">Время старта</label>
-                                    <input type="datetime-local" class="form-control" id="startTime"
-                                           ng-model="$ctrl.startTime" required/>
-                                    <label for="endTime" class="col-form-label">Время
-                                        завершения</label>
-                                    <input type="datetime-local" class="form-control" id="endTime"
-                                           ng-model="$ctrl.endTime" required/>
-                                </div>
-                                <div>
-                                    <label for="places" class="col-form-label col-form-label-lg">Выбирете
-                                        место</label>
-                                    <select class="form-control form-control-lg custom-select" id="places"
-                                            ng-options="place.id as place.title for place in $ctrl.places"
-                                            ng-model="$ctrl.place" required>
-                                    </select>
-                                </div>
-                            </div>
 
-                            <div class="modal-footer">
-                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-                                <button class="btn btn-primary" type="button" ng-click="$ctrl.submit()">Save</button>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
 
             <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-3 text-center">
+                        <label class="form-check-label mr-4" for="allEvents">
+                            Все ивенты
+                        </label>
+                        <input class="form-check-input" type="checkbox" value="allEvents" id="allEvents" checked="checked">
+                    </div>
+                    <div class="col-3 text-center">
+                        <label class="form-check-label mr-4" for="fromUserEvents">
+                            Мои ивенты
+                        </label>
+                        <input class="form-check-input" type="checkbox" value="fromUserEvents" id="fromUserEvents">
+                    </div>
+                    <div class="col-3 text-center">
+                        <label class="form-check-label mr-4" for="activeEvents">
+                            Активные ивенты
+                        </label>
+                        <input class="form-check-input" type="checkbox" value="activeEvents" id="activeEvents">
+                    </div>
+                    <div class="col-3 text-center">
+                        <label class="form-check-label mr-4" for="passedEvents">
+                            Прошедшие ивенты
+                        </label>
+                        <input class="form-check-input" type="checkbox" value="passedEvents" id="passedEvents">
+                    </div>
+                </div>
                 <div class="event">
                     <img src="images/events/temp_pab.jpg" class="pub-img">
                     <div class="title-event"><p>Вечер бухла</p></div>
