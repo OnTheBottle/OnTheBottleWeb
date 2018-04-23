@@ -8,7 +8,8 @@
             bindings: {
                 userId: '=',
                 likeClick: '<',
-                favoriteClick: '<'
+                favoriteClick: '<',
+                post: '='
             }
         });
 
