@@ -1,14 +1,15 @@
 (function () {
     'use strict';
-    angular.module('mainApp')
+    angular.module('postApp')
         .component('postComp', {
-            templateUrl: 'components/news/posts/post/post-component.html',
+            templateUrl: 'components/news/posts/post/post.component.html',
             controller: PostController,
             controllerAs: 'model',
             bindings: {
                 userId: '=',
                 likeClick: '<',
-                favoriteClick: '<'
+                favoriteClick: '<',
+                post: '='
             }
         });
 
