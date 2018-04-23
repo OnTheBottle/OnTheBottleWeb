@@ -14,11 +14,6 @@ angular.module('events').component('events', {
 
             function submit() {
                 //$scope.myModal.modal('hide'); //TODO понять как скрыть форму
-                $scope.eventCreateForm.$setPristine(); //TODO понять как очистить форму
-                self.title = '';
-                self.text = '';
-                self.startTime = '';
-                self.endTime = '';
                 EventFactory.createEvent({
                     id: null,
                     title: self.title,
@@ -29,6 +24,11 @@ angular.module('events').component('events', {
                     owner: self.userId
                 }, function (data) {
                     $scope.eventCreateForm.$setPristine();
+                    $scope.eventCreateForm.$setPristine(); //TODO понять как очистить форму
+                    self.title = '';
+                    self.text = '';
+                    self.startTime = '';
+                    self.endTime = '';
                     getEvents();
                 }, function (errResponse) {
                     console.error('Error while creating Event');
