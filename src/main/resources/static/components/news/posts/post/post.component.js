@@ -1,22 +1,20 @@
 (function () {
     'use strict';
-    angular.module('mainApp')
-        .component('postsComp', {
-            templateUrl: 'components/news/posts/posts-component.html',
-            controller: PostsController,
+    angular.module('postApp')
+        .component('postComp', {
+            templateUrl: 'components/news/posts/post/post.component.html',
+            controller: PostController,
             controllerAs: 'model',
             bindings: {
                 userId: '=',
                 likeClick: '<',
                 favoriteClick: '<'
-
             }
         });
 
-    function PostsController() {
+    function PostController() {
         var model = this;
         model.$onInit = function () {
-        };
+        }
     }
-
 })();
