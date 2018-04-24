@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 angular.module('event').factory('EventFactory', ['$resource',
@@ -22,3 +23,4 @@ angular.module('event').factory('EventFactory', ['$resource',
         });
     }
 ]);
+*/
