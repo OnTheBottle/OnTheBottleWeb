@@ -12,7 +12,7 @@
 
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
                      aria-hidden="true">
-                    <form ngFormGroup="eventCreateForm" ng-submit="$ctrl.submit()">
+                    <form ngFormGroup="eventCreateForm" ng-submit="$ctrl.event.createEvent()">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
 
@@ -71,31 +71,32 @@
             </div>
 
             <div class="col-sm-10">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <label class="form-check-label mr-4" for="allEvents">
-                            Все ивенты
-                        </label>
-                        <input class="form-check-input" type="checkbox" value="allEvents" id="allEvents" checked="checked">
-                    </div>
-                    <div class="col-3 text-center">
-                        <label class="form-check-label mr-4" for="fromUserEvents">
-                            Мои ивенты
-                        </label>
-                        <input class="form-check-input" type="checkbox" value="fromUserEvents" id="fromUserEvents">
-                    </div>
-                    <div class="col-3 text-center">
-                        <label class="form-check-label mr-4" for="activeEvents">
-                            Активные ивенты
-                        </label>
-                        <input class="form-check-input" type="checkbox" value="activeEvents" id="activeEvents">
-                    </div>
-                    <div class="col-3 text-center">
-                        <label class="form-check-label mr-4" for="passedEvents">
-                            Прошедшие ивенты
-                        </label>
-                        <input class="form-check-input" type="checkbox" value="passedEvents" id="passedEvents">
-                    </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label mr-4" for="allEvents">
+                        Все ивенты
+                        <input class="form-check-input" type="radio" name="filterEvents" id="allEvents"
+                               ng-model="$ctrl.options['allEvents']" value='true' ng-change="$ctrl.event.getEvents()">
+                    </label>
+
+                    <label class="form-check-label mr-4" for="myEvents">
+                        Мои ивенты
+                        <input class="form-check-input" type="radio" name="filterEvents" id="myEvents"
+                               ng-model="$ctrl.options['allEvents']" value='false' ng-change="$ctrl.event.getEvents()">
+                    </label>
+
+                    <label class="form-check-label mr-4" for="activeEvents">
+                        Активные ивенты
+                        <input class="form-check-input" type="checkbox" id="activeEvents"
+                               ng-model="$ctrl.options['activeEvents']" ng-change="$ctrl.event.getEvents()">
+                    </label>
+
+                    <label class="form-check-label mr-4" for="passedEvents">
+                        Пройденные ивенты
+                        <input class="form-check-input" type="checkbox" id="passedEvents"
+                               ng-model="$ctrl.options['passedEvents']" ng-change="$ctrl.event.getEvents()">
+                    </label>
+                </div>
+                <div>
                 </div>
                 <div class="event">
                     <img src="images/events/temp_pab.jpg" class="pub-img">
