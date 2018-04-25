@@ -18,7 +18,7 @@
 
         model.$onInit = function () {
             getAllUser();
-        }
+        };
 
         function getAllUser() {
             $http({

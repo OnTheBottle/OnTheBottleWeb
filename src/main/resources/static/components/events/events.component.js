@@ -7,7 +7,6 @@ angular.module('events').component('events', {
             var self = this;
             self.userId = $routeParams.userId;
             self.options = {allEvents: 'true', activeEvents: false, passedEvents: false};
-
             self.orderProp = 'date'; //TODO понять принцип сортировки
 
             self.event = {
