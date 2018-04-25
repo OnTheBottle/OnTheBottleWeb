@@ -1,3 +1,6 @@
 <!--<p>News Component: {{model.userId}}</p>-->
 <!--<p>{{model.posts}}</p>-->
-<posts-comp user-id="model.userId" posts="model.posts" like-click="model.likeClick" favorite-click="model.favoriteClick"></posts-comp>
+<!--<post-comp user-id="model.userId" posts="model.posts" like-click="model.likeClick" favorite-click="model.favoriteClick"></post-comp>-->
+<post-comp user-id="model.userId" like-click="model.likeClick" favorite-click="model.favoriteClick"
+           postindex=$index post="post" ng-repeat="post in model.posts">
+</post-comp>

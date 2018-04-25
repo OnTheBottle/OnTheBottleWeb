@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('newsApp', ['ngRoute', 'postsApp']);
+angular.module('newsApp', ['ngRoute', 'postApp']);
