@@ -3,14 +3,14 @@
     angular.module('authApp')
         .component('authComp', {
             templateUrl: 'components/auth/auth.component.html',
-            controller: ['$http', AuthController],
+            controller: ['$http', authController],
             controllerAs: 'model',
             bindings: {
                 userId: '='
             }
         });
 
-    function AuthController($http) {
+    function authController($http) {
 
         var model = this;
 
