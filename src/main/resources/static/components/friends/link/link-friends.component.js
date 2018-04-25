@@ -1,19 +1,17 @@
 (function () {
     'use strict';
 
-    angular.module('friends',['ngRoute']);
-
-    angular.module('friends')
-        .component('friendsComp', {
-            templateUrl: 'components/friends/friends.component.html',
-            controller: ['$http', friendsController],
+    angular.module('linkFriendsApp')
+        .component('linkFriendsComp', {
+            templateUrl: 'components/friends/link/link-friends.component.html',
+            controller: ['$http', linkController],
             controllerAs: 'model',
             bindings: {
                 userId: '<'
             }
         });
 
-    function friendsController($http) {
+    function linkController($http) {
 
         var model = this;
         model.friends = [];

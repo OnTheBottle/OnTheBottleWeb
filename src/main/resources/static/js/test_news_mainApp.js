@@ -10,10 +10,22 @@ const userId = 'ea50cb0e-3b87-48e0-9455-8f517212b8a5';
 (function () {
     'use strict';
 
-    angular.module('mainApp', ['ngRoute', 'registration', 'friends', 'newsApp'])
-        .controller('MainController', MainController);
+    angular.module(
+        'mainApp', [
+            'ngRoute',
+            'authApp',
+            'findApp',
+            'addFriendsApp',
+            'linkFriendsApp',
+            'viewFriendsApp',
+            'registrationApp',
+            'profileInfoApp',
+            'userInfoApp',
+            'newsApp'
+        ])
+        .controller('MainController', mainController);
 
-    function MainController() {
+    function mainController() {
         this.userId = userId;
     }
 })();

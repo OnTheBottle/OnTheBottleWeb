@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('registration',['ngRoute']);
+angular.module('registrationApp',['ngRoute']);
