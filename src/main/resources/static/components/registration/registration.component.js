@@ -37,17 +37,17 @@
             model.isAddNewUser = false;
             $http({
                 method: "POST",
-                url: USER_PATH + "/registration",
+                url: USER_PATH + "/auth/registration",
                 params: model.newUser
             }).then(function mySuccess(response) {
                 console.log('response: ', response.data);
-                if (response.data.successful === true) {
+                if (response.data === true) {
                     model.isAddNewUser = true;
                     model.newUser = {};
                     console.log('clean newUser: ', model.newUser);
                 }
             }, function myError(response) {
-                alert(response.statusText);
+                console.log(response.statusText);
             });
 
         }
