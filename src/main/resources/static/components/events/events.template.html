@@ -12,13 +12,14 @@
 
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
                      aria-hidden="true">
-                    <form ngFormGroup="eventCreateForm" ng-submit="$ctrl.event.createEvent()">
+                    <form name="createEvent" ng-submit="$ctrl.event.createEvent()">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
 
                                 <div class="modal-header">
                                     <h3 class="modal-title" id="createEventLongTitle">Где бухаем?</h3>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                            ng-click="$ctrl.event.resetEvent()">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -26,29 +27,57 @@
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="title" class="col-form-label">Название ивента</label>
-                                        <input type="text" class="form-control" id="title"
-                                               aria-describedby="titleEvent" placeholder="Title"
-                                               ng-model="$ctrl.title">
-                                        <small id="titleHelp" class="form-text text-muted">Введите название ивента
-                                        </small>
+                                        <input type="text" name="title" id="title"
+                                               class="form-control" aria-describedby="titleEvent" placeholder="Title"
+                                               ng-model="$ctrl.title"
+                                               ng-minlength="3" ng-maxlength="20"
+                                               ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/' required>
+                                        <p class="form-text text-danger"
+                                           ng-show="createEvent.title.$dirty && createEvent.title.$error.minlength || createEvent.title.$error.maxlength  && !(createEvent.title.$error.$invalid)">
+                                            В названии должно присутствовать более от 3 до 20 символов
+                                        </p>
+                                        <p class="form-text text-danger"
+                                           ng-show="createEvent.title.$dirty && createEvent.title.$error.pattern">
+                                            Присутствуют недопустимые символы
+                                        </p>
+                                        <p class="form-text text-danger"
+                                           ng-show="createEvent.title.$touched && createEvent.title.$invalid && !(createEvent.title.$error.pattern) && !(createEvent.title.$error.minlength)">
+                                            Поле должно быть заполненным
+                                        </p>
                                     </div>
                                     <div class="form-group">
                                         <label for="description" class="col-form-label">Описание
                                             ивента</label>
-                                        <input type="text" class="form-control" id="description"
+                                        <input type="text" name="description" class="form-control" id="description"
                                                aria-describedby="descriptionEvent" placeholder="Description"
-                                               ng-model="$ctrl.text">
-                                        <small id="descriptionHelp" class="form-text text-muted">Введите описание ивента
-                                        </small>
+                                               ng-model="$ctrl.text"
+                                               ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/' required>
+                                        <p class="form-text text-danger"
+                                           ng-show="createEvent.description.$dirty && createEvent.description.$error.pattern">
+                                            Присутствуют недопустимые символы
+                                        </p>
+                                        <p class="form-text text-danger"
+                                           ng-show="createEvent.description.$touched && createEvent.description.$invalid">
+                                            Поле должно быть заполненным
+                                        </p>
                                     </div>
                                     <div>
                                         <label for="startTime" class="col-form-label">Время старта</label>
-                                        <input type="datetime-local" class="form-control" id="startTime"
-                                               ng-model="$ctrl.startTime" required/>
+                                        <input type="datetime-local" name="startTime" class="form-control" id="startTime"
+                                               ng-model="$ctrl.startTime" required>
+                                        <p class="form-text text-danger"
+                                           ng-show="createEvent.startTime.$touched && createEvent.startTime.$invalid">
+                                            Поле должно быть заполненным
+                                        </p>
+
                                         <label for="endTime" class="col-form-label">Время
                                             завершения</label>
-                                        <input type="datetime-local" class="form-control" id="endTime"
-                                               ng-model="$ctrl.endTime" required/>
+                                        <input type="datetime-local" name="endTime" class="form-control" id="endTime"
+                                               ng-model="$ctrl.endTime" required>
+                                        <p class="form-text text-danger"
+                                           ng-show="createEvent.endTime.$touched && createEvent.endTime.$invalid">
+                                            Поле должно быть заполненным
+                                        </p>
                                     </div>
                                     <div>
                                         <label for="places" class="col-form-label col-form-label-lg">Выбирете
@@ -61,8 +90,8 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-                                    <button class="btn btn-primary" type="submit">Save</button>
+                                    <button class="btn btn-secondary" type="button" ng-click="$ctrl.event.resetEvent()">Close</button>
+                                    <button class="btn btn-primary" type="submit" ng-disabled="createEvent.$invalid">Save</button>
                                 </div>
                             </div>
                         </div>

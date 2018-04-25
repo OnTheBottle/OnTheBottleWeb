@@ -2,8 +2,8 @@
 
 angular.module('events').component('events', {
     templateUrl: 'components/events/events.template.html',
-    controller: ['$routeParams', 'EventFactory', '$resource',
-        function UserController($routeParams, EventFactory, $resource) {
+    controller: ['$routeParams', 'EventFactory', '$scope',
+        function UserController($routeParams, EventFactory, $scope) {
             var self = this;
             self.userId = $routeParams.userId;
             self.options = {allEvents: 'true', activeEvents: false, passedEvents: false};
@@ -25,15 +25,20 @@ angular.module('events').component('events', {
                         place: self.place,
                         owner: self.userId
                     }, function (data) {
-                        //self.eventCreateForm.reset(); //TODO понять как очистить форму
-                        self.title = '';
-                        self.text = '';
-                        self.startTime = '';
-                        self.endTime = '';
+                        self.event.resetEvent();
                         self.event.getEvents();
                     }, function (errResponse) {
                         console.error('Error while creating Event');
                     });
+                },
+                resetEvent: function () {
+                    angular.element('#myModal').modal('hide');
+                    $scope.createEvent.$setUntouched();
+                    $scope.createEvent.$setPristine();
+                    self.title = '';
+                    self.text = '';
+                    self.startTime = '';
+                    self.endTime = '';
                 }
             };
 
