@@ -31,7 +31,8 @@
                                                class="form-control" aria-describedby="titleEvent" placeholder="Title"
                                                ng-model="$ctrl.title"
                                                ng-minlength="3" ng-maxlength="20"
-                                               ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/' required>
+                                               ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
+                                               required>
                                         <p class="form-text text-danger"
                                            ng-show="createEvent.title.$dirty && createEvent.title.$error.minlength || createEvent.title.$error.maxlength  && !(createEvent.title.$error.$invalid)">
                                             В названии должно присутствовать более от 3 до 20 символов
@@ -51,7 +52,8 @@
                                         <input type="text" name="description" class="form-control" id="description"
                                                aria-describedby="descriptionEvent" placeholder="Description"
                                                ng-model="$ctrl.text"
-                                               ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/' required>
+                                               ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
+                                               required>
                                         <p class="form-text text-danger"
                                            ng-show="createEvent.description.$dirty && createEvent.description.$error.pattern">
                                             Присутствуют недопустимые символы
@@ -63,20 +65,31 @@
                                     </div>
                                     <div>
                                         <label for="startTime" class="col-form-label">Время старта</label>
-                                        <input type="datetime-local" name="startTime" class="form-control" id="startTime"
-                                               ng-model="$ctrl.startTime" required>
+                                        <input type="datetime-local" name="startTime" class="form-control"
+                                               id="startTime" ng-model="$ctrl.startTime"
+                                               min="{{$ctrl.today | date:'yyyy-MM-ddTHH:mm'}}"
+                                               required>
                                         <p class="form-text text-danger"
-                                           ng-show="createEvent.startTime.$touched && createEvent.startTime.$invalid">
+                                           ng-show="createEvent.startTime.$touched && createEvent.startTime.$invalid && !(createEvent.startTime.$error.min)">
                                             Поле должно быть заполненным
                                         </p>
-
+                                        <p class="form-text text-danger"
+                                           ng-show="createEvent.startTime.$touched && createEvent.startTime.$error.min">
+                                            Дата начала ивента не может быть раньше текущей даты и времени
+                                        </p>
                                         <label for="endTime" class="col-form-label">Время
                                             завершения</label>
                                         <input type="datetime-local" name="endTime" class="form-control" id="endTime"
-                                               ng-model="$ctrl.endTime" required>
+                                               ng-model="$ctrl.endTime"
+                                               min="{{$ctrl.startTime | date:'yyyy-MM-ddTHH:mm'}}"
+                                               required>
                                         <p class="form-text text-danger"
-                                           ng-show="createEvent.endTime.$touched && createEvent.endTime.$invalid">
+                                           ng-show="createEvent.endTime.$touched && createEvent.endTime.$invalid  && !(createEvent.endTime.$error.min)">
                                             Поле должно быть заполненным
+                                        </p>
+                                        <p class="form-text text-danger"
+                                           ng-show="createEvent.endTime.$touched && createEvent.endTime.$error.min">
+                                            Дата завершения ивента не может быть раньше даты начала ивента
                                         </p>
                                     </div>
                                     <div>
@@ -90,8 +103,12 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" type="button" ng-click="$ctrl.event.resetEvent()">Close</button>
-                                    <button class="btn btn-primary" type="submit" ng-disabled="createEvent.$invalid">Save</button>
+                                    <button class="btn btn-secondary" type="button" ng-click="$ctrl.event.resetEvent()">
+                                        Close
+                                    </button>
+                                    <button class="btn btn-primary" type="submit" ng-disabled="createEvent.$invalid">
+                                        Save
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -124,8 +141,6 @@
                         <input class="form-check-input" type="checkbox" id="passedEvents"
                                ng-model="$ctrl.options['passedEvents']" ng-change="$ctrl.event.getEvents()">
                     </label>
-                </div>
-                <div>
                 </div>
                 <div class="event">
                     <img src="images/events/temp_pab.jpg" class="pub-img">

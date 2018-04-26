@@ -21,8 +21,7 @@ const userId = 'acff954d-4ee5-439f-9fad-66db95be3b29';
             'registrationApp',
             'profileInfoApp',
             'userInfoApp',
-            'newsApp',
-            'footerApp'
+            'newsApp'
         ])
         .controller('MainController', mainController);
 
