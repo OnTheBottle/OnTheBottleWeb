@@ -15,5 +15,8 @@ angular.module('messagesystemuser')
                 }
 
 
-            }]
+            }],
+        bindings: {
+            userId:'=',
+        }
     });
