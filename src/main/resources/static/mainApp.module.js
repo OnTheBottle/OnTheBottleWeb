@@ -16,7 +16,7 @@ angular.module('mainApp', [
     'like',
     'messagesystem',
     'messagesystemuser',
-    'postApp',
+    'postNewsApp',
     'newsApp',
     'post',
     'posts',
