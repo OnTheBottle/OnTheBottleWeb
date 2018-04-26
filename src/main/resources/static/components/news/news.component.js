@@ -37,7 +37,7 @@
                 //model.posts = response.data[1];
                 //console.log('response posts:\n', $scope.posts);
             }, function myError(response) {
-                alert(response.statusText);
+                console.log('Error News Component: ', response.statusText);
             });
         }
 
