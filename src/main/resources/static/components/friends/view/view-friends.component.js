@@ -14,8 +14,8 @@
 
         var model = this;
 
-        model.$onInit = function () {
-        }
-
+        model.$onChanges = function () {
+            console.log('view friends userId:', model.userId);
+        };
     }
 })();

@@ -20,7 +20,7 @@
         model.$onInit = function () {
             console.log('userId: ', model.userId);
             getNewsPosts(model.userId);
-        }
+        };
 
         function getNewsPosts(userId) {
             $http({

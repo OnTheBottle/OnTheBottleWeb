@@ -24,9 +24,16 @@ var userId = '';
             'profileInfoApp',
             'userInfoApp',
             'newsApp',
+            'footerApp',
             'events',
             'event',
-            'footerApp'
+/*
+            'posts',
+            'post',
+            'security',
+            'start',
+            'userOk'
+*/
         ])
         .controller('MainController', mainController);
 
