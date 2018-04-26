@@ -3,10 +3,13 @@
 angular.module('events').component('events', {
     templateUrl: 'components/events/events.template.html',
     controllerAs: 'self',
+    bindings: {
+        userId: '='
+    },
     controller: ['$routeParams', 'EventFactory', '$scope',
         function UserController($routeParams, EventFactory, $scope) {
             var self = this;
-            self.userId = $routeParams.userId;
+            //self.userId = $routeParams.userId;
             self.options = {allEvents: 'true', activeEvents: false, passedEvents: false};
             self.orderProp = 'date'; //TODO понять принцип сортировки
             self.today = new Date();
