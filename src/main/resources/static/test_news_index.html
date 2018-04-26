@@ -13,12 +13,15 @@
     <!--scripts-->
     <script src="common/lib/angularjs/angular.min.js"></script>
     <script src="common/lib/angularjs/angular-route.min.js"></script>
+    <script src="common/lib/angularjs/angular-resource.min.js"></script>
     <script src="common/lib/jquery/jquery-2.1.4.min.js"></script>
     <script src="common/lib/bootstrap/js/popper_1.12.9.js"></script>
     <script src="common/lib/bootstrap/js/bootstrap_4.0.0.js"></script>
 
     <script src="js/test_news_mainApp.js"></script>
     <script src="components/header/header-component.js"></script>
+    <script src="components/footer/footer.module.js"></script>
+    <script src="components/footer/footer.component.js"></script>
 
     <script src="components/auth/auth.module.js"></script>
     <script src="components/auth/auth.component.js"></script>
@@ -40,12 +43,13 @@
     <script src="components/news/news.component.js"></script>
     <script src="components/news/post/post.module.js"></script>
     <script src="components/news/post/post.component.js"></script>
+    <script src="components/posts/posts.modul.js"></script>
+    <script src="components/posts/posts.component.js"></script>
+
     <script src="components/events/event/event.module.js"></script>
     <script src="components/events/event/event.service.js"></script>
     <script src="components/events/events.module.js"></script>
     <script src="components/events/events.component.js"></script>
-    <script src="components/posts/posts.modul.js"></script>
-    <script src="components/posts/posts.component.js"></script>
 
 
 </head>
@@ -57,31 +61,37 @@
 <main class="container-fluid content-wrapper">
     <div class="row m-0 mt-1 mb-1">
         <div class="col-3 bg-light alert alert-info m-0 mb-3">
-            <auth-comp></auth-comp>
+            <auth-comp user-id="ctrl.userId"></auth-comp>
         </div>
         <div class="col-3 bg-light alert alert-info m-0 mb-3">
-            <add-friends-app></add-friends-app>
+            <add-friends-app user-id="ctrl.userId"></add-friends-app>
         </div>
         <div class="col-3 bg-light alert alert-info m-0 mb-3">
-            <find-comp></find-comp>
+            <find-comp user-id="ctrl.userId"></find-comp>
         </div>
         <div class="col-3 bg-light alert alert-info m-0 mb-3">
-            <view-friends-comp></view-friends-comp>
+            <view-friends-comp user-id="ctrl.userId"></view-friends-comp>
+        </div>
+    </div>
+
+    <div class="row m-0 mt-1 mb-1">
+        <div class="col-4 bg-light alert alert-info m-0 mb-3">
+            <profile-info-comp user-id="ctrl.userId"></profile-info-comp>
+        </div>
+        <div class="col-4 bg-light alert alert-info m-0 mb-3">
+            <user-info-comp user-id="ctrl.userId"></user-info-comp>
+        </div>
+        <div class="col-4 bg-light alert alert-info m-0 mb-3">
+            <link-friends-comp user-id="ctrl.userId"></link-friends-comp>
         </div>
     </div>
 
     <div class="row m-0 mt-1 mb-1">
         <div class="col-3 bg-light alert alert-info m-0 mb-3">
-            <profile-info-comp></profile-info-comp>
-        </div>
-        <div class="col-3 bg-light alert alert-info m-0 mb-3">
-            <user-info-comp></user-info-comp>
-        </div>
-        <div class="col-3 bg-light alert alert-info m-0 mb-3">
-            <link-friends-comp></link-friends-comp>
-        </div>
-        <div class="col-3 bg-light alert alert-info m-0 mb-3">
             <registration-comp user-id="ctrl.userId"></registration-comp>
+        </div>
+        <div class="col-9 bg-light alert alert-info m-0 mb-3">
+            <events user-id="ctrl.userId"></events>
         </div>
     </div>
 
@@ -90,15 +100,15 @@
             <news-comp user-id="ctrl.userId"></news-comp>
         </div>
         <div class="col-6 bg-light alert alert-info m-0 mb-3">
-            <events user-id="ctrl.userId"></events>
-        </div>
-        <div class="col-6 bg-light alert alert-info m-0 mb-3">
             <posts user-id="ctrl.userId"></posts>
         </div>
     </div>
 
 
-
 </main>
+<footer class="container-fluid content-wrapper">
+    <footer-comp></footer-comp>
+</footer>
+
 </body>
 </html>

@@ -5,7 +5,8 @@ const PLACE_PATH = 'http://127.0.0.1:8082';
 const MESSAGE_PATH = 'http://127.0.0.1:8083';
 
 
-const userId = 'acff954d-4ee5-439f-9fad-66db95be3b29';
+var userId = '';
+//var userId = 'acff954d-4ee5-439f-9fad-66db95be3b29';
 
 (function () {
     'use strict';
@@ -13,6 +14,7 @@ const userId = 'acff954d-4ee5-439f-9fad-66db95be3b29';
     angular.module(
         'mainApp', [
             'ngRoute',
+            'ngResource',
             'authApp',
             'findApp',
             'addFriendsApp',
@@ -21,7 +23,10 @@ const userId = 'acff954d-4ee5-439f-9fad-66db95be3b29';
             'registrationApp',
             'profileInfoApp',
             'userInfoApp',
-            'newsApp'
+            'newsApp',
+            'events',
+            'event',
+            'footerApp'
         ])
         .controller('MainController', mainController);
 

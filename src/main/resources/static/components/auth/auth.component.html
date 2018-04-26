@@ -3,6 +3,19 @@
         <div class="container-fluid">
             <!--Write your HTML here-->
             <p class="text-info h2 text-center">Авторизация пользователя</p>
+            <p class="text-info text-center">userId: {{model.userId}}</p>
+            <div>
+                <label for="login">Login:</label>
+                <input type="text" ng-model="model.authData.login" class="form-control" id="login">
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" ng-model="model.authData.password" class="form-control" id="password">
+            </div>
+            <div class="text-right mt-3">
+                {{model.isAuthUser}}
+                <button type="button" ng-click="model.auth()" class="btn btn-primary p-3">Войти</button>
+            </div>
         </div>
     </div>
 </div>
