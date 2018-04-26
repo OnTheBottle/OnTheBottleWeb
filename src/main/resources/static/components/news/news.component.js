@@ -1,5 +1,6 @@
 (function () {
     'use strict';
+
     angular.module('newsApp')
         .component('newsComp', {
             templateUrl: 'components/news/news.component.html',

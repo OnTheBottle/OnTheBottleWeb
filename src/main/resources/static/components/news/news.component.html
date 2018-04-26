@@ -1,6 +1,16 @@
 <!--<p>News Component: {{model.userId}}</p>-->
 <!--<p>{{model.posts}}</p>-->
 <!--<post-comp user-id="model.userId" posts="model.posts" like-click="model.likeClick" favorite-click="model.favoriteClick"></post-comp>-->
-<post-comp user-id="model.userId" like-click="model.likeClick" favorite-click="model.favoriteClick"
-           postindex=$index post="post" ng-repeat="post in model.posts">
-</post-comp>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="container-fluid">
+            <!--Write your HTML here-->
+            <p class="text-info h2 text-center">Новости друзей</p>
+            <post-comp user-id="model.userId" like-click="model.likeClick" favorite-click="model.favoriteClick"
+                       postindex=$index post="post" ng-repeat="post in model.posts">
+            </post-comp>
+
+        </div>
+    </div>
+</div>

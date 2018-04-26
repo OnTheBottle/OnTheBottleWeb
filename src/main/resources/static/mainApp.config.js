@@ -8,7 +8,7 @@ angular.module('mainApp')
             $routeProvider.when('/start', {
                 template: '<start></start>'
             }).when('/registration', {
-                template: '<registrationComp></registrationComp>'
+                template: '<registration-comp></registration-comp>'
             }).when('/messagesystem', {
                 template: '<messagesystem></messagesystem>'
             }).when('/messagesystem/:userId', {

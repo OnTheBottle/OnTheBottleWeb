@@ -5,7 +5,7 @@ const PLACE_PATH = 'http://127.0.0.1:8082';
 const MESSAGE_PATH = 'http://127.0.0.1:8083';
 
 
-const userId = 'ea50cb0e-3b87-48e0-9455-8f517212b8a5';
+const userId = 'acff954d-4ee5-439f-9fad-66db95be3b29';
 
 (function () {
     'use strict';
@@ -21,7 +21,8 @@ const userId = 'ea50cb0e-3b87-48e0-9455-8f517212b8a5';
             'registrationApp',
             'profileInfoApp',
             'userInfoApp',
-            'newsApp'
+            'newsApp',
+            'footerApp'
         ])
         .controller('MainController', mainController);
 

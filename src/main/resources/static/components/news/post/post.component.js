@@ -1,8 +1,8 @@
 (function () {
     'use strict';
-    angular.module('postApp')
-        .component('postComp', {
-            templateUrl: 'components/news/posts/post/post.component.html',
+    angular.module('postNewsApp')
+        .component('postNewsComp', {
+            templateUrl: 'components/news/post/post.component.html',
             controller: PostController,
             controllerAs: 'model',
             bindings: {
