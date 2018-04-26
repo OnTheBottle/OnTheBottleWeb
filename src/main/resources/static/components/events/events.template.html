@@ -12,14 +12,14 @@
 
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
                      aria-hidden="true">
-                    <form name="createEvent" ng-submit="$ctrl.event.createEvent()">
+                    <form name="createEvent" ng-submit="self.event.createEvent()">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
 
                                 <div class="modal-header">
                                     <h3 class="modal-title" id="createEventLongTitle">Где бухаем?</h3>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                            ng-click="$ctrl.event.resetEvent()">
+                                            ng-click="self.event.resetEvent()">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -29,7 +29,7 @@
                                         <label for="title" class="col-form-label">Название ивента</label>
                                         <input type="text" name="title" id="title"
                                                class="form-control" aria-describedby="titleEvent" placeholder="Title"
-                                               ng-model="$ctrl.title"
+                                               ng-model="self.title"
                                                ng-minlength="3" ng-maxlength="20"
                                                ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
                                                required>
@@ -51,7 +51,7 @@
                                             ивента</label>
                                         <input type="text" name="description" class="form-control" id="description"
                                                aria-describedby="descriptionEvent" placeholder="Description"
-                                               ng-model="$ctrl.text"
+                                               ng-model="self.text"
                                                ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
                                                required>
                                         <p class="form-text text-danger"
@@ -66,8 +66,8 @@
                                     <div>
                                         <label for="startTime" class="col-form-label">Время старта</label>
                                         <input type="datetime-local" name="startTime" class="form-control"
-                                               id="startTime" ng-model="$ctrl.startTime"
-                                               min="{{$ctrl.today | date:'yyyy-MM-ddTHH:mm'}}"
+                                               id="startTime" ng-model="self.startTime"
+                                               min="{{self.today | date:'yyyy-MM-ddTHH:mm'}}"
                                                required>
                                         <p class="form-text text-danger"
                                            ng-show="createEvent.startTime.$touched && createEvent.startTime.$invalid && !(createEvent.startTime.$error.min)">
@@ -80,8 +80,8 @@
                                         <label for="endTime" class="col-form-label">Время
                                             завершения</label>
                                         <input type="datetime-local" name="endTime" class="form-control" id="endTime"
-                                               ng-model="$ctrl.endTime"
-                                               min="{{$ctrl.startTime | date:'yyyy-MM-ddTHH:mm'}}"
+                                               ng-model="self.endTime"
+                                               min="{{self.startTime | date:'yyyy-MM-ddTHH:mm'}}"
                                                required>
                                         <p class="form-text text-danger"
                                            ng-show="createEvent.endTime.$touched && createEvent.endTime.$invalid  && !(createEvent.endTime.$error.min)">
@@ -96,14 +96,14 @@
                                         <label for="places" class="col-form-label col-form-label-lg">Выбирете
                                             место</label>
                                         <select class="form-control form-control-lg custom-select" id="places"
-                                                ng-options="place.id as place.title for place in $ctrl.places"
-                                                ng-model="$ctrl.place" required>
+                                                ng-options="place.id as place.title for place in self.places"
+                                                ng-model="self.place" required>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" type="button" ng-click="$ctrl.event.resetEvent()">
+                                    <button class="btn btn-secondary" type="button" ng-click="self.event.resetEvent()">
                                         Close
                                     </button>
                                     <button class="btn btn-primary" type="submit" ng-disabled="createEvent.$invalid">
@@ -121,25 +121,25 @@
                     <label class="form-check-label mr-4" for="allEvents">
                         Все ивенты
                         <input class="form-check-input" type="radio" name="filterEvents" id="allEvents"
-                               ng-model="$ctrl.options['allEvents']" value='true' ng-change="$ctrl.event.getEvents()">
+                               ng-model="self.options['allEvents']" value='true' ng-change="self.event.getEvents()">
                     </label>
 
                     <label class="form-check-label mr-4" for="myEvents">
                         Мои ивенты
                         <input class="form-check-input" type="radio" name="filterEvents" id="myEvents"
-                               ng-model="$ctrl.options['allEvents']" value='false' ng-change="$ctrl.event.getEvents()">
+                               ng-model="self.options['allEvents']" value='false' ng-change="self.event.getEvents()">
                     </label>
 
                     <label class="form-check-label mr-4" for="activeEvents">
                         Активные ивенты
                         <input class="form-check-input" type="checkbox" id="activeEvents"
-                               ng-model="$ctrl.options['activeEvents']" ng-change="$ctrl.event.getEvents()">
+                               ng-model="self.options['activeEvents']" ng-change="self.event.getEvents()">
                     </label>
 
                     <label class="form-check-label mr-4" for="passedEvents">
                         Пройденные ивенты
                         <input class="form-check-input" type="checkbox" id="passedEvents"
-                               ng-model="$ctrl.options['passedEvents']" ng-change="$ctrl.event.getEvents()">
+                               ng-model="self.options['passedEvents']" ng-change="self.event.getEvents()">
                     </label>
                 </div>
                 <div class="event">
@@ -153,7 +153,7 @@
                         <p>10</p>
                     </div>
                 </div>
-                <div class="event" ng-repeat="event in $ctrl.events| filter:$ctrl.getEvents|orderBy:$ctrl.orderProp">
+                <div class="event" ng-repeat="event in self.events| filter:self.getEvents|orderBy:self.orderProp">
                     <img class="pub-img" ng-src="{{event.place.avatar}}">
                     <div class="title-event"><p>{{event.title}}</p></div>
                     <p class="description">{{event.text}}</p>

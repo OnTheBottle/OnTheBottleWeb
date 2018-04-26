@@ -2,6 +2,7 @@
 
 angular.module('events').component('events', {
     templateUrl: 'components/events/events.template.html',
+    controllerAs: 'self',
     controller: ['$routeParams', 'EventFactory', '$scope',
         function UserController($routeParams, EventFactory, $scope) {
             var self = this;
