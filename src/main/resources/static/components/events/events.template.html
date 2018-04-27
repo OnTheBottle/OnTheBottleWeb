@@ -143,7 +143,7 @@
                                ng-model="self.options['passedEvents']" ng-change="self.event.getEvents()">
                     </label>
                 </div>
-                <div class="event">
+                <div class="event passed">
                     <img src="images/events/temp_pab.jpg" class="pub-img">
                     <div class="title-event"><p>Вечер бухла</p></div>
                     <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem corporis id
@@ -154,7 +154,18 @@
                         <p>10</p>
                     </div>
                 </div>
-                <div class="event" ng-repeat="event in self.events| filter:self.getEvents|orderBy:self.orderProp">
+                <div class="event"
+                     ng-repeat="event in self.events | filter:isActive = true|orderBy:'startTime.toString()'">
+                    <img class="pub-img" ng-src="{{event.place.avatar}}">
+                    <div class="title-event"><p>{{event.title}}</p></div>
+                    <p class="description">{{event.text}}</p>
+                    <p class="time">{{event.startTime}} - {{event.endTime}}</p>
+                    <div class="people">
+                        <img src="images/events/user.svg">
+                        <p>{{event.users.length}}</p>
+                    </div>
+                </div>
+                <div class="event passed" ng-repeat="event in self.events | filter:isActive = false|orderBy:'-endTime.toString()'">
                     <img class="pub-img" ng-src="{{event.place.avatar}}">
                     <div class="title-event"><p>{{event.title}}</p></div>
                     <p class="description">{{event.text}}</p>

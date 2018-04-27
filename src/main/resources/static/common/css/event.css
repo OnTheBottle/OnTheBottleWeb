@@ -163,6 +163,10 @@
     overflow: hidden;
 }
 
+.main-content .event.passed {
+    background-color: #aeaca9;
+}
+
 .main-content .event img {
     width: 100%;
 }
@@ -208,14 +212,14 @@
     position: absolute;
     bottom: 4px;
     left: 90px;
-    color: #8f8e8c;
+    color: #000000;
 }
 
 .main-content .event .people {
     position: absolute;
     bottom: 4px;
     right: 5px;
-    color: #8f8e8c;
+    color: #000000;
     vertical-align: middle;
 }
 
