@@ -1,0 +1,39 @@
+<p class="text-info h2 text-center">Регистрация</p>
+<form>
+    <div class="form-group text-left">
+        <label for="regLogin">Логин:</label>
+        <input type="text" ng-model="model.newUser.login" class="form-control" id="regLogin">
+    </div>
+    <div class="form-group text-left">
+        <label for="regPassword">Пароль:</label>
+        <input type="password" ng-model="model.newUser.password" class="form-control" id="regPassword" required>
+    </div>
+    <div class="form-group text-left">
+        <label for="regEmail">Эл.почта:</label>
+        <input type="email" ng-model="model.newUser.email" class="form-control" id="regEmail" required>
+    </div>
+    <div class="form-group text-left">
+        <label for="regName">Имя:</label>
+        <input type="text" ng-model="model.newUser.name" class="form-control" id="regName" required>
+    </div>
+    <div class="form-group text-left">
+        <label for="regSurname">Фамилия:</label>
+        <input type="text" ng-model="model.newUser.surname" class="form-control" id="regSurname" required>
+    </div>
+
+    <div class="text-right mt-3">
+        <div class="row">
+            <div class="col-9 text-left pr-0"> Нажимая кнопку Регистрация, вы принимаете
+                Условия,
+                Политику
+                использования данных и Политику в отношении файлов cookie.
+            </div>
+            <div class="col-3 form-group text-right pl-0">
+                <span class="text-center">{{model.isAddNewUser}}</span>
+                <button type="submit" ng-click="model.addRegistration()" class="btn btn-primary p-3 pl-4 pr-4">
+                    Регистрация
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

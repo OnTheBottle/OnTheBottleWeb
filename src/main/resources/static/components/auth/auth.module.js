@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('authApp', ['ngRoute']);
+angular.module('authApp', []);
