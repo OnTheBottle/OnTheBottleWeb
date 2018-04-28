@@ -2,15 +2,18 @@
     'use strict';
     angular.module('authApp')
         .component('authComp', {
-            templateUrl: 'components/auth/auth.component.html',
-            controller: ['$http', authController],
+            templateUrl: 'components/auth/start-auth.component.html',
+            controller: ['$http', '$window', AuthController],
             controllerAs: 'model',
             bindings: {
                 userId: '='
             }
         });
 
-    function authController($http) {
+    //AuthController.$inject = ['$window'];
+
+    function AuthController($http, $window) {
+        console.log('start authController');
 
         var model = this;
         model.authData = {};
@@ -18,10 +21,12 @@
         model.authData.password = '';
 
         model.$onInit = function () {
+            console.log('start authController $onInit');
         }
 
         model.auth = function () {
-            console.log('Auth User: ', model.authData);
+            console.log('start authController auth');
+            console.log('authData: ', model.authData);
             if (model.authData.login === '' || model.authData.password === '') {
                 return;
             }
@@ -32,9 +37,11 @@
                 params: model.authData
             }).then(function mySuccess(response) {
                 console.log('response Auth: ', response.data);
-                if (response.data.userId !== null) {
+                if (response.data.token !== null) {
                     model.isAuthUser = true;
-                    model.userId = response.data.userId;
+                    model.token = response.data.token;
+                    token = response.data.token;
+                    $window.location.href = 'test_news_index.html';
                 } else {
                     model.isAuthUser = false;
                 }

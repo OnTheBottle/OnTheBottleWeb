@@ -1,0 +1,27 @@
+/*For header by Valera*/
+
+html {
+    font-size: 10px;
+    height:100%;
+}
+
+body {
+    height:100%;
+    background-image: url("../../images/forPages/auth.jpg");
+    background-color: #eeeeee;
+    background-repeat: no-repeat;
+    background-size:cover;
+    font-size: 1.6rem;
+    font-family: Arial, Tahoma, sans-serif;
+    /*padding-top: 60px;*/
+}
+
+main {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+}
+
+div.my-background{
+    background: rgba(255, 255, 255, 0.3);
+
+}
