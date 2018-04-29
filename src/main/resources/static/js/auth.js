@@ -1,25 +1,40 @@
 'use strict';
 
 const USER_PATH = 'http://127.0.0.1:8081';
+const INDEX_FILE = 'test_news_index.html';
 
 var userId = '';
 var token = '';
 
-console.log('start auth.js');
-
 (function () {
-    'use strict';
-
     angular.module(
         'mainApp', [
             'authApp',
-            'registrationApp'
+            'registrationApp',
+            'ngCookies'
         ])
-        .controller('MainController', mainController);
+        .controller('MainController', MainController);
 
-    function mainController() {
-        console.log('start mainController');
-        this.userId = userId;
-        this.token = token;
+    function MainController($cookies, $http, $window) {
+        var token = $cookies.get('access_token');
+
+        if(!token){
+            return;
+        }
+
+        $http({
+            method: "POST",
+            url: USER_PATH + "/auth/verify",
+            params: {'access_token': token}
+        }).then(function mySuccess(response) {
+            if (response.data === true) {
+                $window.location.href = INDEX_FILE;
+            } else {
+                $cookies.remove('access_token');
+            }
+        }, function myError(response) {
+            console.log('error Auth: ');
+        });
+
     }
 })();

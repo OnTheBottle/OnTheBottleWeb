@@ -15,7 +15,55 @@
     <script src="common/lib/angularjs/angular.min.js"></script>
     <script src="common/lib/angularjs/angular-route.min.js"></script>
     <script src="common/lib/angularjs/angular-resource.min.js"></script>
+    <script src="common/lib/angularjs/angular-cookies.min.js"></script>
 
+    <script src="mainApp.module.js"></script>
+    <script src="mainApp.config.js"></script>
+    <script src="components/auth/auth.module.js"></script>
+    <script src="components/auth/auth.component.js"></script>
+    <script src="components/events/event/event.module.js"></script>
+    <script src="components/events/event/event.service.js"></script>
+    <script src="components/events/events.module.js"></script>
+    <script src="components/events/events.component.js"></script>
+    <script src="components/find/find.module.js"></script>
+    <script src="components/find/find.component.js"></script>
+    <script src="components/friends/add/add-friends.module.js"></script>
+    <script src="components/friends/add/add-friends.component.js"></script>
+    <script src="components/friends/link/link-friends.module.js"></script>
+    <script src="components/friends/link/link-friends.component.js"></script>
+    <script src="components/friends/view/view-friends.module.js"></script>
+    <script src="components/friends/view/view-friends.component.js"></script>
+    <script src="components/header/header-component.js"></script>
+    <script src="components/info/profile/profile-info.module.js"></script>
+    <script src="components/info/profile/profile-info.component.js"></script>
+    <script src="components/info/user/user-info.module.js"></script>
+    <script src="components/info/user/user-info.component.js"></script>
+    <script src="components/wall/like/like.module.js"></script>
+    <script src="components/wall/like/like.service.js"></script>
+    <script src="components/messagesystem/messagesystem.module.js"></script>
+    <script src="components/messagesystem/messagesystem.component.js"></script>
+    <script src="components/messagesystemuser/messagesystemuser.module.js"></script>
+    <script src="components/messagesystemuser/messagesystemuser.component.js"></script>
+    <script src="components/news/post/post.module.js"></script>
+    <script src="components/news/post/post.component.js"></script>
+    <script src="components/news/news.module.js"></script>
+    <script src="components/news/news.component.js"></script>
+    <script src="components/wall/post/post.module.js"></script>
+    <script src="components/wall/post/post.component.js"></script>
+    <script src="components/wall/post/post.service.js"></script>
+    <script src="components/wall/posts.modul.js"></script>
+    <script src="components/wall/posts.component.js"></script>
+    <script src="components/wall/comment/comment.module.js"></script>
+    <script src="components/wall/comment/comment.component.js"></script>
+    <script src="components/wall/comment/comment.service.js"></script>
+    <script src="components/wall/security/security.modul.js"></script>
+    <script src="components/wall/security/security.service.js"></script>
+    <script src="components/registration/registration.module.js"></script>
+    <script src="components/registration/registration.component.js"></script>
+    <script src="components/start/start.module.js"></script>
+    <script src="components/start/start.component.js"></script>
+    <script src="components/user/user.modul.js"></script>
+    <script src="components/user/user.service.js"></script>
 
 </head>
 <body>
@@ -23,58 +71,6 @@
 <div class="view-container">
     <div ng-view class="view-frame"></div>
 </div>
-
-
-<script src="common/lib/bootstrap4/js/bootstrap.js"></script>
-<script src="mainApp.module.js"></script>
-<script src="mainApp.config.js"></script>
-<script src="components/auth/auth.module.js"></script>
-<script src="components/auth/auth.component.js"></script>
-<script src="components/comment/comment.module.js"></script>
-<script src="components/comment/comment.service.js"></script>
-<script src="components/events/event/event.module.js"></script>
-<script src="components/events/event/event.service.js"></script>
-<script src="components/events/events.module.js"></script>
-<script src="components/events/events.component.js"></script>
-<script src="components/find/find.module.js"></script>
-<script src="components/find/find.component.js"></script>
-<script src="components/friends/add/add-friends.module.js"></script>
-<script src="components/friends/add/add-friends.component.js"></script>
-<script src="components/friends/link/link-friends.module.js"></script>
-<script src="components/friends/link/link-friends.component.js"></script>
-<script src="components/friends/view/view-friends.module.js"></script>
-<script src="components/friends/view/view-friends.component.js"></script>
-<script src="components/header/header-component.js"></script>
-<script src="components/info/profile/profile-info.module.js"></script>
-<script src="components/info/profile/profile-info.component.js"></script>
-<script src="components/info/user/user-info.module.js"></script>
-<script src="components/info/user/user-info.component.js"></script>
-<script src="components/wall/like/like.module.js"></script>
-<script src="components/wall/like/like.service.js"></script>
-<script src="components/messagesystem/messagesystem.module.js"></script>
-<script src="components/messagesystem/messagesystem.component.js"></script>
-<script src="components/messagesystemuser/messagesystemuser.module.js"></script>
-<script src="components/messagesystemuser/messagesystemuser.component.js"></script>
-<script src="components/news/post/post.module.js"></script>
-<script src="components/news/post/post.component.js"></script>
-<script src="components/news/news.module.js"></script>
-<script src="components/news/news.component.js"></script>
-<script src="components/wall/post/post.module.js"></script>
-<script src="components/wall/post/post.component.js"></script>
-<script src="components/wall/post/post.service.js"></script>
-<script src="components/wall/posts.modul.js"></script>
-<script src="components/wall/posts.component.js"></script>
-<script src="components/wall/comment/comment.module.js"></script>
-<script src="components/wall/comment/comment.component.js"></script>
-<script src="components/wall/comment/comment.service.js"></script>
-<script src="components/wall/security/security.modul.js"></script>
-<script src="components/wall/security/security.service.js"></script>
-<script src="components/registration/registration.module.js"></script>
-<script src="components/registration/registration.component.js"></script>
-<script src="components/start/start.module.js"></script>
-<script src="components/start/start.component.js"></script>
-<script src="components/user/user.modul.js"></script>
-<script src="components/user/user.service.js"></script>
 
 </body>
 </html>
