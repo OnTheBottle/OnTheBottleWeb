@@ -1,7 +1,7 @@
 'use strict';
 
 const USER_PATH = 'http://127.0.0.1:8081';
-const INDEX_FILE = 'test_news_index.html';
+const INDEX_FILE = 'test_index.html';
 
 var userId = '';
 var token = '';
@@ -14,6 +14,11 @@ var token = '';
             'ngCookies'
         ])
         .controller('MainController', MainController);
+
+    angular.module('mainApp')
+        .config(['$httpProvider', function($httpProvider) {
+            $httpProvider.defaults.withCredentials = true;
+        }]);
 
     function MainController($cookies, $http, $window) {
         var token = $cookies.get('access_token');
@@ -35,6 +40,5 @@ var token = '';
         }, function myError(response) {
             console.log('error Auth: ');
         });
-
     }
 })();
