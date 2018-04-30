@@ -3,7 +3,7 @@
     angular.module('authApp')
         .component('authComp', {
             templateUrl: 'components/auth/start-auth.component.html',
-            controller: ['$http', '$window', AuthController],
+            controller: ['$http', '$window', '$cookies', AuthController],
             controllerAs: 'model',
             bindings: {
                 userId: '='
@@ -12,7 +12,7 @@
 
     //AuthController.$inject = ['$window'];
 
-    function AuthController($http, $window) {
+    function AuthController($http, $window, $cookies) {
         console.log('start authController');
 
         var model = this;
@@ -21,32 +21,27 @@
         model.authData.password = '';
 
         model.$onInit = function () {
-            console.log('start authController $onInit');
         }
 
         model.auth = function () {
-            console.log('start authController auth');
-            console.log('authData: ', model.authData);
             if (model.authData.login === '' || model.authData.password === '') {
                 return;
             }
             model.isAuthUser = '';
             $http({
                 method: "POST",
-                url: USER_PATH + "/auth/authorigation",
+                url: USER_PATH + "/auth/authorization",
                 params: model.authData
             }).then(function mySuccess(response) {
-                console.log('response Auth: ', response.data);
                 if (response.data.token !== null) {
                     model.isAuthUser = true;
-                    model.token = response.data.token;
-                    token = response.data.token;
-                    $window.location.href = 'test_news_index.html';
+                    $cookies.put('access_token',response.data.token);
+                    $window.location.href = INDEX_FILE;
                 } else {
                     model.isAuthUser = false;
                 }
             }, function myError(response) {
-                // model.isAuthUser = false;
+                model.isAuthUser = false;
                 console.log('error Auth: ', response.statusText);
             });
         }
