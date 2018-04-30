@@ -4,14 +4,14 @@
     angular.module('registrationApp')
         .component('registrationComp', {
             templateUrl: 'components/registration/start-registration.component.html',
-            controller: ['$http', '$window', RegController],
+            controller: ['$http', '$window', '$cookies', RegController],
             controllerAs: 'model',
             bindings: {
                 userId: '<'
             }
         });
 
-    function RegController($http, $window) {
+    function RegController($http, $window, $cookies) {
 
         var model = this;
         model.newUser = {};
@@ -34,7 +34,6 @@
 
         model.addRegistration = function () {
             console.log('New User: ', model.newUser);
-            model.isAddNewUser = false;
             $http({
                 method: "POST",
                 url: USER_PATH + "/auth/registration",
@@ -43,10 +42,10 @@
                 console.log('response Auth: ', response.data.token);
                 if (response.data.token !== null) {
                     model.isAuthUser = true;
-                    model.token = response.data.token;
-                    token = response.data.token;
-                    $window.location.href = 'test_news_index.html';
+                    $cookies.put('access_token', response.data.token);
+                    $window.location.href = INDEX_FILE;
                 }
+                model.isAddNewUser = false;
             }, function myError(response) {
                 console.log(response.statusText);
             });
