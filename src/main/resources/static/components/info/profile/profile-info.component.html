@@ -3,6 +3,19 @@
         <div class="container-fluid">
             <!--Write your HTML here-->
             <p class="text-info h2 text-center">Мой профиль</p>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" ng-model="model.user.name" class="form-control" id="name" required>
+            </div>
+            <div>
+                <label for="surname">Surname:</label>
+                <input type="text" ng-model="model.user.surname" class="form-control" id="surname">
+            </div>
+            <div>
+                <label for="age">Age:</label>
+                <input type="text" ng-model="model.user.age" class="form-control" id="age">
+            </div>
+            <button type="button" ng-click="model.editUser()" class="btn btn-primary p-3">Save</button>
         </div>
     </div>
 </div>

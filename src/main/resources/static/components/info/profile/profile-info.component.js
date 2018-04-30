@@ -3,18 +3,48 @@
     angular.module('profileInfoApp')
         .component('profileInfoComp', {
             templateUrl: 'components/info/profile/profile-info.component.html',
-            controller: ['$http', profileController],
+            controller: ['$http', '$cookies', profileController],
             controllerAs: 'model',
             bindings: {
                 userId: '='
             }
         });
 
-    function profileController($http) {
+     function profileController($http, $cookies) {
 
         var model = this;
+        model.user = {};
+        model.user.id = "ee031f35-b5df-4cc6-96fc-98cb4c40b5a8";
+        model.user.id = $cookies.get('id');
+        model.showUser = function(){
+            console.log("init works");
+            $http({
+                method: "GET",
+                url: USER_PATH + "/showUsers",
+                params: model.user
+            }).then(function mySuccess(response) {
+                console.log('response userInfo: ', response.data.name);
+                model.user.name = response.data.name;
+                model.user.surname = response.data.surname;
+                model.user.age = response.data.age;
+            }, function myError(response) {
+            });
+        }
 
         model.$onInit = function () {
+            model.showUser();
+        }
+
+        model.editUser = function(){
+            console.log("editUser works");
+            $http({
+                method: "POST",
+                url: USER_PATH + "/editProfile",
+                params: model.user
+            }).then(function mySuccess(response) {
+                // console.log('response userInfo: ', response.data.name);
+            }, function myError(response) {
+            });
         }
 
     }

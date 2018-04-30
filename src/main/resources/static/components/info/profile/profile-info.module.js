@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('profileInfoApp', ['ngRoute']);
+angular.module('profileInfoApp', ['ngRoute', 'ngCookies']);
