@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular.module('addFriendsApp')
-        .component('addFriendsApp', {
+        .component('addFriendsComp', {
             templateUrl: 'components/friends/add/add-friends.component.html',
             controller: ['$http', AddController],
             controllerAs: 'model',

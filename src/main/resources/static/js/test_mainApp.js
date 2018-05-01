@@ -26,6 +26,7 @@ var userId = '';
             'profileInfoApp',
             'userInfoApp',
             'newsApp',
+            'quitApp',
             'footerApp',
             'events',
             'event',
