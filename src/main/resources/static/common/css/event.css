@@ -155,16 +155,22 @@
 .main-content .event {
     width: 100%;
     position: relative;
-    background-color: #d4d2cf;
+    background-color: snow;
     border: 1px solid black;
     border-radius: 10px;
     margin: 10px 0;
     padding: 5px;
     overflow: hidden;
+    cursor: pointer;
+}
+
+.main-content .event:hover,
+.main-content .event.passed:hover {
+    background-color: rgba(246, 242, 233, 0.9);
 }
 
 .main-content .event.passed {
-    background-color: #aeaca9;
+    background-color: whitesmoke;
 }
 
 .main-content .event img {
@@ -172,7 +178,8 @@
 }
 
 .main-content .event .pub-img {
-    width: 100px; height: 100px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
 }
 
@@ -236,3 +243,52 @@
 .main-content .modal .close {
     font-size: 2rem;
 }
+
+.main-content .modal .img_wrap {
+    width: 100%;
+    height: 150px;
+    border-style: solid;
+}
+
+.main-content .modal .img_wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main-content .modal .row {
+    margin: 0;
+}
+
+.main-content .modal .event-description,
+.main-content .modal .event-time,
+.main-content .modal .event-place{
+    padding-left: 25px;
+}
+
+.main-content .modal .event-description:before,
+.main-content .modal .event-time:before,
+.main-content .modal .event-place:before {
+    display: block;
+    position: absolute;
+    content: '';
+    width: 20px;
+    height: 20px;
+    margin: 2px 0 0 -25px;
+}
+
+.main-content .modal .event-description:before {
+    background: url(../../images/events/information.svg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.main-content .modal .event-time:before {
+    background: url(../../images/events/clock.svg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.main-content .modal .event-place:before {
+    background: url(../../images/events/place.svg) no-repeat center;
+    background-size: 100% 100%;
+}
+

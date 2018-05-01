@@ -28,7 +28,7 @@ var userId = '';
             'newsApp',
             'footerApp',
             'events',
-            'event',
+            'event'
             /*
                         'posts',
                         'post',
