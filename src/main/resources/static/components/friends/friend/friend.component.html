@@ -1,0 +1,13 @@
+<div class="container-fluid bg-light alert alert-info m-0 mb-3">
+    <div class="row text-center">
+        <div class="col">
+            <div>
+                <img ng-if="!!model.friend.avatarUrl" src="{{model.friend.avatarUrl}}" class="friend-avatar" alt="ava">
+                <img ng-if="!model.friend.avatarUrl" src="images/userspictures/default-avatar.jpeg" class="friend-avatar" alt="ava">
+            </div>
+            <div>
+                {{model.friend.name}} {{model.friend.surname}}
+            </div>
+        </div>
+    </div>
+</div>

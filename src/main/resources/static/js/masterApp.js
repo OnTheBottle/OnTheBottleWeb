@@ -16,19 +16,16 @@ var userId = '';
             'ngRoute',
             'ngResource',
             'ngCookies',
-            'authApp',
             'findApp',
             'addFriendsApp',
             'linkFriendsApp',
             'viewFriendsApp',
-            'registrationApp',
             'profileInfoApp',
             'userInfoApp',
             'newsApp',
             'quitApp',
             'footerApp',
-            'eventsApp',
-            'event'
+            'eventsApp'
             /*
                         'posts',
                         'post',

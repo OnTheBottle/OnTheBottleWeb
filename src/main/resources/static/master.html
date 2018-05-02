@@ -2,24 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>On The Bottle</title>
     <!--CSS-->
-    <link rel="stylesheet" href="common/lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="common/lib/bootstrap/css/bootstrap-grid.css">
-    <link rel="stylesheet" href="common/lib/bootstrap/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="common/lib/bootstrap4/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="common/lib/bootstrap4/css/bootstrap-grid.css" type="text/css">
+    <link rel="stylesheet" href="common/lib/bootstrap4/css/bootstrap-reboot.css" type="text/css">
     <link rel="stylesheet" href="common/lib/awesome/css/font-awesome.css" type="text/css">
-    <link rel="stylesheet" href="common/css/style.css"  type="text/css">
+    <link rel="stylesheet" href="common/css/style.css" type="text/css">
     <!--scripts-->
-    <script src="common/lib/jquery/jquery-2.1.4.min.js"></script>
+    <script src="common/lib/jquery/jquery-3.3.1.min.js"></script>
     <script src="common/lib/bootstrap/js/popper_1.12.9.js"></script>
     <script src="common/lib/bootstrap/js/jquery-ui.min.js"></script>
-    <script src="common/lib/bootstrap/js/bootstrap_4.0.0.js"></script>
+    <script src="common/lib/bootstrap4/js/bootstrap.min.js"></script>
     <script src="common/lib/angularjs/angular.min.js"></script>
     <script src="common/lib/angularjs/angular-route.min.js"></script>
     <script src="common/lib/angularjs/angular-cookies.min.js"></script>
     <script src="common/lib/angularjs/angular-resource.min.js"></script>
 
-    <script src="js/test_mainApp.js"></script>
+    <script src="js/masterApp.js"></script>
+    <script src="js/masterApp.config.js"></script>
     <script src="components/header/header.component.js"></script>
     <script src="components/footer/footer.module.js"></script>
     <script src="components/footer/footer.component.js"></script>
@@ -63,66 +65,17 @@
     <script src="components/events/events.component.js"></script>
     <script src="components/events/event/event.module.js"></script>
     <script src="components/events/event/event.service.js"></script>
-
-
 </head>
+
 <body ng-app="mainApp" ng-controller="MainController as ctrl">
 
 <!--Top Menu Component-->
-<header-comp user-id="ctrl.userId"></header-comp>
+<header-comp></header-comp>
 
-<main class="container-fluid content-wrapper">
-    <div class="row m-0 mt-1 mb-1">
-<!--
-        <div class="col-3 bg-light alert alert-info m-0 mb-3">
-            <quit-comp user-id="ctrl.userId"></quit-comp>
-        </div>
--->
-        <div class="col-4 bg-light alert alert-info m-0 mb-3">
-            <add-friends-comp user-id="ctrl.userId"></add-friends-comp>
-        </div>
-        <div class="col-4 bg-light alert alert-info m-0 mb-3">
-            <find-comp user-id="ctrl.userId"></find-comp>
-        </div>
-        <div class="col-4 bg-light alert alert-info m-0 mb-3">
-            <view-friends-comp user-id="ctrl.userId"></view-friends-comp>
-        </div>
-    </div>
+<div class="view-container">
+    <div ng-view class="view-frame"></div>
+</div>
 
-    <div class="row m-0 mt-1 mb-1">
-        <div class="col-4 bg-light alert alert-info m-0 mb-3">
-            <profile-info-comp user-id="ctrl.userId"></profile-info-comp>
-        </div>
-        <div class="col-4 bg-light alert alert-info m-0 mb-3">
-            <user-info-comp user-id="ctrl.userId"></user-info-comp>
-        </div>
-        <div class="col-4 bg-light alert alert-info m-0 mb-3">
-            <link-friends-comp user-id="ctrl.userId"></link-friends-comp>
-        </div>
-    </div>
-
-    <div class="row m-0 mt-1 mb-1">
-<!--
-        <div class="col-3 bg-light alert alert-info m-0 mb-3">
-            <registration-comp user-id="ctrl.userId"></registration-comp>
-        </div>
--->
-        <div class="col-12 bg-light alert alert-info m-0 mb-3">
-            <events-comp user-id="ctrl.userId"></events-comp>
-        </div>
-    </div>
-
-    <div class="row m-0 mt-1 mb-1">
-        <div class="col-6 bg-light alert alert-info m-0 mb-3">
-            <news-comp user-id="ctrl.userId"></news-comp>
-        </div>
-        <div class="col-6 bg-light alert alert-info m-0 mb-3">
-            <posts user-id="ctrl.userId"></posts>
-        </div>
-    </div>
-
-
-</main>
 <footer class="container-fluid content-wrapper">
     <footer-comp></footer-comp>
 </footer>

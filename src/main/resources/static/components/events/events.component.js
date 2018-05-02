@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('events').component('events', {
+angular.module('eventsApp').component('eventsComp', {
     templateUrl: 'components/events/events.template.html',
     controllerAs: 'self',
     bindings: {
@@ -62,7 +62,7 @@ angular.module('events').component('events', {
         }]
 });
 
-angular.module('events').filter('cut', function () {
+angular.module('eventsApp').filter('cut', function () {
     return function (value, wordwise, max, tail) {
         if (!value) return '';
 

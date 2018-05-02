@@ -5,7 +5,7 @@ angular.module('mainApp', [
     'ngResource',
     'authApp',
     'comment',
-    'events',
+    'eventsApp',
     'event',
     'findApp',
     'addFriendsApp',

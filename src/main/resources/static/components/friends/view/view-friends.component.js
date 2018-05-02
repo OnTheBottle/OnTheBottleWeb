@@ -15,12 +15,12 @@
         var model = this;
 
         model.$onInit = function () {
-            //console.log('view $onInit friends userId:', model.userId);
+            console.log('view $onInit friends userId:', model.userId);
+            getFriendsByUserId(model.userId);
         };
 
         model.$onChanges = function () {
             console.log('view $onChanges friends userId:', model.userId);
-            getFriendsByUserId(model.userId);
         };
 
         function getFriendsByUserId(userId) {

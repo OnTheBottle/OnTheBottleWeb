@@ -34,7 +34,7 @@
                 params: model.authData
             }).then(function mySuccess(response) {
                 if (response.data.token !== null) {
-                    model.isAuthUser = true;
+                    //model.isAuthUser = true;
                     $cookies.put('access_token',response.data.token);
                     $window.location.href = INDEX_FILE;
                 } else {

@@ -1,0 +1,44 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light border-bottom">
+    <a class="navbar-brand col-1" href="#">
+        <!--OnTheBottle-->
+        <img src="images/forPages/logo03.png" width="80" height="25" alt="">
+    </a>
+    <form class="form-inline col-2">
+        <input class="form-control mr-sm-2" type="search" placeholder="Что искать..." aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+    </form>
+
+    <div class="collapse navbar-collapse col-7">
+        <ul class="navbar-nav mr-auto">
+            <!--<li class="nav-item active">-->
+            <li class="nav-item">
+                <a class="nav-link" href="#">Новости</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Стена</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">События</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Друзья</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-2">
+        <ul class="navbar-nav justify-content-end">
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">
+                    Настройки
+                </a>
+                <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                    <span class="dropdown-item"><h5>{{model.name}}</h5></span>
+                    <a class="dropdown-item" href="#">Профиль</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" ng-click="model.quit()">Выход</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

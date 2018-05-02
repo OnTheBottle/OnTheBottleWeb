@@ -95,6 +95,13 @@ body {
     border-radius: 0.25rem;
 }
 
+.friend-avatar {
+    width: 80px;
+    height: 80px;
+    border: 1px solid  #b8daff;
+    border-radius: 10rem;
+}
+
 .friend-select-all{
     border-radius: 0.5rem;
     border: 1px solid #b8daff;
