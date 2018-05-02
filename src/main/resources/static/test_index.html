@@ -11,14 +11,13 @@
     <link rel="stylesheet" href="common/css/style.css"  type="text/css">
     <!--scripts-->
     <script src="common/lib/jquery/jquery-2.1.4.min.js"></script>
+    <script src="common/lib/bootstrap/js/popper_1.12.9.js"></script>
     <script src="common/lib/bootstrap/js/jquery-ui.min.js"></script>
+    <script src="common/lib/bootstrap/js/bootstrap_4.0.0.js"></script>
     <script src="common/lib/angularjs/angular.min.js"></script>
     <script src="common/lib/angularjs/angular-route.min.js"></script>
     <script src="common/lib/angularjs/angular-cookies.min.js"></script>
-
     <script src="common/lib/angularjs/angular-resource.min.js"></script>
-    <script src="common/lib/bootstrap/js/popper_1.12.9.js"></script>
-    <script src="common/lib/bootstrap/js/bootstrap_4.0.0.js"></script>
 
     <script src="js/test_mainApp.js"></script>
     <script src="components/header/header-component.js"></script>
@@ -27,6 +26,8 @@
 
     <script src="components/auth/auth.module.js"></script>
     <script src="components/auth/auth.component.js"></script>
+    <script src="components/quit/quit.module.js"></script>
+    <script src="components/quit/quit.component.js"></script>
     <script src="components/registration/registration.module.js"></script>
     <script src="components/registration/registration.component.js"></script>
     <script src="components/friends/add/add-friends.module.js"></script>
@@ -70,18 +71,16 @@
 
 <main class="container-fluid content-wrapper">
     <div class="row m-0 mt-1 mb-1">
-<!--
         <div class="col-3 bg-light alert alert-info m-0 mb-3">
-            <auth-comp user-id="ctrl.userId"></auth-comp>
+            <quit-comp user-id="ctrl.userId"></quit-comp>
         </div>
--->
-        <div class="col-4 bg-light alert alert-info m-0 mb-3">
-            <add-friends-app user-id="ctrl.userId"></add-friends-app>
+        <div class="col-3 bg-light alert alert-info m-0 mb-3">
+            <add-friends-comp user-id="ctrl.userId"></add-friends-comp>
         </div>
-        <div class="col-4 bg-light alert alert-info m-0 mb-3">
+        <div class="col-3 bg-light alert alert-info m-0 mb-3">
             <find-comp user-id="ctrl.userId"></find-comp>
         </div>
-        <div class="col-4 bg-light alert alert-info m-0 mb-3">
+        <div class="col-3 bg-light alert alert-info m-0 mb-3">
             <view-friends-comp user-id="ctrl.userId"></view-friends-comp>
         </div>
     </div>

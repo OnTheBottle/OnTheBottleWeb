@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="common/css/event.css" type="text/css">
 
 <div class="container main-content">
-    <main>
         <div class="row">
             <div class="col-sm-2">
                 <button type="button" class="btn btn-block btn-create" data-toggle="modal" data-target="#myModal">
@@ -143,19 +142,23 @@
                                ng-model="self.options['passedEvents']" ng-change="self.event.getEvents()">
                     </label>
                 </div>
-                <div class="event passed">
-                    <img src="images/events/temp_pab.jpg" class="pub-img">
-                    <div class="title-event"><p>Вечер бухла</p></div>
-                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem corporis id
-                        itaque necessitatibus non.</p>
-                    <p class="time">18:00 - 22:00 / 20.04</p>
-                    <div class="people">
-                        <img src="images/events/user.svg">
-                        <p>10</p>
-                    </div>
-                </div>
                 <div class="event"
-                     ng-repeat="event in self.events | filter:isActive = true|orderBy:'startTime.toString()'">
+                     ng-repeat="event in self.events | filter:isActive = true|orderBy:'startTime.toString()'"
+                     ng-click="self.event.showEventInfo(event)"
+                     data-toggle="modal" data-target="#myModalEvent">
+                    <img class="pub-img" ng-src="{{event.place.avatar}}">
+                    <div class="title-event"><p>{{event.title}}</p></div>
+                    <p class="description">{{event.text | cut:true:300:' ...'}}</p>
+                    <p class="time">{{event.startTime}} - {{event.endTime}}</p>
+                    <div class="people">
+                        <img src="images/events/user.svg">
+                        <p>{{event.users.length}}</p>
+                    </div>
+                </div>
+                <div class="event passed"
+                     ng-repeat="event in self.events | filter:isActive = false|orderBy:'-endTime.toString()'"
+                     ng-click="self.event.showEventInfo(event)"
+                     data-toggle="modal" data-target="#myModalEvent">
                     <img class="pub-img" ng-src="{{event.place.avatar}}">
                     <div class="title-event"><p>{{event.title}}</p></div>
                     <p class="description">{{event.text}}</p>
@@ -165,16 +168,46 @@
                         <p>{{event.users.length}}</p>
                     </div>
                 </div>
-                <div class="event passed" ng-repeat="event in self.events | filter:isActive = false|orderBy:'-endTime.toString()'">
-                    <img class="pub-img" ng-src="{{event.place.avatar}}">
-                    <div class="title-event"><p>{{event.title}}</p></div>
-                    <p class="description">{{event.text}}</p>
-                    <p class="time">{{event.startTime}} - {{event.endTime}}</p>
-                    <div class="people">
-                        <img src="images/events/user.svg">
-                        <p>{{event.users.length}}</p>
-                    </div>
+
+                <div class="modal fade" id="myModalEvent" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
+                     aria-hidden="true">
+                    <form name="event">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="eventLongTitle">{{self.eventTitle}}</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="form-group img_wrap">
+                                        <img ng-src="{{self.eventPlaceAvatar}}" alt="horizontal">
+                                    </div>
+
+                                    <div class="form-group row" title="Описание">
+                                        <div class="event-description"><p>{{self.eventInfo}}</p></div>
+                                    </div>
+                                    <div class="form-group row" title="Дата мероприятия">
+                                        <div class="event-time"><p>{{self.eventStartTime}} — {{self.eventEndTime}}</p></div>
+                                    </div>
+                                    <div class="form-group row" title="Местоположение">
+                                        <div class="event-place"><p>{{self.eventPlaceTitle}}</p></div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+
             </div>
         </div>
     </main>
