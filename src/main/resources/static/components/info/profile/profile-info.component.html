@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="container-fluid" name='clientForm' novalidate>
+        <form class="container-fluid" name='clientForm' novalidate>
             <!--Write your HTML here-->
             <p class="text-info h2 text-center">Мой профиль</p>
             <div>
@@ -25,9 +25,9 @@
                         class="btn btn-primary p-3">Edit
                 </button>
                 <button type="button" ng-click="model.saveEditUser()" ng-disabled='clientForm.age.$invalid ||(!model.checked)'
-                        class="btn btn-primary p-3">Save
+                        ng-show="model.checked" class="btn btn-primary p-3">Save
                 </button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
