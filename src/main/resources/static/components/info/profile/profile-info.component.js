@@ -15,14 +15,13 @@
         var model = this;
         model.user = {};
         // model.user.id = "e89faed1-f000-40ec-99d7-01c40e9d4e6b";
-        model.checked = false;
-        model.user.id = model.userId;
-        console.log(model);
 
         model.$onInit = function () {
-            console.log("init works");
+            model.checked = false;
+            model.user.id = model.userId;
+            // console.log('profile-info - userId: ', model.user.id);
             $http({
-                method: "POST",
+                method: "GET",
                 url: USER_PATH + "/showUsers",
                 params: model.user
             }).then(function mySuccess(response) {

@@ -19,7 +19,7 @@
         model.$onInit = function () {
             console.log("showUser works");
             $http({
-                method: "POST",
+                method: "GET",
                 url: USER_PATH + "/showUsers",
                 params: model.requestData
             }).then(function mySuccess(response) {
