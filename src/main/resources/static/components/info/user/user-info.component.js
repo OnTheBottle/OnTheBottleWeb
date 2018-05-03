@@ -3,14 +3,14 @@
     angular.module('userInfoApp')
         .component('userInfoComp', {
             templateUrl: 'components/info/user/user-info.component.html',
-            controller: ['$http', '$cookies', InfoController],
+            controller: ['$routeParams', '$http', InfoController],
             controllerAs: 'model',
             bindings: {
                 userId: '='
             }
         });
 
-    function InfoController($http, $cookies) {
+    function InfoController($routeParams, $http) {
 
         var model = this;
         model.requestData = {};
@@ -18,8 +18,7 @@
 
         model.$onInit = function () {
             console.log("showUser works");
-            model.requestData.id = $cookies.get('infoId');
-            console.log('USER-INFO model.requestData.id: ', model.requestData.id);
+            model.requestData.id = $routeParams.id;
 
             $http({
                 method: "GET",
@@ -33,6 +32,5 @@
             }, function myError(response) {
             });
         }
-
     }
 })();

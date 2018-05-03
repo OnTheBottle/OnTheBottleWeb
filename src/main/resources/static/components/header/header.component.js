@@ -43,7 +43,6 @@
         model.quit = function () {
             model.activeMenu = '';
             $cookies.remove('access_token');
-           // $window.location.href = AUTH_HTML;
         }
     }
 })();

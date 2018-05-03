@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-init="model.iView = false">
     <div class="row">
         <div class="container-fluid">
             <!--Write your HTML here-->
@@ -9,5 +9,13 @@
             <p>Возраст: {{model.userAge}}</p>
             <!--<button type="button" ng-click="model.showUser()" class="btn btn-primary p-3">Go!</button>-->
         </div>
+    </div>
+    <div class="text-info text-center h4" ng-hide="model.iView">
+        <a href="" class="bg-light alert alert-info dropdown-item" ng-click="model.iView = true">Показать друзей</a>
+    </div>
+    <div class="text-info text-center h4" ng-hide="!model.iView">
+        <a href="" class="bg-light alert alert-info dropdown-item" ng-click="model.iView = false">Скрыть друзей</a>
+        <view-friends-comp user-id="model.requestData.id"></view-friends-comp>
+        <a href="" class="bg-light alert alert-info dropdown-item" ng-click="model.iView = false">Скрыть друзей</a>
     </div>
 </div>
