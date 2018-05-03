@@ -11,14 +11,14 @@
             }
         });
 
-    function NewsController($http) {
+    function NewsController($http, $interval) {
 
         var model = this;
         model.posts = [];
         model.friends = [];
 
         model.$onInit = function () {
-            console.log('userId: ', model.userId);
+            console.log('NewsController userId: ', model.userId);
             getNewsPosts(model.userId);
         };
 
@@ -27,12 +27,14 @@
                 method: "POST",
                 url: MESSAGE_PATH + "/news/get_friends_posts",
                 params: {id: userId}
-            }).then(function mySuccess(response) {
                 //console.log('response: ', response.data);
-                model.friends = adapterFriendArray(response.data[0]);
-                model.posts = adapterPostArray(response.data[1]);
-                console.log('response data1:\n', response.data[0]);
-                console.log('response data2:\n', response.data[1]);
+            }).then(function mySuccess(response) {
+                console.log('getNewsPosts response.data[0] friends:\n', response.data[0]);
+                console.log('getNewsPosts response.data[1] posts:\n', response.data[1]);
+                //model.friends = response.data[0];
+                model.posts = adapterPostArray(response.data[0], response.data[1]);
+                console.log('getNewsPosts response friends:\n', model.friends);
+                console.log('getNewsPosts response posts:\n', model.posts);
                 //model.friends = response.data[0];
                 //model.posts = response.data[1];
                 //console.log('response posts:\n', $scope.posts);
@@ -56,22 +58,38 @@
                 var obj = {};
                 obj.friendId = friends[x].id;
                 obj.friendName = friends[x].name + ' ' + friends[x].surname;
-                obj.friendPathAvatar = friends[x].pathAvatarImage;
+                obj.friendPathAvatar = friends[x].avatarUrl;
                 arr.push(obj);
             }
             return arr;
         }
 
-        function adapterPostArray(posts) {
+        function getFriend(friends, id) {
+            console.log('getFriend friends:', friends);
+            console.log('getFriend id:', id);
+
+            for (var i = 0; i < friends.length; i++) {
+                if (friends[i].id === id) {
+                    return friends[i];
+                }
+            }
+            return null;
+        }
+
+        function adapterPostArray(friends, posts) {
+            console.log('adapterPostArray friends:', friends);
+            console.log('adapterPostArray posts:', posts);
+
             var arr = [];
             for (var x in posts) {
-                //console.log('post: ', posts[x]);
+                var friend = getFriend(friends, posts[x].user.id);
+                console.log('adapterPostArray friend:', friend);
                 var obj = {};
-                obj.postOwnerAvatar = '';
+                obj.postOwnerAvatar = 'images/userspictures/default-avatar.jpeg';
                 obj.postId = posts[x].id;
-                obj.postOwnerId = posts[x].user.id;
-                obj.postOwner = posts[x].user.name;
-                obj.postOwnerAvatar = posts[x].user.avatarUrl;
+                obj.postOwnerId = friend.id;
+                obj.postOwner = friend.name + ' ' + friend.surname;
+                if (friend.avatarUrl) obj.postOwnerAvatar = friend.avatarUrl;
                 obj.postTitle = posts[x].title;
                 obj.postDate = posts[x].date;
                 obj.postText = posts[x].text;

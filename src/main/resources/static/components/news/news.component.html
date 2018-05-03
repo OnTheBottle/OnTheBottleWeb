@@ -7,9 +7,9 @@
         <div class="container-fluid">
             <!--Write your HTML here-->
             <p class="text-info h2 text-center">Новости друзей</p>
-            <post-comp user-id="model.userId" like-click="model.likeClick" favorite-click="model.favoriteClick"
-                       postindex=$index post="post" ng-repeat="post in model.posts">
-            </post-comp>
+            <post-news-comp user-id="model.userId" like-click="model.likeClick" favorite-click="model.favoriteClick"
+                       postindex=$index post="post" friend="" ng-repeat="post in model.posts">
+            </post-news-comp>
 
         </div>
     </div>
