@@ -28,14 +28,14 @@
                                     <div class="form-group">
                                         <label for="title" class="col-form-label">Название ивента</label>
                                         <input type="text" name="title" id="title"
-                                               class="form-control" aria-describedby="titleEvent" placeholder="Title"
+                                               class="form-control form-control-lg" aria-describedby="titleEvent" placeholder="Title"
                                                ng-model="self.title"
-                                               ng-minlength="3" ng-maxlength="20"
+                                               ng-minlength="3" ng-maxlength="40"
                                                ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
                                                required>
                                         <p class="form-text text-danger"
                                            ng-show="createEvent.title.$dirty && createEvent.title.$error.minlength || createEvent.title.$error.maxlength  && !(createEvent.title.$error.$invalid)">
-                                            В названии должно присутствовать более от 3 до 20 символов
+                                            В названии должно присутствовать более от 3 до 40 символов
                                         </p>
                                         <p class="form-text text-danger"
                                            ng-show="createEvent.title.$dirty && createEvent.title.$error.pattern">
@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <label for="description" class="col-form-label">Описание
                                             ивента</label>
-                                        <input type="text" name="description" class="form-control" id="description"
+                                        <input type="text" name="description" class="form-control form-control-lg" id="description"
                                                aria-describedby="descriptionEvent" placeholder="Description"
                                                ng-model="self.text"
                                                ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
@@ -65,7 +65,7 @@
                                     </div>
                                     <div>
                                         <label for="startTime" class="col-form-label">Время старта</label>
-                                        <input type="datetime-local" name="startTime" class="form-control"
+                                        <input type="datetime-local" name="startTime" class="form-control form-control-lg"
                                                id="startTime" ng-model="self.startTime"
                                                min="{{self.today | date:'yyyy-MM-ddTHH:mm'}}"
                                                required>
@@ -79,7 +79,7 @@
                                         </p>
                                         <label for="endTime" class="col-form-label">Время
                                             завершения</label>
-                                        <input type="datetime-local" name="endTime" class="form-control" id="endTime"
+                                        <input type="datetime-local" name="endTime" class="form-control form-control-lg" id="endTime"
                                                ng-model="self.endTime"
                                                min="{{self.startTime | date:'yyyy-MM-ddTHH:mm'}}"
                                                required>
@@ -103,10 +103,10 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" type="button" ng-click="self.event.resetEvent()">
+                                    <button class="btn btn-lg btn-secondary" type="button" ng-click="self.event.resetEvent()">
                                         Close
                                     </button>
-                                    <button class="btn btn-primary" type="submit" ng-disabled="createEvent.$invalid">
+                                    <button class="btn btn-lg btn-primary" type="submit" ng-disabled="createEvent.$invalid">
                                         Save
                                     </button>
                                 </div>
@@ -148,7 +148,7 @@
                      data-toggle="modal" data-target="#myModalEvent">
                     <img class="pub-img" ng-src="{{event.place.avatar}}">
                     <div class="title-event"><p>{{event.title}}</p></div>
-                    <p class="description">{{event.text | cut:true:300:' ...'}}</p>
+                    <p class="description">{{event.text | cut:true:350:' ...'}}</p>
                     <p class="time">{{event.startTime}} - {{event.endTime}}</p>
                     <div class="people">
                         <img src="images/events/user.svg">
@@ -161,7 +161,7 @@
                      data-toggle="modal" data-target="#myModalEvent">
                     <img class="pub-img" ng-src="{{event.place.avatar}}">
                     <div class="title-event"><p>{{event.title}}</p></div>
-                    <p class="description">{{event.text}}</p>
+                    <p class="description">{{event.text | cut:true:350:' ...'}}</p>
                     <p class="time">{{event.startTime}} - {{event.endTime}}</p>
                     <div class="people">
                         <img src="images/events/user.svg">
@@ -199,7 +199,7 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                    <button class="btn btn-lg btn-secondary" type="button" data-dismiss="modal">
                                         Close
                                     </button>
                                 </div>

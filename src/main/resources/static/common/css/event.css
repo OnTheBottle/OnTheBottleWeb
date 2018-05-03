@@ -7,7 +7,7 @@
     border: 1px solid #4c4c4c;
     margin: 1rem 0;
     padding: 0 1.2rem;
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: bold;
     height: 2.7rem;
     color: black;
@@ -33,7 +33,7 @@
     margin-bottom: 5px;
     cursor: default;
     text-transform: uppercase;
-    font-size: 0.7rem;
+    font-size: 1.4rem;
     background: #e5e5e5;
     border-radius: 5px;
 }
@@ -51,26 +51,25 @@
 .ui-datepicker-month {
     position: relative;
     color: #565656;
-    font-size: 0.8rem;
+    font-size: 1.5rem;
     padding-right: 13px;
 }
 
 .ui-datepicker-year {
     color: #565656;
-    font-size: 0.8rem;
+    font-size: 1.5rem;
     padding-left: 5px;
 }
 
 .ui-datepicker-month:before {
     display: block;
     position: absolute;
-    top: 6px;
+    top: 5px;
     right: 0;
     width: 7px;
     height: 7px;
     content: '';
-    background: #a7a3a4;
-    background: linear-gradient(top, #ebe6eb 0%, #8f8e8c 100%);
+    background: linear-gradient(to top, #8f8a8f 0%, #8f8e8c 100%);
     border-radius: 50%;
 }
 
@@ -126,7 +125,7 @@
     padding-bottom: 5px;
     text-align: center;
     font-weight: normal;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     color: #8f8e8c;
 }
 
@@ -166,11 +165,11 @@
 
 .main-content .event:hover,
 .main-content .event.passed:hover {
-    background-color: rgba(246, 242, 233, 0.9);
+    background-color: rgba(246, 244, 245, 0.1);
 }
 
 .main-content .event.passed {
-    background-color: whitesmoke;
+    background-color: #dcdcdc;
 }
 
 .main-content .event img {
@@ -192,7 +191,7 @@
 .main-content .event .title-event p {
     position: relative;
     left: -50%;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: bold;
     padding: 0;
     margin: 0;
@@ -201,7 +200,7 @@
 .main-content .event .description,
 .main-content .event .time,
 .main-content .event .people {
-    font-size: 1rem;
+    font-size: 1.2rem;
     padding: 0;
     margin: 0 10px;
 }
