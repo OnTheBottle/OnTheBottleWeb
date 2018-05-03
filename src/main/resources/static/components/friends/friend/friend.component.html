@@ -1,7 +1,7 @@
 <div class="container-fluid bg-light alert alert-info m-1 mb-3 friend-card">
     <div class="row text-center">
         <div class="col">
-            <a class="dropdown-item" href="#!/userInfo" ng-click="model.setUserInfoId(model.friend.id)">
+            <a class="dropdown-item" href="#!/userInfo{{model.friend.id}}">
                 <div>
                     <img ng-if="!!model.friend.avatarUrl" src="{{model.friend.avatarUrl}}" class="friend-avatar"
                          alt="ava">

@@ -9,7 +9,7 @@ angular.module('mainApp')
                 template: '<news-comp user-id="ctrl.userId"></news-comp>'
             }).when('/profile', {
                 template: '<profile-info-comp user-id="ctrl.userId"></profile-info-comp>'
-            }).when('/userInfo', {
+            }).when('/userInfo:id', {
                 template: '<user-info-comp user-id="ctrl.userId"></user-info-comp>'
             }).when('/friend', {
                 template: '<view-friends-comp user-id="ctrl.userId"></view-friends-comp>'
@@ -19,8 +19,10 @@ angular.module('mainApp')
                 template: '<find-comp user-id="ctrl.userId"></find-comp>'
             }).when('/wall', {
                 template: '<posts user-id="ctrl.userId"></posts>'
+/*
             }).otherwise({
                 redirectTo: '/news'
+*/
             })
         }
     ]);
