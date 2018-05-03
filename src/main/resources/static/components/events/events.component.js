@@ -44,12 +44,40 @@ angular.module('eventsApp').component('eventsComp', {
                     self.endTime = '';
                 },
                 showEventInfo: function (event) {
+                    self.eventId = event.id;
                     self.eventTitle = event.title;
                     self.eventInfo = event.text;
                     self.eventStartTime = event.startTime;
                     self.eventEndTime = event.endTime;
                     self.eventPlaceTitle = event.place.title;
                     self.eventPlaceAvatar = event.place.avatar;
+                    checkMember(event.users);
+                    self.isJoin = !(self.isMember && event.isActive) && event.isActive;
+                    self.isLeave = (self.isMember && event.isActive) && event.isActive;
+                },
+                joinEvent: function () {
+                    EventFactory.joinEvent({
+                        eventId: self.eventId,
+                        userId: self.userId
+                    }, function (data) {
+                        self.event.getEvents();
+                        self.isJoin = false;
+                        self.isLeave = true;
+                    }, function (errResponse) {
+                        console.error('Error while join Event');
+                    });
+                },
+                leaveEvent: function () {
+                    EventFactory.leaveEvent({
+                        eventId: self.eventId,
+                        userId: self.userId
+                    }, function (data) {
+                        self.event.getEvents();
+                        self.isLeave = false;
+                        self.isJoin = true;
+                    }, function (errResponse) {
+                        console.error('Error while leave Event');
+                    });
                 }
             };
 
@@ -59,6 +87,21 @@ angular.module('eventsApp').component('eventsComp', {
             }, function (errResponse) {
                 console.error('Error while read places');
             });
+
+            function checkMember(users) {
+                var BreakException = {};
+                self.isMember = false;
+                try {
+                    users.forEach(function (item) {
+                        if (item.id === self.userId) {
+                            self.isMember = true;
+                            throw BreakException;
+                        }
+                    });
+                } catch (e) {
+                    if (e !== BreakException) throw e;
+                }
+            }
         }]
 });
 
@@ -74,7 +117,7 @@ angular.module('eventsApp').filter('cut', function () {
         if (wordwise) {
             var lastspace = value.lastIndexOf(' ');
             if (lastspace !== -1) {
-                if (value.charAt(lastspace-1) === '.' || value.charAt(lastspace-1) === ',') {
+                if (value.charAt(lastspace - 1) === '.' || value.charAt(lastspace - 1) === ',') {
                     lastspace = lastspace - 1;
                 }
                 value = value.substr(0, lastspace);

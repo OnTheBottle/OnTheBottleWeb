@@ -16,6 +16,14 @@ angular.module('event').factory('EventFactory', ['$resource',
             createEvent: {
                 params: {path: 'createEvent'},
                 method: "POST"
+            },
+            joinEvent: {
+                params: {path: 'joinEvent'},
+                method: "POST"
+            },
+            leaveEvent: {
+                params: {path: 'leaveEvent'},
+                method: "POST"
             }
         });
     }

@@ -1,5 +1,4 @@
 .main-content {
-    margin-top: 2rem;
     border-radius: 5px;
 }
 
@@ -291,3 +290,15 @@
     background-size: 100% 100%;
 }
 
+.animate-show-hide.ng-hide {
+    opacity: 0;
+}
+
+.animate-show-hide.ng-hide-add {
+    transition: all linear 0.5s;
+}
+
+.animate-show-hide.ng-hide-remove {
+    transition: all linear 0.5s;
+    transition-delay: 0.7s;
+}

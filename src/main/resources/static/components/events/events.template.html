@@ -1,221 +1,229 @@
 <link rel="stylesheet" href="common/css/event.css" type="text/css">
-<div class="row text-center">
-    <div class="container-fluid">
-        <p class="text-info h2 text-center">События</p>
-    </div>
-</div>
 
 <div class="container main-content">
+    <div class="row">
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-block btn-create" data-toggle="modal" data-target="#myModal">
+                Создать ивент
+            </button>
 
-        <div class="row">
-            <div class="col-sm-2">
-                <button type="button" class="btn btn-block btn-create" data-toggle="modal" data-target="#myModal">
-                    Создать ивент
-                </button>
+            <div>{{$ctrl.userId}}</div>
+            <div id="calendar"></div>
 
-                <div>{{$ctrl.userId}}</div>
-                <div id="calendar"></div>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
+                 aria-hidden="true">
+                <form name="createEvent" ng-submit="self.event.createEvent()">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
 
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
-                     aria-hidden="true">
-                    <form name="createEvent" ng-submit="self.event.createEvent()">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="createEventLongTitle">Где бухаем?</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        ng-click="self.event.resetEvent()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
 
-                                <div class="modal-header">
-                                    <h3 class="modal-title" id="createEventLongTitle">Где бухаем?</h3>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                            ng-click="self.event.resetEvent()">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="title" class="col-form-label">Название ивента</label>
+                                    <input type="text" name="title" id="title"
+                                           class="form-control form-control-lg" aria-describedby="titleEvent"
+                                           placeholder="Title"
+                                           ng-model="self.title"
+                                           ng-minlength="3" ng-maxlength="40"
+                                           ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
+                                           required>
+                                    <p class="form-text text-danger"
+                                       ng-show="createEvent.title.$dirty && createEvent.title.$error.minlength || createEvent.title.$error.maxlength  && !(createEvent.title.$error.$invalid)">
+                                        В названии должно присутствовать более от 3 до 40 символов
+                                    </p>
+                                    <p class="form-text text-danger"
+                                       ng-show="createEvent.title.$dirty && createEvent.title.$error.pattern">
+                                        Присутствуют недопустимые символы
+                                    </p>
+                                    <p class="form-text text-danger"
+                                       ng-show="createEvent.title.$touched && createEvent.title.$invalid && !(createEvent.title.$error.pattern) && !(createEvent.title.$error.minlength)">
+                                        Поле должно быть заполненным
+                                    </p>
                                 </div>
-
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="title" class="col-form-label">Название ивента</label>
-                                        <input type="text" name="title" id="title"
-                                               class="form-control form-control-lg" aria-describedby="titleEvent" placeholder="Title"
-                                               ng-model="self.title"
-                                               ng-minlength="3" ng-maxlength="40"
-                                               ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
-                                               required>
-                                        <p class="form-text text-danger"
-                                           ng-show="createEvent.title.$dirty && createEvent.title.$error.minlength || createEvent.title.$error.maxlength  && !(createEvent.title.$error.$invalid)">
-                                            В названии должно присутствовать более от 3 до 40 символов
-                                        </p>
-                                        <p class="form-text text-danger"
-                                           ng-show="createEvent.title.$dirty && createEvent.title.$error.pattern">
-                                            Присутствуют недопустимые символы
-                                        </p>
-                                        <p class="form-text text-danger"
-                                           ng-show="createEvent.title.$touched && createEvent.title.$invalid && !(createEvent.title.$error.pattern) && !(createEvent.title.$error.minlength)">
-                                            Поле должно быть заполненным
-                                        </p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="description" class="col-form-label">Описание
-                                            ивента</label>
-                                        <input type="text" name="description" class="form-control form-control-lg" id="description"
-                                               aria-describedby="descriptionEvent" placeholder="Description"
-                                               ng-model="self.text"
-                                               ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
-                                               required>
-                                        <p class="form-text text-danger"
-                                           ng-show="createEvent.description.$dirty && createEvent.description.$error.pattern">
-                                            Присутствуют недопустимые символы
-                                        </p>
-                                        <p class="form-text text-danger"
-                                           ng-show="createEvent.description.$touched && createEvent.description.$invalid">
-                                            Поле должно быть заполненным
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <label for="startTime" class="col-form-label">Время старта</label>
-                                        <input type="datetime-local" name="startTime" class="form-control form-control-lg"
-                                               id="startTime" ng-model="self.startTime"
-                                               min="{{self.today | date:'yyyy-MM-ddTHH:mm'}}"
-                                               required>
-                                        <p class="form-text text-danger"
-                                           ng-show="createEvent.startTime.$touched && createEvent.startTime.$invalid && !(createEvent.startTime.$error.min)">
-                                            Поле должно быть заполненным
-                                        </p>
-                                        <p class="form-text text-danger"
-                                           ng-show="createEvent.startTime.$touched && createEvent.startTime.$error.min">
-                                            Дата начала ивента не может быть раньше текущей даты и времени
-                                        </p>
-                                        <label for="endTime" class="col-form-label">Время
-                                            завершения</label>
-                                        <input type="datetime-local" name="endTime" class="form-control form-control-lg" id="endTime"
-                                               ng-model="self.endTime"
-                                               min="{{self.startTime | date:'yyyy-MM-ddTHH:mm'}}"
-                                               required>
-                                        <p class="form-text text-danger"
-                                           ng-show="createEvent.endTime.$touched && createEvent.endTime.$invalid  && !(createEvent.endTime.$error.min)">
-                                            Поле должно быть заполненным
-                                        </p>
-                                        <p class="form-text text-danger"
-                                           ng-show="createEvent.endTime.$touched && createEvent.endTime.$error.min">
-                                            Дата завершения ивента не может быть раньше даты начала ивента
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <label for="places" class="col-form-label col-form-label-lg">Выбирете
-                                            место</label>
-                                        <select class="form-control form-control-lg custom-select" id="places"
-                                                ng-options="place.id as place.title for place in self.places"
-                                                ng-model="self.place" required>
-                                        </select>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="description" class="col-form-label">Описание
+                                        ивента</label>
+                                    <input type="text" name="description" class="form-control form-control-lg"
+                                           id="description"
+                                           aria-describedby="descriptionEvent" placeholder="Description"
+                                           ng-model="self.text"
+                                           ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
+                                           required>
+                                    <p class="form-text text-danger"
+                                       ng-show="createEvent.description.$dirty && createEvent.description.$error.pattern">
+                                        Присутствуют недопустимые символы
+                                    </p>
+                                    <p class="form-text text-danger"
+                                       ng-show="createEvent.description.$touched && createEvent.description.$invalid">
+                                        Поле должно быть заполненным
+                                    </p>
                                 </div>
-
-                                <div class="modal-footer">
-                                    <button class="btn btn-lg btn-secondary" type="button" ng-click="self.event.resetEvent()">
-                                        Close
-                                    </button>
-                                    <button class="btn btn-lg btn-primary" type="submit" ng-disabled="createEvent.$invalid">
-                                        Save
-                                    </button>
+                                <div>
+                                    <label for="startTime" class="col-form-label">Время старта</label>
+                                    <input type="datetime-local" name="startTime" class="form-control form-control-lg"
+                                           id="startTime" ng-model="self.startTime"
+                                           min="{{self.today | date:'yyyy-MM-ddTHH:mm'}}"
+                                           required>
+                                    <p class="form-text text-danger"
+                                       ng-show="createEvent.startTime.$touched && createEvent.startTime.$invalid && !(createEvent.startTime.$error.min)">
+                                        Поле должно быть заполненным
+                                    </p>
+                                    <p class="form-text text-danger"
+                                       ng-show="createEvent.startTime.$touched && createEvent.startTime.$error.min">
+                                        Дата начала ивента не может быть раньше текущей даты и времени
+                                    </p>
+                                    <label for="endTime" class="col-form-label">Время
+                                        завершения</label>
+                                    <input type="datetime-local" name="endTime" class="form-control form-control-lg"
+                                           id="endTime"
+                                           ng-model="self.endTime"
+                                           min="{{self.startTime | date:'yyyy-MM-ddTHH:mm'}}"
+                                           required>
+                                    <p class="form-text text-danger"
+                                       ng-show="createEvent.endTime.$touched && createEvent.endTime.$invalid  && !(createEvent.endTime.$error.min)">
+                                        Поле должно быть заполненным
+                                    </p>
+                                    <p class="form-text text-danger"
+                                       ng-show="createEvent.endTime.$touched && createEvent.endTime.$error.min">
+                                        Дата завершения ивента не может быть раньше даты начала ивента
+                                    </p>
+                                </div>
+                                <div>
+                                    <label for="places" class="col-form-label col-form-label-lg">Выбирете
+                                        место</label>
+                                    <select class="form-control form-control-lg custom-select" id="places"
+                                            ng-options="place.id as place.title for place in self.places"
+                                            ng-model="self.place" required>
+                                    </select>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
 
-            <div class="col-sm-10">
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label mr-4" for="allEvents">
-                        Все ивенты
-                        <input class="form-check-input" type="radio" name="filterEvents" id="allEvents"
-                               ng-model="self.options['allEvents']" value='true' ng-change="self.event.getEvents()">
-                    </label>
-
-                    <label class="form-check-label mr-4" for="myEvents">
-                        Мои ивенты
-                        <input class="form-check-input" type="radio" name="filterEvents" id="myEvents"
-                               ng-model="self.options['allEvents']" value='false' ng-change="self.event.getEvents()">
-                    </label>
-
-                    <label class="form-check-label mr-4" for="activeEvents">
-                        Активные ивенты
-                        <input class="form-check-input" type="checkbox" id="activeEvents"
-                               ng-model="self.options['activeEvents']" ng-change="self.event.getEvents()">
-                    </label>
-
-                    <label class="form-check-label mr-4" for="passedEvents">
-                        Пройденные ивенты
-                        <input class="form-check-input" type="checkbox" id="passedEvents"
-                               ng-model="self.options['passedEvents']" ng-change="self.event.getEvents()">
-                    </label>
-                </div>
-                <div class="event"
-                     ng-repeat="event in self.events | filter:isActive = true|orderBy:'startTime.toString()'"
-                     ng-click="self.event.showEventInfo(event)"
-                     data-toggle="modal" data-target="#myModalEvent">
-                    <img class="pub-img" ng-src="{{event.place.avatar}}">
-                    <div class="title-event"><p>{{event.title}}</p></div>
-                    <p class="description">{{event.text | cut:true:350:' ...'}}</p>
-                    <p class="time">{{event.startTime}} - {{event.endTime}}</p>
-                    <div class="people">
-                        <img src="images/events/user.svg">
-                        <p>{{event.users.length}}</p>
-                    </div>
-                </div>
-                <div class="event passed"
-                     ng-repeat="event in self.events | filter:isActive = false|orderBy:'-endTime.toString()'"
-                     ng-click="self.event.showEventInfo(event)"
-                     data-toggle="modal" data-target="#myModalEvent">
-                    <img class="pub-img" ng-src="{{event.place.avatar}}">
-                    <div class="title-event"><p>{{event.title}}</p></div>
-                    <p class="description">{{event.text | cut:true:350:' ...'}}</p>
-                    <p class="time">{{event.startTime}} - {{event.endTime}}</p>
-                    <div class="people">
-                        <img src="images/events/user.svg">
-                        <p>{{event.users.length}}</p>
-                    </div>
-                </div>
-
-                <div class="modal fade" id="myModalEvent" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
-                     aria-hidden="true">
-                    <form name="event">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-
-                                <div class="modal-header">
-                                    <h3 class="modal-title" id="eventLongTitle">{{self.eventTitle}}</h3>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="form-group img_wrap">
-                                        <img ng-src="{{self.eventPlaceAvatar}}" alt="horizontal">
-                                    </div>
-
-                                    <div class="form-group row" title="Описание">
-                                        <div class="event-description"><p>{{self.eventInfo}}</p></div>
-                                    </div>
-                                    <div class="form-group row" title="Дата мероприятия">
-                                        <div class="event-time"><p>{{self.eventStartTime}} — {{self.eventEndTime}}</p></div>
-                                    </div>
-                                    <div class="form-group row" title="Местоположение">
-                                        <div class="event-place"><p>{{self.eventPlaceTitle}}</p></div>
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button class="btn btn-lg btn-secondary" type="button" data-dismiss="modal">
-                                        Close
-                                    </button>
-                                </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-lg btn-secondary" type="button"
+                                        ng-click="self.event.resetEvent()">
+                                    Close
+                                </button>
+                                <button class="btn btn-lg btn-primary" type="submit" ng-disabled="createEvent.$invalid">
+                                    Save
+                                </button>
                             </div>
                         </div>
-                    </form>
-                </div>
-
+                    </div>
+                </form>
             </div>
         </div>
+
+        <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+                <label class="form-check-label mr-4" for="allEvents">
+                    Все ивенты
+                    <input class="form-check-input" type="radio" name="filterEvents" id="allEvents"
+                           ng-model="self.options['allEvents']" value='true' ng-change="self.event.getEvents()">
+                </label>
+
+                <label class="form-check-label mr-4" for="myEvents">
+                    Мои ивенты
+                    <input class="form-check-input" type="radio" name="filterEvents" id="myEvents"
+                           ng-model="self.options['allEvents']" value='false' ng-change="self.event.getEvents()">
+                </label>
+
+                <label class="form-check-label mr-4" for="activeEvents">
+                    Активные ивенты
+                    <input class="form-check-input" type="checkbox" id="activeEvents"
+                           ng-model="self.options['activeEvents']" ng-change="self.event.getEvents()">
+                </label>
+
+                <label class="form-check-label mr-4" for="passedEvents">
+                    Пройденные ивенты
+                    <input class="form-check-input" type="checkbox" id="passedEvents"
+                           ng-model="self.options['passedEvents']" ng-change="self.event.getEvents()">
+                </label>
+            </div>
+            <div class="event"
+                 ng-repeat="event in self.events | filter:isActive = true|orderBy:'startTime.toString()'"
+                 ng-click="self.event.showEventInfo(event)"
+                 data-toggle="modal" data-target="#myModalEvent">
+                <img class="pub-img" ng-src="{{event.place.avatar}}">
+                <div class="title-event"><p>{{event.title}}</p></div>
+                <p class="description">{{event.text | cut:true:350:' ...'}}</p>
+                <p class="time">{{event.startTime}} - {{event.endTime}}</p>
+                <div class="people">
+                    <img src="images/events/user.svg">
+                    <p>{{event.users.length}}</p>
+                </div>
+            </div>
+            <div class="event passed"
+                 ng-repeat="event in self.events | filter:isActive = false|orderBy:'-endTime.toString()'"
+                 ng-click="self.event.showEventInfo(event)"
+                 data-toggle="modal" data-target="#myModalEvent">
+                <img class="pub-img" ng-src="{{event.place.avatar}}">
+                <div class="title-event"><p>{{event.title}}</p></div>
+                <p class="description">{{event.text | cut:true:350:' ...'}}</p>
+                <p class="time">{{event.startTime}} - {{event.endTime}}</p>
+                <div class="people">
+                    <img src="images/events/user.svg">
+                    <p>{{event.users.length}}</p>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModalEvent" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
+                 aria-hidden="true">
+                <form name="event">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="eventLongTitle">{{self.eventTitle}}</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="form-group img_wrap">
+                                    <img ng-src="{{self.eventPlaceAvatar}}" alt="horizontal">
+                                </div>
+
+                                <div class="form-group row" title="Описание">
+                                    <div class="event-description"><p>{{self.eventInfo}}</p></div>
+                                </div>
+                                <div class="form-group row" title="Дата мероприятия">
+                                    <div class="event-time"><p>{{self.eventStartTime}} — {{self.eventEndTime}}</p></div>
+                                </div>
+                                <div class="form-group row" title="Местоположение">
+                                    <div class="event-place"><p>{{self.eventPlaceTitle}}</p></div>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-lg btn-success animate-show-hide" type="button"
+                                            ng-show="self.isJoin" ng-click="self.event.joinEvent()">
+                                        Присоединится
+                                    </button>
+                                    <button class="btn btn-lg btn-danger animate-show-hide" type="button"
+                                            ng-show="self.isLeave"
+                                            ng-click="self.event.leaveEvent()">
+                                        Покинуть
+                                        <!--TODO обработать ситуация когда покидает ивент создатель (закрывать ивент)-->
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-lg btn-secondary" type="button" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     </main>
 </div>
 <script>

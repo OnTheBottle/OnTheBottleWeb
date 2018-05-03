@@ -16,6 +16,7 @@ const AUTH_HTML = 'auth.html';
             'ngRoute',
             'ngResource',
             'ngCookies',
+            'ngAnimate',
             'findApp',
             'addFriendsApp',
             'linkFriendsApp',
