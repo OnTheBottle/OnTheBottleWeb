@@ -10,18 +10,26 @@
 
     <div class="collapse navbar-collapse col-7">
         <ul class="navbar-nav mr-auto">
-            <!--<li class="nav-item active">-->
-            <li class="nav-item">
-                <a class="nav-link" href="#">Новости</a>
+            <li class="nav-item" ng-class="(model.activeMenu === 'news') ? 'active h2' : ''">
+                <a class="nav-link" href="#!/news" ng-click="model.checkActive('news')">Новости</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Стена</a>
+            <li class="nav-item" ng-class="(model.activeMenu === 'wall') ? 'active h2' : ''">
+                <a class="nav-link" href="#!/wall" ng-click="model.checkActive('wall')">Стена</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">События</a>
+            <li class="nav-item" ng-class="(model.activeMenu === 'event') ? 'active h2' : ''">
+                <a class="nav-link" href="#!/event" ng-click="model.checkActive('event')">События</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Друзья</a>
+            <li class="nav-item" ng-class="(model.activeMenu === 'friend') ? 'active h2' : ''">
+                <a class="nav-link" href="#!/friend" ng-click="model.checkActive('friend')">Друзья</a>
+            </li>
+            <li class="nav-item" ng-class="(model.activeMenu === 'find') ? 'active h2' : ''">
+                <a class="nav-link" href="#!/find" ng-click="model.checkActive('find')">Поиск</a>
+            </li>
+            <li class="nav-item" ng-class="(model.activeMenu === 'profile') ? 'active h2' : ''">
+                <a class="nav-link" href="#!/profile" ng-click="model.checkActive('profile')">profile-info</a>
+            </li>
+            <li class="nav-item" ng-class="(model.activeMenu === 'userInfo') ? 'active h2' : ''">
+                <a class="nav-link" href="#!/userInfo" ng-click="model.checkActive('userInfo')">user-info</a>
             </li>
         </ul>
     </div>
@@ -33,10 +41,15 @@
                     Настройки
                 </a>
                 <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-                    <span class="dropdown-item"><h5>{{model.name}}</h5></span>
-                    <a class="dropdown-item" href="#">Профиль</a>
+                    <a class="dropdown-item h5" href="#!/profile" ng-click="model.getProfile()">
+                        <div>
+                            <img ng-if="!!model.avatar" src="{{model.avatar}}" class="friend-avatar" alt="ava">
+                            <img ng-if="!model.avatar" src="images/userspictures/default-avatar.jpeg" class="friend-avatar" alt="ava">
+                        </div>
+                        <div class="h5 mt-1">{{model.name}}</div>
+                    </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" ng-click="model.quit()">Выход</a>
+                    <a class="dropdown-item h5" href="auth.html" ng-click="model.quit()">Выход</a>
                 </div>
             </li>
         </ul>

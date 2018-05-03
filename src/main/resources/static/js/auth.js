@@ -1,7 +1,8 @@
 'use strict';
 
 const USER_PATH = 'http://127.0.0.1:8081';
-const INDEX_FILE = 'test_index.html';
+//const INDEX_FILE = 'test_index.html';
+const INDEX_FILE = 'master.html';
 
 var userId = '';
 var token = '';

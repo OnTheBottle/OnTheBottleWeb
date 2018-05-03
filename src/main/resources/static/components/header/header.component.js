@@ -14,6 +14,7 @@
 
         var model = this;
         model.name = '';
+        model.activeMenu = 'news';
 
         model.$onInit = function () {
             model.getUser();
@@ -26,14 +27,23 @@
                 params: {'userId': model.userId}
             }).then(function mySuccess(response) {
                 model.name = response.data.name + ' ' + response.data.surname;
+                model.avatar = response.data.avatarUrl;
             }, function myError(response) {
                 console.log('error get_by_id: ', response.statusText);
             });
         }
 
+        model.checkActive = function (x) {
+            model.activeMenu = x;
+        };
+
+        model.getProfile = function () {
+            model.activeMenu = '';
+        }
         model.quit = function () {
+            model.activeMenu = '';
             $cookies.remove('access_token');
-            $window.location.href = AUTH_HTML;
+           // $window.location.href = AUTH_HTML;
         }
     }
 })();
