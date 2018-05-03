@@ -95,6 +95,9 @@ body {
     border-radius: 0.25rem;
 }
 
+.friend-card {
+    width: 200px;
+}
 .friend-avatar {
     width: 80px;
     height: 80px;

@@ -19,10 +19,12 @@
             getFriendsByUserId(model.userId);
         };
 
+/*
         model.$onChanges = function () {
             console.log('view $onChanges friends userId:', model.userId);
         };
 
+*/
         function getFriendsByUserId(userId) {
             $http({
                 method: "POST",

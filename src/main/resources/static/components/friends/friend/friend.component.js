@@ -3,19 +3,22 @@
     angular.module('friendApp')
         .component('friendComp', {
             templateUrl: 'components/friends/friend/friend.component.html',
-            controller: ['$http', FriendController],
+            controller: ['$http', '$cookies', FriendController],
             controllerAs: 'model',
             bindings: {
-                friend: '='
+                friend: '=',
             }
         });
 
-    function FriendController($http) {
+    function FriendController($http, $cookies) {
 
         var model = this;
 
         model.$onInit = function () {
         }
 
+        model.setUserInfoId = function (id) {
+            $cookies.put('infoId', id);
+        }
     }
 })();

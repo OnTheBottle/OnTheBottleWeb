@@ -6,7 +6,7 @@ const MESSAGE_PATH = 'http://127.0.0.1:8083';
 const AUTH_HTML = 'auth.html';
 
 
-var userId = '';
+//var userId = '';
 
 (function () {
     'use strict';
@@ -19,6 +19,7 @@ var userId = '';
             'findApp',
             'addFriendsApp',
             'linkFriendsApp',
+            'friendApp',
             'viewFriendsApp',
             'profileInfoApp',
             'userInfoApp',
@@ -37,6 +38,9 @@ var userId = '';
         .controller('MainController', mainController);
 
     function mainController($cookies, $window, $http) {
+
+        this.userId = '';
+        this.userInfoId = '';
 
         var tokenJwt = $cookies.get('access_token');
         console.log('access_token: ', tokenJwt);
@@ -61,8 +65,8 @@ var userId = '';
 
         var token = parseJwt(tokenJwt);
         console.log('access_token array: ', token);
-        userId = token.userId;
-        this.userId = userId;
+        //userId = token.userId;
+        this.userId = token.userId;
 
         function parseJwt(tokenJwt) {
             var base64Url = tokenJwt.split('.')[1];

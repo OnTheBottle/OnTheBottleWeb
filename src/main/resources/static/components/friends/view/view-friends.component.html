@@ -1,16 +1,18 @@
-            <div class="container-fluid">
-                <div class="row text-center">
-                    <div class="container-fluid">
-                    <p class="text-info h2 text-center">Мои друзья</p>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-1">
-                    </div>
-                    <div class="col-10">
-                        <friend-comp friend="friend" ng-repeat="friend in model.friends"></friend-comp>
-                    </div>
-                    <div class="col-1">
-                    </div>
-                </div>
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="container-fluid">
+            <p class="text-info h2 text-center">Мои друзья</p>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-1">
+        </div>
+        <div class="col-10">
+            <div class="row justify-content-center">
+                <friend-comp friend="friend" ng-repeat="friend in model.friends"></friend-comp>
             </div>
+        </div>
+        <div class="col-1">
+        </div>
+    </div>
+</div>
