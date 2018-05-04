@@ -4,13 +4,13 @@
         <img src="images/forPages/logo03.png" width="80" height="25" alt="">
     </a>
     <!--<form action="#!/find{{model.whatToFind}}" class="form-inline col-2">-->
-        <input ng-model="model.whatToFind" class="form-control mr-sm-2" type="search" placeholder="Что искать..."
-               aria-label="Search">
-        <a href="#!/find{{model.whatToFind}}">
-            <button class="btn btn-outline-success my-2 my-sm-0" ng-click="model.checkActive('find')" type="submit">
-                Найти
-            </button>
-        </a>
+    <input ng-model="model.whatToFind" class="form-control mr-sm-2" type="search" placeholder="Что искать..."
+           aria-label="Search">
+    <a href="#!/find{{model.whatToFind}}">
+        <button class="btn btn-outline-success my-2 my-sm-0" ng-click="model.checkActive('find')" type="submit">
+            Найти
+        </button>
+    </a>
     <!--</form>-->
 
     <div class="collapse navbar-collapse col-7" ng-init="model.activeMenu =''">
@@ -27,17 +27,17 @@
             <li class="nav-item" ng-class="(model.activeMenu === 'friend') ? 'active h2' : ''">
                 <a class="nav-link" href="#!/friend" ng-click="model.checkActive('friend')">Друзья</a>
             </li>
+<!--
             <li class="nav-item" ng-class="(model.activeMenu === 'find') ? 'active h2' : ''">
                 <a class="nav-link" href="#!/find" ng-click="model.checkActive('find')">Поиск</a>
             </li>
-            <!--
-                        <li class="nav-item" ng-class="(model.activeMenu === 'profile') ? 'active h2' : ''">
-                            <a class="nav-link" href="#!/profile" ng-click="model.checkActive('profile')">profile-info</a>
-                        </li>
-                        <li class="nav-item" ng-class="(model.activeMenu === 'userInfo') ? 'active h2' : ''">
-                            <a class="nav-link" href="#!/userInfo" ng-click="model.checkActive('userInfo')">user-info</a>
-                        </li>
-            -->
+            <li class="nav-item" ng-class="(model.activeMenu === 'profile') ? 'active h2' : ''">
+                <a class="nav-link" href="#!/profile" ng-click="model.checkActive('profile')">profile-info</a>
+            </li>
+            <li class="nav-item" ng-class="(model.activeMenu === 'userInfo') ? 'active h2' : ''">
+                <a class="nav-link" href="#!/userInfo" ng-click="model.checkActive('userInfo')">user-info</a>
+            </li>
+-->
         </ul>
     </div>
     <div class="col-2">
