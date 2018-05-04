@@ -87,12 +87,10 @@ body {
 }
 
 .post-avatar {
-    min-width: 50px;
-    min-height: 50px;
-    max-width: 50px;
-    max-height: 50px;
+    width: 60px;
+    height: 60px;
     border: 1px solid  #b8daff;
-    border-radius: 0.25rem;
+    border-radius: 1.0rem;
 }
 
 .friend-card {

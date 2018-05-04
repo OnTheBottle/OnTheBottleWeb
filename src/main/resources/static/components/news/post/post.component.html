@@ -11,17 +11,21 @@ text out: <input ng-model="model.userId" type="text" name="firstname" value="Mic
     <div class="row m-0">
         <div class="col-1 p-0 text-center align-self-center mt-2 mb-2">
             <div>
-                <img id="ownerAvatar" src="{{model.post.postOwnerAvatar}}" class="post-avatar" alt="ava">
+                <a class="dropdown-item" href="#!/userInfo{{model.post.postOwnerId}}">
+                    <img id="ownerAvatar" src="{{model.post.postOwnerAvatar}}" class="post-avatar" alt="ava">
+                </a>
             </div>
             <div>
-                <a id="ownerPage" href=""><i class="fa fa-id-card-o"></i></a>
+                <a id="ownerMessage" href=""><i class="fa fa-envelope-o mt-4"></i></a>
             </div>
-            <div>
-                <a id="ownerMessage" href=""><i class="fa fa-envelope-o"></i></a>
-            </div>
-            <div>
-                <a id="ownerStatistic" href=""><i class="fa fa-bar-chart-o"></i></a>
-            </div>
+            <!--
+                        <div>
+                            <a id="ownerPage" href=""><i class="fa fa-id-card-o"></i></a>
+                        </div>
+                        <div>
+                            <a id="ownerStatistic" href=""><i class="fa fa-bar-chart-o"></i></a>
+                        </div>
+            -->
         </div>
 
         <div class="col-11 p-0">

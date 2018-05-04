@@ -15,14 +15,14 @@ angular.module('mainApp')
                 template: '<view-friends-comp user-id="ctrl.userId"></view-friends-comp>'
             }).when('/event', {
                 template: '<events-comp user-id="ctrl.userId"></events-comp>'
+            }).when('/find', {
+                template: '<find-comp user-id="ctrl.userId"></find-comp>'
             }).when('/find:whatToFind', {
                 template: '<find-comp user-id="ctrl.userId"></find-comp>'
             }).when('/wall', {
                 template: '<posts user-id="ctrl.userId"></posts>'
-/*
             }).otherwise({
                 redirectTo: '/news'
-*/
             })
         }
     ]);

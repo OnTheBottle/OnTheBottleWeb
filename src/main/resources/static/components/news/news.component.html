@@ -7,10 +7,11 @@
         <div class="container-fluid">
             <!--Write your HTML here-->
             <p class="text-info h2 text-center">Новости друзей</p>
+            <p class="text-info h2 pt-3 text-center" ng-if="model.posts.length < 1">Новостей пока нет :(</p>
+
             <post-news-comp user-id="model.userId" like-click="model.likeClick" favorite-click="model.favoriteClick"
                        postindex=$index post="post" friend="" ng-repeat="post in model.posts">
             </post-news-comp>
-
         </div>
     </div>
 </div>
