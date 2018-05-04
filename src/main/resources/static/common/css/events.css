@@ -33,7 +33,7 @@
     cursor: default;
     text-transform: uppercase;
     font-size: 1.4rem;
-    background: #e5e5e5;
+    background: snow;
     border-radius: 5px;
 }
 
@@ -162,13 +162,8 @@
     cursor: pointer;
 }
 
-.main-content .event:hover,
-.main-content .event.passed:hover {
+.main-content .event:hover {
     background-color: rgba(246, 244, 245, 0.1);
-}
-
-.main-content .event.passed {
-    background-color: #dcdcdc;
 }
 
 .main-content .event img {

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="common/css/event.css" type="text/css">
+<link rel="stylesheet" href="common/css/events.css" type="text/css">
 
 <div class="container main-content">
     <div class="row">
@@ -6,20 +6,18 @@
             <button type="button" class="btn btn-block btn-create" data-toggle="modal" data-target="#myModal">
                 Создать ивент
             </button>
-
-            <div>{{$ctrl.userId}}</div>
             <div id="calendar"></div>
 
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
                  aria-hidden="true">
-                <form name="createEvent" ng-submit="self.event.createEvent()">
+                <form name="createEvent" id="createEvent" ng-submit="self.util.createEvent()">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
 
                             <div class="modal-header">
                                 <h3 class="modal-title" id="createEventLongTitle">Где бухаем?</h3>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                        ng-click="self.event.resetEvent()">
+                                        ng-click="self.util.resetEvent()">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -107,7 +105,7 @@
 
                             <div class="modal-footer">
                                 <button class="btn btn-lg btn-secondary" type="button"
-                                        ng-click="self.event.resetEvent()">
+                                        ng-click="self.util.resetEvent()">
                                     Close
                                 </button>
                                 <button class="btn btn-lg btn-primary" type="submit" ng-disabled="createEvent.$invalid">
@@ -125,53 +123,31 @@
                 <label class="form-check-label mr-4" for="allEvents">
                     Все ивенты
                     <input class="form-check-input" type="radio" name="filterEvents" id="allEvents"
-                           ng-model="self.options['allEvents']" value='true' ng-change="self.event.getEvents()">
+                           ng-model="self.options['allEvents']" value='true' ng-change="self.util.getEvents()">
                 </label>
 
                 <label class="form-check-label mr-4" for="myEvents">
                     Мои ивенты
                     <input class="form-check-input" type="radio" name="filterEvents" id="myEvents"
-                           ng-model="self.options['allEvents']" value='false' ng-change="self.event.getEvents()">
+                           ng-model="self.options['allEvents']" value='false' ng-change="self.util.getEvents()">
                 </label>
 
                 <label class="form-check-label mr-4" for="activeEvents">
                     Активные ивенты
                     <input class="form-check-input" type="checkbox" id="activeEvents"
-                           ng-model="self.options['activeEvents']" ng-change="self.event.getEvents()">
+                           ng-model="self.options['activeEvents']" ng-change="self.util.getEvents()">
                 </label>
 
                 <label class="form-check-label mr-4" for="passedEvents">
                     Пройденные ивенты
                     <input class="form-check-input" type="checkbox" id="passedEvents"
-                           ng-model="self.options['passedEvents']" ng-change="self.event.getEvents()">
+                           ng-model="self.options['passedEvents']" ng-change="self.util.getEvents()">
                 </label>
             </div>
-            <div class="event"
-                 ng-repeat="event in self.events | filter:isActive = true|orderBy:'startTime.toString()'"
-                 ng-click="self.event.showEventInfo(event)"
-                 data-toggle="modal" data-target="#myModalEvent">
-                <img class="pub-img" ng-src="{{event.place.avatar}}">
-                <div class="title-event"><p>{{event.title}}</p></div>
-                <p class="description">{{event.text | cut:true:350:' ...'}}</p>
-                <p class="time">{{event.startTime}} - {{event.endTime}}</p>
-                <div class="people">
-                    <img src="images/events/user.svg">
-                    <p>{{event.users.length}}</p>
-                </div>
-            </div>
-            <div class="event passed"
-                 ng-repeat="event in self.events | filter:isActive = false|orderBy:'-endTime.toString()'"
-                 ng-click="self.event.showEventInfo(event)"
-                 data-toggle="modal" data-target="#myModalEvent">
-                <img class="pub-img" ng-src="{{event.place.avatar}}">
-                <div class="title-event"><p>{{event.title}}</p></div>
-                <p class="description">{{event.text | cut:true:350:' ...'}}</p>
-                <p class="time">{{event.startTime}} - {{event.endTime}}</p>
-                <div class="people">
-                    <img src="images/events/user.svg">
-                    <p>{{event.users.length}}</p>
-                </div>
-            </div>
+
+            <event-comp user-id="self.userId" event="event" set-event-info="self.setEventInfo"
+                        ng-repeat="event in self.events | orderBy:'startTime.toString()'">
+            </event-comp>
 
             <div class="modal fade" id="myModalEvent" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
                  aria-hidden="true">
@@ -180,7 +156,7 @@
                         <div class="modal-content">
 
                             <div class="modal-header">
-                                <h3 class="modal-title" id="eventLongTitle">{{self.eventTitle}}</h3>
+                                <h3 class="modal-title" id="eventLongTitle">{{self.eventInfo.title}}</h3>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -188,26 +164,27 @@
 
                             <div class="modal-body">
                                 <div class="form-group img_wrap">
-                                    <img ng-src="{{self.eventPlaceAvatar}}" alt="horizontal">
+                                    <img ng-src="{{self.eventInfo.place.avatar}}" alt="horizontal">
                                 </div>
 
                                 <div class="form-group row" title="Описание">
-                                    <div class="event-description"><p>{{self.eventInfo}}</p></div>
+                                    <div class="event-description"><p>{{self.eventInfo.text}}</p></div>
                                 </div>
                                 <div class="form-group row" title="Дата мероприятия">
-                                    <div class="event-time"><p>{{self.eventStartTime}} — {{self.eventEndTime}}</p></div>
+                                    <div class="event-time"><p>{{self.eventInfo.startTime}} — {{self.eventInfo.endTime}}</p></div>
                                 </div>
                                 <div class="form-group row" title="Местоположение">
-                                    <div class="event-place"><p>{{self.eventPlaceTitle}}</p></div>
+                                    <div class="event-place"><p>{{self.eventInfo.place.title}}</p></div>
                                 </div>
                                 <div class="btn-group">
                                     <button class="btn btn-lg btn-success animate-show-hide" type="button"
-                                            ng-show="self.isJoin" ng-click="self.event.joinEvent()">
+                                            ng-show="self.eventInfo.isJoin"
+                                            ng-click="self.util.joinEvent()">
                                         Присоединится
                                     </button>
                                     <button class="btn btn-lg btn-danger animate-show-hide" type="button"
-                                            ng-show="self.isLeave"
-                                            ng-click="self.event.leaveEvent()">
+                                            ng-show="self.eventInfo.isLeave"
+                                            ng-click="self.util.leaveEvent()">
                                         Покинуть
                                         <!--TODO обработать ситуация когда покидает ивент создатель (закрывать ивент)-->
                                     </button>

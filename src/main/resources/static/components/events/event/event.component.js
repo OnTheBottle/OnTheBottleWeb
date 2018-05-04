@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('event',['ngRoute','ngResource']);/*.component('eventComp', {
+angular.module('event').component('eventComp', {
     templateUrl: 'components/events/event/event.template.html',
     controllerAs: 'self',
     bindings: {
@@ -57,4 +57,5 @@ angular.module('event').filter('cut', function () {
 
         return value + (tail || ' …');
     };
-});*/
+});
+
