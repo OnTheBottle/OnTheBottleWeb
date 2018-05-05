@@ -28,6 +28,11 @@
                 model.user.name = response.data.name;
                 model.user.surname = response.data.surname;
                 model.user.age = response.data.age;
+                model.user.email = response.data.email;
+                model.user.country = response.data.country;
+                model.user.city = response.data.city;
+                model.user.avatarUrl = response.data.avatarUrl;
+                model.user.status = response.data.status;
             }, function myError(response) {
             });
         };

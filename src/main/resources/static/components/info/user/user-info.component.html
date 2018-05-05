@@ -4,12 +4,31 @@
             <!--Write your HTML here-->
             <p class="text-info h2 text-center">Информация о пользователе</p>
 
-            <p>Имя: {{model.userName}}</p>
-            <p>Фамилия: {{model.userSurname}}</p>
-            <p>Возраст: {{model.userAge}}</p>
-            <!--<button type="button" ng-click="model.showUser()" class="btn btn-primary p-3">Go!</button>-->
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{model.user.avatarUrl}}" class="img-fluid" alt="face">
+                </div>
+                <div class="col-md-6">
+                    <div class="shadow p-5 m-1 bg-white">
+                        <p class=" h1 text-center">{{model.user.name}} {{model.user.surname}}</p>
+                    </div>
+                    <div class="shadow p-5 m-1 bg-white">
+                        <p class="text-center text-primary">{{model.user.status}}</p>
+                    </div>
+                    <div class="shadow p-5 m-1 bg-white">
+                        <div>
+                            <p class="text-center">{{model.user.age}} years old</p>
+                        </div>
+                        <div>
+                            <p class="text-center">{{model.user.city}}, {{model.user.country}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+
     <div class="text-info text-center h4" ng-hide="model.iView">
         <a href="" class="bg-light alert alert-info dropdown-item" ng-click="model.iView = true">Показать друзей</a>
     </div>
