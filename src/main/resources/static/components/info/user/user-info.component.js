@@ -15,6 +15,7 @@
         var model = this;
         model.requestData = {};
         model.requestData.id = '';
+        model.user = {};
 
         model.$onInit = function () {
             console.log("showUser works");
@@ -25,10 +26,15 @@
                 url: USER_PATH + "/showUsers",
                 params: model.requestData
             }).then(function mySuccess(response) {
-                console.log('response userInfo: ', response.data.name);
-                model.userName = response.data.name;
-                model.userSurname = response.data.surname;
-                model.userAge = response.data.age;
+                // console.log('response userInfo: ', response.data.name);
+                model.user.name = response.data.name;
+                model.user.surname = response.data.surname;
+                model.user.age = response.data.age;
+                model.user.email = response.data.email;
+                model.user.country = response.data.country;
+                model.user.city = response.data.city;
+                model.user.avatarUrl = response.data.avatarUrl;
+                model.user.status = response.data.status;
             }, function myError(response) {
             });
         }
