@@ -83,7 +83,7 @@
                     return false;
                 }(model.userId);
 
-                obj.favorites = posts[x].favorites;
+                obj.favorites = posts[x].favoriteUsers;
                 obj.isFavorite = function () {
                     if (obj.favorites.length > 0) return true;
                     return false;

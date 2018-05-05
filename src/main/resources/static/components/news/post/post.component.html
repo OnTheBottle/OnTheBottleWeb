@@ -40,10 +40,10 @@ text out: <input ng-model="model.userId" type="text" name="firstname" value="Mic
                 </div>
                 <div class="row bg-light alert alert-info p-1 mb-0 text-left">
                     <div class="col-3">
-                        <a href="">Comments: {{model.post.commentCount}} <i class="fa fa-comments-o"></i></a>
+                        <a href="">Комментарии: {{model.post.commentCount}} <i class="fa fa-comments-o"></i></a>
                     </div>
                     <div ng-click="changeLike($ctrl)" class="col-3">
-                        <a href="">Likes: <span class="postLike">{{model.post.likeCount}}</span>
+                        <a href="">Лайки: <span class="postLike">{{model.post.likeCount}}</span>
                             <i ng-if="model.post.isLike" class="fa fa-thumbs-up"></i>
                             <i ng-if="!model.post.isLike" class="fa fa-thumbs-o-up"></i>
                         </a>
@@ -51,9 +51,9 @@ text out: <input ng-model="model.userId" type="text" name="firstname" value="Mic
                     <div ng-click="model.changeFavorite()" class="col-3">
                         <!--postFavorite fa fa-star-->
                         <!--postFavorite fa fa-star-o-->
-                        <a ng-if="model.post.isFavorite" href="">My Favorite <i
+                        <a ng-if="model.post.isFavorite" href="">Избранное <i
                                 class="postFavorite fa fa-star"></i></a>
-                        <a ng-if="!model.post.isFavorite" href="">My Favorite <i
+                        <a ng-if="!model.post.isFavorite" href="">Избранное <i
                                 class="postFavorite fa fa-star-o"></i></a>
                     </div>
                 </div>
