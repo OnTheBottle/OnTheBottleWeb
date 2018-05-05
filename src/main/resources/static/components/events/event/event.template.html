@@ -4,7 +4,7 @@
     <img class="pub-img" ng-src="{{self.event.place.avatar}}">
     <div class="title-event"><p>{{self.event.title}}</p></div>
     <p class="description">{{self.event.text | cut:true:350:' ...'}}</p>
-    <p class="time">{{self.event.startTime}} - {{self.event.endTime}}</p>
+    <p class="time">Событие состоится {{self.event.startTime | date:'dd MMM yyyy'}} в {{self.event.startTime | date:'HH:mm'}}</p>
     <div class="people">
         <img src="images/events/user.svg">
         <p>{{self.event.users.length}}</p>

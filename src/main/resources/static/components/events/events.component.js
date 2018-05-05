@@ -15,7 +15,14 @@ angular.module('eventsApp').component('eventsComp', {
 
             self.util = {
                 getEvents: function () {
-                    self.events = EventFactory.getEvents({userId: self.userId, options: self.options});
+                     EventFactory.getEvents(
+                        {userId: self.userId, options: self.options},
+                        function (data) {
+                            self.formatDate(data);
+                            self.events = data;
+                        }, function (errResponse) {
+                            console.error('Error while read events');
+                        });
                 },
                 createEvent: function () {
                     angular.element('#myModal').modal('hide');
@@ -91,5 +98,12 @@ angular.module('eventsApp').component('eventsComp', {
             }, function (errResponse) {
                 console.error('Error while read places');
             });
+
+            self.formatDate = function (events) {
+                events.forEach(function (item) {
+                    item.startTime = new Date(item.startTime.replace(' ', 'T') + "Z");
+                    item.endTime = new Date(item.endTime.replace(' ', 'T') + "Z");
+                });
+            }
         }]
 });

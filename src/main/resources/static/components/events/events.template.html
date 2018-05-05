@@ -171,7 +171,7 @@
                                     <div class="event-description"><p>{{self.eventInfo.text}}</p></div>
                                 </div>
                                 <div class="form-group row" title="Дата мероприятия">
-                                    <div class="event-time"><p>{{self.eventInfo.startTime}} — {{self.eventInfo.endTime}}</p></div>
+                                    <div class="event-time"><p>{{self.eventInfo.startTime | date:'dd MMMM yyyy'}} в {{self.eventInfo.startTime | date:'HH:mm'}} — {{self.eventInfo.endTime | date:'dd MMM yyyy'}} в {{self.eventInfo.endTime | date:'HH:mm'}}</p></div>
                                 </div>
                                 <div class="form-group row" title="Местоположение">
                                     <div class="event-place"><p>{{self.eventInfo.place.title}}</p></div>
@@ -207,7 +207,7 @@
                                     <input type="text" name="title" id="titleUpdate"
                                            class="form-control form-control-lg" aria-describedby="titleEvent"
                                            placeholder="Title"
-                                           ng-model="self.title"
+                                           ng-model="self.eventInfo.title"
                                            ng-minlength="3" ng-maxlength="40"
                                            ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
                                            required>
@@ -230,7 +230,7 @@
                                     <input type="text" name="description" class="form-control form-control-lg"
                                            id="descriptionUpdate"
                                            aria-describedby="descriptionEvent" placeholder="Description"
-                                           ng-model="self.text"
+                                           ng-model="self.eventInfo.text"
                                            ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
                                            required>
                                     <p class="form-text text-danger"
@@ -245,7 +245,7 @@
                                 <div>
                                     <label for="startTimeUpdate" class="col-form-label">Время старта</label>
                                     <input type="datetime-local" name="startTime" class="form-control form-control-lg"
-                                           id="startTimeUpdate" ng-model="self.startTime"
+                                           id="startTimeUpdate" ng-model="self.eventInfo.startTime"
                                            min="{{self.today | date:'yyyy-MM-ddTHH:mm'}}"
                                            required>
                                     <p class="form-text text-danger"
@@ -260,7 +260,7 @@
                                         завершения</label>
                                     <input type="datetime-local" name="endTime" class="form-control form-control-lg"
                                            id="endTimeUpdate"
-                                           ng-model="self.endTime"
+                                           ng-model="self.eventInfo.endTime"
                                            min="{{self.startTime | date:'yyyy-MM-ddTHH:mm'}}"
                                            required>
                                     <p class="form-text text-danger"
@@ -277,7 +277,7 @@
                                         место</label>
                                     <select class="form-control form-control-lg custom-select" id="placesUpdate"
                                             ng-options="place.id as place.title for place in self.places"
-                                            ng-model="self.place" required>
+                                            ng-model="self.eventInfo.place.id" required>
                                     </select>
                                 </div>
                             </div>
