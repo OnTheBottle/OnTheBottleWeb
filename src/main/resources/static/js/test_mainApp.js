@@ -32,7 +32,7 @@ var userId = '';
             /*
                         'posts',
                         'post',
-                        'security',
+                        'securityPost',
                         'start',
                         'userOk'
             */

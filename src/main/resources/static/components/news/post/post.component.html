@@ -11,8 +11,8 @@ text out: <input ng-model="model.userId" type="text" name="firstname" value="Mic
     <div class="row m-0">
         <div class="col-1 p-0 text-center align-self-center mt-2 mb-2">
             <div>
-                <a class="dropdown-item" href="#!/userInfo{{model.post.postOwnerId}}">
-                    <img id="ownerAvatar" src="{{model.post.postOwnerAvatar}}" class="post-avatar" alt="ava">
+                <a class="dropdown-item" href="#!/userInfo{{model.post.ownerId}}">
+                    <img src="{{model.post.ownerAvatar}}" class="post-avatar" alt="ava">
                 </a>
             </div>
             <div>
@@ -31,29 +31,29 @@ text out: <input ng-model="model.userId" type="text" name="firstname" value="Mic
         <div class="col-11 p-0">
             <div class="container">
                 <div class="row bg-light alert alert-info p-1 mb-0 text-left">
-                    <div class="postOwner col-3 text-left">{{model.post.postOwner}}</div>
-                    <div class="postTopic col-6 text-left">{{model.post.postTitle}}</div>
-                    <div class="postDate col-3 text-right">{{model.post.postDate| date:'HH:mm MM/dd/yyyy'}}</div>
+                    <div class="postOwner col-3 text-left">{{model.post.ownerName}}</div>
+                    <div class="postTopic col-6 text-left">{{model.post.title}}</div>
+                    <div class="postDate col-3 text-right">{{model.post.date| date:'HH:mm MM/dd/yyyy'}}</div>
                 </div>
                 <div class="row post-body align-items-center m-0 p-0 ">
-                    <div class="postText col text-left ">{{model.post.postText}}</div>
+                    <div class="postText col text-left ">{{model.post.text}}</div>
                 </div>
                 <div class="row bg-light alert alert-info p-1 mb-0 text-left">
                     <div class="col-3">
-                        <a href="">Comments: {{model.post.postCommentCount}} <i class="fa fa-comments-o"></i></a>
+                        <a href="">Comments: {{model.post.commentCount}} <i class="fa fa-comments-o"></i></a>
                     </div>
-                    <div ng-click="changePostLike($ctrl)" class="col-3">
-                        <a href="">Likes: <span class="postLike">{{model.post.postLikeCount}}</span>
-                            <i ng-if="model.post.isPostLike" class="fa fa-thumbs-up"></i>
-                            <i ng-if="!model.post.isPostLike" class="fa fa-thumbs-o-up"></i>
+                    <div ng-click="changeLike($ctrl)" class="col-3">
+                        <a href="">Likes: <span class="postLike">{{model.post.likeCount}}</span>
+                            <i ng-if="model.post.isLike" class="fa fa-thumbs-up"></i>
+                            <i ng-if="!model.post.isLike" class="fa fa-thumbs-o-up"></i>
                         </a>
                     </div>
-                    <div ng-click="changePostFavorite(model.post.postId, model.post.isPostFavorite)" class="col-3">
+                    <div ng-click="model.changeFavorite()" class="col-3">
                         <!--postFavorite fa fa-star-->
                         <!--postFavorite fa fa-star-o-->
-                        <a ng-if="model.post.isPostFavorite" href="">My Favorite <i
+                        <a ng-if="model.post.isFavorite" href="">My Favorite <i
                                 class="postFavorite fa fa-star"></i></a>
-                        <a ng-if="!model.post.isPostFavorite" href="">My Favorite <i
+                        <a ng-if="!model.post.isFavorite" href="">My Favorite <i
                                 class="postFavorite fa fa-star-o"></i></a>
                     </div>
                 </div>

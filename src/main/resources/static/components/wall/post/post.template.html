@@ -13,7 +13,7 @@
                     <p ng-bind="$ctrl.post.title"></p>
                 </div>
                 <p class="text-muted time" style="font-size:0.7rem">{{$ctrl.post.date}}&nbsp &nbsp<i
-                        class="fas fa-eye" title="vision"></i>&nbsp: &nbsp {{$ctrl.post.security.description}}</p>
+                        class="fas fa-eye" title="vision"></i>&nbsp: &nbsp {{$ctrl.post.securityPost.description}}</p>
 
             </div>
             <div class="menu col-md-2">
@@ -50,11 +50,11 @@
         <div class="row">
             <div class="col-md-4 text-center dropdown">
                 <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"
-                        title="Add like..."><i
+                        title="Add likePost..."><i
                         class="fas fa-thumbs-up fa-lg"></i> Like
                 </button>
                 <div class="dropdown-menu row">
-                    <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.like($ctrl.post.id)">
+                    <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.likePost($ctrl.post.id)">
                         <i class="far fa-thumbs-up"></i>Like
                     </a>
                     <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.dislike($ctrl.post.id)">
@@ -84,7 +84,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <button type="button" class="likeButton btn"
-                            title=""><img src="images/forPages/like.png"/>{{$ctrl.post.likes.length}}
+                            title=""><img src="images/forPages/likePost.png"/>{{$ctrl.post.likePosts.length}}
                     </button>
                 </div>
                 <div class="col-md-8">

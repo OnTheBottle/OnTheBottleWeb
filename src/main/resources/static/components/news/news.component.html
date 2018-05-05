@@ -1,6 +1,6 @@
 <!--<p>News Component: {{model.userId}}</p>-->
 <!--<p>{{model.posts}}</p>-->
-<!--<post-comp user-id="model.userId" posts="model.posts" like-click="model.likeClick" favorite-click="model.favoriteClick"></post-comp>-->
+<!--<post-comp user-id="model.userId" posts="model.posts" likePost-click="model.likeClick" favorite-click="model.favoriteClick"></post-comp>-->
 
 <div class="container-fluid">
     <div class="row">
@@ -9,7 +9,7 @@
             <p class="text-info h2 text-center">Новости друзей</p>
             <p class="text-info h2 pt-3 text-center" ng-if="model.posts.length < 1">Новостей пока нет :(</p>
 
-            <post-news-comp user-id="model.userId" like-click="model.likeClick" favorite-click="model.favoriteClick"
+            <post-news-comp user-id="model.userId" likePost-click="model.likeClick" favorite-click="model.favoriteClick"
                        postindex=$index post="post" friend="" ng-repeat="post in model.posts">
             </post-news-comp>
         </div>

@@ -12,7 +12,7 @@
                     <p>{{post.title}} </p>
                 </div>
                 <p class="text-muted time" style="font-size:0.7rem">{{post.date}}; <i
-                        class="fas fa-eye" title="vision"></i> :{{post.security.description}}</p>
+                        class="fas fa-eye" title="vision"></i> :{{post.securityPost.description}}</p>
 
             </div>
             <div class="menu col-md-2">
@@ -49,11 +49,11 @@
         <div class="row">
             <div class="col-md-4 text-center dropdown">
                 <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"
-                        title="Add like..."><i
+                        title="Add likePost..."><i
                         class="fas fa-thumbs-up fa-lg"></i> Like
                 </button>
                 <div class="dropdown-menu row">
-                    <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.like({{post.id}})">
+                    <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.likePost({{post.id}})">
                         <i class="far fa-thumbs-up" ></i>Like
                     </a>
                     <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.dislike({{post.id}})">
@@ -82,7 +82,7 @@
         <div class="border-bottom ">
 
             <button type="button" class="likeButton btn"
-                    title="{{post.likes}}"><img src="images/forPages/like.png"/>{{post.likes.length}}
+                    title="{{post.likePosts}}"><img src="images/forPages/likePost.png"/>{{post.likePosts.length}}
             </button>
 
         </div>

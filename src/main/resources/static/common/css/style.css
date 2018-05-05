@@ -89,6 +89,8 @@ body {
 .post-avatar {
     width: 60px;
     height: 60px;
+    min-width: 60px;
+    min-height: 60px;
     border: 1px solid  #b8daff;
     border-radius: 1.0rem;
 }

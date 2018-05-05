@@ -51,7 +51,7 @@ app.controller('postCtrl', function ($scope, $http, $interval) {
             obj.postText = posts[x].post;
             obj.postComments = posts[x].comments;
             obj.postCommentCount = obj.postComments.length;
-            obj.postLikes = posts[x].likes;
+            obj.postLikes = posts[x].likePosts;
             obj.postLikeCount = obj.postLikes.length;
             obj.isPostLike = function (id) {
                 if (obj.postLikeCount > 0) {
@@ -120,7 +120,7 @@ app.controller('postCtrl', function ($scope, $http, $interval) {
         console.log('SEND to Server userid: ', userId, ' postid: ', postId);
         $http({
             method: "POST",
-            url: NEWS_PATH + "/like/change",
+            url: NEWS_PATH + "/likePost/change",
             params: {
                 userId: userId,
                 postId: postId,
