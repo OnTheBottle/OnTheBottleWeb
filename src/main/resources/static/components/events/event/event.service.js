@@ -24,6 +24,10 @@ angular.module('event').factory('EventFactory', ['$resource',
             leaveEvent: {
                 params: {path: 'leaveEvent'},
                 method: "POST"
+            },
+            updateEvent: {
+                params: {path: 'updateEvent'},
+                method: "POST"
             }
         });
     }

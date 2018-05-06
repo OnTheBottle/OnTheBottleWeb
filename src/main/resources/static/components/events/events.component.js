@@ -11,7 +11,6 @@ angular.module('eventsApp').component('eventsComp', {
             var self = this;
             self.options = {allEvents: 'true', activeEvents: true, passedEvents: false};
             self.today = new Date();
-            self.isUpdate = false;
 
             self.util = {
                 getEvents: function () {
@@ -50,6 +49,7 @@ angular.module('eventsApp').component('eventsComp', {
                     self.endTime = '';
                 },
                 resetEventUpdate: function () {
+                    angular.element('#myModalEvent').modal('hide');
                     self.isUpdate = false;
                     $scope.eventInfoForm.$setUntouched();
                     $scope.eventInfoForm.$setPristine();
@@ -83,11 +83,24 @@ angular.module('eventsApp').component('eventsComp', {
                     });
                 },
                 updateEvent: function () {
-
+                    self.isUpdate = false;
+                    EventFactory.updateEvent({
+                        id: self.eventInfo.id,
+                        title: self.eventInfo.title,
+                        text: self.eventInfo.text,
+                        startTime: self.eventInfo.startTime,
+                        endTime: self.eventInfo.endTime,
+                        place: self.eventInfo.place.id
+                    }, function (data) {
+                        self.util.getEvents();
+                    }, function (errResponse) {
+                        console.error('Error while update Event');
+                    });
                 }
             };
 
             self.setEventInfo = function (event) {
+                self.isUpdate = false;
                 self.eventInfo = event;
                 self.isOwner = self.userId === self.eventInfo.owner.id;
             };

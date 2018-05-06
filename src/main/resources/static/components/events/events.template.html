@@ -48,12 +48,12 @@
                                 <div class="form-group">
                                     <label for="description" class="col-form-label">Описание
                                         ивента</label>
-                                    <input type="text" name="description" class="form-control form-control-lg"
+                                    <textarea type="text" name="description" class="form-control form-control-lg"
                                            id="description"
                                            aria-describedby="descriptionEvent" placeholder="Description"
                                            ng-model="self.text"
                                            ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
-                                           required>
+                                              rows="5" required></textarea>
                                     <p class="form-text text-danger"
                                        ng-show="createEventForm.description.$dirty && createEventForm.description.$error.pattern">
                                         Присутствуют недопустимые символы
@@ -108,7 +108,7 @@
                                         ng-click="self.util.resetEvent()">
                                     Закрыть
                                 </button>
-                                <button class="btn btn-lg btn-primary" type="submit" ng-disabled="createEvent.$invalid">
+                                <button class="btn btn-lg btn-primary" type="submit" ng-disabled="createEventForm.$invalid">
                                     Создать
                                 </button>
                             </div>
@@ -151,7 +151,7 @@
 
             <div class="modal fade" id="myModalEvent" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
                  aria-hidden="true">
-                <form name="eventInfoForm" id="eventInfoForm">
+                <form name="eventInfoForm" id="eventInfoForm" ng-submit="self.util.updateEvent()">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
 
@@ -200,7 +200,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--TODO обработать ситуация когда покидает ивент создатель (закрывать ивент)-->
                             <div class="modal-body" ng-show="self.isUpdate">
                                 <div class="form-group">
                                     <label for="titleUpdate" class="col-form-label">Название ивента</label>
@@ -227,12 +226,12 @@
                                 <div class="form-group">
                                     <label for="descriptionUpdate" class="col-form-label">Описание
                                         ивента</label>
-                                    <input type="text" name="description" class="form-control form-control-lg"
+                                    <textarea type="text" name="description" class="form-control form-control-lg"
                                            id="descriptionUpdate"
                                            aria-describedby="descriptionEvent" placeholder="Description"
                                            ng-model="self.eventInfo.text"
                                            ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
-                                           required>
+                                              rows="5" required></textarea>
                                     <p class="form-text text-danger"
                                        ng-show="eventInfoForm.description.$dirty && eventInfoForm.description.$error.pattern">
                                         Присутствуют недопустимые символы
@@ -289,7 +288,7 @@
                                         ng-show="self.isUpdate" ng-click="self.util.resetEventUpdate()">
                                     Отменить
                                 </button>
-                                <button class="btn btn-lg btn-success" type="submit" data-dismiss="modal"
+                                <button class="btn btn-lg btn-success" type="submit"
                                         ng-show="self.isUpdate">
                                     Сохранить
                                 </button>
