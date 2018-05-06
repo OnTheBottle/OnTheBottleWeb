@@ -42,7 +42,7 @@ text out: <input ng-model="model.userId" type="text" name="firstname" value="Mic
                     <div class="col-3">
                         <a href="">Комментарии: {{model.post.commentCount}} <i class="fa fa-comments-o"></i></a>
                     </div>
-                    <div ng-click="changeLike($ctrl)" class="col-3">
+                    <div ng-click="model.changeLike()" class="col-3">
                         <a href="">Лайки: <span class="postLike">{{model.post.likeCount}}</span>
                             <i ng-if="model.post.isLike" class="fa fa-thumbs-up"></i>
                             <i ng-if="!model.post.isLike" class="fa fa-thumbs-o-up"></i>

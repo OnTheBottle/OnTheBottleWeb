@@ -38,14 +38,6 @@
             });
         }
 
-        this.likeClick = function () {
-            console.log('likeClick I click like!');
-        }
-
-        this.favoriteClick = function () {
-            console.log('favoriteClick I click favorite');
-        }
-
         function getFriendById(friends, id) {
             for (var i = 0; i < friends.length; i++) {
                 if (friends[i].id === id) {
@@ -72,16 +64,16 @@
                 obj.comments = posts[x].comments;
                 obj.commentCount = obj.comments.length;
 
-                obj.likes = posts[x].likes;
+                obj.likes = posts[x].likeUsers;
                 obj.likeCount = obj.likes.length;
-                obj.isLike = function (id) {
-                    if (obj.likeCount > 0) {
+                obj.isLike = function () {
+                    if (obj.likes.length > 0) {
                         for (var x in obj.likes) {
-                            if (obj.likes[x].userId === id) return true;
+                            if (obj.likes[x].id === model.userId) return true;
                         }
                     }
                     return false;
-                }(model.userId);
+                }();
 
                 obj.favorites = posts[x].favoriteUsers;
                 obj.isFavorite = function () {

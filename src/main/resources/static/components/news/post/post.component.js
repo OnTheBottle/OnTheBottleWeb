@@ -7,8 +7,6 @@
             controllerAs: 'model',
             bindings: {
                 userId: '=',
-                likeClick: '<',
-                favoriteClick: '<',
                 post: '='
             }
         });
@@ -17,24 +15,40 @@
         var model = this;
 
         model.$onInit = function () {
-        }
+        };
 
         model.changeFavorite = function () {
-            //var userId = model.post.id;
-            //console.log('userid: ', userId, ' postid: ', postId, ' isFavorite: ', isFavorite);
             $http({
                 method: "POST",
                 url: MESSAGE_PATH + "/news/favorite/change",
                 params: {
-                    userId: model.post.ownerId,
-                    postId: model.post.id,
-                    //isFavorite: model.post.isFavorite
+                    userId: model.userId,
+                    postId: model.post.id
                 }
             }).then(function mySuccess(response) {
-                console.log('PostController changeFavorite: ', response.data);
                 model.post.isFavorite = response.data;
             }, function myError(response) {
-                alert(response.statusText, ' Sorry, I am tired');
+                console.log(response.statusText, 'changeFavorite: Sorry, I am tired');
+            });
+        };
+
+        model.changeLike = function () {
+            $http({
+                method: "POST",
+                url: MESSAGE_PATH + "/news/like/change",
+                params: {
+                    userId: model.userId,
+                    postId: model.post.id
+                }
+            }).then(function mySuccess(response) {
+                model.post.isLike = response.data;
+                if (response.data) {
+                    model.post.likeCount++;
+                }else{
+                    model.post.likeCount--;
+                }
+            }, function myError(response) {
+                console.log(response.statusText, 'changeLike: Sorry, I am tired');
             });
         }
     }
