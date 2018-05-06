@@ -1,19 +1,22 @@
-<div class="card post">
+<div class="card post" ng-init="$ctrl.getUser($ctrl.post.user.id)">
     <div class="card-header container-fluid" style="background-color: white">
         <div class="header row">
             <div class="image col-md-3">
-                <img class="avatar rounded-circle" ng-src="{{$ctrl.post.user.avatarUrl}}"
+                <img class="avatar rounded-circle" ng-src="{{$ctrl.user.avatarUrl}}"
                      alt="user profile image">
             </div>
             <div class="meta col-md-7 ">
+                <div ng-show="userId">
+                    <input type="text" ng-model="$ctrl.userId" value="{{$ctrl.post.user.id}}"/>
+                </div>
                 <div class="title h6">
                     <p>
                         <a class="post-user-name" href="#" style="">
-                            {{$ctrl.post.user.name}}&nbsp {{$ctrl.post.user.surname}}</a></p>
+                            {{$ctrl.user.name}}&nbsp {{$ctrl.user.surname}}</a></p>
                     <p ng-bind="$ctrl.post.title"></p>
                 </div>
                 <p class="text-muted time" style="font-size:0.7rem">{{$ctrl.post.date}}&nbsp &nbsp<i
-                        class="fas fa-eye" title="vision"></i>&nbsp: &nbsp {{$ctrl.post.securityPost.description}}</p>
+                        class="fas fa-eye" title="vision"></i>&nbsp: &nbsp {{$ctrl.post.security.description}}</p>
 
             </div>
             <div class="menu col-md-2">
@@ -53,8 +56,8 @@
                         title="Add likePost..."><i
                         class="fas fa-thumbs-up fa-lg"></i> Like
                 </button>
-                <div class="dropdown-menu row">
-                    <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.likePost($ctrl.post.id)">
+                <div class="dropdown-menu ">
+                    <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.like($ctrl.post.id)">
                         <i class="far fa-thumbs-up"></i>Like
                     </a>
                     <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.dislike($ctrl.post.id)">
@@ -84,7 +87,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <button type="button" class="likeButton btn"
-                            title=""><img src="images/forPages/likePost.png"/>{{$ctrl.post.likePosts.length}}
+                            title=""><img src="images/forPages/like.png"/>{{$ctrl.post.likes.length}}
                     </button>
                 </div>
                 <div class="col-md-8">
@@ -93,8 +96,8 @@
             </div>
         </div>
 
-        <div class="comments list" ng-repeat="comment in $ctrl.post.comments|orderBy:$ctrl.orderProp">
-            <comment comment="comment"></comment>
+        <div class="comments list" >
+            <comment comment="comment" userId="comment.user.id" ng-repeat="comment in $ctrl.post.comments"></comment>
         </div>
 
 
@@ -106,5 +109,4 @@
         <p class="key">Press ..Enter.. to commit...</p>
 
     </form>
-</div>
 </div>

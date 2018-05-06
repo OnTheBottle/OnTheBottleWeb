@@ -1,12 +1,28 @@
 'use strict';
 
-angular.module('post').component('post', {
-    templateUrl: 'components/post/post.template.html',
-    controller: ['$routeParams', 'LikeFactory', 'PostFactory', 'CommentFactory',
-        function PostController($routeParams, LikeFactory, PostFactory, CommentFactory) {
+angular.module('post').
+    component('post', {
+    templateUrl: 'components/wall/post/post.template.html',
+    controller: ['$routeParams', 'LikeFactory', 'PostFactory', 'CommentFactory', 'UserFactory', 'idStorage',
+        function PostController($routeParams, LikeFactory, PostFactory, CommentFactory, UserFactory, idStorage) {
             var self = this;
+            self.userid = idStorage.getId();
+            self.user={name:'',surname:'',avatarUrl:''};
             self.commenting = '';
-            self.comment = {id: null, user_id: $routeParams.userId, post_id: null, comment: ''};
+            self.comment = {id: null, user_id: self.userid, post_id: null, comment: ''};
+
+            self.getUser=function (id) {
+                console.log('userId',id);
+                UserFactory.getUsr({userId: id},function (data) {
+                    self.user.name = data.name;
+                    self.user.surname=data.surname;
+                    self.user.avatarUrl=data.avatarUrl;
+                    },
+                    function (errResponce) {
+                        console.error('Error while get User');
+
+                });
+            };
 
             self.update = function () {
                 this.getPosts()
@@ -21,7 +37,6 @@ angular.module('post').component('post', {
                 })
             };
 
-
             this.keyPressed = function (keyEvent, post_id) {
                 if (keyEvent.keyCode === 13) {
                     console.log('comm', self.commenting);
@@ -35,7 +50,7 @@ angular.module('post').component('post', {
                 } else {
                     console.log('Created comment', post_id);
                     CommentFactory.createComment({
-                        user_id: $routeParams.userId,
+                        user_id: self.userid,
                         post_id: post_id,
                         comment: comment
                     }, function (data) {
@@ -54,55 +69,46 @@ angular.module('post').component('post', {
             }
 
             this.like = function (id) {
-                LikeFactory.addLike({
-                    post_id: id,
-                    user_id: $routeParams.userId,
-                    status: 'like'
-                }, function (data, headers, statusCode) {
-
+                LikeFactory.addLike({post_id: id,user_id: self.userid, status: 'like'},
+                function (data, headers, statusCode) {
                     if (statusCode === 204) {
                         self.warning = "your regard will be added some times before";
                     }
-
                     if (statusCode === 200) {
-
                         self.update();
-                        self.warning='like added';
+                        self.warning = 'like added';
                     }
-
                 }, function (errResponse) {
                     console.error('Error while adding like');
                 })
             };
 
             this.dislike = function (id) {
-                LikeFactory.addLike({post_id: id, user_id: $routeParams.userId, status: 'dislike'},
-                    function (data,headers,statusCode) {
+                LikeFactory.addLike({post_id: id, user_id: self.userid, status: 'dislike'},
+                    function (data, headers, statusCode) {
                         if (statusCode === 204) {
                             self.warning = "your regard will be added some times before";
                         }
-
                         if (statusCode === 200) {
-
                             self.update();
-                            self.warning='dislike added';
+                            self.warning = 'dislike added';
                         }
-
                     }, function (errResponse) {
-                    console.error('Error while adding dislike');
-                })
+                        console.error('Error while adding dislike');
+                    })
             };
 
-            this.clear=function(){
-                self.warning=''
+            this.clear = function () {
+                self.warning = ''
             }
 
         }],
     bindings: {
-        post: '=',
-        deletePost: '&',
+
         getPosts: '&',
-        orderProp: '='
+        orderProp: '=',
+        post: '=',
+        userId:'='
     }
 
 });
