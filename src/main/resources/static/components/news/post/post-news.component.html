@@ -1,0 +1,177 @@
+<div class="container bg-light alert alert-info post-wrapper pl-0 pr-0 mb-3">
+    <div class="row m-0">
+        <div class="col-1 p-0 text-center align-self-center mt-2 mb-2">
+            <div>
+                <a class="dropdown-item" href="#!/userInfo{{model.post.ownerId}}">
+                    <img src="{{model.post.ownerAvatar}}" class="post-avatar" alt="ava">
+                </a>
+            </div>
+            <div>
+                <a id="ownerMessage" href=""><i class="fa fa-envelope-o mt-4"></i></a>
+            </div>
+            <!--
+                        <div>
+                            <a id="ownerPage" href=""><i class="fa fa-id-card-o"></i></a>
+                        </div>
+                        <div>
+                            <a id="ownerStatistic" href=""><i class="fa fa-bar-chart-o"></i></a>
+                        </div>
+            -->
+        </div>
+
+        <div class="col-11 p-0">
+            <div class="container">
+                <div class="row bg-light alert alert-info p-1 mb-0 text-left">
+                    <div class="postOwner col-3 text-left">{{model.post.ownerName}}</div>
+                    <div class="postTopic col-6 text-left">{{model.post.title}}</div>
+                    <div class="postDate col-3 text-right">{{model.post.date| date:'HH:mm MM/dd/yyyy'}}</div>
+                </div>
+                <div class="row post-body align-items-center m-0 p-0 ">
+                    <div class="postText col text-left pl-0">{{model.post.text}}</div>
+                </div>
+                <div class="row bg-light alert alert-info p-1 mb-0 text-left">
+                    <div ng-click="model.viewComments()" class="col-3">
+                        <a href="">Комментарии: {{model.post.commentCount}} <i class="fa fa-comments-o"></i></a>
+                    </div>
+                    <div ng-click="model.changeLike()" class="col-3">
+                        <a href="">Лайки: <span class="postLike">{{model.post.likeCount}}</span>
+                            <i ng-if="model.post.isLike" class="fa fa-thumbs-up"></i>
+                            <i ng-if="!model.post.isLike" class="fa fa-thumbs-o-up"></i>
+                        </a>
+                    </div>
+                    <div ng-click="model.changeFavorite()" class="col-3">
+                        <!--postFavorite fa fa-star-->
+                        <!--postFavorite fa fa-star-o-->
+                        <a ng-if="model.post.isFavorite" href="">Избранное <i
+                                class="postFavorite fa fa-star"></i></a>
+                        <a ng-if="!model.post.isFavorite" href="">Избранное <i
+                                class="postFavorite fa fa-star-o"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style type="text/css">
+    /* when hiding the thing */
+/*
+    .ng-hide-add         {
+        -webkit-animation:0.5s lightSpeedOut ease;
+        animation:0.5s lightSpeedOut ease;
+    }
+*/
+
+    /* when showing the thing */
+    .ng-hide-remove      {
+        -webkit-animation:0.5s flipInX ease;
+        animation:0.5s flipInX ease;
+    }
+
+    /* ANIMATIONS (FROM ANIMATE.CSS) */
+
+    /* flip in */
+    @-webkit-keyframes flipInX {
+        0% {
+            -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            -webkit-transition-timing-function: ease-in;
+            transition-timing-function: ease-in;
+            opacity: 0;
+        }
+
+        40% {
+            -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+            -webkit-transition-timing-function: ease-in;
+            transition-timing-function: ease-in;
+        }
+
+        60% {
+            -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+            opacity: 1;
+        }
+
+        80% {
+            -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+        }
+
+        100% {
+            -webkit-transform: perspective(400px);
+            transform: perspective(400px);
+        }
+    }
+
+    @keyframes flipInX {
+        0% {
+            -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            -ms-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            -webkit-transition-timing-function: ease-in;
+            transition-timing-function: ease-in;
+            opacity: 0;
+        }
+
+        40% {
+            -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+            -ms-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+            -webkit-transition-timing-function: ease-in;
+            transition-timing-function: ease-in;
+        }
+
+        60% {
+            -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+            -ms-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+            opacity: 1;
+        }
+
+        80% {
+            -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+            -ms-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+        }
+
+        100% {
+            -webkit-transform: perspective(400px);
+            -ms-transform: perspective(400px);
+            transform: perspective(400px);
+        }
+    }
+
+    /* light speed out */
+    @-webkit-keyframes lightSpeedOut {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: translate3d(100%, 0, 0) skewX(30deg);
+            transform: translate3d(100%, 0, 0) skewX(30deg);
+            opacity: 0;
+        }
+    }
+
+    @keyframes lightSpeedOut {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: translate3d(100%, 0, 0) skewX(30deg);
+            -ms-transform: translate3d(100%, 0, 0) skewX(30deg);
+            transform: translate3d(100%, 0, 0) skewX(30deg);
+            opacity: 0;
+        }
+    }
+</style>
+
+
+<div ng-show="model.isViewComments">
+    <comment-news-comp user-id="model.userId" comment="comment" ng-repeat="comment in model.post.comments">
+    </comment-news-comp>
+</div>

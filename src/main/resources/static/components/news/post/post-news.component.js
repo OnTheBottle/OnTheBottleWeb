@@ -2,7 +2,7 @@
     'use strict';
     angular.module('postNewsApp')
         .component('postNewsComp', {
-            templateUrl: 'components/news/post/post.component.html',
+            templateUrl: 'components/news/post/post-news.component.html',
             controller: ['$http', PostController],
             controllerAs: 'model',
             bindings: {
@@ -13,6 +13,7 @@
 
     function PostController($http) {
         var model = this;
+        model.isViewComments;
 
         model.$onInit = function () {
         };
@@ -50,6 +51,11 @@
             }, function myError(response) {
                 console.log(response.statusText, 'changeLike: Sorry, I am tired');
             });
+        }
+
+        model.viewComments = function () {
+            model.isViewComments = !model.isViewComments;
+            console.log('model.isViewComments: ', model.isViewComments);
         }
     }
 })();
