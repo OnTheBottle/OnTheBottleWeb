@@ -10,16 +10,21 @@
                                 <div class="postText col text-left pl-0">{{model.comment.text}}</div>
                             </div>
                             <div class="row bg-light alert alert-info p-1 mb-0 text-left">
-                                <div class="postOwner col-5 text-left">{{model.comment.ownerName}}</div>
-<!--
-                                <div ng-click="model.changeLike()" class="col-3">
-                                    <a href="">Лайки: <span class="postLike">{{model.comment.likeCount}}</span>
-                                        <i ng-if="model.comment.isLike" class="fa fa-thumbs-up"></i>
-                                        <i ng-if="!model.comment.isLike" class="fa fa-thumbs-o-up"></i>
+                                <div class="postOwner col-5 text-left">
+                                    <a class="" href="#!/userInfo{{model.comment.user.id}}">
+                                        {{model.comment.ownerName}}
                                     </a>
                                 </div>
--->
-                                <div class="postDate col-7 text-right">{{model.comment.date| date:'HH:mm MM/dd/yyyy'}}</div>
+                                <!--
+                                                                <div ng-click="model.changeLike()" class="col-3">
+                                                                    <a href="">Лайки: <span class="postLike">{{model.comment.likeCount}}</span>
+                                                                        <i ng-if="model.comment.isLike" class="fa fa-thumbs-up"></i>
+                                                                        <i ng-if="!model.comment.isLike" class="fa fa-thumbs-o-up"></i>
+                                                                    </a>
+                                                                </div>
+                                -->
+                                <div class="postDate col-7 text-right">{{model.comment.date| date:'HH:mm MM/dd/yyyy'}}
+                                </div>
                             </div>
                         </div>
                     </div>

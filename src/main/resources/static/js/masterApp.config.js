@@ -21,11 +21,8 @@ angular.module('mainApp')
                 template: '<find-comp user-id="ctrl.userId"></find-comp>'
             }).when('/wall', {
                 template: '<posts-comp></posts-comp>'
-
-/*
             }).otherwise({
                 redirectTo: '/news'
-*/
             })
         }
     ]);
