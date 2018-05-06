@@ -20,7 +20,7 @@ angular.module('mainApp')
             }).when('/find:whatToFind', {
                 template: '<find-comp user-id="ctrl.userId"></find-comp>'
             }).when('/wall', {
-                template: '<posts user-id="ctrl.userId"></posts>'
+                template: '<posts-comp></posts-comp>'
             }).otherwise({
                 redirectTo: '/news'
             })

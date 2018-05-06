@@ -1,16 +1,16 @@
-<div class="comment container-fluid p-2" id="$ctrl.comment.id">
-    <div class="comment-head row p-2">
+<div class="comment container-fluid p-2" id="$ctrl.comment.id" ng-init="$ctrl.getUser($ctrl.comment.user.id)">
+    <div class="comment-head p-2">
         <div class="comment-avatar col-md-2 d-flex align-items-center text-right"
              style="padding-right: 0">
             <a class="p-2" href="#">
-                <img class="avatar rounded-circle p-2" ng-src="{{$ctrl.comment.user.avatarUrl}}"
+                <img class="avatar rounded-circle p-2" ng-src="{{$ctrl.user.avatarUrl}}"
                      alt="avatar"></a>
         </div>
         <div class="comment-meta col-md-10 d-flex align-items-center text-left"
              style="margin-bottom: 0">
             <p class="bordered bg-white p-2">
-                <a href="#">{{$ctrl.comment.user.name}}
-                    {{$ctrl.comment.user.surname}}</a>
+                <a href="#">{{$ctrl.user.name}}&nbsp{{$ctrl.user.surname}} </a>
+
                 {{$ctrl.comment.text}}
             </p>
         </div>

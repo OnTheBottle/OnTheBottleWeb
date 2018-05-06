@@ -1,26 +1,52 @@
 'use strict';
 
-angular.module('posts').
-    component('posts', {
+angular.module('postsApp').component('postsComp', {
     templateUrl: 'components/wall/posts.template.html',
-    controller: ['$routeParams', 'UserFactory', 'PostFactory', 'SecurityFactory',
-        function PostController($routeParams, UserFactory, PostFactory, SecurityFactory) {
+    controller: ['$routeParams', 'UserFactory', 'PostFactory', 'SecurityFactory', 'idStorage',
+        function PostController($routeParams, UserFactory, PostFactory, SecurityFactory, idStorage) {
             var self = this;
-            self.userId = $routeParams.userId;
-            self.user = UserFactory.getUser({userId: this.userId});
-            getPosts();
+            // self.userId = $routeParams.userId;
+            // self.user = UserFactory.getUser({userId: this.userId});
+            self.userid = idStorage.getId();
+            console.log('id', this.userid);
             self.posts = [];
+            getPosts();
+
+            function getPosts() {
+
+                PostFactory.getPosts({userId: self.userid}, function (data) {
+                        self.posts = data;
+                    },
+                    function (errResponce) {
+                        console.error('Error while fetching posts');
+                    })
+            }
+
             self.orderProp = 'date';
             self.securities = SecurityFactory.getSecurities();
-            self.post = {id: null, user_id: $routeParams.userId, security: {description: ''}, text: '', title: ''};
-
+            //        changeUserId();
+            //       self.userId='';
+            self.post = {id: null, user_id: self.userid, security: {description: ''}, text: '', title: ''};
             self.reset = reset;
             self.submit = submit;
             self.edit = edit;
+            //    self.$onInit=function () {console.log('userId',self.userId) };
+
 
             this.fetchPosts = function () {
                 getPosts()
             };
+
+            //         function changeUserId(){
+            //             if ($routeParams.userId) {
+            //                 self.userId=$routeParams.userId;
+            //                 console.log("on change userId=",self.userId)
+            //             }
+            //             else{
+            //                 self.userId=userId;
+            //                 console.log("on change userId=",self.userId)
+            //             }
+            //         }
 
             function submit() {
                 if (self.post.id === null) {
@@ -45,19 +71,27 @@ angular.module('posts').
             }
 
             function reset() {
-                self.post = {id: null, user_id: $routeParams.userId, text: '', title: '', security: {description: ''}};
+                self.post = {id: null, user_id: self.userid, text: '', title: '', security: {description: ''}};
                 //       self.myForm.$setPristine();
 
             }
 
 
-            function getPosts() {
-                PostFactory.getPosts({userId: $routeParams.userId}, function (data) {
-                    self.posts = data;
-                }, function (errResponce) {
-                    console.error('Error while fetching posts');
-                });
-            }
+            //      function getPosts() {
+            //          if ($routeParams.userId) {
+            //              PostFactory.getPosts({userId: $routeParams.userId}, function (data) {
+            //                  self.posts = data;
+            //              }, function (errResponce) {
+            //                  console.error('Error while fetching posts');
+            //              });
+            //          }
+            //          else {
+            //              self.posts=PostFactory.getPosts({userId: self.userid})
+            //          }
+            //      }
+
+
+
 
             function updatePost(post) {
                 PostFactory.rewritePost({postDTO: post}, function (data) {
@@ -67,7 +101,6 @@ angular.module('posts').
                     console.error('Error while updating Post');
                 })
             }
-
 
             function edit(id) {
                 console.log('id to be edited', id);
@@ -81,8 +114,8 @@ angular.module('posts').
 
         }],
     bindings: {
-        posts: '=',
-        userId: '=',
+
+
 
     }
 

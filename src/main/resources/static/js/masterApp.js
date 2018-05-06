@@ -5,6 +5,9 @@ const PLACE_PATH = 'http://127.0.0.1:8082';
 const MESSAGE_PATH = 'http://127.0.0.1:8083';
 const AUTH_HTML = 'auth.html';
 
+
+//var userId = '';
+
 (function () {
     'use strict';
 
@@ -24,11 +27,25 @@ const AUTH_HTML = 'auth.html';
             'newsApp',
             'quitApp',
             'footerApp',
-            'eventsApp'
-        ])
+            'eventsApp',
+            'postsApp'
+
+
+])
+        .service('idStorage', function () {
+            var _id = null;
+            return {
+                setId: function (id) {
+                    _id = id;
+                },
+                getId: function () {
+                    return _id;
+                }
+            }
+        })
         .controller('MainController', mainController);
 
-    function mainController($cookies, $window, $http) {
+    function mainController($cookies, $window, $http,idStorage) {
 
         this.userId = '';
 
@@ -53,7 +70,7 @@ const AUTH_HTML = 'auth.html';
 
         var token = parseJwt(tokenJwt);
         this.userId = token.userId;
-
+        idStorage.setId(this.userId);
         function parseJwt(tokenJwt) {
             var base64Url = tokenJwt.split('.')[1];
             var base64 = base64Url.replace('-', '+').replace('_', '/');

@@ -1,16 +1,19 @@
-<!--<p>News Component: {{model.userId}}</p>-->
-<!--<p>{{model.posts}}</p>-->
-<!--<post-comp user-id="model.userId" posts="model.posts" likePost-click="model.likeClick" favorite-click="model.favoriteClick"></post-comp>-->
-
 <div class="container-fluid">
     <div class="row">
         <div class="container-fluid">
             <!--Write your HTML here-->
-            <p class="text-info h2 text-center">Новости друзей</p>
             <p class="text-info h2 pt-3 text-center" ng-if="model.posts.length < 1">Новостей пока нет :(</p>
 
-            <post-news-comp user-id="model.userId" likePost-click="model.likeClick" favorite-click="model.favoriteClick"
-                       postindex=$index post="post" friend="" ng-repeat="post in model.posts">
+            <div class="container pl-0 pr-0 mb-0" ng-if="model.posts.length > 0">
+                <div class="row m-0 justify-content-center text-center">
+                    <a href="" class="col-2 bg-light alert alert-info m-2" ng-click="model.orderBy = '-date'"><div>Дата</div></a>
+                    <a href="" class="col-2 bg-light alert alert-info m-2" ng-click="model.orderBy = '-isFavorite'"><div>Избранное</div></a>
+                    <a href="" class="col-2 bg-light alert alert-info m-2" ng-click="model.orderBy = '-likeCount'"><div>Лайки</div></a>
+                    <a href="" class="col-2 bg-light alert alert-info m-2" ng-click="model.orderBy = '-commentCount'"><div>Комментарии</div></a>
+                </div>
+            </div>
+            <post-news-comp user-id="model.userId"
+                            post="post" ng-repeat="post in model.posts | orderBy : model.orderBy">
             </post-news-comp>
         </div>
     </div>

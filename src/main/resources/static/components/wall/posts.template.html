@@ -1,6 +1,8 @@
-<link rel="stylesheet" href="css/app.css" type="text/css">
-
-
+<link rel="stylesheet" href="common/css/app.css" type="text/css">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="posts col-md-8" >
             <div class="card">
                 <div class="card-body container-fluid">
                     <div class="row">
@@ -24,6 +26,7 @@
             </div>
             <div class="posts">
                 <form class="post-text" name="myForm" ng-submit="$ctrl.submit()">
+
                     <input class="id" ng-show="postid" ng-model="$ctrl.post.id"/>
                     <div class="card profile-info bg-white ">
                         <input type="text" class="form-control add-title-input" ng-model="$ctrl.post.title"
@@ -54,11 +57,11 @@
                                         </div>
                                         <div class="col-md-9">
                                             <label for="Select1">
-                                                <select class="form-control select" id="Select1" ng-model="$ctrl.post.securityPost.description">
-                                                    <option  value="{{post.securityPost.description}}">{{post.securityPost.description}}</option>
+                                                <select class="form-control select" id="Select1" ng-model="$ctrl.post.security.description">
+                                                    <option  value="{{post.security.description}}">{{post.security.description}}</option>
                                                     <option selected disabled>Choose vision..</option>
-                                                    <option ng-repeat="securityPost in $ctrl.securities"
-                                                    value="{{securityPost.description}}" >{{securityPost.description}}
+                                                    <option ng-repeat="security in $ctrl.securities"
+                                                            value="{{security.description}}" >{{security.description}}
                                                     </option>
 
                                                 </select></label>
@@ -79,17 +82,21 @@
                         </div>
                     </div>
                 </form>
-               <div class="posts list" ng-repeat="post in $ctrl.posts| filter:$ctrl.getPosts|orderBy:$ctrl.orderProp">
-                   <post post="post" get-posts="$ctrl.fetchPosts()"></post>
-               </div>
+                <div class="posts list">
+                    <post post="post" userId="post.user.id" get-posts="$ctrl.fetchPosts()" ng-repeat="post in $ctrl.posts| filter:$ctrl.getPosts|orderBy:$ctrl.orderProp"  ></post>
+                </div>
+                <div class="post-load-more text-center" >
 
-
-                <div class="post-load-more text-center">
                     <button type="button" title="Show more posts"
                             class="btn "><i class="fas fa-spinner fa-lg "></i> 4
                     </button>
                 </div>
             </div>
+        </div>
+
+        <div class="col-md-2"></div>
+    </div>
+</div>
 
 
 
