@@ -49,7 +49,6 @@ angular.module('eventsApp').component('eventsComp', {
                     self.endTime = '';
                 },
                 resetEventUpdate: function () {
-                    angular.element('#myModalEvent').modal('hide');
                     self.isUpdate = false;
                     $scope.eventInfoForm.$setUntouched();
                     $scope.eventInfoForm.$setPristine();
