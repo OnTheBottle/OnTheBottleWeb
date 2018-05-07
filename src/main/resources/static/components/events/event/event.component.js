@@ -6,10 +6,11 @@ angular.module('event').component('eventComp', {
     bindings: {
         userId: '=',
         event: '<',
-        setEventInfo: '='
+        setEventInfo: '=',
+        getEvents: '='
     },
-    controller: ['$routeParams',
-        function UserController() {
+    controller: ['EventFactory',
+        function UserController(EventFactory) {
             var self = this;
 
             self.showEventInfo = function () {
@@ -33,6 +34,29 @@ angular.module('event').component('eventComp', {
                     if (e !== BreakException) throw e;
                 }
             }
+
+            self.control = function () {
+                var isMember = self.event.usersId.indexOf(self.userId) !== -1;
+                if (isMember) {
+                    EventFactory.leaveEvent({
+                        eventId: self.event.id,
+                        userId: self.userId
+                    }, function (data) {
+                        self.getEvents();
+                    }, function (errResponse) {
+                        console.error('Error while leave Event');
+                    });
+                } else {
+                    EventFactory.joinEvent({
+                        eventId: self.event.id,
+                        userId: self.userId
+                    }, function (data) {
+                        self.getEvents();
+                    }, function (errResponse) {
+                        console.error('Error while join Event');
+                    });
+                }
+            };
         }]
 });
 

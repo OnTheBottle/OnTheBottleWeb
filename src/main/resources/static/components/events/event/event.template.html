@@ -1,12 +1,16 @@
-<div class="event"
-     ng-click="self.showEventInfo()"
-     data-toggle="modal" data-target="#myModalEvent">
-    <img class="pub-img" ng-src="{{self.event.place.avatar}}">
-    <div class="title-event"><p>{{self.event.title}}</p></div>
+<div class="event">
+    <img class="pub-img" ng-src="{{self.event.place.avatar}}" ng-click="self.showEventInfo()" data-toggle="modal" data-target="#myModalEvent">
+    <div class="title-event" ng-click="self.showEventInfo()" data-toggle="modal" data-target="#myModalEvent"><p>{{self.event.title}}</p></div>
     <p class="description">{{self.event.text | cut:true:350:' ...'}}</p>
     <p class="time">Событие состоится {{self.event.startTime | date:'dd MMM yyyy'}} в {{self.event.startTime | date:'HH:mm'}}</p>
     <div class="people">
         <img src="images/events/user.svg">
         <p>{{self.event.users.length}}</p>
+    </div>
+    <div class="btn-group control">
+        <button class="btn btn-info" id="control"
+                ng-click="self.control()" ng-class="{member : self.event.usersId.indexOf(self.userId) != -1}">
+            {{self.event.usersId.indexOf(self.userId) != -1 ? 'Вы участвуете' : 'Присоединится'}}
+        </button>
     </div>
 </div>

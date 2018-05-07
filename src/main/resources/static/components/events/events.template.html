@@ -146,6 +146,7 @@
             </div>
 
             <event-comp user-id="self.userId" event="event" set-event-info="self.setEventInfo"
+                        get-events="self.util.getEvents"
                         ng-repeat="event in self.events | orderBy:'startTime.toString()'">
             </event-comp>
 
@@ -175,6 +176,9 @@
                                 </div>
                                 <div class="form-group row" title="Местоположение">
                                     <div class="event-place"><p>{{self.eventInfo.place.title}}</p></div>
+                                </div>
+                                <div class="form-group row" title="Участники">
+                                    <div class="event-users"><p>{{self.eventInfo.users.length}}</p></div>
                                 </div>
 
                                 <div class="dropdown">

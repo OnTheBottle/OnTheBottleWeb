@@ -6,18 +6,19 @@ angular.module('eventsApp').component('eventsComp', {
     bindings: {
         userId: '='
     },
-    controller: ['$routeParams', 'EventFactory', '$scope',
-        function UserController($routeParams, EventFactory, $scope) {
+    controller: ['EventFactory', '$scope',
+        function UserController(EventFactory, $scope) {
             var self = this;
             self.options = {allEvents: 'true', activeEvents: true, passedEvents: false};
             self.today = new Date();
 
             self.util = {
                 getEvents: function () {
-                     EventFactory.getEvents(
+                    EventFactory.getEvents(
                         {userId: self.userId, options: self.options},
                         function (data) {
                             self.formatDate(data);
+                            self.setUserId(data);
                             self.events = data;
                         }, function (errResponse) {
                             console.error('Error while read events');
@@ -116,6 +117,14 @@ angular.module('eventsApp').component('eventsComp', {
                     item.startTime = new Date(item.startTime.replace(' ', 'T') + "Z");
                     item.endTime = new Date(item.endTime.replace(' ', 'T') + "Z");
                 });
-            }
+            };
+
+            self.setUserId = function (events) {
+                events.forEach(function (event) {
+                    event.users.forEach(function (item) {
+                        event.usersId += item.id;
+                    });
+                });
+            };
         }]
 });
