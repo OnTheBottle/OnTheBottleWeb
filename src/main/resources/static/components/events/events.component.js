@@ -96,6 +96,17 @@ angular.module('eventsApp').component('eventsComp', {
                     }, function (errResponse) {
                         console.error('Error while update Event');
                     });
+                },
+                closeEvent: function () {
+                    self.isUpdate = false;
+                    angular.element('#myModalEvent').modal('hide');
+                    EventFactory.closeEvent({
+                        id: self.eventInfo.id
+                    }, function (data) {
+                        self.util.getEvents();
+                    }, function (errResponse) {
+                        console.error('Error while close Event');
+                    });
                 }
             };
 

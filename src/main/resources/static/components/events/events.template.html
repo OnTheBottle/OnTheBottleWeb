@@ -182,7 +182,9 @@
                                 </div>
 
                                 <div class="dropdown">
-                                    <button class="btn btn-lg btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button class="btn btn-lg btn-info dropdown-toggle" type="button" id="dropdownMenu2"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            ng-show="self.eventInfo.isActive">
                                         Действия
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -283,6 +285,10 @@
                                             ng-model="self.eventInfo.place.id" required>
                                     </select>
                                 </div>
+                                <button class="btn btn-lg btn-danger mt-2" type="button"
+                                        ng-show="self.isUpdate" ng-click="self.util.closeEvent()">
+                                    Завершить
+                                </button>
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-lg btn-secondary" type="button" data-dismiss="modal">

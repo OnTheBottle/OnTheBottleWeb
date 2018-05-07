@@ -28,6 +28,10 @@ angular.module('event').factory('EventFactory', ['$resource',
             updateEvent: {
                 params: {path: 'updateEvent'},
                 method: "POST"
+            },
+            closeEvent: {
+                params: {path: 'closeEvent'},
+                method: "POST"
             }
         });
     }
