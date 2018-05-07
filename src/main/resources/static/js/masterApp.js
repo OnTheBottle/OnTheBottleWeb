@@ -22,6 +22,7 @@ const AUTH_HTML = 'auth.html';
             'linkFriendsApp',
             'friendApp',
             'viewFriendsApp',
+            'notifyFriendRequestApp',
             'profileInfoApp',
             'userInfoApp',
             'newsApp',
