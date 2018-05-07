@@ -161,15 +161,11 @@
     overflow: hidden;
 }
 
-.main-content .event img {
-    width: 100%;
-    cursor: pointer;
-}
-
 .main-content .event .pub-img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .main-content .event .title-event {
@@ -230,6 +226,7 @@
 }
 
 .main-content .event .people img {
+    width: 100%;
     max-width: 12px;
     max-height: 12px;
 }

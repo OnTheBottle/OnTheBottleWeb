@@ -49,10 +49,10 @@
                                     <label for="description" class="col-form-label">Описание
                                         ивента</label>
                                     <textarea type="text" name="description" class="form-control form-control-lg"
-                                           id="description"
-                                           aria-describedby="descriptionEvent" placeholder="Description"
-                                           ng-model="self.text"
-                                           ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
+                                              id="description"
+                                              aria-describedby="descriptionEvent" placeholder="Description"
+                                              ng-model="self.text"
+                                              ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
                                               rows="5" required></textarea>
                                     <p class="form-text text-danger"
                                        ng-show="createEventForm.description.$dirty && createEventForm.description.$error.pattern">
@@ -108,7 +108,8 @@
                                         ng-click="self.util.resetEvent()">
                                     Закрыть
                                 </button>
-                                <button class="btn btn-lg btn-primary" type="submit" ng-disabled="createEventForm.$invalid">
+                                <button class="btn btn-lg btn-primary" type="submit"
+                                        ng-disabled="createEventForm.$invalid">
                                     Создать
                                 </button>
                             </div>
@@ -172,7 +173,9 @@
                                     <div class="event-description"><p>{{self.eventInfo.text}}</p></div>
                                 </div>
                                 <div class="form-group row" title="Дата мероприятия">
-                                    <div class="event-time"><p>{{self.eventInfo.startTime | date:'dd MMMM yyyy'}} в {{self.eventInfo.startTime | date:'HH:mm'}} — {{self.eventInfo.endTime | date:'dd MMM yyyy'}} в {{self.eventInfo.endTime | date:'HH:mm'}}</p></div>
+                                    <div class="event-time"><p>{{self.eventInfo.startTime | date:'dd MMMM yyyy'}} в
+                                        {{self.eventInfo.startTime | date:'HH:mm'}} — {{self.eventInfo.endTime |
+                                        date:'dd MMM yyyy'}} в {{self.eventInfo.endTime | date:'HH:mm'}}</p></div>
                                 </div>
                                 <div class="form-group row" title="Местоположение">
                                     <div class="event-place"><p>{{self.eventInfo.place.title}}</p></div>
@@ -200,7 +203,7 @@
                                         </button>
                                         <button class="btn btn-lg dropdown-item" type="button"
                                                 ng-show="self.eventInfo.isLeave"
-                                                ng-click="self.util.leaveEvent()">
+                                                ng-click="self.util.isLeaveEvent()">
                                             Покинуть
                                         </button>
                                     </div>
@@ -233,10 +236,10 @@
                                     <label for="descriptionUpdate" class="col-form-label">Описание
                                         ивента</label>
                                     <textarea type="text" name="description" class="form-control form-control-lg"
-                                           id="descriptionUpdate"
-                                           aria-describedby="descriptionEvent" placeholder="Description"
-                                           ng-model="self.eventInfo.text"
-                                           ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
+                                              id="descriptionUpdate"
+                                              aria-describedby="descriptionEvent" placeholder="Description"
+                                              ng-model="self.eventInfo.text"
+                                              ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
                                               rows="5" required></textarea>
                                     <p class="form-text text-danger"
                                        ng-show="eventInfoForm.description.$dirty && eventInfoForm.description.$error.pattern">
@@ -307,6 +310,37 @@
                     </div>
                 </form>
             </div>
+
+            <div class="modal fade" id="myModalClose" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="closeEventLongTitle">Вы точно хотите выйти?</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>Вы являетесь создателем ивента, выход из него приведет к закрытию ивента.
+                            Вы уверены в этом?</p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-lg btn-secondary" type="button" data-dismiss="modal">
+                                Нет
+                            </button>
+                            <button class="btn btn-lg btn-danger" type="button"
+                                    ng-click="self.util.isLeaveEvent(true)">
+                                Да
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     </main>

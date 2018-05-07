@@ -70,6 +70,17 @@ angular.module('eventsApp').component('eventsComp', {
                         console.error('Error while join Event');
                     });
                 },
+                isLeaveEvent: function (accept) {
+                    if (self.userId === self.eventInfo.owner.id && accept) {
+                        angular.element('#myModalClose').modal('hide');
+                        self.util.leaveEvent();
+                    } else if (self.userId === self.eventInfo.owner.id) {
+                        angular.element('#myModalEvent').modal('hide');
+                        angular.element('#myModalClose').modal('show');
+                    } else {
+                        self.util.leaveEvent();
+                    }
+                },
                 leaveEvent: function () {
                     EventFactory.leaveEvent({
                         eventId: self.eventInfo.id,
