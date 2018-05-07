@@ -2,15 +2,18 @@
     <img class="pub-img" ng-src="{{self.event.place.avatar}}" ng-click="self.showEventInfo()" data-toggle="modal" data-target="#myModalEvent">
     <div class="title-event" ng-click="self.showEventInfo()" data-toggle="modal" data-target="#myModalEvent"><p>{{self.event.title}}</p></div>
     <p class="description">{{self.event.text | cut:true:350:' ...'}}</p>
-    <p class="time">Событие состоится {{self.event.startTime | date:'dd MMM yyyy'}} в {{self.event.startTime | date:'HH:mm'}}</p>
+    <p class="time">{{self.event.isActive ? (self.event.startTime.setHours(0,0,0,0) === self.today.setHours(0,0,0,0) ? 'Сегодня' :
+        (self.event.startTime.setHours(0,0,0,0) < self.today.setHours(0,0,0,0) ? 'Событие началось'
+        : 'Событие состоится')) : 'Событие прошло'}} {{self.event.startTime | date:'dd MMM yyyy'}} в {{self.event.startTime | date:'HH:mm'}}</p>
     <div class="people">
         <img src="images/events/user.svg">
         <p>{{self.event.users.length}}</p>
     </div>
     <div class="btn-group control">
         <button class="btn btn-info" id="control"
-                ng-click="self.control()" ng-class="{member : self.event.usersId.indexOf(self.userId) != -1}">
-            {{self.event.usersId.indexOf(self.userId) != -1 ? 'Вы участвуете' : 'Присоединится'}}
+                ng-click="self.control()" ng-class="{member : self.event.usersId.indexOf(self.userId) != -1}"
+                ng-disabled="!self.event.isActive">
+            {{self.event.usersId.indexOf(self.userId) != -1 ? (self.event.isActive ? 'Вы участвуете' : 'Вы участвовали') : (self.event.isActive ? 'Присоединится' : 'Пройдено')}}
         </button>
     </div>
 </div>
