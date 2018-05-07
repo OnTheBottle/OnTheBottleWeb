@@ -1,63 +1,67 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="container-fluid" name='clientForm' novalidate>
+    <!--<div class="row">-->
+        <!--<div class="container-fluid">-->
             <!--Write your HTML here-->
             <p class="text-info h2 text-center">Мой профиль</p>
-            <div class="row">
-                <div class="col-md-4"></div>
+            <div class="row  justify-content-md-center">
                 <div class="col-md-4">
-                    <div>
-                        <label for="name">Name:</label>
-                        <input type="text" ng-model="model.user.name" ng-disabled="!model.checked" class="form-control"
-                               id="name" required>
-                    </div>
-                    <div>
-                        <label for="surname">Surname:</label>
-                        <input type="text" ng-model="model.user.surname" ng-disabled="!model.checked"
-                               class="form-control"
-                               id="surname">
-                    </div>
-                    <div>
-                        <label for="age">Age:</label>
-                        <input type="number" ng-model="model.user.age" ng-disabled="!model.checked" name='age'
-                               class="form-control" id="age" min="16" max="99">
-                        <span class="help-block"
-                              ng-show='clientForm.age.$error.max'>You are too old for drinking!</span>
-                        <span class="help-block"
-                              ng-show='clientForm.age.$error.min'>You are too young for drinking!</span>
-                    </div>
-                    <div>
-                        <label for="email">Email:</label>
-                        <input type="email" ng-model="model.user.email" ng-disabled="!model.checked" name='email'
-                               class="form-control" id="email" required>
-                    </div>
-                    <div>
-                        <label for="country">Country:</label>
-                        <input type="text" ng-model="model.user.country" ng-disabled="!model.checked" name='country'
-                               class="form-control" id="country">
-                    </div>
-                    <div>
-                        <label for="city">City:</label>
-                        <input type="text" ng-model="model.user.city" ng-disabled="!model.checked" name='city'
-                               class="form-control" id="city">
-                    </div>
-                    <div>
-                        <label for="city">Status:</label>
-                        <input type="text" ng-model="model.user.status" ng-disabled="!model.checked" name='status'
-                               class="form-control" id="status">
-                    </div>
-                    <div>
-                        <button type="button" ng-click="model.editUser()" ng-disabled="model.checked"
-                                class="btn btn-primary p-3">Edit
-                        </button>
-                        <button type="button" ng-click="model.saveEditUser()"
-                                ng-disabled='clientForm.age.$invalid ||(!model.checked)'
-                                ng-show="model.checked" class="btn btn-primary p-3">Save
-                        </button>
-                    </div>
+                    <form name="clientForm" novalidate>
+                        <div>
+                            <label for="name">Name:</label>
+                            <input type="text" ng-model="model.user.name" ng-disabled="!model.checked"
+                                   class="form-control"
+                                   id="name" required>
+                        </div>
+                        <div>
+                            <label for="surname">Surname:</label>
+                            <input type="text" ng-model="model.user.surname" ng-disabled="!model.checked"
+                                   class="form-control"
+                                   id="surname">
+                        </div>
+                        <div>
+                            <label for="age">Age:</label>
+                            <input type="number" ng-model="model.user.age" ng-disabled="!model.checked" name='age'
+                                   class="form-control" id="age" min="16" max="99">
+                            <span class="help-block"
+                                  ng-show='clientForm.age.$error.max'>You are too old for drinking!</span>
+                            <span class="help-block"
+                                  ng-show='clientForm.age.$error.min'>You are too young for drinking!</span>
+                        </div>
+                        <div>
+                            <label for="email">Email:</label>
+                            <input type="email" ng-model="model.user.email" ng-disabled="!model.checked" name='email'
+                                   class="form-control" id="email" required>
+                        </div>
+                        <div>
+                            <label for="country">Country:</label>
+                            <input type="text" ng-model="model.user.country" ng-disabled="!model.checked" name='country'
+                                   class="form-control" id="country">
+                        </div>
+                        <div>
+                            <label for="city">City:</label>
+                            <input type="text" ng-model="model.user.city" ng-disabled="!model.checked" name='city'
+                                   class="form-control" id="city">
+                        </div>
+                        <div>
+                            <label for="city">Status:</label>
+                            <input type="text" ng-model="model.user.status" ng-disabled="!model.checked" name='status'
+                                   class="form-control" id="status">
+                        </div>
+                        <div>
+                            <button type="button" ng-click="model.editUser()" ng-disabled="model.checked"
+                                    ng-show="!model.checked" class="btn btn-primary p-3">Edit
+                            </button>
+                            <button type="button" ng-click="model.saveEditUser()"
+                                    ng-disabled='clientForm.age.$invalid || clientForm.email.$invalid'
+                                    ng-show="model.checked" class="btn btn-primary p-3">Save
+                            </button>
+                            <button type="button" ng-click="model.cancel()"
+                                    ng-show="model.checked" class="btn btn-primary p-3">Cancel
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-md-4"></div>
             </div>
-        </div>
-    </div>
+        <!--</div>-->
+    <!--</div>-->
 </div>

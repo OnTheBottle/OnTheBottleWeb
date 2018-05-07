@@ -4,18 +4,18 @@
             <!--Write your HTML here-->
             <p class="text-info h2 text-center">Информация о пользователе</p>
 
-            <div class="row">
+            <div class="row justify-content-md-center">
                 <div class="col-md-4">
                     <img src="{{model.user.avatarUrl}}" class="img-fluid" alt="face">
                 </div>
                 <div class="col-md-6">
-                    <div class="shadow p-5 m-1 bg-white">
+                    <div class="alert alert-info bg-light m-1 p-5">
                         <p class=" h1 text-center">{{model.user.name}} {{model.user.surname}}</p>
                     </div>
-                    <div class="shadow p-5 m-1 bg-white">
+                    <div class="alert alert-info bg-light m-1 p-5">
                         <p class="text-center text-primary">{{model.user.status}}</p>
                     </div>
-                    <div class="shadow p-5 m-1 bg-white">
+                    <div class="alert alert-info bg-light m-1 p-5">
                         <div>
                             <p class="text-center">{{model.user.age}} years old</p>
                         </div>
