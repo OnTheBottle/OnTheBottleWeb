@@ -25,20 +25,14 @@
             <li class="nav-item" ng-class="(model.activeMenu === 'friend') ? 'active h2' : ''">
                 <a class="nav-link" href="#!/friend" ng-click="model.checkActive('friend')">Друзья</a>
             </li>
-
-            <!--
-                        <li class="nav-item" ng-class="(model.activeMenu === 'find') ? 'active h2' : ''">
-                            <a class="nav-link" href="#!/find" ng-click="model.checkActive('find')">Поиск</a>
-                        </li>
-                        <li class="nav-item" ng-class="(model.activeMenu === 'profile') ? 'active h2' : ''">
-                            <a class="nav-link" href="#!/profile" ng-click="model.checkActive('profile')">profile-info</a>
-                        </li>
-                        <li class="nav-item" ng-class="(model.activeMenu === 'userInfo') ? 'active h2' : ''">
-                            <a class="nav-link" href="#!/userInfo" ng-click="model.checkActive('userInfo')">user-info</a>
-                        </li>
-            -->
+            <li class="nav-item" ng-class="(model.activeMenu === 'place') ? 'active h2' : ''">
+                <a class="nav-link" href="#!/place" ng-click="model.checkActive('place')">Места</a>
+            </li>
+            <li class="nav-item" ng-class="(model.activeMenu === 'friendmanual') ? 'active h2' : ''">
+                <a class="nav-link" href="#!/friendmanual" ng-click="model.checkActive('friendmanual')">FriendManual</a>
+            </li>
         </ul>
-        <audio controls="controls" autoplay loop><source src="common/music/samogonochka.mp3" type="audio/mpeg" /></audio>
+        <audio controls="controls" loop><source src="common/music/samogonochka.mp3" type="audio/mpeg" /></audio>
 
     </div>
 

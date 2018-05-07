@@ -12,7 +12,8 @@ angular.module('mainApp')
             }).when('/userInfo:id', {
                 template: '<user-info-comp user-id="ctrl.userId"></user-info-comp>'
             }).when('/friend', {
-                template: '<view-friends-comp user-id="ctrl.userId"></view-friends-comp>'
+                template: '<notify-friend-request-comp user-id="ctrl.userId"></notify-friend-request-comp>' +
+                '<view-friends-comp user-id="ctrl.userId"></view-friends-comp>'
             }).when('/event', {
                 template: '<events-comp user-id="ctrl.userId"></events-comp>'
             }).when('/find', {
@@ -21,6 +22,10 @@ angular.module('mainApp')
                 template: '<find-comp user-id="ctrl.userId"></find-comp>'
             }).when('/wall', {
                 template: '<posts-comp></posts-comp>'
+            }).when('/friendmanual', {
+                template: '<link-friends-comp></link-friends-comp>'
+            }).when('/place', {
+                template: '<view-place-comp>laceComp user-id="ctrl.userId></view-place-comp>'
             }).otherwise({
                 redirectTo: '/news'
             })

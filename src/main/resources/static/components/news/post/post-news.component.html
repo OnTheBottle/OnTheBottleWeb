@@ -7,7 +7,7 @@
                 </a>
             </div>
             <div>
-                <a id="ownerMessage" href=""><i class="fa fa-envelope-o mt-4"></i></a>
+                <a id="ownerMessage" href=""><i class="far fa-envelope mt-4"></i></a>
             </div>
             <!--
                         <div>
@@ -31,21 +31,21 @@
                 </div>
                 <div class="row bg-light alert alert-info p-1 mb-0 text-left">
                     <div ng-click="model.viewComments()" class="col-3">
-                        <a href="">Комментарии: {{model.post.commentCount}} <i class="fa fa-comments-o"></i></a>
+                        <a href="">Комментарии: {{model.post.commentCount}} <i class="far fa-comments"></i></a>
                     </div>
                     <div ng-click="model.changeLike()" class="col-3">
                         <a href="">Лайки: <span class="postLike">{{model.post.likeCount}}</span>
-                            <i ng-if="model.post.isLike" class="fa fa-thumbs-up"></i>
-                            <i ng-if="!model.post.isLike" class="fa fa-thumbs-o-up"></i>
+                            <i ng-if="model.post.isLike" class="fas fa-thumbs-up"></i>
+                            <i ng-if="!model.post.isLike" class="far fa-thumbs-up"></i>
                         </a>
                     </div>
                     <div ng-click="model.changeFavorite()" class="col-3">
                         <!--postFavorite fa fa-star-->
                         <!--postFavorite fa fa-star-o-->
                         <a ng-if="model.post.isFavorite" href="">Избранное <i
-                                class="postFavorite fa fa-star"></i></a>
+                                class="postFavorite fas fa-star"></i></a>
                         <a ng-if="!model.post.isFavorite" href="">Избранное <i
-                                class="postFavorite fa fa-star-o"></i></a>
+                                class="postFavorite far fa-star"></i></a>
                     </div>
                 </div>
             </div>

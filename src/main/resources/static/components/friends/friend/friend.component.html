@@ -1,17 +1,32 @@
 <div class="container-fluid bg-light alert alert-info m-1 mb-3 friend-card">
     <div class="row text-center">
-        <div class="col">
-            <a class="dropdown-item" href="#!/userInfo{{model.friend.id}}">
+        <div class="col p-1">
+            <a class="dropdown-item p-0" href="#!/userInfo{{model.friend.id}}">
                 <div>
                     <img ng-if="!!model.friend.avatarUrl" src="{{model.friend.avatarUrl}}" class="friend-avatar"
                          alt="ava">
                     <img ng-if="!model.friend.avatarUrl" src="images/userspictures/default-avatar.jpeg"
                          class="friend-avatar" alt="ava">
                 </div>
-                <div>
+                <div class="pb-1">
                     {{model.friend.name}} {{model.friend.surname}}
                 </div>
             </a>
+            <div ng-show="model.friend.friendStatus == 'confirmed'">
+                <button type="button" ng-click="model.denyRelation()" class="btn btn-danger pl-5 pr-5">Забыть</button>
+            </div>
+            <div ng-show="model.friend.friendStatus == 'notConfirmed'">
+                <button type="button" ng-click="model.confirmRelation()" class="btn btn-success pl-3 pr-3">Принять!
+                </button>
+                <button type="button" ng-click="model.denyRelation()" class="btn btn-danger pl-3 pr-3">Отклонить
+                </button>
+            </div>
+            <!--
+                            <div ng-show="model.friend.friendStatus == ''">
+                                <button type="button" ng-click="model.auth()" class="btn btn-info pl-5 pr-5">Пригласить</button>
+                            </div>
+            -->
+
         </div>
     </div>
 </div>

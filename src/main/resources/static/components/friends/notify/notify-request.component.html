@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="container-fluid">
+            <!--Write your HTML here-->
+            <p  ng-show="model.friends.length > 0" class="text-info h2 text-center">Запросы на добавление в друзья</p>
+        </div>
+    </div>
+
+        <div class="row text-center">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <div class="row justify-content-center">
+                    <friend-comp friend="friend" ng-repeat="friend in model.friends"></friend-comp>
+                </div>
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+</div>

@@ -35,7 +35,7 @@
         model.addOneWayRelation = function (firstFriend, secondFriend) {
             $http({
                 method: "POST",
-                url: USER_PATH + "/friend/add_oneway_relation",
+                url: USER_PATH + "/friend/manual_add_oneway_relation",
                 params: {
                     firstFriendId: firstFriend.id,
                     secondFriendId: secondFriend.id
@@ -52,7 +52,7 @@
         model.addTwoWayRelation = function (firstFriend, secondFriend) {
             $http({
                 method: "POST",
-                url: USER_PATH + "/friend/add_twoway_relation",
+                url: USER_PATH + "/friend/manual_add_twoway_relation",
                 params: {
                     firstFriendId: firstFriend.id,
                     secondFriendId: secondFriend.id
