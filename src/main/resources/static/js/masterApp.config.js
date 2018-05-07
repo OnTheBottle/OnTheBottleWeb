@@ -24,6 +24,8 @@ angular.module('mainApp')
                 template: '<posts-comp></posts-comp>'
             }).when('/friendmanual', {
                 template: '<link-friends-comp></link-friends-comp>'
+            }).when('/place', {
+                template: '<view-place-comp>laceComp user-id="ctrl.userId></view-place-comp>'
             }).otherwise({
                 redirectTo: '/news'
             })

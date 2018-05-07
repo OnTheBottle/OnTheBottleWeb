@@ -29,7 +29,8 @@ const AUTH_HTML = 'auth.html';
             'quitApp',
             'footerApp',
             'eventsApp',
-            'postsApp'
+            'postsApp',
+            'viewPlaceApp'
 
 
 ])

@@ -12,6 +12,7 @@ angular.module('event').component('eventComp', {
     controller: ['EventFactory',
         function UserController(EventFactory) {
             var self = this;
+            self.today = new Date();
 
             self.showEventInfo = function () {
                 checkMember(self.event.users);
