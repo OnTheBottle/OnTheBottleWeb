@@ -1,7 +1,6 @@
 'use strict';
 
-angular.
-module('like').factory('LikeFactory', ['$resource',
+angular.module('like').factory('LikeFactory', ['$resource',
     function ($resource) {
         return $resource('http://localhost:8083/:path', {}, {
             addLike: {
@@ -9,15 +8,18 @@ module('like').factory('LikeFactory', ['$resource',
                 method: "Post",
                 transformResponse: function (data, headers, statusCode) {
                     console.log(statusCode);
-
                     var finalResponse = {
                         data: data,
                         responseStatusCode: statusCode
                     };
                     return finalResponse;
                 }
+            },
+            getLikes: {
+                url: 'http://localhost:8083/getLikes',
+                method: "GET",
+                isArray: true
             }
-            
         });
     }
 ]);

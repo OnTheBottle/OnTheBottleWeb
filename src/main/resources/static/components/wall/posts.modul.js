@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('postsApp',['ngRoute','post','userOk','security','like','ngResource','comment']);
+angular.module('postsApp', ['ngRoute', 'post', 'userOk', 'security', 'like', 'ngResource', 'comment']);

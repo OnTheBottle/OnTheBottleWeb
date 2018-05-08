@@ -91,8 +91,6 @@ angular.module('postsApp').component('postsComp', {
             //      }
 
 
-
-
             function updatePost(post) {
                 PostFactory.rewritePost({postDTO: post}, function (data) {
                     reset();
@@ -113,11 +111,7 @@ angular.module('postsApp').component('postsComp', {
             }
 
         }],
-    bindings: {
-
-
-
-    }
+    bindings: {}
 
 });
 

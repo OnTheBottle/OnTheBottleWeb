@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('comment',['ngRoute','ngResource','userOk']);
+angular.module('comment', ['ngRoute', 'ngResource', 'userOk']);

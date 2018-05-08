@@ -1,0 +1,48 @@
+<div class="modal-dialog modal-dialog-centered" ng-init="$ctrl.counter()">
+
+    <div class="modal-content text-center">
+
+        <div class="modal-header text-center">
+            Information about likes for this post
+        </div>
+
+        <div class="modal-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p> For watching information about rated post push this button</p>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-lg btn-primary" type="button" title="Users who rated your post"
+                                ng-click="$ctrl.information()">
+                            information
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="container-fluid border-top" ng-repeat="likeUser in $ctrl.likesUser">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img class="avatar rounded-circle" ng-src="likeUser.userAvatarUrl">
+                    </div>
+                    <div class="col-md-3">
+                        <p>{{likeUser.userName}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>{{likeUser.userSurname}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>{{likeUser.status}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-lg btn-secondary" type="button" data-dismiss="modal" ng-click="$ctrl.reset()">
+
+                Close
+            </button>
+        </div>
+    </div>
+</div>

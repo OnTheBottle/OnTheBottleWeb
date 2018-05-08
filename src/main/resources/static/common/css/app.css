@@ -1,41 +1,50 @@
-.table th, .table td, .table thead th, .table tbody td  {
+.table th, .table td, .table thead th, .table tbody td {
     text-align: center !important;
     vertical-align: center !important;
 }
 
-.profile-info .card-footer{
-    background-color:#dff0d8;
-    border-color:#d6e9c6;
-    height: 4rem;
+.profile-info .card-footer {
+    background-color: #e2c7e2;
+    border-color: blueviolet;
+    height: 6rem;
 }
 
 a:-webkit-any-link {
     color: -webkit-link;
     text-decoration: none;
 }
+
 li {
     display: list-item;
     text-align: -webkit-match-parent;
 }
-.post{
+
+.post {
     margin-top: 10px;
+    border: 2px solid;
+    border-color: blueviolet;
 }
-.card-text{
+
+.card-text {
     padding: 10px;
 }
-.stats{
+
+.stats {
     padding: 10px;
 }
-.post .card-footer{
+
+.post .card-footer {
     padding: 0;
 }
+
 .post .card-footer {
     border-left: 0;
     border-right: 0;
     border-top: 0;
     border-radius: 0;
 }
-.post-text textarea{
+
+.post-text textarea {
     border-radius: 0;
 }
 
@@ -43,59 +52,184 @@ li {
     width: 400px;
     height: 400px;
 }
-.navbar-default {
-    background-color: rgba(68, 193, 230, 0.84);
+
+.comment .p-2 {
+    padding: 0.2rem !important;
 }
 
-.color{
-    color: brown;
-}
-
-.comment .p-2 {padding:0.2rem !important;}
-
-.likeButton{
-    background-color: #dff0d8;
-    height:3rem ;
-    width:4rem ;
+.likeButton {
+    background-color: #e2c7e2;
+    height: 6rem;
+    width: 7rem;
     padding: 0;
 }
+
 .likeButton img {
-    height:3rem ;
-    width:3rem ;
+    height: 6rem;
+    width: 6rem;
 }
 
-.add-comment-input{
-    border-top:1px solid ;
-    border-bottom-color:#ced4da ;
-    border-top-color:#ced4da ;
-    border-bottom:1px solid;
+.add-comment-input {
+    border-top: 1px solid;
+    border-top-color: blueviolet;
+    border-bottom: 1px solid;
+    border-bottom-color: blueviolet;
 }
+
 .bordered {
-    border: 1px solid #ced4da;
-    border-radius:140px;
+    border: 1px solid darkorchid;
+    border-radius: 140px;
     margin-bottom: 0
 }
-.key{
+
+.key {
     margin-left: 10px;
     margin-bottom: 0;
-    font-size: 12px;
+    font-size: 1.2rem;
     font-family: Arial, Helvetica, sans-serif;
 }
-.comment-meta{
+
+.comment-meta {
     padding-left: 0;
 }
-.postsSet a {
-    color: #7a7a7a;
-}
-.cardEdit{
-    background-color:#dff0d8;
-}
-.cardEdit .btn {
-    background-color: #dff0d8;
-}
-.stats .btn{
-    background-color: white;
-}
-.select{
 
+.postsSet a {
+    color: black;
+}
+
+.cardEdit .btn {
+    background-color: #e2c7e2;
+    font-size: 1.4rem;
+}
+
+.stats .btn {
+    background-color: white;
+    font-size: 1.4rem;
+}
+
+.time p {
+    color: black;
+    font-size: 1.6rem;
+}
+
+.dropdown postsSet {
+
+}
+
+.title {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.8rem;
+}
+
+.userData {
+    font-size: 1.8rem;
+    font-family: 'Abril Fatface', cursive;
+}
+
+.stats {
+    font-size: 1.6rem;
+}
+
+.example2 {
+    font-size: 1.6rem;
+}
+
+.likeButton {
+    font-size: 1.4rem;
+}
+
+.dropdown-item {
+    font-size: 1.4rem;
+}
+
+.likeArea {
+    border-bottom: 1px solid;
+    border-bottom-color: blueviolet;
+    border-top: 1px solid;
+    border-top-color: blueviolet;
+}
+
+.card-header {
+    border-bottom: 1px solid;
+    border-bottom-color: blueviolet;
+}
+
+.card-footer {
+    background-color: #e2c7e2;
+}
+
+.post-text {
+    border: 2px solid;
+    border-color: blueviolet;
+}
+
+#example1 {
+    border-top: 1px solid;
+    border-top-color: blueviolet;
+    border-left: 0;
+    border-bottom: 1px solid;
+    border-bottom-color: blueviolet;
+    border-right: 0;
+    font-size: 1.4rem;
+
+}
+
+.add-title-input {
+    border-top: 0;
+    border-left: 0;
+    border-bottom: 0;
+    border-right: 0;
+    font-size: 1.4rem;
+}
+
+.searchBody {
+    margin-bottom: 1rem;
+    border: 2px solid;
+    border-color: blueviolet;
+    height: 6rem;
+}
+
+.select {
+    font-size: 1.4rem;
+}
+
+.eye {
+    margin-bottom: 0;
+}
+
+.vcenter {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+}
+
+.cnopki btn {
+    font-size: 1.4rem;
+}
+
+.fishki {
+    padding-top: 1.5rem;
+}
+
+.search {
+    height: 2.5rem;
+    border: 2px solid;
+    border-color: blueviolet;
+}
+
+.sort {
+    height: 2.5rem;
+    border: 2px solid;
+    border-color: blueviolet;
+}
+
+.poisk {
+    padding-top: 1.5rem;
+    padding-bottom: 0;
+    height: 4rem;
+}
+
+#Select1 {
+    border: 2px solid;
+    border-color: blueviolet;
 }

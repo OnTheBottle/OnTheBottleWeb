@@ -1,7 +1,6 @@
 'use strict';
 
-angular.
-module('comment').factory('CommentFactory', ['$resource',
+angular.module('comment').factory('CommentFactory', ['$resource',
     function ($resource) {
         return $resource('http://localhost:8083/getComment', {}, {
             getComment: {method: "GET"},
@@ -9,19 +8,17 @@ module('comment').factory('CommentFactory', ['$resource',
                 url: 'http://localhost:8083/getComments',
                 method: "GET",
                 isArray: true
-                },
-            createComment:{
-                url:'http://localhost:8083/:path',
-                params:{path:'saveComment'},
-                method:"POST",
+            },
+            createComment: {
+                url: 'http://localhost:8083/:path',
+                params: {path: 'saveComment'},
+                method: "POST",
                 isArray: true
-                },
-            deleteComment:{
-                url:'http://localhost:8083/deleteComment',
-                method:"POST"
-
+            },
+            deleteComment: {
+                url: 'http://localhost:8083/deleteComment',
+                method: "POST"
             }
-            
         });
     }
 ]);

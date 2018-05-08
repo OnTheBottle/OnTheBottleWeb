@@ -1,32 +1,31 @@
 <link rel="stylesheet" href="common/css/app.css" type="text/css">
+
+
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="posts col-md-8" >
-            <div class="card">
-                <div class="card-body container-fluid">
+        <div class="col-md-2">
+
+        </div>
+        <div class="posts col-md-8">
+            <div class="card searchBody">
+                <div class="card-body poisk container-fluid">
                     <div class="row">
                         <div class="col-md-6">
-
                             Search:
-                            <label><input ng-model="$ctrl.getPosts"/></label>
-
+                            <label><input class="search" ng-model="$ctrl.getPosts"/></label>
                         </div>
                         <div class="col-md-6">
-
                             Sort by:
-                            <select ng-model="$ctrl.orderProp" title="Change sort option">
+                            <select class="sort" ng-model="$ctrl.orderProp" title="Change sort option">
                                 <option value="title">Title</option>
                                 <option value="date">Date</option>
                             </select>
-
                         </div>
                     </div>
                 </div>
             </div>
             <div class="posts">
                 <form class="post-text" name="myForm" ng-submit="$ctrl.submit()">
-
                     <input class="id" ng-show="postid" ng-model="$ctrl.post.id"/>
                     <div class="card profile-info bg-white ">
                         <input type="text" class="form-control add-title-input" ng-model="$ctrl.post.title"
@@ -35,10 +34,9 @@
                                   class="form-control input-group-lg p-text-area" rows="2"
                                   placeholder="Whats in your mind today?">
                             </textarea>
-
-                        <div class="card-footer container-fluid cardEdit">
+                        <div class="card-footer fishki container-fluid cardEdit ">
                             <div class="row">
-                                <div class="col-md-5 btn-group">
+                                <div class="col-md-5 btn-group vcenter cnopki">
                                     <button type="button" class="btn" title="Add your place on map"><i
                                             class="fas fa-map-marker-alt fa-lg "></i>
                                     </button>
@@ -50,25 +48,28 @@
                                     <button type="button" class="btn" title="Add sound "><i
                                             class="fas fa-microphone fa-lg "></i></button>
                                 </div>
-                                <div class="col-md-5  container">
+                                <div class="col-md-5  container vcenter">
                                     <div class="row">
-                                        <div class="col-md-3">
-                                            <p><i class="fas fa-eye fa-lg"></i></p>
+                                        <div class="col-md-3 vcenter">
+                                            <p class="eye"><i class="fas fa-eye fa-lg"></i></p>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 vcenter">
                                             <label for="Select1">
-                                                <select class="form-control select" id="Select1" ng-model="$ctrl.post.security.description">
-                                                    <option  value="{{post.security.description}}">{{post.security.description}}</option>
+                                                <select class="form-control select" id="Select1"
+                                                        ng-model="$ctrl.post.security.description">
+                                                    <option value="{{post.security.description}}">
+                                                        {{post.security.description}}
+                                                    </option>
                                                     <option selected disabled>Choose vision..</option>
                                                     <option ng-repeat="security in $ctrl.securities"
-                                                            value="{{security.description}}" >{{security.description}}
+                                                            value="{{security.description}}">{{security.description}}
                                                     </option>
 
                                                 </select></label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2 btn-group text-left">
+                                <div class="col-md-2 btn-group text-left vcenter">
                                     <button type="submit" class="btn" data-toggle="tooltip" data-placement="top"
                                             title="{{!$ctrl.post.id ? 'Add' : 'Update'}}"
                                             value="{{!$ctrl.post.id ? 'Add' : 'Update'}}"
@@ -83,9 +84,10 @@
                     </div>
                 </form>
                 <div class="posts list">
-                    <post post="post" userId="post.user.id" get-posts="$ctrl.fetchPosts()" ng-repeat="post in $ctrl.posts| filter:$ctrl.getPosts|orderBy:$ctrl.orderProp"  ></post>
+                    <post post="post" userId="post.user.id" get-posts="$ctrl.fetchPosts()"
+                          ng-repeat="post in $ctrl.posts| filter:$ctrl.getPosts|orderBy:$ctrl.orderProp"></post>
                 </div>
-                <div class="post-load-more text-center" >
+                <div class="post-load-more text-center">
 
                     <button type="button" title="Show more posts"
                             class="btn "><i class="fas fa-spinner fa-lg "></i> 4
@@ -93,7 +95,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-2"></div>
     </div>
 </div>

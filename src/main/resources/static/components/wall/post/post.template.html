@@ -1,4 +1,4 @@
-<div class="card post" ng-init="$ctrl.getUser($ctrl.post.user.id)">
+<div class="card post" ng-init="$ctrl.getUser($ctrl.post.user.id,$ctrl.post.id)">
     <div class="card-header container-fluid" style="background-color: white">
         <div class="header row">
             <div class="image col-md-3">
@@ -9,13 +9,13 @@
                 <div ng-show="userId">
                     <input type="text" ng-model="$ctrl.userId" value="{{$ctrl.post.user.id}}"/>
                 </div>
-                <div class="title h6">
-                    <p>
-                        <a class="post-user-name" href="#" style="">
+                <div class="titlePost">
+                    <p class="userData">
+                        <a class="post-user-name" href="#">
                             {{$ctrl.user.name}}&nbsp {{$ctrl.user.surname}}</a></p>
-                    <p ng-bind="$ctrl.post.title"></p>
+                    <p class="title">{{$ctrl.post.title}}</p>
                 </div>
-                <p class="text-muted time" style="font-size:0.7rem">{{$ctrl.post.date}}&nbsp &nbsp<i
+                <p class=" time">{{$ctrl.post.date}}&nbsp &nbsp<i
                         class="fas fa-eye" title="vision"></i>&nbsp: &nbsp {{$ctrl.post.security.description}}</p>
 
             </div>
@@ -58,16 +58,19 @@
                 </button>
                 <div class="dropdown-menu ">
                     <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.like($ctrl.post.id)">
-                        <i class="far fa-thumbs-up"></i>Like
+                        <image style="height:3rem;width:3rem" src="https://www.smileysapp.com/emojis/extra-happy.png"/>
+                        Like
                     </a>
                     <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.dislike($ctrl.post.id)">
-                        <i class="far fa-thumbs-down"></i>Dislike
+                        <image style="height:3rem;width:3rem" src="https://www.smileysapp.com/emojis/irritated.png"/>
+                        Dislike
                     </a>
+
                 </div>
             </div>
             <div class="col-md-4 text-center">
                 <button class="btn " type="button"
-                        title="Add your comment..." ng-click=""><i
+                        title="Add your comment..." ng-click="$ctrl.focus()"><i
                         class="fas fa-comments fa-lg"></i> Comment
                 </button>
             </div>
@@ -79,16 +82,20 @@
             </div>
         </div>
     </div>
-
-    <div class="card-footer" style="background-color: #dff0d8">
-
-
-        <div class="border-bottom ">
+    <div class="card-footer">
+        <div class="likeArea ">
             <div class="row">
-                <div class="col-md-4">
-                    <button type="button" class="likeButton btn"
-                            title=""><img src="images/forPages/like.png"/>{{$ctrl.post.likes.length}}
+                <div class="col-md-4 but">
+                    <button type="button" class="likeButton btn" data-toggle="modal" data-target="#listLikes"
+                            title="you have {{$ctrl.countLike}} likes and {{$ctrl.countDislike}} dislikes"
+                            ng-click="$ctrl.open($ctrl.post.id)"><img src="images/forPages/like.png"/>{{$ctrl.post.likes.length}}
                     </button>
+
+                    <div class="modal fade" id="listLikes" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
+                         aria-hidden="true">
+                        <modal post-id="$ctrl.post.id" counter-like="$ctrl.countLike"
+                               counter-dislike="$ctrl.countDislike"></modal>
+                    </div>
                 </div>
                 <div class="col-md-8">
                     <span ng-click="$ctrl.clear()">{{$ctrl.warning}}</span>
@@ -96,14 +103,14 @@
             </div>
         </div>
 
-        <div class="comments list" >
+        <div class="comments list">
             <comment comment="comment" userId="comment.user.id" ng-repeat="comment in $ctrl.post.comments"></comment>
         </div>
 
 
     </div>
     <form name="commentForm" ng-submit="$ctrl.submitComment()">
-        <input class="form-control add-comment-input example2" placeholder="Add a comment..."
+        <input id="{{$ctrl.random}}" class="form-control add-comment-input example2" placeholder="Add a comment..."
                ng-model="$ctrl.commenting"
                type="text" ng-keypress="$ctrl.keyPressed($event,$ctrl.post.id)"/>
         <p class="key">Press ..Enter.. to commit...</p>
