@@ -67,7 +67,7 @@ angular.module('eventsApp').component('eventsComp', {
                         self.eventInfo.isJoin = false;
                         self.eventInfo.isLeave = true;
                     }, function (errResponse) {
-                        console.error('Error while join Event');
+                        angular.element('#myModalClosed').modal('show');
                     });
                 },
                 isLeaveEvent: function (accept) {

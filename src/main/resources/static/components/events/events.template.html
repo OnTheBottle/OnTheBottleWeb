@@ -148,7 +148,7 @@
 
             <event-comp user-id="self.userId" event="event" set-event-info="self.setEventInfo"
                         get-events="self.util.getEvents"
-                        ng-repeat="event in self.events | orderBy:'startTime.toString()'">
+                        ng-repeat="event in self.events | orderBy:'startTime':true">
             </event-comp>
 
             <div class="modal fade" id="myModalEvent" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
@@ -324,7 +324,8 @@
                         </div>
 
                         <div class="modal-body">
-                            <p>Вы являетесь создателем ивента, выход из него приведет к закрытию ивента.
+                            <p>Вы являетесь создателем ивента, выход из него приведет к передачи ивента случайному участнику
+                                (если вы единственный участник то выход приведет к закрытию ивента).
                             Вы уверены в этом?</p>
                         </div>
 
@@ -335,6 +336,33 @@
                             <button class="btn btn-lg btn-danger" type="button"
                                     ng-click="self.util.isLeaveEvent(true)">
                                 Да
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModalClosed" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="closedEventLongTitle">Упс!</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>Ивент уже закончен :(</p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-lg btn-danger" type="button"
+                                    ng-click="self.util.getEvents()"
+                                    data-dismiss="modal">
+                                Ок
                             </button>
                         </div>
                     </div>

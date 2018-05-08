@@ -13,7 +13,7 @@
         <button class="btn btn-info" id="control"
                 ng-click="self.control()" ng-class="{member : self.event.usersId.indexOf(self.userId) != -1}"
                 ng-disabled="!self.event.isActive">
-            {{self.event.usersId.indexOf(self.userId) != -1 ? (self.event.isActive ? 'Вы участвуете' : 'Вы участвовали') : (self.event.isActive ? 'Присоединится' : 'Пройдено')}}
+            {{self.event.usersId.indexOf(self.userId) != -1 ? (self.event.isActive ? 'Вы участвуете' : (self.event.usersId === undefined ? 'Пройдено' : 'Вы участвовали' )) : (self.event.isActive ? 'Присоединится' : 'Пройдено')}}
         </button>
     </div>
 </div>

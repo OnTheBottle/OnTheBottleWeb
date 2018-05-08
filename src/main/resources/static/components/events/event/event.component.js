@@ -54,7 +54,7 @@ angular.module('event').component('eventComp', {
                     }, function (data) {
                         self.getEvents();
                     }, function (errResponse) {
-                        console.error('Error while join Event');
+                        angular.element('#myModalClosed').modal('show');
                     });
                 }
             };
