@@ -4,7 +4,7 @@
     <p class="description">{{self.event.text | cut:true:350:' ...'}}</p>
     <p class="time">{{self.event.isActive ? (self.event.startTime.setHours(0,0,0,0) === self.today.setHours(0,0,0,0) ? 'Сегодня' :
         (self.event.startTime.setHours(0,0,0,0) < self.today.setHours(0,0,0,0) ? 'Событие началось'
-        : 'Событие состоится')) : 'Событие прошло'}} {{self.event.startTime | date:'dd MMM yyyy'}} в {{self.event.startTime | date:'HH:mm'}}</p>
+        : 'Событие состоится')) : (self.event.startTime.setHours(0,0,0,0) > self.today.setHours(0,0,0,0) ? 'Событие не состоится' : 'Событие прошло')}} {{self.event.startTime | date:'dd MMM yyyy'}} в {{self.event.startTime | date:'HH:mm'}}</p>
     <div class="people">
         <img src="images/events/user.svg">
         <p>{{self.event.users.length}}</p>
