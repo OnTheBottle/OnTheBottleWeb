@@ -120,35 +120,45 @@
         </div>
 
         <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-                <label class="form-check-label mr-4" for="allEvents">
-                    Все ивенты
-                    <input class="form-check-input" type="radio" name="filterEvents" id="allEvents"
-                           ng-model="self.options['allEvents']" value='true' ng-change="self.util.getEvents()">
-                </label>
+            <div class="navbar justify-content-between">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label mr-4" for="allEvents">
+                        Все ивенты
+                        <input class="form-check-input" type="radio" name="filterEvents" id="allEvents"
+                               ng-model="self.options['allEvents']" value='true' ng-change="self.util.getEvents()">
+                    </label>
 
-                <label class="form-check-label mr-4" for="myEvents">
-                    Мои ивенты
-                    <input class="form-check-input" type="radio" name="filterEvents" id="myEvents"
-                           ng-model="self.options['allEvents']" value='false' ng-change="self.util.getEvents()">
-                </label>
+                    <label class="form-check-label mr-4" for="myEvents">
+                        Мои ивенты
+                        <input class="form-check-input" type="radio" name="filterEvents" id="myEvents"
+                               ng-model="self.options['allEvents']" value='false' ng-change="self.util.getEvents()">
+                    </label>
 
-                <label class="form-check-label mr-4" for="activeEvents">
-                    Активные ивенты
-                    <input class="form-check-input" type="checkbox" id="activeEvents"
-                           ng-model="self.options['activeEvents']" ng-change="self.util.getEvents()">
-                </label>
+                    <label class="form-check-label mr-4" for="activeEvents">
+                        Активные ивенты
+                        <input class="form-check-input" type="checkbox" id="activeEvents"
+                               ng-model="self.options['activeEvents']" ng-change="self.util.getEvents()">
+                    </label>
 
-                <label class="form-check-label mr-4" for="passedEvents">
-                    Пройденные ивенты
-                    <input class="form-check-input" type="checkbox" id="passedEvents"
-                           ng-model="self.options['passedEvents']" ng-change="self.util.getEvents()">
-                </label>
+                    <label class="form-check-label mr-4" for="passedEvents">
+                        Пройденные ивенты
+                        <input class="form-check-input" type="checkbox" id="passedEvents"
+                               ng-model="self.options['passedEvents']" ng-change="self.util.getEvents()">
+                    </label>
+                </div>
+                <form class="form-inline">
+                    <div class="input-group shadow">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">&#9658;</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Поиск..." ng-model="search.title">
+                    </div>
+                </form>
             </div>
 
             <event-comp user-id="self.userId" event="event" set-event-info="self.setEventInfo"
                         get-events="self.util.getEvents"
-                        ng-repeat="event in self.events | orderBy:'startTime':true">
+                        ng-repeat="event in self.events | filter: search | orderBy:'startTime':true">
             </event-comp>
 
             <div class="modal fade" id="myModalEvent" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
@@ -324,9 +334,10 @@
                         </div>
 
                         <div class="modal-body">
-                            <p>Вы являетесь создателем ивента, выход из него приведет к передачи ивента случайному участнику
+                            <p>Вы являетесь создателем ивента, выход из него приведет к передачи ивента случайному
+                                участнику
                                 (если вы единственный участник то выход приведет к закрытию ивента).
-                            Вы уверены в этом?</p>
+                                Вы уверены в этом?</p>
                         </div>
 
                         <div class="modal-footer">
