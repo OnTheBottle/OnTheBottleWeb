@@ -36,6 +36,15 @@ angular.module('event').component('eventComp', {
                 }
             }
 
+            self.isLeaveEvent = function () {
+                if (self.userId === self.event.owner.id) {
+                    self.setEventInfo(self.event);
+                    angular.element('#myModalClose').modal('show');
+                } else {
+                    self.control();
+                }
+            };
+
             self.control = function () {
                 var isMember = self.event.usersId.indexOf(self.userId) !== -1;
                 if (isMember) {
