@@ -10,10 +10,10 @@
         <p>{{self.event.users.length}}</p>
     </div>
     <div class="btn-group control">
-        <button class="btn btn-info" id="control"
+        <button class="btn btn-info" id="control" type="button"
                 ng-click="self.isLeaveEvent()" ng-class="{member : self.event.usersId.indexOf(self.userId) != -1}"
-                ng-disabled="!self.event.isActive">
-            {{self.event.usersId.indexOf(self.userId) != -1 ? (self.event.isActive ? 'Вы участвуете' : (self.event.usersId === undefined ? 'Брошено' : 'Вы участвовали' )) : (self.event.isActive ? 'Присоединится' : 'Пройдено')}}
+                ng-show="self.event.isActive">
+            {{self.event.usersId.indexOf(self.userId) != -1 ? 'Вы участвуете' : 'Присоединится'}}
         </button>
     </div>
 </div>

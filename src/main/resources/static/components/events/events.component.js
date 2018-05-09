@@ -12,6 +12,13 @@ angular.module('eventsApp').component('eventsComp', {
             self.options = {allEvents: 'true', activeEvents: true, passedEvents: false};
             self.today = new Date();
 
+            self.setInfoMenu = function () {
+                self.activeMenu = 'Info';
+            };
+            self.setUpdateMenu = function () {
+                self.activeMenu = 'Update';
+            };
+
             self.util = {
                 getEvents: function () {
                     EventFactory.getEvents(
@@ -57,6 +64,14 @@ angular.module('eventsApp').component('eventsComp', {
                     self.text = '';
                     self.startTime = '';
                     self.endTime = '';
+                },
+                control: function () {
+                    var isMember = self.eventInfo.usersId.indexOf(self.userId) !== -1;
+                    if (isMember) {
+                        self.util.isLeaveEvent();
+                    } else {
+                        self.util.joinEvent();
+                    }
                 },
                 joinEvent: function () {
                     EventFactory.joinEvent({
@@ -122,7 +137,7 @@ angular.module('eventsApp').component('eventsComp', {
             };
 
             self.setEventInfo = function (event) {
-                self.isUpdate = false;
+                self.activeMenu = 'Info';
                 self.eventInfo = event;
                 self.isOwner = self.userId === self.eventInfo.owner.id;
             };
