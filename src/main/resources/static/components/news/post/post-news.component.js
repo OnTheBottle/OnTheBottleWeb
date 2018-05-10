@@ -13,7 +13,6 @@
 
     function PostController($http) {
         var model = this;
-        model.isViewComments;
 
         model.$onInit = function () {
         };
@@ -45,7 +44,7 @@
                 model.post.isLike = response.data;
                 if (response.data) {
                     model.post.likeCount++;
-                }else{
+                } else {
                     model.post.likeCount--;
                 }
             }, function myError(response) {

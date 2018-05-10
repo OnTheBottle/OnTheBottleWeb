@@ -4,14 +4,14 @@
     angular.module('linkFriendsApp')
         .component('linkFriendsComp', {
             templateUrl: 'components/friends/link/link-friends.component.html',
-            controller: ['$http', linkController],
+            controller: ['$http', '$route', linkController],
             controllerAs: 'model',
             bindings: {
                 userId: '<'
             }
         });
 
-    function linkController($http) {
+    function linkController($http, $route) {
 
         var model = this;
         model.friends = [];
@@ -44,6 +44,7 @@
                 model.friends = response.data;
                 console.log('response: ', model.friends);
                 getAllUser();
+                $route.reload();
             }, function myError(response) {
                 alert(response.statusText);
             });
@@ -61,6 +62,7 @@
                 model.friends = response.data;
                 console.log('response: ', model.friends);
                 getAllUser();
+                $route.reload();
             }, function myError(response) {
                 alert(response.statusText);
             });

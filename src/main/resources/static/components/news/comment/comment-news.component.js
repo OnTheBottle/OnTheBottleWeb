@@ -31,8 +31,6 @@
                     console.log('Error News Component: ', response.statusText);
                 });
             }(model.comment.user.id);
-
-
         }
 
     }
