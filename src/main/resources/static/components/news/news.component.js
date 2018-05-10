@@ -4,14 +4,14 @@
     angular.module('newsApp')
         .component('newsComp', {
             templateUrl: 'components/news/news.component.html',
-            controller: ['$http', '$interval', NewsController],
+            controller: ['$http', '$cookies', '$interval', NewsController],
             controllerAs: 'model',
             bindings: {
                 userId: '='
             }
         });
 
-    function NewsController($http, $interval) {
+    function NewsController($http, $cookies, $interval) {
 
         var model = this;
         model.posts = [];
@@ -20,16 +20,19 @@
 
         model.$onInit = function () {
             console.log('NewsController userId: ', model.userId);
-            getNewsPosts(model.userId);
+            getNewsPosts(model.userId, $cookies.get('access_token'));
         };
 
-        function getNewsPosts(userId) {
+        function getNewsPosts(userId, access_token) {
             $http({
                 method: "POST",
                 url: MESSAGE_PATH + "/news/get_friends_posts",
-                params: {id: userId}
+                params: {
+                    id: userId,
+                    access_token: access_token
+                }
             }).then(function mySuccess(response) {
-                model.posts = adapterPostArray(response.data[0], response.data[1], model.userId);
+                model.posts = adapterPostArray(response.data[0], response.data[1], userId);
                 console.log('getNewsPosts model.posts:\n', model.posts);
             }, function myError(response) {
                 console.log('Error News Component: ', response.statusText);

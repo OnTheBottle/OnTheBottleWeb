@@ -48,5 +48,7 @@
                 console.log('Error response friends: ', response.statusText);
             });
         }
+
+        model.invite = model.confirmRelation;
     }
 })();

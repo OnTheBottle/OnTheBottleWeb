@@ -15,16 +15,19 @@
         var model = this;
 
         model.$onInit = function () {
-            console.log('notifyController model.userId: ', model.userId);
-            getUsersWantRelationship();
+            getUsersWantRelationship(model.userId);
         };
 
-        function getUsersWantRelationship() {
+        function getUsersWantRelationship(userId) {
             console.log('notifyController access_token: ', $cookies.get('access_token'));
+            console.log('notifyController userId: ', userId);
             $http({
                 method: "POST",
-                url: USER_PATH + "/friend/get_users_want_relationship",
-                params: {access_token: $cookies.get('access_token')}
+                url: USER_PATH + "/friend/get_notconfirmed_friends",
+                params: {
+                    access_token: $cookies.get('access_token'),
+                    userId: userId
+                }
             }).then(function mySuccess(response) {
                 model.friends = response.data;
                 console.log('response notconfirmed friends: ', model.friends);
