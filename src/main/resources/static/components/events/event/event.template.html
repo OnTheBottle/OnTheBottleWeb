@@ -11,9 +11,9 @@
     </div>
     <div class="btn-group control">
         <button class="btn btn-info" id="control" type="button"
-                ng-click="self.isLeaveEvent()" ng-class="{member : self.event.usersId.indexOf(self.userId) != -1}"
+                ng-click="self.control()" ng-class="{member : self.checkMember(self.event.users)}"
                 ng-show="self.event.isActive">
-            {{self.event.usersId.indexOf(self.userId) != -1 ? 'Вы участвуете' : 'Присоединится'}}
+            {{self.checkMember(self.event.users) ? 'Вы участвуете' : 'Присоединится'}}
         </button>
     </div>
 </div>

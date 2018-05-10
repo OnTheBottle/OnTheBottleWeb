@@ -12,20 +12,12 @@ angular.module('eventsApp').component('eventsComp', {
             self.options = {allEvents: 'true', activeEvents: true, passedEvents: false};
             self.today = new Date();
 
-            self.setInfoMenu = function () {
-                self.activeMenu = 'Info';
-            };
-            self.setUpdateMenu = function () {
-                self.activeMenu = 'Update';
-            };
-
             self.util = {
                 getEvents: function () {
                     EventFactory.getEvents(
                         {userId: self.userId, options: self.options},
                         function (data) {
                             self.formatDate(data);
-                            self.setUserId(data);
                             self.events = data;
                         }, function (errResponse) {
                             console.error('Error while read events');
@@ -66,8 +58,7 @@ angular.module('eventsApp').component('eventsComp', {
                     self.endTime = '';
                 },
                 control: function () {
-                    var isMember = self.eventInfo.usersId.indexOf(self.userId) !== -1;
-                    if (isMember) {
+                    if (self.checkMember(self.eventInfo.users)) {
                         self.util.isLeaveEvent();
                     } else {
                         self.util.joinEvent();
@@ -79,8 +70,7 @@ angular.module('eventsApp').component('eventsComp', {
                         userId: self.userId
                     }, function (data) {
                         self.util.getEvents();
-                        self.eventInfo.isJoin = false;
-                        self.eventInfo.isLeave = true;
+                        self.eventInfo.users[self.eventInfo.users.length] = {id: self.userId};
                     }, function (errResponse) {
                         angular.element('#myModalClosed').modal('show');
                     });
@@ -102,8 +92,7 @@ angular.module('eventsApp').component('eventsComp', {
                         userId: self.userId
                     }, function (data) {
                         self.util.getEvents();
-                        self.eventInfo.isLeave = false;
-                        self.eventInfo.isJoin = true;
+                        self.eventInfo.users.splice(getIndexOfUser(), 1);
                     }, function (errResponse) {
                         console.error('Error while leave Event');
                     });
@@ -136,6 +125,28 @@ angular.module('eventsApp').component('eventsComp', {
                 }
             };
 
+            self.checkMember = function (users) {
+                var isMember = false;
+                if (users === undefined) return isMember;
+                users.forEach(function (item) {
+                    if (item.id === self.userId) {
+                        isMember = true;
+                    }
+                });
+                return isMember;
+            };
+
+            function getIndexOfUser(){
+                var index = 0;
+                for (var i = 0; i < self.eventInfo.users.length; i++) {
+                    if (self.eventInfo.users[i].id === self.userId) {
+                        index = i;
+                        return index;
+                    }
+                }
+                return index;
+            }
+
             self.setEventInfo = function (event) {
                 self.activeMenu = 'Info';
                 self.eventInfo = event;
@@ -153,14 +164,6 @@ angular.module('eventsApp').component('eventsComp', {
                 events.forEach(function (item) {
                     item.startTime = new Date(item.startTime.replace(' ', 'T') + "Z");
                     item.endTime = new Date(item.endTime.replace(' ', 'T') + "Z");
-                });
-            };
-
-            self.setUserId = function (events) {
-                events.forEach(function (event) {
-                    event.users.forEach(function (item) {
-                        event.usersId += item.id;
-                    });
                 });
             };
         }]

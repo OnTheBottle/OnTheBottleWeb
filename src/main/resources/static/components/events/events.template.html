@@ -178,11 +178,11 @@
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item" ng-class="{active : self.activeMenu === 'Info'}">
                                         <a class="nav-link"
-                                           ng-click="self.setInfoMenu()" href="">Информация</a>
+                                           ng-click="self.activeMenu = 'Info'" href="">Информация</a>
                                     </li>
                                     <li class="nav-item" ng-class="{active : self.activeMenu === 'Update'}">
                                         <a class="nav-link" ng-show="self.isOwner"
-                                           ng-click="self.setUpdateMenu()" href="">Редактировать</a>
+                                           ng-click="self.activeMenu = 'Update'" href="">Редактировать</a>
                                     </li>
                                 </ul>
 
@@ -208,9 +208,9 @@
 
                                     <button class="btn btn-lg btn-info control" id="control" type="button"
                                             ng-click="self.util.control()"
-                                            ng-class="{member : self.eventInfo.usersId.indexOf(self.userId) != -1}"
+                                            ng-class="{member : self.checkMember(self.eventInfo.users)}"
                                             ng-show="self.eventInfo.isActive">
-                                        {{self.eventInfo.usersId.indexOf(self.userId) != -1 ? 'Вы участвуете' : 'Присоединится'}}
+                                        {{self.checkMember(self.eventInfo.users) ? 'Вы участвуете' : 'Присоединится'}}
                                     </button>
                                 </div>
 
@@ -304,7 +304,7 @@
                                     Закрыть
                                 </button>
                                 <button class="btn btn-lg btn-secondary" type="button"
-                                        ng-show="self.activeMenu === 'Update'" ng-click="self.util.resetEventUpdate()">
+                                        ng-show="self.activeMenu === 'Update'" ng-click="self.activeMenu = 'Info'">
                                     Отменить
                                 </button>
                                 <button class="btn btn-lg btn-success" type="submit"

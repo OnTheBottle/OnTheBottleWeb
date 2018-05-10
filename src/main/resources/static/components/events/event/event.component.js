@@ -15,47 +15,22 @@ angular.module('event').component('eventComp', {
             self.today = new Date();
 
             self.showEventInfo = function () {
-                checkMember(self.event.users);
-                self.event.isJoin = !(self.isMember && self.event.isActive) && self.event.isActive;
-                self.event.isLeave = (self.isMember && self.event.isActive) && self.event.isActive;
                 self.setEventInfo(self.event);
             };
 
-            function checkMember(users) {
-                var BreakException = {};
-                self.isMember = false;
-                try {
-                    users.forEach(function (item) {
-                        if (item.id === self.userId) {
-                            self.isMember = true;
-                            throw BreakException;
-                        }
-                    });
-                } catch (e) {
-                    if (e !== BreakException) throw e;
-                }
-            }
-
-            self.isLeaveEvent = function () {
-                if (self.userId === self.event.owner.id) {
-                    self.setEventInfo(self.event);
-                    angular.element('#myModalClose').modal('show');
-                } else {
-                    self.control();
-                }
+            self.checkMember = function (users) {
+                var isMember = false;
+                users.forEach(function (item) {
+                    if (item.id === self.userId) {
+                        isMember = true;
+                    }
+                });
+                return isMember;
             };
 
             self.control = function () {
-                var isMember = self.event.usersId.indexOf(self.userId) !== -1;
-                if (isMember) {
-                    EventFactory.leaveEvent({
-                        eventId: self.event.id,
-                        userId: self.userId
-                    }, function (data) {
-                        self.getEvents();
-                    }, function (errResponse) {
-                        console.error('Error while leave Event');
-                    });
+                if (self.checkMember(self.event.users)) {
+                    self.leaveEvent();
                 } else {
                     EventFactory.joinEvent({
                         eventId: self.event.id,
@@ -64,6 +39,22 @@ angular.module('event').component('eventComp', {
                         self.getEvents();
                     }, function (errResponse) {
                         angular.element('#myModalClosed').modal('show');
+                    });
+                }
+            };
+
+            self.leaveEvent = function () {
+                if (self.event.users[0].id === self.event.owner.id) {
+                    self.setEventInfo(self.event);
+                    angular.element('#myModalClose').modal('show');
+                } else {
+                    EventFactory.leaveEvent({
+                        eventId: self.event.id,
+                        userId: self.userId
+                    }, function (data) {
+                        self.getEvents();
+                    }, function (errResponse) {
+                        console.error('Error while leave Event');
                     });
                 }
             };
