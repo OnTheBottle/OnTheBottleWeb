@@ -72,8 +72,6 @@ angular.module('postsApp').component('postsComp', {
 
             function reset() {
                 self.post = {id: null, user_id: self.userid, text: '', title: '', security: {description: ''}};
-                //       self.myForm.$setPristine();
-
             }
 
 
@@ -110,6 +108,9 @@ angular.module('postsApp').component('postsComp', {
                 }
             }
 
+            self.setLikesUser = function (likes) {
+                self.likesUser = likes;
+            };
         }],
     bindings: {}
 

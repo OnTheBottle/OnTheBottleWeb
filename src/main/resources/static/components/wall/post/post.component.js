@@ -2,16 +2,17 @@
 
 angular.module('post')
     .service('postIdStorage', function () {
-        var _id = null;
+        var massiv = null;
 
         return {
-            setId: function (id) {
-                _id = id;
-                console.log('set postId', id);
+            setId: function (mass) {
+                massiv = mass;
+
+
             },
             getId: function () {
-                return _id;
-                console.log('get postId', id);
+                return massiv;
+
             }
         }
     })
@@ -25,10 +26,13 @@ angular.module('post')
                 self.user = {name: '', surname: '', avatarUrl: ''};
                 self.commenting = '';
                 self.comment = {id: null, user_id: self.userid, post_id: null, comment: ''};
-
-                // self.likesUser=[null];
                 self.random = '';
                 random();
+
+                self.$onInit = function () {
+                    console.log('ready!')
+                };
+
                 self.getUser = function (id, postId) {
                     console.log('userId', id);
                     UserFactory.getUsr({userId: id}, function (data) {
@@ -39,10 +43,9 @@ angular.module('post')
                         },
                         function (errResponce) {
                             console.error('Error while get User');
-
                         });
-
                 };
+
                 self.focus = function () {
                     var id = self.random;
                     var string = '#' + id;
@@ -59,7 +62,6 @@ angular.module('post')
                 this.dropPost = function (id) {
                     PostFactory.dropPost({id: id}, function (data) {
                         self.update()
-
                     }, function (errResponse) {
                         console.error('Error while deleting Post');
                     })
@@ -85,7 +87,6 @@ angular.module('post')
                             resetComment();
                             self.update();
                             console.log('Created comment');
-
                         }, function (errResponse) {
                             console.error('Error while creating Comment');
                         })
@@ -130,24 +131,17 @@ angular.module('post')
                     self.warning = ''
                 };
 
-
                 this.open = function (id) {
-
                     console.log('open with', id);
-                    postIdStorage.setId(id);
-
-
+                    information(id);
                 };
 
                 function counter(id) {
-
                     self.countLike = 0;
                     self.countDislike = 0;
-
                     var countL = 0;
                     var countD = 0;
                     LikeFactory.getLikes({postId: id}, function (data) {
-
                             data.forEach(function (value) {
                                 if (value.status === 'like') {
                                     countL++
@@ -164,13 +158,56 @@ angular.module('post')
                         }
                     )
                 }
+
+                function information(id) {
+                    console.log('postId', id);
+                    LikeFactory.getLikes({postId: id}, function (data) {
+
+                            var likes = data;
+
+                            likes.forEach(function (value) {
+
+                                getLikeUser(value.user.id, value.status);
+                            })
+                        },
+                        function (errResponce) {
+                            console.log('Error while fetching likes list')
+                        }
+                    )
+                }
+
+                function getLikeUser(id, status) {
+                    UserFactory.getUsr({userId: id}, function (data) {
+                        var userLike = {name: '', surname: '', avatarUrl: ''};
+                        userLike.name = data.name;
+                        userLike.surname = data.surname;
+                        userLike.avatarUrl = data.avatarUrl;
+                        getLikeData(status, userLike)
+                    });
+                }
+
+                function getLikeData(status, user) {
+                    var likesUser = [];
+                    var likeData = {};
+                    likeData.userName = user.name;
+                    likeData.userSurname = user.surname;
+                    likeData.userAvatarUrl = user.avatarUrl;
+                    likeData.status = status;
+                    likesUser.push(likeData);
+                    getLikesUser(likesUser)
+                }
+
+                function getLikesUser(lu) {
+                    self.setLikesUser(lu);
+                }
             }],
 
         bindings: {
             getPosts: '&',
             orderProp: '=',
             post: '=',
-            userId: '='
+            userId: '=',
+            setLikesUser: '='
         }
 
     });

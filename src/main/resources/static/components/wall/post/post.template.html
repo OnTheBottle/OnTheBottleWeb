@@ -86,16 +86,11 @@
         <div class="likeArea ">
             <div class="row">
                 <div class="col-md-4 but">
-                    <button type="button" class="likeButton btn" data-toggle="modal" data-target="#listLikes"
+                    <button type="button" class="likeButton btn"  data-toggle="modal" data-target="#listLikes"
                             title="you have {{$ctrl.countLike}} likes and {{$ctrl.countDislike}} dislikes"
                             ng-click="$ctrl.open($ctrl.post.id)"><img src="images/forPages/like.png"/>{{$ctrl.post.likes.length}}
                     </button>
 
-                    <div class="modal fade" id="listLikes" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
-                         aria-hidden="true">
-                        <modal post-id="$ctrl.post.id" counter-like="$ctrl.countLike"
-                               counter-dislike="$ctrl.countDislike"></modal>
-                    </div>
                 </div>
                 <div class="col-md-8">
                     <span ng-click="$ctrl.clear()">{{$ctrl.warning}}</span>

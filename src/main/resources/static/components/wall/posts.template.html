@@ -85,10 +85,44 @@
                 </form>
                 <div class="posts list">
                     <post post="post" userId="post.user.id" get-posts="$ctrl.fetchPosts()"
+                          set-likes-user="$ctrl.setLikesUser"
                           ng-repeat="post in $ctrl.posts| filter:$ctrl.getPosts|orderBy:$ctrl.orderProp"></post>
                 </div>
                 <div class="post-load-more text-center">
-
+                    <div class="modal fade" id="listLikes" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content ">
+                                <div class="modal-header">
+                                    <H4 class="text-center" style="margin: 0 auto;">Information about likes for this post</H4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid" ng-repeat="likeUser in $ctrl.likesUser">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <img class="avatar rounded-circle" ng-src="likeUser.userAvatarUrl">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>{{likeUser.userName}}</p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>{{likeUser.userSurname}}</p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>{{likeUser.status}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-lg btn-secondary" type="button" data-dismiss="modal"
+                                            ng-click="$ctrl.reset()">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <button type="button" title="Show more posts"
                             class="btn "><i class="fas fa-spinner fa-lg "></i> 4
                     </button>
