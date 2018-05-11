@@ -181,7 +181,7 @@
                                            ng-click="self.activeMenu = 'Info'" href="">Информация</a>
                                     </li>
                                     <li class="nav-item" ng-class="{active : self.activeMenu === 'Update'}">
-                                        <a class="nav-link" ng-show="self.isOwner"
+                                        <a class="nav-link" ng-show="self.isOwner && self.eventInfo.isActive"
                                            ng-click="self.activeMenu = 'Update'" href="">Редактировать</a>
                                     </li>
                                 </ul>

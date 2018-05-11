@@ -6,8 +6,8 @@ angular.module('eventsApp').component('eventsComp', {
     bindings: {
         userId: '='
     },
-    controller: ['EventFactory', '$scope',
-        function UserController(EventFactory, $scope) {
+    controller: ['EventFactory', '$scope', '$window',
+        function UserController(EventFactory, $scope, $window) {
             var self = this;
             self.options = {allEvents: 'true', activeEvents: true, passedEvents: false};
             self.today = new Date();
@@ -20,7 +20,11 @@ angular.module('eventsApp').component('eventsComp', {
                             self.formatDate(data);
                             self.events = data;
                         }, function (errResponse) {
-                            console.error('Error while read events');
+                            if (errResponse.data === 'Non-valid token') {
+                                $window.location.href = '/auth.html';
+                            } else {
+                                console.error('Error while read events');
+                            }
                         });
                 },
                 createEvent: function () {
@@ -37,7 +41,11 @@ angular.module('eventsApp').component('eventsComp', {
                         self.util.resetEvent();
                         self.util.getEvents();
                     }, function (errResponse) {
-                        console.error('Error while creating Event');
+                        if (errResponse.data === 'Non-valid token') {
+                            $window.location.href = '/auth.html';
+                        } else {
+                            console.error('Error while creating Event');
+                        }
                     });
                 },
                 resetEvent: function () {
@@ -73,6 +81,9 @@ angular.module('eventsApp').component('eventsComp', {
                         self.eventInfo.users[self.eventInfo.users.length] = {id: self.userId};
                     }, function (errResponse) {
                         angular.element('#myModalClosed').modal('show');
+                        if (errResponse.data === 'Non-valid token') {
+                            $window.location.href = '/auth.html';
+                        }
                     });
                 },
                 isLeaveEvent: function (accept) {
@@ -94,7 +105,11 @@ angular.module('eventsApp').component('eventsComp', {
                         self.util.getEvents();
                         self.eventInfo.users.splice(getIndexOfUser(), 1);
                     }, function (errResponse) {
-                        console.error('Error while leave Event');
+                        if (errResponse.data === 'Non-valid token') {
+                            $window.location.href = '/auth.html';
+                        } else {
+                            console.error('Error while leave Event');
+                        }
                     });
                 },
                 updateEvent: function () {
@@ -107,9 +122,14 @@ angular.module('eventsApp').component('eventsComp', {
                         endTime: self.eventInfo.endTime,
                         place: self.eventInfo.place.id
                     }, function (data) {
+                        self.activeMenu = 'Info';
                         self.util.getEvents();
                     }, function (errResponse) {
-                        console.error('Error while update Event');
+                        if (errResponse.data === 'Non-valid token') {
+                            $window.location.href = '/auth.html';
+                        } else {
+                            console.error('Error while update Event');
+                        }
                     });
                 },
                 closeEvent: function () {
@@ -120,7 +140,11 @@ angular.module('eventsApp').component('eventsComp', {
                     }, function (data) {
                         self.util.getEvents();
                     }, function (errResponse) {
-                        console.error('Error while close Event');
+                        if (errResponse.data === 'Non-valid token') {
+                            $window.location.href = '/auth.html';
+                        } else {
+                            console.error('Error while close Event');
+                        }
                     });
                 }
             };
@@ -150,14 +174,18 @@ angular.module('eventsApp').component('eventsComp', {
             self.setEventInfo = function (event) {
                 self.activeMenu = 'Info';
                 self.eventInfo = event;
-                self.isOwner = self.userId === self.eventInfo.owner.id;
+                self.isOwner = self.userId === (self.eventInfo.owner === null ? 0 : self.eventInfo.owner.id);
             };
 
             self.util.getEvents();
             self.places = EventFactory.getPlaces({}, function (data) {
                 self.place = data[0].id;
             }, function (errResponse) {
-                console.error('Error while read places');
+                if (errResponse.data === 'Non-valid token') {
+                    $window.location.href = '/auth.html';
+                } else {
+                    console.error('Error while read places');
+                }
             });
 
             self.formatDate = function (events) {
