@@ -9,7 +9,7 @@ angular.module('eventsApp').component('eventsComp', {
     controller: ['EventFactory', '$scope', '$window',
         function UserController(EventFactory, $scope, $window) {
             var self = this;
-            self.options = {allEvents: 'true', activeEvents: true, passedEvents: false};
+            self.options = {allEvents: 'true', activeEvents: 'true', ownerEvents: false};
             self.today = new Date();
 
             self.util = {
@@ -149,6 +149,10 @@ angular.module('eventsApp').component('eventsComp', {
                 }
             };
 
+            self.$onInit = function () {
+                self.util.getEvents();
+            };
+
             self.checkMember = function (users) {
                 var isMember = false;
                 if (users === undefined) return isMember;
@@ -160,7 +164,7 @@ angular.module('eventsApp').component('eventsComp', {
                 return isMember;
             };
 
-            function getIndexOfUser(){
+            function getIndexOfUser() {
                 var index = 0;
                 for (var i = 0; i < self.eventInfo.users.length; i++) {
                     if (self.eventInfo.users[i].id === self.userId) {
@@ -177,7 +181,6 @@ angular.module('eventsApp').component('eventsComp', {
                 self.isOwner = self.userId === (self.eventInfo.owner === null ? 0 : self.eventInfo.owner.id);
             };
 
-            self.util.getEvents();
             self.places = EventFactory.getPlaces({}, function (data) {
                 self.place = data[0].id;
             }, function (errResponse) {

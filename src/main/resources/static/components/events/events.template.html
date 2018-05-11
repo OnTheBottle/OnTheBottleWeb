@@ -6,6 +6,14 @@
             <button type="button" class="btn btn-block btn-create" data-toggle="modal" data-target="#myModal">
                 Создать ивент
             </button>
+            <form class="form-inline mb-4">
+                <div class="input-group shadow">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">&#9658;</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Поиск..." ng-model="search.title">
+                </div>
+            </form>
             <div id="calendar"></div>
 
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
@@ -136,24 +144,22 @@
 
                     <label class="form-check-label mr-4" for="activeEvents">
                         Активные ивенты
-                        <input class="form-check-input" type="checkbox" id="activeEvents"
-                               ng-model="self.options['activeEvents']" ng-change="self.util.getEvents()">
+                        <input class="form-check-input" type="radio" id="activeEvents"
+                               ng-model="self.options['activeEvents']" value='true' ng-change="self.util.getEvents()">
                     </label>
 
                     <label class="form-check-label mr-4" for="passedEvents">
                         Пройденные ивенты
-                        <input class="form-check-input" type="checkbox" id="passedEvents"
-                               ng-model="self.options['passedEvents']" ng-change="self.util.getEvents()">
+                        <input class="form-check-input" type="radio" id="passedEvents"
+                               ng-model="self.options['activeEvents']" value='false' ng-change="self.util.getEvents()">
+                    </label>
+
+                    <label class="form-check-label mr-4" for="passedEvents">
+                        Управление ивентами
+                        <input class="form-check-input" type="checkbox" id="ownerEvents"
+                               ng-model="self.options['ownerEvents']" ng-change="self.util.getEvents()">
                     </label>
                 </div>
-                <form class="form-inline">
-                    <div class="input-group shadow">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">&#9658;</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Поиск..." ng-model="search.title">
-                    </div>
-                </form>
             </div>
 
             <event-comp user-id="self.userId" event="event" set-event-info="self.setEventInfo"
