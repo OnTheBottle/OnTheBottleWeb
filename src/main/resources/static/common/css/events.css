@@ -254,14 +254,23 @@
     color: black;
 }
 
-.main-content .modal .nav-tabs .nav-link {
+.main-content .nav-tabs .nav-link {
     color: black;
 }
 
-.main-content .modal .nav-tabs .active {
+.main-content .nav-tabs .active {
     border-left: grey solid 1px;
     border-top: grey solid 1px;
     border-right: grey solid 1px;
+}
+
+.main-content .sort {
+    margin-bottom: 0;
+    padding: .6rem 1rem;
+}
+
+.main-content .sort-text {
+    font-size: 1.2rem;
 }
 
 .main-content .modal .close {

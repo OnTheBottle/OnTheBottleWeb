@@ -162,9 +162,25 @@
                 </div>
             </div>
 
+            <ul class="nav nav-tabs">
+                <p class="sort sort-text">Сортировать ивенты по: </p>
+                <li class="nav-item" ng-class="{active : self.orderProp === 'title'}">
+                    <a class="nav-link sort-text" ng-click="self.orderProp = 'title'" href="">названию</a>
+                </li>
+                <li class="nav-item" ng-class="{active : self.orderProp === 'startTime'}">
+                    <a class="nav-link sort-text" ng-click="self.orderProp = 'startTime'" href="">времени</a>
+                </li>
+                <li class="nav-item" ng-class="{active : self.orderProp === 'text'}">
+                    <a class="nav-link sort-text" ng-click="self.orderProp = 'text'" href="">описанию</a>
+                </li>
+                <li class="nav-item" ng-class="{active : self.orderProp === 'users'}">
+                    <a class="nav-link sort-text" ng-click="self.orderProp = 'users'" href="">популярности</a>
+                </li>
+            </ul>
+
             <event-comp user-id="self.userId" event="event" set-event-info="self.setEventInfo"
                         get-events="self.util.getEvents"
-                        ng-repeat="event in self.events | filter: search | orderBy:'startTime':true">
+                        ng-repeat="event in self.events | filter: search | orderBy:self.orderProp:true">
             </event-comp>
 
             <div class="modal fade" id="myModalEvent" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"

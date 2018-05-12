@@ -11,6 +11,7 @@ angular.module('eventsApp').component('eventsComp', {
             var self = this;
             self.options = {allEvents: 'true', activeEvents: 'true', ownerEvents: false};
             self.today = new Date();
+            self.orderProp = 'startTime';
 
             self.util = {
                 getEvents: function () {
