@@ -33,7 +33,12 @@
                 model.user.email = response.data.email;
                 model.user.country = response.data.country;
                 model.user.city = response.data.city;
-                model.user.avatarUrl = response.data.avatarUrl;
+                if (response.data.avatarUrl) {
+                    model.user.avatarUrl = response.data.avatarUrl;
+                }
+                else {
+                    model.user.avatarUrl = "images/userspictures/default-avatar.jpeg";
+                }
                 model.user.status = response.data.status;
             }, function myError(response) {
             });

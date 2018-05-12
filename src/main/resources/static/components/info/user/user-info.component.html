@@ -5,22 +5,25 @@
             <p class="text-info h2 text-center">Информация о пользователе</p>
 
             <div class="row justify-content-md-center">
-                <div class="col-md-4">
-                    <img src="{{model.user.avatarUrl}}" class="img-fluid" alt="face">
+                <div class="col-md-3 img-container">
+                    <img src="{{model.user.avatarUrl}}" class="" alt="face">
                 </div>
                 <div class="col-md-6">
-                    <div class="alert alert-info bg-light m-1 p-5">
-                        <p class=" h1 text-center">{{model.user.name}} {{model.user.surname}}</p>
+                    <div class="alert alert-info bg-light m-0">
+                        <p class=" h1">{{model.user.name}} {{model.user.surname}}</p>
                     </div>
-                    <div class="alert alert-info bg-light m-1 p-5">
-                        <p class="text-center text-primary">{{model.user.status}}</p>
+                    <div class="alert alert-info bg-light m-0">
+                        <p class="text-primary">{{model.user.status}}</p>
                     </div>
-                    <div class="alert alert-info bg-light m-1 p-5">
+                    <div class="alert alert-info bg-light">
                         <div>
-                            <p class="text-center">{{model.user.age}} years old</p>
+                            <p class="">Age {{model.user.age}}</p>
                         </div>
                         <div>
-                            <p class="text-center">{{model.user.city}}, {{model.user.country}}</p>
+                            <p class="">City {{model.user.city}}</p>
+                        </div>
+                        <div>
+                            <p class="">Country {{model.user.country}}</p>
                         </div>
                     </div>
                 </div>
