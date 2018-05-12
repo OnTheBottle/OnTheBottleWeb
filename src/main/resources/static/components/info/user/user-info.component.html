@@ -33,10 +33,10 @@
     </div>
 
 
-    <div class="text-info text-center h4" ng-hide="model.iView">
+    <div class="container text-info text-center h4" ng-hide="model.iView">
         <a href="" class="bg-light alert alert-info dropdown-item" ng-click="model.iView = true">Показать друзей</a>
     </div>
-    <div class="text-info text-center h4" ng-hide="!model.iView">
+    <div class="container text-info text-center h4" ng-hide="!model.iView">
         <a href="" class="bg-light alert alert-info dropdown-item" ng-click="model.iView = false">Скрыть друзей</a>
         <view-friends-comp user-id="model.requestData.id"></view-friends-comp>
         <a href="" class="bg-light alert alert-info dropdown-item" ng-click="model.iView = false">Скрыть друзей</a>

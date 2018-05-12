@@ -3,7 +3,7 @@
     angular.module('postNewsApp')
         .component('postNewsComp', {
             templateUrl: 'components/news/post/post-news.component.html',
-            controller: ['$http', PostController],
+            controller: ['$http', '$cookies', PostController],
             controllerAs: 'model',
             bindings: {
                 userId: '=',
@@ -11,7 +11,7 @@
             }
         });
 
-    function PostController($http) {
+    function PostController($http, $cookies) {
         var model = this;
 
         model.$onInit = function () {
@@ -32,23 +32,57 @@
             });
         };
 
-        model.changeLike = function () {
+        model.changeStateLike = function () {
+            var access_token = $cookies.get('access_token');
             $http({
                 method: "POST",
-                url: MESSAGE_PATH + "/news/like/change",
+                url: MESSAGE_PATH + "/news/like/change_like",
                 params: {
-                    userId: model.userId,
+                    access_token: access_token,
                     postId: model.post.id
                 }
             }).then(function mySuccess(response) {
-                model.post.isLike = response.data;
-                if (response.data) {
+                if (response.data > 0) {
                     model.post.likeCount++;
-                } else {
+                    model.post.isLike = true;
+                    if (model.post.isDislike) {
+                        model.post.dislikeCount--;
+                        model.post.isDislike = false;
+                    }
+                }
+                if (response.data < 0) {
                     model.post.likeCount--;
+                    model.post.isLike = false;
                 }
             }, function myError(response) {
                 console.log(response.statusText, 'changeLike: Sorry, I am tired');
+            });
+        }
+
+        model.changeStateDislike = function () {
+            var access_token = $cookies.get('access_token');
+            $http({
+                method: "POST",
+                url: MESSAGE_PATH + "/news/like/change_dislike",
+                params: {
+                    access_token: access_token,
+                    postId: model.post.id
+                }
+            }).then(function mySuccess(response) {
+                if (response.data > 0) {
+                    model.post.dislikeCount++;
+                    model.post.isDislike = true;
+                    if (model.post.isLike) {
+                        model.post.likeCount--;
+                        model.post.isLike = false;
+                    }
+                }
+                if (response.data < 0) {
+                    model.post.dislikeCount--;
+                    model.post.isDislike = false;
+                }
+            }, function myError(response) {
+                console.log(response.statusText, 'changeDislike: Sorry, I am tired');
             });
         }
 

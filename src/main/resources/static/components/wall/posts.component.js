@@ -16,6 +16,7 @@ angular.module('postsApp').component('postsComp', {
 
                 PostFactory.getPosts({userId: self.userid}, function (data) {
                         self.posts = data;
+                        console.log('PostFactory.getPosts:', data);
                     },
                     function (errResponce) {
                         console.error('Error while fetching posts');

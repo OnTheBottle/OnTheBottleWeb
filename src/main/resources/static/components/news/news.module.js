@@ -11,7 +11,9 @@ function adapterPostArray(friends, posts, userId) {
         obj.ownerId = friend.id;
         obj.ownerName = friend.name + ' ' + friend.surname;
         obj.ownerAvatar = 'images/userspictures/default-avatar.jpeg';
-        if (friend.avatarUrl) {obj.ownerAvatar = friend.avatarUrl;};
+        if (friend.avatarUrl) {
+            obj.ownerAvatar = friend.avatarUrl;
+        }
         obj.title = posts[x].title;
         obj.date = posts[x].date;
         obj.text = posts[x].text;
@@ -19,12 +21,35 @@ function adapterPostArray(friends, posts, userId) {
         obj.comments = posts[x].comments;
         obj.commentCount = obj.comments.length;
 
-        obj.likes = posts[x].likeUsers;
+        obj.likes = [];
+        obj.dislikes = [];
+
+        if (posts[x].likes.length > 0) {
+            for (var y in posts[x].likes) {
+                if (posts[x].likes[y].status === 'like') {
+                    obj.likes.push(posts[x].likes[y]);
+                }
+                if (posts[x].likes[y].status === 'dislike') {
+                    obj.dislikes.push(posts[x].likes[y]);
+                }
+            }
+        }
+
         obj.likeCount = obj.likes.length;
         obj.isLike = function () {
             if (obj.likes.length > 0) {
                 for (var x in obj.likes) {
-                    if (obj.likes[x].id === userId) return true;
+                    if (obj.likes[x].user.id === userId) return true;
+                }
+            }
+            return false;
+        }();
+
+        obj.dislikeCount = obj.dislikes.length;
+        obj.isDislike = function () {
+            if (obj.dislikes.length > 0) {
+                for (var x in obj.dislikes) {
+                    if (obj.dislikes[x].user.id === userId) return true;
                 }
             }
             return false;

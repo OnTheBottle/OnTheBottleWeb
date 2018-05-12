@@ -22,22 +22,33 @@
                     <div class="postText col text-left pl-0">{{model.post.text}}</div>
                 </div>
                 <div class="row bg-light alert alert-info p-1 mb-0 text-left">
-                    <div ng-click="model.viewComments()" class="col-3">
-                        <a href="">Комментарии: {{model.post.commentCount}} <i class="far fa-comments"></i></a>
+                    <div class="col-4">
+                        Комментарии:
+                        <a ng-click="model.viewComments()" href="">{{model.post.commentCount}} <i
+                                class="far fa-comments"></i></a>
                     </div>
-                    <div ng-click="model.changeLike()" class="col-3">
-                        <a href="">Лайки: <span class="postLike">{{model.post.likeCount}}</span>
+                    <div class="col-4">
+                        Мнение:
+                        <a ng-click="model.changeStateLike()" href="">
+                            <span class="postLike">{{model.post.likeCount}}</span>
                             <i ng-if="model.post.isLike" class="fas fa-thumbs-up"></i>
                             <i ng-if="!model.post.isLike" class="far fa-thumbs-up"></i>
                         </a>
+                        /
+                        <a ng-click="model.changeStateDislike()" href="">
+                            <span class="postLike">{{model.post.dislikeCount}}</span>
+                            <i ng-if="model.post.isDislike" class="fas fa-thumbs-down"></i>
+                            <i ng-if="!model.post.isDislike" class="far fa-thumbs-down"></i>
+                        </a>
                     </div>
-                    <div ng-click="model.changeFavorite()" class="col-3">
+                    <div class="col-3">
                         <!--postFavorite fa fa-star-->
                         <!--postFavorite fa fa-star-o-->
-                        <a ng-if="model.post.isFavorite" href="">Избранное <i
-                                class="postFavorite fas fa-star"></i></a>
-                        <a ng-if="!model.post.isFavorite" href="">Избранное <i
-                                class="postFavorite far fa-star"></i></a>
+                        Избранное
+                        <a ng-click="model.changeFavorite()" href="">
+                            <i ng-if="model.post.isFavorite" class="postFavorite fas fa-star"></i>
+                            <i ng-if="!model.post.isFavorite" class="postFavorite far fa-star"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -48,17 +59,17 @@
 
 <style type="text/css">
     /* when hiding the thing */
-/*
-    .ng-hide-add         {
-        -webkit-animation:0.5s lightSpeedOut ease;
-        animation:0.5s lightSpeedOut ease;
-    }
-*/
+    /*
+        .ng-hide-add         {
+            -webkit-animation:0.5s lightSpeedOut ease;
+            animation:0.5s lightSpeedOut ease;
+        }
+    */
 
     /* when showing the thing */
-    .ng-hide-remove      {
-        -webkit-animation:0.5s flipInX ease;
-        animation:0.5s flipInX ease;
+    .ng-hide-remove {
+        -webkit-animation: 0.5s flipInX ease;
+        animation: 0.5s flipInX ease;
     }
 
     /* ANIMATIONS (FROM ANIMATE.CSS) */

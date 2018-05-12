@@ -32,8 +32,9 @@
                     access_token: access_token
                 }
             }).then(function mySuccess(response) {
+                console.log('getNewsPosts before model.posts:\n', response.data[1]);
                 model.posts = adapterPostArray(response.data[0], response.data[1], userId);
-                console.log('getNewsPosts model.posts:\n', model.posts);
+                console.log('getNewsPosts after model.posts:\n', model.posts);
             }, function myError(response) {
                 console.log('Error News Component: ', response.statusText);
             });
