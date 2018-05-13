@@ -6,7 +6,7 @@
             controller: ['$routeParams', '$http', InfoController],
             controllerAs: 'model',
             bindings: {
-                userId: '='
+                authId: '='
             }
         });
 

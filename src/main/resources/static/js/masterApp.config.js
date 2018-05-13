@@ -11,7 +11,7 @@ angular.module('mainApp')
             }).when('/profile', {
                 template: '<profile-info-comp user-id="ctrl.userId"></profile-info-comp>'
             }).when('/userInfo:id', {
-                template: '<user-info-comp user-id="ctrl.userId"></user-info-comp>'
+                template: '<user-info-comp auth-id="ctrl.userId"></user-info-comp>'
             }).when('/friend', {
                 template: '<view-friends-comp user-id="ctrl.userId"></view-friends-comp>'
             }).when('/event', {

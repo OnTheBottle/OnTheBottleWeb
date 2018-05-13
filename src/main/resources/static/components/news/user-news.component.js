@@ -7,7 +7,8 @@
             controller: ['$http', '$interval', '$cookies', UserNewsController],
             controllerAs: 'model',
             bindings: {
-                userId: '='
+                userId: '=',
+                authId: '='
             }
         });
 
@@ -17,12 +18,10 @@
         model.orderBy = '-date';
 
         model.$onInit = function () {
-            console.log('UserNewsController userId: ', model.userId);
-            console.log('UserNewsController access_token: ', $cookies.get('access_token'));
-            getUserNewsPosts(model.userId, $cookies.get('access_token'));
+           getUserNewsPosts(model.authId, model.userId, $cookies.get('access_token'));
         };
 
-        function getUserNewsPosts(userId, access_token) {
+        function getUserNewsPosts(authId, userId, access_token) {
             $http({
                 method: "POST",
                 url: MESSAGE_PATH + "/news/get_user_posts",
@@ -32,7 +31,7 @@
                 }
             }).then(function mySuccess(response) {
                 console.log('getUserNewsPosts model.data:\n', response.data);
-                model.posts = adapterPostArray(response.data[0], response.data[1], userId);
+                model.posts = adapterPostArray(response.data[0], response.data[1], authId);
                 console.log('getUserNewsPosts model.posts:\n', model.posts);
             }, function myError(response) {
                 console.log('Error News Component: ', response.statusText);
