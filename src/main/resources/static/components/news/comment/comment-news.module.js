@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('commentNewsApp', []);
+angular.module('commentNewsApp', ['creatorCommentNewsApp']);

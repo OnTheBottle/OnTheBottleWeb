@@ -57,6 +57,7 @@
 </div>
 
 
+<!--
 <style type="text/css">
     /* when hiding the thing */
     /*
@@ -172,9 +173,11 @@
         }
     }
 </style>
+-->
 
 
 <div ng-show="model.isViewComments">
+    <creator-comment-news-comp post-id="model.post.id"></creator-comment-news-comp>
     <comment-news-comp user-id="model.userId" comment="comment" ng-repeat="comment in model.post.comments">
     </comment-news-comp>
 </div>

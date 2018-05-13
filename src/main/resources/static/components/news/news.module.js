@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('newsApp', ['ngRoute', 'ngCookies', 'postNewsApp', 'commentNewsApp']);
+angular.module('newsApp', ['ngRoute', 'ngCookies', 'postNewsApp', 'commentNewsApp', 'creatorCommentNewsApp']);
 
 function adapterPostArray(friends, posts, userId) {
     var arr = [];
