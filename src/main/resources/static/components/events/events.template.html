@@ -206,6 +206,10 @@
                                         <a class="nav-link" ng-show="self.isOwner && self.eventInfo.isActive"
                                            ng-click="self.activeMenu = 'Update'" href="">Редактировать</a>
                                     </li>
+                                    <li class="nav-item" ng-class="{active : self.activeMenu === 'Users'}">
+                                        <a class="nav-link"
+                                           ng-click="self.getUsersInfo()" href="">Участники</a>
+                                    </li>
                                 </ul>
 
                                 <div ng-show="self.activeMenu === 'Info'">
@@ -319,6 +323,10 @@
                                             ng-show="self.isUpdate" ng-click="self.util.closeEvent()">
                                         Завершить
                                     </button>
+                                </div>
+
+                                <div ng-show="self.activeMenu === 'Users'">
+
                                 </div>
                             </div>
                             <div class="modal-footer">

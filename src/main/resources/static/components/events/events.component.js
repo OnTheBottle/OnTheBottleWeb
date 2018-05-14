@@ -182,6 +182,20 @@ angular.module('eventsApp').component('eventsComp', {
                 self.isOwner = self.userId === (self.eventInfo.owner === null ? 0 : self.eventInfo.owner.id);
             };
 
+            self.getUsersInfo = function () {
+                self.activeMenu = 'Info';
+                EventFactory.getUsersInfo(self.eventInfo.users, function (data) {
+                    //self.eventInfo.users = data;
+                    console.log(data);
+                }, function (errResponse) {
+                    if (errResponse.data === 'Non-valid token') {
+                        $window.location.href = '/auth.html';
+                    } else {
+                        console.error('Error while read user info');
+                    }
+                });
+            };
+
             self.places = EventFactory.getPlaces({}, function (data) {
                 self.place = data[0].id;
             }, function (errResponse) {

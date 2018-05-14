@@ -33,6 +33,12 @@ angular.module('event').factory('EventFactory', ['$resource', '$cookies',
                 params: {path: 'closeEvent', access_token: $cookies.get('access_token')},
                 method: "POST"
             }
+            ,
+            getUsersInfo: {
+                url: "http://localhost:8081/user/getUsersInfo",
+                params: {access_token: $cookies.get('access_token')},
+                method: "POST"
+            }
         });
     }
 ]);
