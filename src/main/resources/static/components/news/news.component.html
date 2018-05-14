@@ -12,7 +12,7 @@
                     <a href="" class="col-2 bg-light alert alert-info m-2" ng-click="model.orderBy = '-commentCount'"><div>Комментарии</div></a>
                 </div>
             </div>
-            <post-news-comp user-id="model.userId"
+            <post-news-comp user-id="model.authId"
                             post="post" ng-repeat="post in model.posts | orderBy : model.orderBy">
             </post-news-comp>
         </div>

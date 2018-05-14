@@ -7,17 +7,19 @@
             controllerAs: 'model',
             bindings: {
                 userId: '=',
-                comment: '='
+                comment: '=',
+                deleteComment: '<'
             }
         });
 
     function CommentController($http) {
 
         var model = this;
+        //model.authId = idStorage.getId();
 
         model.$onInit = function () {
-            console.log('CommentController model.userId: ', model.userId);
-            console.log('CommentController model.comment: ', model.comment);
+            // console.log('CommentController model.userId: ', model.userId);
+            // console.log('CommentController model.comment: ', model.comment);
 
             model.comment.owner = function (id) {
                 $http({
@@ -25,7 +27,7 @@
                     url: USER_PATH + "/user/get_by_id",
                     params: {userId: id}
                 }).then(function mySuccess(response) {
-                    console.log('CommentController response.data:\n', response.data);
+                    //console.log('CommentController response.data:\n', response.data);
                     model.comment.ownerName = response.data.name + ' ' + response.data.surname;
                 }, function myError(response) {
                     console.log('Error News Component: ', response.statusText);
