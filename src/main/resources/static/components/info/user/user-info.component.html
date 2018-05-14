@@ -9,21 +9,24 @@
                     <img src="{{model.user.avatarUrl}}" class="" alt="face">
                 </div>
                 <div class="col-md-6">
-                    <div class="alert alert-info bg-light m-0">
+                    <div class="m-2">
                         <p class=" h1">{{model.user.name}} {{model.user.surname}}</p>
                     </div>
-                    <div class="alert alert-info bg-light m-0">
+                    <div class="m-2">
                         <p class="text-primary">{{model.user.status}}</p>
                     </div>
                     <div class="alert alert-info bg-light">
                         <div>
-                            <p class="">Age {{model.user.age}}</p>
+                            <p>Возраст: <span class="text-info">{{model.user.age}}</span></p>
                         </div>
                         <div>
-                            <p class="">City {{model.user.city}}</p>
+                            <p>Email: <span class="text-info">{{model.user.email}}</span></p>
                         </div>
                         <div>
-                            <p class="">Country {{model.user.country}}</p>
+                            <p>Город: <span class="text-info">{{model.user.city}}</span></p>
+                        </div>
+                        <div>
+                            <p>Страна: <span class="text-info">{{model.user.country}}</span></p>
                         </div>
                     </div>
                 </div>

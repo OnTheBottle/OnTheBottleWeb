@@ -40,6 +40,7 @@
                     model.user.avatarUrl = "images/userspictures/default-avatar.jpeg";
                 }
                 model.user.status = response.data.status;
+                model.user.info = response.data.info;
             }, function myError(response) {
             });
         }
