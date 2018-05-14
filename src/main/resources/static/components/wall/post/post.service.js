@@ -22,6 +22,22 @@ angular.module('post').factory('PostFactory', ['$resource',
             dropPost: {
                 url: 'http://localhost:8083/deletePost',
                 method: "DELETE"
+            },
+            getPostsFriend:{
+                url: 'http://localhost:8083/getPostsFriend',
+                method: "GET",
+                isArray: true
+            },
+            savePostToWall:{
+                url: 'http://localhost:8083/:path',
+                params: {path: 'savePostToMyWall'},
+                method: "POST"
+            },
+            dropFromWall:{
+                url: 'http://localhost:8083/:path',
+                params: {path: 'dropFromWall'},
+                method: "DELETE"
+
             }
         });
     }

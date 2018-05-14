@@ -1,0 +1,14 @@
+<div class="card border-secondary mb-3" >
+    <div class="card-header">About</div>
+    <div class="card-body text-secondary">
+        <h5 class="card-title">{{$ctrl.user.name}}&nbsp
+            {{$ctrl.user.surname}}</h5>
+        <p class="card-text rounded-circle-lg">
+            <img class="rounded-circle-lg" ng-src="{{$ctrl.user.avatarUrl}}"
+                 alt="{{$ctrl.user.name}}">
+        </p>
+        <p class="card-text">{{$ctrl.user.status}}</p>
+        <p class="card-text">{{$ctrl.user.age}} years old</p>
+        <p class="card-text">{{$ctrl.user.city}}, {{$ctrl.user.country}}</p>
+    </div>
+</div>

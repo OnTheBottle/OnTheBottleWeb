@@ -2,7 +2,7 @@
     <div class="card-header container-fluid" style="background-color: white">
         <div class="header row">
             <div class="image col-md-3">
-                <img class="avatar rounded-circle" ng-src="{{$ctrl.user.avatarUrl}}"
+                <img class="avatar rounded-circle" src="{{$ctrl.user.avatarUrl}}"
                      alt="user profile image">
             </div>
             <div class="meta col-md-7 ">
@@ -25,13 +25,15 @@
                         <i class="fas fa-ellipsis-h fa-lg"></i>
                     </a>
                     <div class="dropdown-menu text-left">
-                        <a class="dropdown-item" href="" ng-click="$ctrl.dropPost($ctrl.post.id)">
-                            <i class="fas fa-trash fa-lg"></i>Delete
+                        <a class="dropdown-item" href="" ng-show="$ctrl.bnShow"
+                           ng-click="$ctrl.dropPost($ctrl.post.id,$ctrl.changeDelete($ctrl.post.user.id))">
+                            <i class="fas fa-trash fa-lg"></i>{{$ctrl.changeDelete($ctrl.post.user.id)}}
                         </a>
-                        <a class="dropdown-item" href="" ng-click="$ctrl.edit($ctrl.post.id)">
+                        <a class="dropdown-item" href="" ng-show="$ctrl.editShow($ctrl.post.user.id)" ng-click="$ctrl.edit($ctrl.post.id)">
                             <i class="fas fa-pencil-alt fa-lg"></i>Edit
                         </a>
-                        <a class="dropdown-item" href="">
+                        <a class="dropdown-item" href="" ng-show="$ctrl.saveShow()"
+                           ng-click="$ctrl.PostToMyWall($ctrl.post.id)">
                             <i class="far fa-copy fa-lg"></i>Save
                         </a>
                     </div>
@@ -47,26 +49,39 @@
         <div class="post id" ng-show="postid">
             <p ng-bind="$ctrl.post.id"></p>
         </div>
-
     </div>
     <div class="stats container-fluid">
         <div class="row">
-            <div class="col-md-4 text-center dropdown">
-                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"
-                        title="Add likePost..."><i
-                        class="fas fa-thumbs-up fa-lg"></i> Like
-                </button>
-                <div class="dropdown-menu ">
-                    <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.like($ctrl.post.id)">
-                        <image style="height:3rem;width:3rem" src="https://www.smileysapp.com/emojis/extra-happy.png"/>
-                        Like
-                    </a>
-                    <a class="dropdown-item" href="" style="color:black" ng-click="$ctrl.dislike($ctrl.post.id)">
-                        <image style="height:3rem;width:3rem" src="https://www.smileysapp.com/emojis/irritated.png"/>
-                        Dislike
-                    </a>
-
+            <div class="col-md-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <div>
+                                <button class="btn " type="button" ng-click="$ctrl.like($ctrl.post.id)"
+                                        title="Add likePost..."><i class="fas fa-thumbs-up fa-lg"></i>
+                                </button>
+                            </div>
+                            <div>
+                                <a href="" style="color:#007bff" ng-click="$ctrl.open($ctrl.post.id,$ctrl.statLike)">
+                                    {{$ctrl.countLike}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <div>
+                                <button class="btn " type="button" ng-click="$ctrl.dislike($ctrl.post.id)"
+                                        title="Add dislikePost..."><i class="fas fa-thumbs-down fa-lg"></i>
+                                </button>
+                            </div>
+                            <div>
+                                <a href="" style="color:#007bff" ng-click="$ctrl.open($ctrl.post.id,$ctrl.statDislike)">
+                                    {{$ctrl.countDislike}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
             <div class="col-md-4 text-center">
                 <button class="btn " type="button"
@@ -83,32 +98,29 @@
         </div>
     </div>
     <div class="card-footer">
-        <div class="likeArea ">
-            <div class="row">
-                <div class="col-md-4 but">
-                    <button type="button" class="likeButton btn"  data-toggle="modal" data-target="#listLikes"
-                            title="you have {{$ctrl.countLike}} likes and {{$ctrl.countDislike}} dislikes"
-                            ng-click="$ctrl.open($ctrl.post.id)"><img src="images/forPages/like.png"/>{{$ctrl.post.likes.length}}
-                    </button>
-
-                </div>
-                <div class="col-md-8">
-                    <span ng-click="$ctrl.clear()">{{$ctrl.warning}}</span>
-                </div>
-            </div>
-        </div>
-
         <div class="comments list">
             <comment comment="comment" userId="comment.user.id" ng-repeat="comment in $ctrl.post.comments"></comment>
         </div>
-
-
     </div>
     <form name="commentForm" ng-submit="$ctrl.submitComment()">
         <input id="{{$ctrl.random}}" class="form-control add-comment-input example2" placeholder="Add a comment..."
                ng-model="$ctrl.commenting"
                type="text" ng-keypress="$ctrl.keyPressed($event,$ctrl.post.id)"/>
         <p class="key">Press ..Enter.. to commit...</p>
-
     </form>
+    <div class="modal fade" id="warning" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <H3>Your regard will be added some times before</H3>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="fas fa-times fa-lg"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>

@@ -5,15 +5,48 @@ angular.module('postsApp').component('postsComp', {
     controller: ['$routeParams', 'UserFactory', 'PostFactory', 'SecurityFactory', 'idStorage',
         function PostController($routeParams, UserFactory, PostFactory, SecurityFactory, idStorage) {
             var self = this;
-            // self.userId = $routeParams.userId;
-            // self.user = UserFactory.getUser({userId: this.userId});
-            self.userid = idStorage.getId();
-            console.log('id', this.userid);
+            self.userid = null;
+            self.whoUser = false;
             self.posts = [];
-            getPosts();
+            changeUserId();
+            securities();
+
+            function changeUserId() {
+                if ($routeParams.id) {
+                    self.userid = $routeParams.id;
+                    console.log("on change userId=", self.userid);
+                    self.whoUser = false;
+                    self.showForm = false;
+                    getPostsFriend();
+
+                }
+                else {
+                    self.userid = idStorage.getId();
+                    console.log("on change userId=", self.userid);
+                    self.whoUser = true;
+                    self.showForm = true;
+                    getPosts();
+                }
+            }
+
+            function changePostsFor() {
+                if ($routeParams.id) {
+                    getPostsFriend();
+                } else {
+                    getPosts();
+                }
+            }
+
+            function getPostsFriend() {
+                PostFactory.getPostsFriend({userId: self.userid}, function (data) {
+                        self.posts = data;
+                    },
+                    function (errResponce) {
+                        console.error('Error while fetching posts');
+                    })
+            }
 
             function getPosts() {
-
                 PostFactory.getPosts({userId: self.userid}, function (data) {
                         self.posts = data;
                         console.log('PostFactory.getPosts:', data);
@@ -24,30 +57,22 @@ angular.module('postsApp').component('postsComp', {
             }
 
             self.orderProp = 'date';
-            self.securities = SecurityFactory.getSecurities();
-            //        changeUserId();
-            //       self.userId='';
+
+            function securities() {
+                SecurityFactory.getSecurities(function (data) {
+                    self.securities = data;
+                    self.post.security.description = data[0];
+                });
+            }
+
             self.post = {id: null, user_id: self.userid, security: {description: ''}, text: '', title: ''};
+            self.postEdit = {id: null, user_id: self.userid, security: {description: ''}, text: '', title: ''};
             self.reset = reset;
             self.submit = submit;
-            self.edit = edit;
-            //    self.$onInit=function () {console.log('userId',self.userId) };
-
 
             this.fetchPosts = function () {
-                getPosts()
+                changePostsFor()
             };
-
-            //         function changeUserId(){
-            //             if ($routeParams.userId) {
-            //                 self.userId=$routeParams.userId;
-            //                 console.log("on change userId=",self.userId)
-            //             }
-            //             else{
-            //                 self.userId=userId;
-            //                 console.log("on change userId=",self.userId)
-            //             }
-            //         }
 
             function submit() {
                 if (self.post.id === null) {
@@ -55,17 +80,15 @@ angular.module('postsApp').component('postsComp', {
                     savePost(self.post);
 
                 } else {
-                    updatePost(self.post);
-                    console.log('Post updated with id ', self.post.id);
+                    updatePost(self.postEdit);
+                    console.log('Post updated with id ', self.postEdit.id);
                 }
-
             }
 
             function savePost(post) {
                 PostFactory.createPost({postDTO: post}, function (data) {
                     reset();
-                    getPosts();
-
+                    changePostsFor();
                 }, function (errResponse) {
                     console.error('Error while creating Post');
                 })
@@ -75,44 +98,36 @@ angular.module('postsApp').component('postsComp', {
                 self.post = {id: null, user_id: self.userid, text: '', title: '', security: {description: ''}};
             }
 
-
-            //      function getPosts() {
-            //          if ($routeParams.userId) {
-            //              PostFactory.getPosts({userId: $routeParams.userId}, function (data) {
-            //                  self.posts = data;
-            //              }, function (errResponce) {
-            //                  console.error('Error while fetching posts');
-            //              });
-            //          }
-            //          else {
-            //              self.posts=PostFactory.getPosts({userId: self.userid})
-            //          }
-            //      }
-
-
-            function updatePost(post) {
-                PostFactory.rewritePost({postDTO: post}, function (data) {
-                    reset();
-                    getPosts()
+            self.update = function () {
+                PostFactory.rewritePost({postDTO: self.postEdit}, function (data) {
+                    $('#editPost').modal('hide');
+                    changePostsFor()
                 }, function (errResponse) {
                     console.error('Error while updating Post');
                 })
-            }
+            };
 
-            function edit(id) {
+            self.edit = function (id) {
                 console.log('id to be edited', id);
                 for (var i = 0; i < self.posts.length; i++) {
                     if (self.posts[i].id === id) {
-                        self.post = angular.copy(self.posts[i]);
+                        self.postEdit = angular.copy(self.posts[i]);
                         break;
                     }
                 }
-            }
-
-            self.setLikesUser = function (likes) {
-                self.likesUser = likes;
+                $('#editPost').modal('show');
             };
-        }],
+
+            self.setLikesUser = function (likes, stats) {
+                self.likesUser = likes;
+                self.stat = stats;
+                $('#listLikes').modal('show');
+            };
+
+            self.clear = function () {
+                self.likesUser = [];
+            }
+ }],
     bindings: {}
 
 });

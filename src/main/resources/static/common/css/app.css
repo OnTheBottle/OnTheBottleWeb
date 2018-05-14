@@ -112,10 +112,6 @@ li {
     font-size: 1.6rem;
 }
 
-.dropdown postsSet {
-
-}
-
 .title {
     font-family: 'Anton', sans-serif;
     font-size: 1.8rem;
@@ -232,4 +228,7 @@ li {
 #Select1 {
     border: 2px solid;
     border-color: blueviolet;
+}
+#editPost .modal-footer button{
+    font-size: 1.4rem;
 }
