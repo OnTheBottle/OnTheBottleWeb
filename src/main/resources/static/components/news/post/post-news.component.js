@@ -90,5 +90,31 @@
             model.isViewComments = !model.isViewComments;
             console.log('model.isViewComments: ', model.isViewComments);
         }
+
+        model.deleteComment = function (commentId) {
+            console.log('deleteComment commentId:', commentId);
+            var access_token = $cookies.get('access_token');
+            $http({
+                method: "POST",
+                url: MESSAGE_PATH + "/news/comment/delete",
+                params: {
+                    access_token: access_token,
+                    commentId: commentId
+                }
+            }).then(function mySuccess(response) {
+                console.log('return to deleteComment:', response.data);
+                if (response.data === true) {
+                    for (var x in model.post.comments){
+                        if (model.post.comments[x].id === commentId){
+                            model.post.comments.splice(x,1);
+                        }
+                    }
+                    model.post.commentCount--;
+                }
+            }, function myError(response) {
+                console.log(response.statusText, 'addComment: Sorry, I am tired');
+            });
+        }
+
     }
 })();

@@ -2,13 +2,21 @@
     <div class="row">
         <div class="col-1"></div>
         <div class="col-9">
-            <div class="container bg-light alert alert-info post-wrapper pl-0 pr-0 mb-3">
+            <div class="container bg-light alert alert-info post-wrapper pl-0 pr-0 mb-3 pt-0">
                 <div class="row m-0">
                     <div class="col-12 p-0">
                         <div class="container">
+                            <div ng-show="model.userId === model.comment.user.id" class="row text-right">
+                                <div class="col h5 mt-1">
+                                    <!--<a href="" class="mr-3">Изменить</a>-->
+                                    <a href="" ng-click="model.deleteComment(model.comment.id)">Удалить</a>
+                                </div>
+                            </div>
+
                             <div class="row post-body align-items-center m-0 p-0 ">
                                 <div class="postText col text-left pl-0">{{model.comment.text}}</div>
                             </div>
+
                             <div class="row bg-light alert alert-info p-1 mb-0 text-left">
                                 <div class="postOwner col-5 text-left">
                                     <a class="" href="#!/userInfo{{model.comment.user.id}}">
@@ -18,6 +26,7 @@
                                 <div class="postDate col-7 text-right">{{model.comment.date| date:'HH:mm MM/dd/yyyy'}}
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

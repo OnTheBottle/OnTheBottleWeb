@@ -5,8 +5,7 @@ const PLACE_PATH = 'http://127.0.0.1:8082';
 const MESSAGE_PATH = 'http://127.0.0.1:8083';
 const AUTH_HTML = 'auth.html';
 
-
-//var userId = '';
+var authId = '';
 
 (function () {
     'use strict';
