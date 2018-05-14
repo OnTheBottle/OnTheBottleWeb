@@ -7,10 +7,12 @@
                     <div class="col-12 p-0">
                         <div class="container">
                             <div class="row post-body align-items-center m-0 p-0 ">
-                                <div class="input-group input-group-lg postText col text-left pl-0">
-                                    <input ng-model="text" type="text" class="form-control" placeholder="Написать комментарий..." value="" required>
-                                    <button ng-disabled="!text" ng-click="model.addComment(text)" class="btn btn-primary" type="submit">Опубликовать</button>
+                                <form class="form-control list-unstyled" ng-submit="model.addComment()">
+                                <div class="input-group input-group-lg postText">
+                                    <input ng-model="model.text" type="text" class="form-control" placeholder="Написать комментарий..." value="" required>
+                                    <button ng-disabled="!model.text" class="btn btn-primary" type="submit">Опубликовать</button>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
