@@ -26,7 +26,6 @@
                     userId: model.friend.id
                 }
             }).then(function mySuccess(response) {
-                console.log('denyRelation: done');
                 $route.reload();
             }, function myError(response) {
                 console.log('Error response friends: ', response.statusText);
@@ -42,7 +41,6 @@
                     userId: model.friend.id
                 }
             }).then(function mySuccess(response) {
-                console.log('confirmRelation: done');
                 $route.reload();
             }, function myError(response) {
                 console.log('Error response friends: ', response.statusText);

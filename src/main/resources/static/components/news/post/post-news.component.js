@@ -88,11 +88,9 @@
 
         model.viewComments = function () {
             model.isViewComments = !model.isViewComments;
-            console.log('model.isViewComments: ', model.isViewComments);
         }
 
         model.deleteComment = function (commentId) {
-            console.log('deleteComment commentId:', commentId);
             var access_token = $cookies.get('access_token');
             $http({
                 method: "POST",
@@ -102,7 +100,6 @@
                     commentId: commentId
                 }
             }).then(function mySuccess(response) {
-                console.log('return to deleteComment:', response.data);
                 if (response.data === true) {
                     for (var x in model.post.comments){
                         if (model.post.comments[x].id === commentId){

@@ -7,7 +7,7 @@
             controller: ['$http', '$cookies', '$interval', NewsController],
             controllerAs: 'model',
             bindings: {
-                userId: '='
+                authId: '='
             }
         });
 
@@ -19,22 +19,19 @@
         model.orderBy = '-date';
 
         model.$onInit = function () {
-            console.log('NewsController userId: ', model.userId);
-            getNewsPosts(model.userId, $cookies.get('access_token'));
+            getNewsPosts(model.authId, $cookies.get('access_token'));
         };
 
-        function getNewsPosts(userId, access_token) {
+        function getNewsPosts(authId, access_token) {
             $http({
                 method: "POST",
                 url: MESSAGE_PATH + "/news/get_friends_posts",
                 params: {
-                    id: userId,
+                    id: authId,
                     access_token: access_token
                 }
             }).then(function mySuccess(response) {
-                console.log('getNewsPosts before model.posts:\n', response.data[1]);
-                model.posts = adapterPostArray(response.data[0], response.data[1], userId);
-                console.log('getNewsPosts after model.posts:\n', model.posts);
+                model.posts = adapterPostArray(response.data[0], response.data[1], authId);
             }, function myError(response) {
                 console.log('Error News Component: ', response.statusText);
             });

@@ -26,7 +26,6 @@
                 url: USER_PATH + "/user/get_all"
             }).then(function mySuccess(response) {
                 model.friends = response.data;
-                console.log('response: ', model.friends);
             }, function myError(response) {
                 alert(response.statusText);
             });
@@ -42,7 +41,6 @@
                 }
             }).then(function mySuccess(response) {
                 model.friends = response.data;
-                console.log('response: ', model.friends);
                 getAllUser();
                 $route.reload();
             }, function myError(response) {
@@ -60,7 +58,6 @@
                 }
             }).then(function mySuccess(response) {
                 model.friends = response.data;
-                console.log('response: ', model.friends);
                 getAllUser();
                 $route.reload();
             }, function myError(response) {

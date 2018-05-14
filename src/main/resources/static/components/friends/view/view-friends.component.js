@@ -28,7 +28,6 @@
                 }
             }).then(function mySuccess(response) {
                 model.friends = response.data;
-                console.log('response friends: ', model.friends);
             }, function myError(response) {
                 console.log('Error response friends: ', response.statusText);
             });

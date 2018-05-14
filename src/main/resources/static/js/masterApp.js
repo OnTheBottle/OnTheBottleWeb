@@ -48,7 +48,7 @@ var authId = '';
 
     function mainController($cookies, $window, $http,idStorage) {
 
-        this.userId = '';
+        this.authId = '';
 
         var tokenJwt = $cookies.get('access_token');
 
@@ -70,8 +70,8 @@ var authId = '';
         });
 
         var token = parseJwt(tokenJwt);
-        this.userId = token.userId;
-        idStorage.setId(this.userId);
+        this.authId = token.userId;
+        idStorage.setId(this.authId);
         function parseJwt(tokenJwt) {
             var base64Url = tokenJwt.split('.')[1];
             var base64 = base64Url.replace('-', '+').replace('_', '/');

@@ -13,7 +13,6 @@
     //AuthController.$inject = ['$window'];
 
     function AuthController($http, $window, $cookies) {
-        console.log('start authController');
 
         var model = this;
         model.authData = {};
