@@ -175,17 +175,14 @@
     cursor: pointer;
 }
 
-.main-content .event .title-event p {
+.main-content .event .title-event a {
     position: relative;
     left: -50%;
     font-size: 1.4rem;
     font-weight: bold;
     padding: 0;
     margin: 0;
-}
-
-.main-content .event .title-event p:hover {
-    text-decoration: underline black;
+    color: black;
 }
 
 .main-content .event .description,

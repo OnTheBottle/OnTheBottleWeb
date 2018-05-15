@@ -6,31 +6,27 @@ angular.module('event').component('eventComp', {
     bindings: {
         userId: '=',
         event: '<',
-        setEventInfo: '=',
         getEvents: '='
     },
-    controller: ['EventFactory',
-        function UserController(EventFactory) {
+    controller: ['EventFactory', '$window',
+        function UserController(EventFactory, $window) {
             var self = this;
             self.today = new Date();
 
-            self.showEventInfo = function () {
-                self.setEventInfo(self.event);
-            };
-
-            self.checkMember = function (users) {
-                var isMember = false;
-                users.forEach(function (item) {
-                    if (item.id === self.userId) {
-                        isMember = true;
-                    }
-                });
-                return isMember;
-            };
-
             self.control = function () {
-                if (self.checkMember(self.event.users)) {
-                    self.leaveEvent();
+                if (self.event.member) {
+                    EventFactory.leaveEvent({
+                        eventId: self.event.id,
+                        userId: self.userId
+                    }, function (data) {
+                        self.getEvents();
+                    }, function (errResponse) {
+                        if (errResponse.data === 'Non-valid token') {
+                            $window.location.href = '/auth.html';
+                        } else {
+                            console.error('Error while leave Event');
+                        }
+                    });
                 } else {
                     EventFactory.joinEvent({
                         eventId: self.event.id,
@@ -39,22 +35,11 @@ angular.module('event').component('eventComp', {
                         self.getEvents();
                     }, function (errResponse) {
                         angular.element('#myModalClosed').modal('show');
-                    });
-                }
-            };
-
-            self.leaveEvent = function () {
-                if (self.event.users[0].id === self.event.owner.id) {
-                    self.setEventInfo(self.event);
-                    angular.element('#myModalClose').modal('show');
-                } else {
-                    EventFactory.leaveEvent({
-                        eventId: self.event.id,
-                        userId: self.userId
-                    }, function (data) {
-                        self.getEvents();
-                    }, function (errResponse) {
-                        console.error('Error while leave Event');
+                        if (errResponse.data === 'Non-valid token') {
+                            $window.location.href = '/auth.html';
+                        } else {
+                            console.error('Error while leave Event');
+                        }
                     });
                 }
             };
@@ -83,4 +68,5 @@ angular.module('event').filter('cut', function () {
         return value + (tail || ' …');
     };
 });
+
 

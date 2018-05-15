@@ -1,19 +1,23 @@
 <div class="event">
-    <img class="pub-img" ng-src="{{self.event.place.avatar}}" ng-click="self.showEventInfo()" data-toggle="modal" data-target="#myModalEvent">
-    <div class="title-event" ng-click="self.showEventInfo()" data-toggle="modal" data-target="#myModalEvent"><p>{{self.event.title}}</p></div>
+    <a href="#!/eventInfo/{{self.event.id}}"><img class="pub-img" ng-src="{{self.event.place.avatar}}"></a>
+    <div class="title-event"><a href="#!/eventInfo/{{self.event.id}}">{{self.event.title}}</a></div>
     <p class="description">{{self.event.text | cut:true:350:' ...'}}</p>
     <p class="time">{{self.event.isActive ? (self.event.startTime.setHours(0,0,0,0) === self.today.setHours(0,0,0,0) ? 'Сегодня' :
         (self.event.startTime.setHours(0,0,0,0) < self.today.setHours(0,0,0,0) ? 'Событие началось'
         : 'Событие состоится')) : (self.event.startTime.setHours(0,0,0,0) > self.today.setHours(0,0,0,0) ? 'Событие не состоится' : 'Событие прошло')}} {{self.event.startTime | date:'dd MMM yyyy'}} в {{self.event.startTime | date:'HH:mm'}}</p>
     <div class="people">
         <img src="images/events/user.svg">
-        <p>{{self.event.users.length}}</p>
+        <p>{{self.event.usersCounter}}</p>
     </div>
     <div class="btn-group control">
-        <button class="btn btn-info" id="control" type="button"
-                ng-click="self.control()" ng-class="{member : self.checkMember(self.event.users)}"
-                ng-show="self.event.isActive">
-            {{self.checkMember(self.event.users) ? 'Вы участвуете' : 'Присоединится'}}
+        <button class="btn btn-info" type="button" id="control" ng-click="self.control()" ng-class="{member : self.event.member}"
+                ng-show="self.event.active && self.event.owner"
+                title="Вы являетесь создателем ивента, выход из него приведет к передачи ивента случайному участнику (если вы единственный участник - закрытию ивента).">
+            {{self.event.member ? 'Вы участвуете' : 'Присоединится'}}
+        </button>
+        <button class="btn btn-info" type="button" ng-click="self.control()" ng-class="{member : self.event.member}"
+                ng-show="self.event.active && !(self.event.owner)">
+            {{self.event.member ? 'Вы участвуете' : 'Присоединится'}}
         </button>
     </div>
 </div>

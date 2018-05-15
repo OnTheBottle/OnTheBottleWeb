@@ -154,7 +154,7 @@
                                ng-model="self.options['activeEvents']" value='false' ng-change="self.util.getEvents()">
                     </label>
 
-                    <label class="form-check-label mr-4" for="passedEvents">
+                    <label class="form-check-label mr-4" for="ownerEvents">
                         Управление ивентами
                         <input class="form-check-input" type="checkbox" id="ownerEvents"
                                ng-model="self.options['ownerEvents']" ng-change="self.util.getEvents()">
@@ -178,12 +178,50 @@
                 </li>
             </ul>
 
-            <event-comp user-id="self.userId" event="event" set-event-info="self.setEventInfo"
-                        get-events="self.util.getEvents"
+            <event-comp user-id="self.userId" get-events="self.util.getEvents" event="event"
                         ng-repeat="event in self.events | filter: search | orderBy:self.orderProp:true">
             </event-comp>
 
-            <div class="modal fade" id="myModalEvent" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
+            <div class="modal fade" id="myModalClosed" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="closedEventLongTitle">Упс!</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>Ивент уже закончен :(</p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-lg btn-danger" type="button" data-dismiss="modal">
+                                Ок
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $('#calendar').datepicker({
+        inline: true,
+        firstDay: 1,
+        showOtherMonths: true,
+        monthNames: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+        dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
+    });
+</script>
+
+<!--
+<div class="modal fade" id="myModalEvent" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
                  aria-hidden="true">
                 <form name="eventInfoForm" id="eventInfoForm" ng-submit="self.util.updateEvent()">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -346,76 +384,4 @@
                     </div>
                 </form>
             </div>
-
-            <div class="modal fade" id="myModalClose" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="closeEventLongTitle">Вы точно хотите выйти?</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-                            <p>Вы являетесь создателем ивента, выход из него приведет к передачи ивента случайному
-                                участнику
-                                (если вы единственный участник то выход приведет к закрытию ивента).
-                                Вы уверены в этом?</p>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-lg btn-secondary" type="button" data-dismiss="modal">
-                                Нет
-                            </button>
-                            <button class="btn btn-lg btn-danger" type="button"
-                                    ng-click="self.util.isLeaveEvent(true)">
-                                Да
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="myModalClosed" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="closedEventLongTitle">Упс!</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-                            <p>Ивент уже закончен :(</p>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-lg btn-danger" type="button"
-                                    ng-click="self.util.getEvents()"
-                                    data-dismiss="modal">
-                                Ок
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    </main>
-</div>
-<script>
-    $('#calendar').datepicker({
-        inline: true,
-        firstDay: 1,
-        showOtherMonths: true,
-        monthNames: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
-        dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
-    });
-</script>
+-->

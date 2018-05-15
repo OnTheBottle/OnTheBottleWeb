@@ -13,6 +13,10 @@ angular.module('eventsApp').component('eventsComp', {
             self.today = new Date();
             self.orderProp = 'startTime';
 
+            self.$onInit = function () {
+                self.util.getEvents();
+            };
+
             self.util = {
                 getEvents: function () {
                     EventFactory.getEvents(
@@ -56,7 +60,29 @@ angular.module('eventsApp').component('eventsComp', {
                     self.text = '';
                     self.startTime = '';
                     self.endTime = '';
-                },
+                }
+            };
+
+            self.places = EventFactory.getPlaces({}, function (data) {
+                self.place = data[0].id;
+            }, function (errResponse) {
+                if (errResponse.data === 'Non-valid token') {
+                    $window.location.href = '/auth.html';
+                } else {
+                    console.error('Error while read places');
+                }
+            });
+
+            self.formatDate = function (events) {
+                events.forEach(function (item) {
+                    item.startTime = new Date(item.startTime.replace(' ', 'T') + "Z");
+                    item.endTime = new Date(item.endTime.replace(' ', 'T') + "Z");
+                });
+            };
+        }]
+});
+
+/*
                 resetEventUpdate: function () {
                     self.isUpdate = false;
                     $scope.eventInfoForm.$setUntouched();
@@ -148,33 +174,6 @@ angular.module('eventsApp').component('eventsComp', {
                         }
                     });
                 }
-            };
-
-            self.$onInit = function () {
-                self.util.getEvents();
-            };
-
-            self.checkMember = function (users) {
-                var isMember = false;
-                if (users === undefined) return isMember;
-                users.forEach(function (item) {
-                    if (item.id === self.userId) {
-                        isMember = true;
-                    }
-                });
-                return isMember;
-            };
-
-            function getIndexOfUser() {
-                var index = 0;
-                for (var i = 0; i < self.eventInfo.users.length; i++) {
-                    if (self.eventInfo.users[i].id === self.userId) {
-                        index = i;
-                        return index;
-                    }
-                }
-                return index;
-            }
 
             self.setEventInfo = function (event) {
                 self.activeMenu = 'Info';
@@ -195,21 +194,14 @@ angular.module('eventsApp').component('eventsComp', {
                 });
             };
 
-            self.places = EventFactory.getPlaces({}, function (data) {
-                self.place = data[0].id;
-            }, function (errResponse) {
-                if (errResponse.data === 'Non-valid token') {
-                    $window.location.href = '/auth.html';
-                } else {
-                    console.error('Error while read places');
+            function getIndexOfUser() {
+                var index = 0;
+                for (var i = 0; i < self.eventInfo.users.length; i++) {
+                    if (self.eventInfo.users[i].id === self.userId) {
+                        index = i;
+                        return index;
+                    }
                 }
-            });
-
-            self.formatDate = function (events) {
-                events.forEach(function (item) {
-                    item.startTime = new Date(item.startTime.replace(' ', 'T') + "Z");
-                    item.endTime = new Date(item.endTime.replace(' ', 'T') + "Z");
-                });
-            };
-        }]
-});
+                return index;
+            }
+* */

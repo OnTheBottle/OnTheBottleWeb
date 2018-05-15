@@ -16,6 +16,8 @@ angular.module('mainApp')
                 template: '<view-friends-comp user-id="ctrl.authId"></view-friends-comp>'
             }).when('/event', {
                 template: '<events-comp user-id="ctrl.authId"></events-comp>'
+            }).when('/eventInfo/:id', {
+                template: '<event-info-comp user-id="ctrl.authId"></event-info-comp>'
             }).when('/find', {
                 template: '<find-comp user-id="ctrl.authId"></find-comp>'
             }).when('/find:whatToFind', {
@@ -23,7 +25,7 @@ angular.module('mainApp')
             }).when('/wall', {
                 template: '<posts-comp></posts-comp>'
             }).when('/place', {
-                template: '<view-place-comp user-id="ctrl.authId></view-place-comp>'
+                template: '<view-place-comp user-id="ctrl.authId"></view-place-comp>'
             }).otherwise({
                 redirectTo: '/news'
             })
