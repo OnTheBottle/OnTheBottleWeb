@@ -183,9 +183,8 @@ angular.module('eventsApp').component('eventsComp', {
             };
 
             self.getUsersInfo = function () {
-                self.activeMenu = 'Info';
+                self.activeMenu = 'Users';
                 EventFactory.getUsersInfo(self.eventInfo.users, function (data) {
-                    //self.eventInfo.users = data;
                     console.log(data);
                 }, function (errResponse) {
                     if (errResponse.data === 'Non-valid token') {
