@@ -15,6 +15,10 @@ angular.module('eventsService').factory('EventFactory', ['$resource', '$cookies'
                 method: "POST",
                 isArray: true
             },
+            getEvent: {
+                params: {path: 'getEvent', access_token: $cookies.get('access_token')},
+                method: "POST"
+            },
             createEvent: {
                 params: {path: 'createEvent', access_token: $cookies.get('access_token')},
                 method: "POST"

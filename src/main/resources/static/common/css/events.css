@@ -239,13 +239,7 @@
     width: 100px;
 }
 
-.main-content .modal-body .control {
-    background: #00A5E3;
-    width: 125px;
-}
-
-.main-content .event .control .member,
-.main-content .modal-body .control.member {
+.main-content .event .control .member {
     background: #e6e2df;
     border-color: #e6e2df;
     color: black;
@@ -272,61 +266,6 @@
 
 .main-content .modal .close {
     font-size: 2rem;
-}
-
-.main-content .modal .img_wrap {
-    width: 100%;
-    height: 150px;
-    border-style: solid;
-}
-
-.main-content .modal .img_wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.main-content .modal .row {
-    margin: 0;
-}
-
-.main-content .modal .event-description,
-.main-content .modal .event-time,
-.main-content .modal .event-place,
-.main-content .modal .event-users{
-    padding-left: 25px;
-}
-
-.main-content .modal .event-description:before,
-.main-content .modal .event-time:before,
-.main-content .modal .event-place:before,
-.main-content .modal .event-users:before {
-    display: block;
-    position: absolute;
-    content: '';
-    width: 20px;
-    height: 20px;
-    margin: 2px 0 0 -25px;
-}
-
-.main-content .modal .event-description:before {
-    background: url(../../images/events/information.svg) no-repeat center;
-    background-size: 100% 100%;
-}
-
-.main-content .modal .event-time:before {
-    background: url(../../images/events/clock.svg) no-repeat center;
-    background-size: 100% 100%;
-}
-
-.main-content .modal .event-place:before {
-    background: url(../../images/events/place.svg) no-repeat center;
-    background-size: 100% 100%;
-}
-
-.main-content .modal .event-users:before {
-    background: url(../../images/events/user.svg) no-repeat center;
-    background-size: 100% 100%;
 }
 
 .tooltip-element:hover .tooltiptext {

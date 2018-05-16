@@ -9,7 +9,21 @@ angular.module('eventInfo').component('eventInfoComp', {
     controller: ['$routeParams', 'EventFactory',
         function UserController($routeParams, EventFactory) {
             var self = this;
-            self.eventId = $routeParams.id;
+
+            self.$onInit = function () {
+                self.event = EventFactory.getEvent(
+                    {eventId: $routeParams.id, userId: self.userId},
+                    function (data) {
+                        return data;
+                    }, function (errResponse) {
+                        if (errResponse.data === 'Non-valid token') {
+                            $window.location.href = '/auth.html';
+                        } else {
+                            console.error('Error while read event');
+                        }
+                    });
+            };
+
         }]
 });
 

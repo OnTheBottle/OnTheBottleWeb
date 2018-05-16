@@ -1,0 +1,134 @@
+.main-content {
+    border-radius: 5px;
+}
+
+.main-content .row {
+    margin: 0;
+}
+
+.main-content .img_wrap {
+    width: 100%;
+    height: 200px;
+}
+
+.main-content .img_wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main-content .title-event,
+.main-content .information-event,
+.main-content .users-event {
+    position: relative;
+    background: snow;
+    padding: 1rem;
+}
+
+.main-content .title-event .btn-group {
+    position: absolute;
+    bottom: 1.4rem;
+    right: 1rem;
+}
+
+.main-content .title-event .control {
+    background: #00A5E3;
+    width: 125px;
+}
+
+.main-content .title-event .control.member {
+    background: #e6e2df;
+    border-color: #e6e2df;
+    color: black;
+}
+
+.main-content .title-event .btn-settings {
+    width: 50px;
+    height: 25px;
+    border-color: #e6e2df;
+    background: url(../../images/events/dots.svg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.tooltip-element:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltip-element .tooltiptext {
+    visibility: hidden;
+    width: 30rem;
+    font-size: 0.9rem;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 0.5rem 0;
+    margin: -8rem 0 0 -16rem;
+
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip-element .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 70%;
+    margin-left: -5px;
+    border: 5px solid transparent;
+    border-top-color: black;
+}
+
+.main-content .information-event {
+    width: 70%;
+}
+
+.main-content .event-description,
+.main-content .event-time,
+.main-content .event-place,
+.main-content .event-users {
+    padding-left: 25px;
+}
+
+.main-content .event-description p,
+.main-content .event-time p,
+.main-content .event-place p,
+.main-content .event-users p {
+    margin-bottom: 0;
+}
+
+.main-content .event-description:before,
+.main-content .event-time:before,
+.main-content .event-place:before,
+.main-content .event-users:before {
+    display: block;
+    position: absolute;
+    content: '';
+    width: 20px;
+    height: 20px;
+    margin: 2px 0 0 -25px;
+}
+
+.main-content .event-description:before {
+    background: url(../../images/events/information.svg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.main-content .event-time:before {
+    background: url(../../images/events/clock.svg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.main-content .event-place:before {
+    background: url(../../images/events/place.svg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.main-content .event-users:before {
+    background: url(../../images/events/user.svg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.main-content .users-event {
+    width: 29.3%;
+}
