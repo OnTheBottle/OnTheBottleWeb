@@ -328,3 +328,32 @@
     background: url(../../images/events/user.svg) no-repeat center;
     background-size: 100% 100%;
 }
+
+.tooltip-element:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltip-element .tooltiptext {
+    visibility: hidden;
+    width: 30rem;
+    font-size: 0.9rem;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 0.5rem 0;
+    margin: -8rem 0 0 -16rem;
+
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip-element .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 70%;
+    margin-left: -5px;
+    border: 5px solid transparent;
+    border-top-color: black;
+}
