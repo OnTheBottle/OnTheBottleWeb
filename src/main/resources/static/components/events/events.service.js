@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('event').factory('EventFactory', ['$resource', '$cookies',
+angular.module('eventsService', ['ngResource', 'ngCookies']);
+
+angular.module('eventsService').factory('EventFactory', ['$resource', '$cookies',
     function ($resource, $cookies) {
         return $resource('http://localhost:8083/:path', {}, {
             getPlaces: {

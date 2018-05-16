@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('event',['ngRoute','ngResource', 'ngCookies']);
+angular.module('event',['ngRoute', 'eventsService']);
