@@ -2,7 +2,8 @@
     border-radius: 5px;
 }
 
-.main-content .row {
+.main-content .row,
+.main-content p {
     margin: 0;
 }
 
@@ -17,12 +18,15 @@
     object-fit: cover;
 }
 
-.main-content .title-event,
-.main-content .information-event,
-.main-content .users-event {
+.main-content .main-information {
+    position: relative;
+}
+
+.main-content .page_block {
     position: relative;
     background: snow;
     padding: 1rem;
+    font-size: 1.4rem;
 }
 
 .main-content .title-event .btn-group {
@@ -34,6 +38,7 @@
 .main-content .title-event .control {
     background: #00A5E3;
     width: 125px;
+    font-size: 1.4rem;
 }
 
 .main-content .title-event .control.member {
@@ -43,8 +48,8 @@
 }
 
 .main-content .title-event .btn-settings {
-    width: 50px;
-    height: 25px;
+    width: 5rem;
+    height: 3rem;
     border-color: #e6e2df;
     background: url(../../images/events/dots.svg) no-repeat center;
     background-size: 100% 100%;
@@ -56,14 +61,14 @@
 
 .tooltip-element .tooltiptext {
     visibility: hidden;
-    width: 30rem;
-    font-size: 0.9rem;
+    width: 31rem;
+    font-size: 1rem;
     background-color: black;
-    color: #fff;
+    color: snow;
     text-align: center;
     border-radius: 6px;
     padding: 0.5rem 0;
-    margin: -8rem 0 0 -16rem;
+    margin: -9rem 0 0 -16rem;
 
     position: absolute;
     z-index: 1;
@@ -85,28 +90,25 @@
 
 .main-content .event-description,
 .main-content .event-time,
-.main-content .event-place,
-.main-content .event-users {
+.main-content .event-place {
     padding-left: 25px;
 }
 
 .main-content .event-description p,
 .main-content .event-time p,
-.main-content .event-place p,
-.main-content .event-users p {
-    margin-bottom: 0;
+.main-content .event-place p {
+    margin-bottom: 0.5rem;
 }
 
 .main-content .event-description:before,
 .main-content .event-time:before,
-.main-content .event-place:before,
-.main-content .event-users:before {
+.main-content .event-place:before {
     display: block;
     position: absolute;
     content: '';
     width: 20px;
     height: 20px;
-    margin: 2px 0 0 -25px;
+    margin: 1px 0 0 -25px;
 }
 
 .main-content .event-description:before {
@@ -124,11 +126,74 @@
     background-size: 100% 100%;
 }
 
-.main-content .event-users:before {
-    background: url(../../images/events/user.svg) no-repeat center;
-    background-size: 100% 100%;
+.main-content .users-event {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 29.3%;
 }
 
-.main-content .users-event {
-    width: 29.3%;
+.main-content .users-event .block-count {
+    cursor: pointer;
+}
+
+.main-content .users-event .count {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #009cdb;
+}
+
+.main-content .users-event .count-label {
+    font-size: 1.4rem;
+    color: #555253;
+}
+
+.main-content .users-event .block-count:hover .count-label {
+    color: #00A5E3;
+}
+
+.main-content .users-event .control {
+    background: #00A5E3;
+    width: 90%;
+    font-size: 1.4rem;
+}
+
+.main-content .users-event .user-friend {
+    cursor: pointer;
+    position: relative;
+}
+
+.main-content .users-event .user-friend p {
+    display: inline-block;
+}
+
+.main-content .users-event .user-friend img {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid snow;
+    width: 2.7rem;
+    height: 2.7rem;
+    right: 1rem;
+    top: 0.7rem
+}
+
+.main-content .users-event .user-friend img:first-of-type {
+    z-index: 1;
+    right: 2.7rem;
+}
+
+.main-content .user-active img {
+    border-radius: 50%;
+    margin: 0.5rem;
+    width: 8.9rem;
+    height: 8.9rem;
+    cursor: pointer;
+}
+
+.main-content .user-active .people_cell {
+    cursor: pointer;
+}
+
+.main-content .user-active .people_cell a {
+    display: block;
 }

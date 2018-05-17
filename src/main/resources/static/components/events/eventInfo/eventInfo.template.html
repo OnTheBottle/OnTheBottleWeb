@@ -4,7 +4,7 @@
     <div class="form-group img_wrap mt-2">
         <img ng-src="{{self.event.place.avatar}}" alt="horizontal">
     </div>
-    <div class="title-event row">
+    <div class="page_block title-event row" ng-show="self.activeMenu === 'Info'">
         <div>
             <h2>{{self.event.title}}</h2>
         </div>
@@ -20,49 +20,79 @@
                     ng-show="self.event.active && !(self.event.owner)">
                 {{self.event.member ? 'Вы участвуете' : 'Присоединится'}}
             </button>
-            <button type="button" class="btn btn-settings ml-2"></button>
-        </div>
-    </div>
-    <div class="mt-2">
-        <div class="d-inline-block information-event">
-            <div class="row" title="Описание">
-                <div class="event-description"><p>{{self.event.text}}</p></div>
+
+            <div class="dropdown">
+                <button type="button" class="btn btn-settings ml-2 dropdown-toggle" data-toggle="dropdown">
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <button type="button" class="dropdown-item">Редактировать</button>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="mt-2 main-information">
+        <div class="d-inline-block page_block information-event">
+            <div class="event-description" title="Описание"><p>{{self.event.text}}</p></div>
+            <div class="event-time" title="Дата мероприятия"><p>{{self.event.startTime | date:'dd MMMM yyyy'}} в
+                {{self.event.startTime | date:'HH:mm'}} — {{self.event.endTime | date:'dd MMM yyyy'}}
+                в {{self.event.endTime | date:'HH:mm'}}</p></div>
+            <div class="event-place" title="Местоположение"><p>{{self.event.place.title}}</p></div>
+        </div>
         <div class="d-inline-block users-event ml-1">
-            <div class="row">
-                <div class="event-description"><p>{{self.event.text}}</p></div>
+            <div class="page_block text-center">
+                <div class="row justify-content-around">
+                    <div class="col-5 text-center block-count">
+                        <p class="count">100</p>
+                        <p class="count-label">Идут</p>
+                    </div>
+                    <div class="col-5 text-center block-count">
+                        <p class="count">110</p>
+                        <p class="count-label">Приглашены</p>
+                    </div>
+                </div>
+                <button class="btn btn-info control mt-2" type="button" ng-click="">
+                    Пригласить друзей
+                </button>
+            </div>
+
+            <div class="page_block mt-2 user-friend">
+                <p>Пойдет Х друзей</p>
+                <img src="images/userspictures/default-avatar.jpeg"> <!--TODO ринимать с бэка двух случайных друзей-->
+                <img src="images/userspictures/default-avatar.jpeg">
+            </div>
+
+            <div class="page_block mt-2 user-active">
+                <p>Участники X</p>
+                <div class="d-inline-block people_cell text-center" title="Имя Фамилия">
+                    <img src="images/userspictures/default-avatar.jpeg"> <!--TODO ринимать с бэка себя/друга/человека-->
+                    <a href="">Имя</a>
+                </div>
+                <div class="d-inline-block people_cell text-center">
+                    <img src="images/userspictures/default-avatar.jpeg"> <!--TODO ринимать с бэка 5 друзей/людей-->
+                    <a href="">Имя</a>
+                </div>
+                <div class="d-inline-block people_cell text-center">
+                    <img src="images/userspictures/default-avatar.jpeg">
+                    <a href="">Имя</a>
+                </div>
+                <div class="d-inline-block people_cell text-center">
+                    <img src="images/userspictures/default-avatar.jpeg">
+                    <a href="">Имя</a>
+                </div>
+                <div class="d-inline-block people_cell text-center">
+                    <img src="images/userspictures/default-avatar.jpeg">
+                    <a href="">Имя</a>
+                </div>
+                <div class="d-inline-block people_cell text-center">
+                    <img src="images/userspictures/default-avatar.jpeg">
+                    <a href="">Имя</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <!--
-
-
-                    <div class="form-group row" title="Описание">
-                        <div class="event-description"><p>{{self.event.text}}</p></div>
-                    </div>
-                    <div class="form-group row" title="Дата мероприятия">
-                        <div class="event-time"><p>{{self.event.startTime | date:'dd MMMM yyyy'}} в
-                            {{self.event.startTime | date:'HH:mm'}} — {{self.event.endTime |
-                            date:'dd MMM yyyy'}} в {{self.event.endTime | date:'HH:mm'}}</p></div>
-                    </div>
-                    <div class="form-group row" title="Местоположение">
-                        <div class="event-place"><p>{{self.event.place.title}}</p></div>
-                    </div>
-                    <div class="form-group row" title="Участники">
-                        <div class="event-users"><p>{{self.event.users.length}}</p></div>
-                    </div>
-
-                    <button class="btn btn-lg btn-info control" id="control" type="button"
-                            ng-click="self.util.control()"
-                            ng-class="{member : self.event.member}"
-                            ng-show="self.eventInfo.isActive">
-                        self.event.member ? 'Вы участвуете' : 'Присоединится'}}
-                    </button>
-                </div>
-
                 <div ng-show="self.activeMenu === 'Update'">
                     <div class="form-group">
                         <label for="titleUpdate" class="col-form-label">Название ивента</label>

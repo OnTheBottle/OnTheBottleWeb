@@ -9,11 +9,13 @@ angular.module('eventInfo').component('eventInfoComp', {
     controller: ['$routeParams', 'EventFactory',
         function UserController($routeParams, EventFactory) {
             var self = this;
+            self.activeMenu = 'Info';
 
             self.$onInit = function () {
                 self.event = EventFactory.getEvent(
                     {eventId: $routeParams.id, userId: self.userId},
                     function (data) {
+                        self.formatDate(data);
                         return data;
                     }, function (errResponse) {
                         if (errResponse.data === 'Non-valid token') {
@@ -22,6 +24,11 @@ angular.module('eventInfo').component('eventInfoComp', {
                             console.error('Error while read event');
                         }
                     });
+            };
+
+            self.formatDate = function (event) {
+                event.startTime = new Date(event.startTime.replace(' ', 'T') + "Z");
+                event.endTime = new Date(event.endTime.replace(' ', 'T') + "Z");
             };
 
         }]

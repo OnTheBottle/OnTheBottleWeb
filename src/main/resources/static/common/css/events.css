@@ -162,8 +162,8 @@
 }
 
 .main-content .event .pub-img {
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -178,7 +178,7 @@
 .main-content .event .title-event a {
     position: relative;
     left: -50%;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: bold;
     padding: 0;
     margin: 0;
@@ -188,7 +188,7 @@
 .main-content .event .description,
 .main-content .event .time,
 .main-content .event .people {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     padding: 0;
     margin: 0 10px;
 }
@@ -205,14 +205,14 @@
 .main-content .event .time {
     position: absolute;
     bottom: 4px;
-    left: 90px;
+    left: 100px;
     color: #000000;
 }
 
 .main-content .event .people {
     position: absolute;
-    bottom: 7px;
-    right: 5px;
+    bottom: 6px;
+    right: 3px;
     color: #000000;
     vertical-align: middle;
 }
@@ -224,8 +224,8 @@
 
 .main-content .event .people img {
     width: 100%;
-    max-width: 12px;
-    max-height: 12px;
+    max-width: 14px;
+    max-height: 14px;
 }
 
 .main-content .event .control {
@@ -236,7 +236,8 @@
 
 .main-content .event .control button {
     background: #00A5E3;
-    width: 100px;
+    width: 110px;
+    font-size: 1.3rem;
 }
 
 .main-content .event .control .member {
@@ -261,7 +262,7 @@
 }
 
 .main-content .sort-text {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 .main-content .modal .close {
@@ -274,14 +275,14 @@
 
 .tooltip-element .tooltiptext {
     visibility: hidden;
-    width: 30rem;
-    font-size: 0.9rem;
+    width: 31rem;
+    font-size: 1rem;
     background-color: black;
     color: #fff;
     text-align: center;
     border-radius: 6px;
     padding: 0.5rem 0;
-    margin: -8rem 0 0 -16rem;
+    margin: -9rem 0 0 -16rem;
 
     position: absolute;
     z-index: 1;
