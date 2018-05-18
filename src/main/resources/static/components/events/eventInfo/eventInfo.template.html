@@ -42,7 +42,7 @@
             <div class="page_block text-center">
                 <div class="row justify-content-around">
                     <div class="col-5 text-center block-count">
-                        <p class="count">100</p>
+                        <p class="count">{{self.event.usersCounter}}</p>
                         <p class="count-label">Идут</p>
                     </div>
                     <div class="col-5 text-center block-count">
@@ -50,42 +50,26 @@
                         <p class="count-label">Приглашены</p>
                     </div>
                 </div>
-                <button class="btn btn-info control mt-2" type="button" ng-click="">
+                <button class="btn btn-info control mt-2" type="button" ng-click="self.test()">
                     Пригласить друзей
                 </button>
             </div>
 
-            <div class="page_block mt-2 user-friend">
-                <p>Пойдет Х друзей</p>
-                <img src="images/userspictures/default-avatar.jpeg"> <!--TODO ринимать с бэка двух случайных друзей-->
-                <img src="images/userspictures/default-avatar.jpeg">
+            <div class="page_block mt-2 user-friend" ng-show="self.friendsPreliminary[0] != null">
+                <p>Пойдет {{self.event.friendsCounter}} друг(а)</p>
+                <img ng-src="{{self.friendsPreliminary[0].avatarUrl}}" ng-show="self.friendsPreliminary[0] != null"
+                     title="{{self.friendsPreliminary[0].name}} {{self.friendsPreliminary[0].surname}}">
+                <img ng-src="{{self.friendsPreliminary[1].avatarUrl}}" ng-show="self.friendsPreliminary[1] != null"
+                     title="{{self.friendsPreliminary[1].name}} {{self.friendsPreliminary[1].surname}}">
             </div>
 
             <div class="page_block mt-2 user-active">
-                <p>Участники X</p>
-                <div class="d-inline-block people_cell text-center" title="Имя Фамилия">
-                    <img src="images/userspictures/default-avatar.jpeg"> <!--TODO ринимать с бэка себя/друга/человека-->
-                    <a href="">Имя</a>
+                <p>Участники {{self.event.usersCounter}}</p>
+                <div class="d-inline-block people_cell text-center" title="{{friend.name}} {{friend.surname}}" ng-repeat="friend in self.friendsPreliminary">
+                    <a href="#!/userInfo/{{friend.id}}"><img ng-src="{{friend.avatarUrl}}">{{friend.name}}</a>
                 </div>
-                <div class="d-inline-block people_cell text-center">
-                    <img src="images/userspictures/default-avatar.jpeg"> <!--TODO ринимать с бэка 5 друзей/людей-->
-                    <a href="">Имя</a>
-                </div>
-                <div class="d-inline-block people_cell text-center">
-                    <img src="images/userspictures/default-avatar.jpeg">
-                    <a href="">Имя</a>
-                </div>
-                <div class="d-inline-block people_cell text-center">
-                    <img src="images/userspictures/default-avatar.jpeg">
-                    <a href="">Имя</a>
-                </div>
-                <div class="d-inline-block people_cell text-center">
-                    <img src="images/userspictures/default-avatar.jpeg">
-                    <a href="">Имя</a>
-                </div>
-                <div class="d-inline-block people_cell text-center">
-                    <img src="images/userspictures/default-avatar.jpeg">
-                    <a href="">Имя</a>
+                <div class="d-inline-block people_cell text-center" title="{{user.name}} {{user.surname}}" ng-repeat="user in self.usersPreliminary">
+                    <a href="#!/userInfo/{{user.id}}"><img ng-src="{{user.avatarUrl}}">{{user.name}}</a>
                 </div>
             </div>
         </div>

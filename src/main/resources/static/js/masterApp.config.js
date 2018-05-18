@@ -10,7 +10,7 @@ angular.module('mainApp')
                 '<news-comp auth-id="ctrl.authId"></news-comp>'
             }).when('/profile', {
                 template: '<profile-info-comp user-id="ctrl.authId"></profile-info-comp>'
-            }).when('/userInfo:id', {
+            }).when('/userInfo/:id', {
                 template: '<user-info-comp auth-id="ctrl.authId"></user-info-comp>'
             }).when('/friend', {
                 template: '<view-friends-comp user-id="ctrl.authId"></view-friends-comp>'

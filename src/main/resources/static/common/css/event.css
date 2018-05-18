@@ -195,5 +195,5 @@
 }
 
 .main-content .user-active .people_cell a {
-    display: block;
+    display: inline-grid;
 }
