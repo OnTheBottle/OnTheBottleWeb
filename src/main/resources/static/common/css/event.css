@@ -22,11 +22,15 @@
     position: relative;
 }
 
-.main-content .page_block {
+.page_block {
     position: relative;
     background: snow;
     padding: 1rem;
     font-size: 1.4rem;
+}
+
+.update-information .page_block {
+    overflow: hidden;
 }
 
 .main-content .title-event .btn-group {
@@ -53,6 +57,10 @@
     border-color: #e6e2df;
     background: url(../../images/events/dots.svg) no-repeat center;
     background-size: 100% 100%;
+}
+
+.main-content .title-event .dropdown-item{
+    font-size: 1.4rem;
 }
 
 .tooltip-element:hover .tooltiptext {

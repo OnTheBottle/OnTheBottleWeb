@@ -32,7 +32,7 @@
 
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="title" class="col-form-label">Название ивента</label>
+                                    <label for="title" class="col-form-label font-italic">Название ивента:</label>
                                     <input type="text" name="title" id="title"
                                            class="form-control form-control-lg" aria-describedby="titleEvent"
                                            placeholder="Title"
@@ -54,8 +54,7 @@
                                     </p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="description" class="col-form-label">Описание
-                                        ивента</label>
+                                    <label for="description" class="col-form-label font-italic">Описание ивента:</label>
                                     <textarea type="text" name="description" class="form-control form-control-lg"
                                               id="description"
                                               aria-describedby="descriptionEvent" placeholder="Description"
@@ -72,7 +71,7 @@
                                     </p>
                                 </div>
                                 <div>
-                                    <label for="startTime" class="col-form-label">Время старта</label>
+                                    <label for="startTime" class="col-form-label font-italic">Время старта:</label>
                                     <input type="datetime-local" name="startTime" class="form-control form-control-lg"
                                            id="startTime" ng-model="self.startTime"
                                            min="{{self.today | date:'yyyy-MM-ddTHH:mm'}}"
@@ -85,8 +84,7 @@
                                        ng-show="createEventForm.startTime.$touched && createEventForm.startTime.$error.min">
                                         Дата начала ивента не может быть раньше текущей даты и времени
                                     </p>
-                                    <label for="endTime" class="col-form-label">Время
-                                        завершения</label>
+                                    <label for="endTime" class="col-form-label font-italic">Время завершения:</label>
                                     <input type="datetime-local" name="endTime" class="form-control form-control-lg"
                                            id="endTime"
                                            ng-model="self.endTime"
@@ -102,8 +100,7 @@
                                     </p>
                                 </div>
                                 <div>
-                                    <label for="places" class="col-form-label col-form-label-lg">Выбирете
-                                        место</label>
+                                    <label for="places" class="col-form-label col-form-label-lg font-italic">Выбирете место:</label>
                                     <select class="form-control form-control-lg custom-select" id="places"
                                             ng-options="place.id as place.title for place in self.places"
                                             ng-model="self.place" required>

@@ -6,17 +6,101 @@ angular.module('eventInfo').component('eventInfoComp', {
     bindings: {
         userId: '='
     },
-    controller: ['$routeParams', '$window', 'UserEventFactory', 'EventFactory',
-        function UserController($routeParams, $window, UserEventFactory, EventFactory) {
+    controller: ['$routeParams', '$window', '$scope', 'UserEventFactory', 'EventFactory',
+        function UserController($routeParams, $window, $scope, UserEventFactory, EventFactory) {
             var self = this;
             self.activeMenu = 'Info';
+            self.today = new Date();
 
             self.$onInit = function () {
-                self.event = EventFactory.getEvent(
+                self.event = getEvent();
+            };
+
+            self.control = function () {
+                if (self.event.member) {
+                    EventFactory.leaveEvent({
+                        eventId: self.event.id,
+                        userId: self.userId
+                    }, function (data) {
+                        self.event = getEvent();
+                    }, function (errResponse) {
+                        if (errResponse.data === 'Non-valid token') {
+                            $window.location.href = '/auth.html';
+                        } else {
+                            console.error('Error while leave Event');
+                        }
+                    });
+                } else {
+                    EventFactory.joinEvent({
+                        eventId: self.event.id,
+                        userId: self.userId
+                    }, function (data) {
+                        self.event = getEvent();
+                    }, function (errResponse) {
+                        angular.element('#myModalClosed').modal('show');
+                        if (errResponse.data === 'Non-valid token') {
+                            $window.location.href = '/auth.html';
+                        } else {
+                            console.error('Error while leave Event');
+                        }
+                    });
+                }
+            };
+
+            self.places = EventFactory.getPlaces({}, function (data) {
+            }, function (errResponse) {
+                if (errResponse.data === 'Non-valid token') {
+                    $window.location.href = '/auth.html';
+                } else {
+                    console.error('Error while read places');
+                }
+            });
+
+            self.formatDate = function (event) {
+                event.startTime = new Date(event.startTime.replace(' ', 'T') + "Z");
+                event.endTime = new Date(event.endTime.replace(' ', 'T') + "Z");
+            };
+
+            self.resetEventUpdate = function () {
+                self.activeMenu = 'Info';
+                $scope.updateEventForm.$setUntouched();
+                $scope.updateEventForm.$setPristine();
+                copyEventToUpdate(self.event);
+            };
+
+            self.updateEvent = function () {
+                EventFactory.updateEvent({
+                    id: self.event.id,
+                    title: self.updateTitle,
+                    text: self.updateText,
+                    startTime: self.updateStartTime,
+                    endTime: self.updateEndTime,
+                    place: self.place
+                }, function (data) {
+                    self.activeMenu = 'Info';
+                    self.event = getEvent();
+                }, function (errResponse) {
+                    if (errResponse.data === 'Non-valid token') {
+                        $window.location.href = '/auth.html';
+                    } else {
+                        console.error('Error while update Event');
+                    }
+                });
+            };
+
+            var checkAvatar = function (users) {
+                users.forEach(function (item) {
+                    item.avatarUrl = item.avatarUrl === null ? 'images/userspictures/default-avatar.jpeg' : item.avatarUrl;
+                });
+                return users;
+            };
+
+            var getEvent = function () {
+                return EventFactory.getEvent(
                     {eventId: $routeParams.id, userId: self.userId},
                     function (data) {
                         self.formatDate(data);
-
+                        copyEventToUpdate(self.event);
                         self.friendsPreliminary = UserEventFactory.getUsersInfo(
                             data.friends, function (data) {
                                 return checkAvatar(data);
@@ -40,8 +124,6 @@ angular.module('eventInfo').component('eventInfoComp', {
                                 }
                             }
                         );
-
-                        return data;
                     }, function (errResponse) {
                         if (errResponse.data === 'Non-valid token') {
                             $window.location.href = '/auth.html';
@@ -51,22 +133,13 @@ angular.module('eventInfo').component('eventInfoComp', {
                     });
             };
 
-            self.test = function () {
-                console.log();
+            var copyEventToUpdate = function (event) {
+                self.updateTitle = event.title;
+                self.updateText = event.text;
+                self.updateStartTime = event.startTime;
+                self.updateEndTime = event.endTime;
+                self.place = event.place.id;
             };
-
-            self.formatDate = function (event) {
-                event.startTime = new Date(event.startTime.replace(' ', 'T') + "Z");
-                event.endTime = new Date(event.endTime.replace(' ', 'T') + "Z");
-            };
-
-            var checkAvatar = function (users) {
-                users.forEach(function (item) {
-                    item.avatarUrl = item.avatarUrl === null ? 'images/userspictures/default-avatar.jpeg' : item.avatarUrl;
-                });
-                return users;
-            }
-
         }]
 });
 
@@ -79,73 +152,6 @@ angular.module('eventInfo').component('eventInfoComp', {
                     self.text = '';
                     self.startTime = '';
                     self.endTime = '';
-                },
-                control: function () {
-                    if (self.checkMember(self.eventInfo.users)) {
-                        self.util.isLeaveEvent();
-                    } else {
-                        self.util.joinEvent();
-                    }
-                },
-                joinEvent: function () {
-                    EventFactory.joinEvent({
-                        eventId: self.eventInfo.id,
-                        userId: self.userId
-                    }, function (data) {
-                        self.util.getEvents();
-                        self.eventInfo.users[self.eventInfo.users.length] = {id: self.userId};
-                    }, function (errResponse) {
-                        angular.element('#myModalClosed').modal('show');
-                        if (errResponse.data === 'Non-valid token') {
-                            $window.location.href = '/auth.html';
-                        }
-                    });
-                },
-                isLeaveEvent: function (accept) {
-                    if (self.userId === self.eventInfo.owner.id && accept) {
-                        angular.element('#myModalClose').modal('hide');
-                        self.util.leaveEvent();
-                    } else if (self.userId === self.eventInfo.owner.id) {
-                        angular.element('#myModalEvent').modal('hide');
-                        angular.element('#myModalClose').modal('show');
-                    } else {
-                        self.util.leaveEvent();
-                    }
-                },
-                leaveEvent: function () {
-                    EventFactory.leaveEvent({
-                        eventId: self.eventInfo.id,
-                        userId: self.userId
-                    }, function (data) {
-                        self.util.getEvents();
-                        self.eventInfo.users.splice(getIndexOfUser(), 1);
-                    }, function (errResponse) {
-                        if (errResponse.data === 'Non-valid token') {
-                            $window.location.href = '/auth.html';
-                        } else {
-                            console.error('Error while leave Event');
-                        }
-                    });
-                },
-                updateEvent: function () {
-                    self.isUpdate = false;
-                    EventFactory.updateEvent({
-                        id: self.eventInfo.id,
-                        title: self.eventInfo.title,
-                        text: self.eventInfo.text,
-                        startTime: self.eventInfo.startTime,
-                        endTime: self.eventInfo.endTime,
-                        place: self.eventInfo.place.id
-                    }, function (data) {
-                        self.activeMenu = 'Info';
-                        self.util.getEvents();
-                    }, function (errResponse) {
-                        if (errResponse.data === 'Non-valid token') {
-                            $window.location.href = '/auth.html';
-                        } else {
-                            console.error('Error while update Event');
-                        }
-                    });
                 },
                 closeEvent: function () {
                     self.isUpdate = false;
@@ -162,13 +168,6 @@ angular.module('eventInfo').component('eventInfoComp', {
                         }
                     });
                 }
-
-            self.setEventInfo = function (event) {
-                self.activeMenu = 'Info';
-                self.eventInfo = event;
-                self.isOwner = self.userId === (self.eventInfo.owner === null ? 0 : self.eventInfo.owner.id);
-            };
-
             self.getUsersInfo = function () {
                 self.activeMenu = 'Users';
                 EventFactory.getUsersInfo(self.eventInfo.users, function (data) {
@@ -181,17 +180,6 @@ angular.module('eventInfo').component('eventInfoComp', {
                     }
                 });
             };
-
-            function getIndexOfUser() {
-                var index = 0;
-                for (var i = 0; i < self.eventInfo.users.length; i++) {
-                    if (self.eventInfo.users[i].id === self.userId) {
-                        index = i;
-                        return index;
-                    }
-                }
-                return index;
-            }
 * */
 
 

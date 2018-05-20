@@ -4,7 +4,7 @@
     <div class="form-group img_wrap mt-2">
         <img ng-src="{{self.event.place.avatar}}" alt="horizontal">
     </div>
-    <div class="page_block title-event row" ng-show="self.activeMenu === 'Info'">
+    <div class="page_block title-event row">
         <div>
             <h2>{{self.event.title}}</h2>
         </div>
@@ -25,12 +25,15 @@
                 <button type="button" class="btn btn-settings ml-2 dropdown-toggle" data-toggle="dropdown">
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <button type="button" class="dropdown-item">Редактировать</button>
+                    <button type="button" class="dropdown-item" ng-show="self.event.active && self.event.owner"
+                            ng-click="self.activeMenu = 'Update'">Редактировать
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="mt-2 main-information">
+
+    <div class="mt-2 main-information" ng-show="self.activeMenu === 'Info'">
         <div class="d-inline-block page_block information-event">
             <div class="event-description" title="Описание"><p>{{self.event.text}}</p></div>
             <div class="event-time" title="Дата мероприятия"><p>{{self.event.startTime | date:'dd MMMM yyyy'}} в
@@ -65,120 +68,110 @@
 
             <div class="page_block mt-2 user-active">
                 <p>Участники {{self.event.usersCounter}}</p>
-                <div class="d-inline-block people_cell text-center" title="{{friend.name}} {{friend.surname}}" ng-repeat="friend in self.friendsPreliminary">
+                <div class="d-inline-block people_cell text-center" title="{{friend.name}} {{friend.surname}}"
+                     ng-repeat="friend in self.friendsPreliminary">
                     <a href="#!/userInfo/{{friend.id}}"><img ng-src="{{friend.avatarUrl}}">{{friend.name}}</a>
                 </div>
-                <div class="d-inline-block people_cell text-center" title="{{user.name}} {{user.surname}}" ng-repeat="user in self.usersPreliminary">
+                <div class="d-inline-block people_cell text-center" title="{{user.name}} {{user.surname}}"
+                     ng-repeat="user in self.usersPreliminary">
                     <a href="#!/userInfo/{{user.id}}"><img ng-src="{{user.avatarUrl}}">{{user.name}}</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!--
-                <div ng-show="self.activeMenu === 'Update'">
-                    <div class="form-group">
-                        <label for="titleUpdate" class="col-form-label">Название ивента</label>
-                        <input type="text" name="title" id="titleUpdate"
-                               class="form-control form-control-lg" aria-describedby="titleEvent"
-                               placeholder="Title"
-                               ng-model="self.eventInfo.title"
-                               ng-minlength="3" ng-maxlength="40"
-                               ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
-                               required>
-                        <p class="form-text text-danger"
-                           ng-show="eventInfoForm.title.$dirty && eventInfoForm.title.$error.minlength || eventInfoForm.title.$error.maxlength  && !(eventInfoForm.title.$error.$invalid)">
-                            В названии должно присутствовать более от 3 до 40 символов
-                        </p>
-                        <p class="form-text text-danger"
-                           ng-show="eventInfoForm.title.$dirty && eventInfoForm.title.$error.pattern">
-                            Присутствуют недопустимые символы
-                        </p>
-                        <p class="form-text text-danger"
-                           ng-show="eventInfoForm.title.$touched && eventInfoForm.title.$invalid && !(eventInfoForm.title.$error.pattern) && !(eventInfoForm.title.$error.minlength)">
-                            Поле должно быть заполненным
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <label for="descriptionUpdate" class="col-form-label">Описание
-                            ивента</label>
-                        <textarea type="text" name="description" class="form-control form-control-lg"
-                                  id="descriptionUpdate"
-                                  aria-describedby="descriptionEvent" placeholder="Description"
-                                  ng-model="self.eventInfo.text"
-                                  ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
-                                  rows="5" required></textarea>
-                        <p class="form-text text-danger"
-                           ng-show="eventInfoForm.description.$dirty && eventInfoForm.description.$error.pattern">
-                            Присутствуют недопустимые символы
-                        </p>
-                        <p class="form-text text-danger"
-                           ng-show="eventInfoForm.description.$touched && eventInfoForm.description.$invalid">
-                            Поле должно быть заполненным
-                        </p>
-                    </div>
-                    <div>
-                        <label for="startTimeUpdate" class="col-form-label">Время старта</label>
-                        <input type="datetime-local" name="startTime" class="form-control form-control-lg"
-                               id="startTimeUpdate" ng-model="self.eventInfo.startTime"
-                               min="{{self.today | date:'yyyy-MM-ddTHH:mm'}}"
-                               required>
-                        <p class="form-text text-danger"
-                           ng-show="eventInfoForm.startTime.$touched && eventInfoForm.startTime.$invalid && !(eventInfoForm.startTime.$error.min)">
-                            Поле должно быть заполненным
-                        </p>
-                        <p class="form-text text-danger"
-                           ng-show="eventInfoForm.startTime.$touched && eventInfoForm.startTime.$error.min">
-                            Дата начала ивента не может быть раньше текущей даты и времени
-                        </p>
-                        <label for="endTimeUpdate" class="col-form-label">Время
-                            завершения</label>
-                        <input type="datetime-local" name="endTime" class="form-control form-control-lg"
-                               id="endTimeUpdate"
-                               ng-model="self.eventInfo.endTime"
-                               min="{{self.startTime | date:'yyyy-MM-ddTHH:mm'}}"
-                               required>
-                        <p class="form-text text-danger"
-                           ng-show="eventInfoForm.endTime.$touched && eventInfoForm.endTime.$invalid  && !(eventInfoForm.endTime.$error.min)">
-                            Поле должно быть заполненным
-                        </p>
-                        <p class="form-text text-danger"
-                           ng-show="eventInfoForm.endTime.$touched && eventInfoForm.endTime.$error.min">
-                            Дата завершения ивента не может быть раньше даты начала ивента
-                        </p>
-                    </div>
-                    <div>
-                        <label for="placesUpdate" class="col-form-label col-form-label-lg">Выбирете
-                            место</label>
-                        <select class="form-control form-control-lg custom-select" id="placesUpdate"
-                                ng-options="place.id as place.title for place in self.places"
-                                ng-model="self.eventInfo.place.id" required>
-                        </select>
-                    </div>
-                    <button class="btn btn-lg btn-danger mt-2" type="button"
-                            ng-show="self.isUpdate" ng-click="self.util.closeEvent()">
+    <div class="mt-2 update-information" ng-show="self.activeMenu === 'Update'">
+        <div class="page_block">
+            <form name="updateEventForm" id="updateEventForm" ng-submit="self.updateEvent()">
+                <div class="form-group">
+                    <label for="titleUpdate" class="col-form-label font-italic">Название ивента:</label>
+                    <input type="text" name="title" id="titleUpdate"
+                           class="form-control form-control-lg" aria-describedby="titleEvent"
+                           placeholder="Title"
+                           ng-model="self.updateTitle"
+                           ng-minlength="3" ng-maxlength="40"
+                           ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
+                           required>
+                    <p class="form-text text-danger"
+                       ng-show="updateEventForm.title.$dirty && updateEventForm.title.$error.minlength || updateEventForm.title.$error.maxlength  && !(updateEventForm.title.$error.$invalid)">
+                        В названии должно присутствовать более от 3 до 40 символов
+                    </p>
+                    <p class="form-text text-danger"
+                       ng-show="updateEventForm.title.$dirty && updateEventForm.title.$error.pattern">
+                        Присутствуют недопустимые символы
+                    </p>
+                    <p class="form-text text-danger"
+                       ng-show="updateEventForm.title.$touched && updateEventForm.title.$invalid && !(updateEventForm.title.$error.pattern) && !(updateEventForm.title.$error.minlength)">
+                        Поле должно быть заполненным
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="descriptionUpdate" class="col-form-label font-italic">Описание ивента:</label>
+                    <textarea type="text" name="description" class="form-control form-control-lg"
+                              id="descriptionUpdate"
+                              aria-describedby="descriptionEvent" placeholder="Description"
+                              ng-model="self.updateText"
+                              ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
+                              rows="5" required></textarea>
+                    <p class="form-text text-danger"
+                       ng-show="updateEventForm.description.$dirty && updateEventForm.description.$error.pattern">
+                        Присутствуют недопустимые символы
+                    </p>
+                    <p class="form-text text-danger"
+                       ng-show="updateEventForm.description.$touched && updateEventForm.description.$invalid">
+                        Поле должно быть заполненным
+                    </p>
+                </div>
+                <div>
+                    <label for="startTimeUpdate" class="col-form-label font-italic">Время старта:</label>
+                    <input type="datetime-local" name="startTime" class="form-control form-control-lg"
+                           id="startTimeUpdate" ng-model="self.updateStartTime"
+                           min="{{self.today | date:'yyyy-MM-ddTHH:mm'}}"
+                           required>
+                    <p class="form-text text-danger"
+                       ng-show="updateEventForm.startTime.$touched && updateEventForm.startTime.$invalid && !(updateEventForm.startTime.$error.min)">
+                        Поле должно быть заполненным
+                    </p>
+                    <p class="form-text text-danger"
+                       ng-show="updateEventForm.startTime.$touched && updateEventForm.startTime.$error.min">
+                        Дата начала ивента не может быть раньше текущей даты и времени
+                    </p>
+                    <label for="endTimeUpdate" class="col-form-label font-italic">Время завершения:</label>
+                    <input type="datetime-local" name="endTime" class="form-control form-control-lg"
+                           id="endTimeUpdate" ng-model="self.updateEndTime"
+                           min="{{self.startTime | date:'yyyy-MM-ddTHH:mm'}}"
+                           required>
+                    <p class="form-text text-danger"
+                       ng-show="updateEventForm.endTime.$touched && updateEventForm.endTime.$invalid  && !(updateEventForm.endTime.$error.min)">
+                        Поле должно быть заполненным
+                    </p>
+                    <p class="form-text text-danger"
+                       ng-show="updateEventForm.endTime.$touched && updateEventForm.endTime.$error.min">
+                        Дата завершения ивента не может быть раньше даты начала ивента
+                    </p>
+                </div>
+                <div>
+                    <label for="placesUpdate" class="col-form-label col-form-label-lg font-italic">Выбирете место:</label>
+                    <select class="form-control form-control-lg custom-select" id="placesUpdate"
+                            ng-options="place.id as place.title for place in self.places"
+                            ng-model="self.event.place.id" required>
+                    </select>
+                </div>
+                <div class="float-left mt-2">
+                    <button class="btn btn-lg btn-danger" type="button" ng-click="self.util.closeEvent()">
                         Завершить
                     </button>
                 </div>
-
-                <div ng-show="self.activeMenu === 'Users'">
-
+                <div class="float-right mt-2">
+                    <button class="btn btn-lg btn-secondary" type="button" ng-click="self.resetEventUpdate()">
+                        Отменить
+                    </button>
+                    <button class="btn btn-lg btn-success" type="submit" ng-disabled="updateEventForm.$invalid">
+                        Сохранить
+                    </button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-lg btn-secondary" type="button" data-dismiss="modal">
-                    Закрыть
-                </button>
-                <button class="btn btn-lg btn-secondary" type="button"
-                        ng-show="self.activeMenu === 'Update'" ng-click="self.activeMenu = 'Info'">
-                    Отменить
-                </button>
-                <button class="btn btn-lg btn-success" type="submit"
-                        ng-show="self.activeMenu === 'Update'">
-                    Сохранить
-                </button>
-            </div>
+            </form>
         </div>
     </div>
-</form>-->
+
+</div>
