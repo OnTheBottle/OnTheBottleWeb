@@ -11,7 +11,7 @@ angular.module('event').component('eventComp', {
     controller: ['EventFactory', '$window',
         function UserController(EventFactory, $window) {
             var self = this;
-            self.today = new Date();
+            self.today = new Date().setHours(0,0,0,0);
 
             self.control = function () {
                 if (self.event.member) {

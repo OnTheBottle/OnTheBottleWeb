@@ -76,7 +76,7 @@ angular.module('eventsApp').component('eventsComp', {
             self.formatDate = function (events) {
                 events.forEach(function (item) {
                     item.startTime = new Date(item.startTime.replace(' ', 'T') + "Z");
-                    item.endTime = new Date(item.endTime.replace(' ', 'T') + "Z");
+                    item.startTimeTemp = new Date(item.startTime).setHours(0,0,0,0);
                 });
             };
         }]

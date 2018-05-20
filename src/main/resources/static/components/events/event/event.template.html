@@ -2,10 +2,9 @@
     <a href="#!/eventInfo/{{self.event.id}}"><img class="pub-img" ng-src="{{self.event.place.avatar}}"></a>
     <div class="title-event"><a href="#!/eventInfo/{{self.event.id}}">{{self.event.title}}</a></div>
     <p class="description">{{self.event.text | cut:true:330:' ...'}}</p>
-    <p class="time">{{self.event.isActive ? (self.event.startTime.setHours(0,0,0,0) === self.today.setHours(0,0,0,0) ?
-        'Сегодня' :
-        (self.event.startTime.setHours(0,0,0,0) < self.today.setHours(0,0,0,0) ? 'Событие началось'
-        : 'Событие состоится')) : (self.event.startTime.setHours(0,0,0,0) > self.today.setHours(0,0,0,0) ?
+    <p class="time">{{self.event.active ? (self.event.startTimeTemp === self.today ?
+        'Сегодня' : (self.event.startTimeTemp < self.today ? 'Событие началось'
+        : 'Событие состоится')) : (self.event.startTimeTemp > self.today ?
         'Событие не состоится' : 'Событие прошло')}} {{self.event.startTime | date:'dd MMM yyyy'}} в
         {{self.event.startTime | date:'HH:mm'}}</p>
     <div class="people">
