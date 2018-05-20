@@ -46,14 +46,14 @@
                 <div class="row justify-content-around">
                     <div class="col-5 text-center block-count">
                         <p class="count">{{self.event.usersCounter}}</p>
-                        <p class="count-label">Идут</p>
+                        <p class="count-label">{{self.event.active ? 'Идут' : 'Было'}}</p>
                     </div>
-                    <div class="col-5 text-center block-count">
+                    <div class="col-5 text-center block-count" ng-show="self.event.active">
                         <p class="count">110</p>
                         <p class="count-label">Приглашены</p>
                     </div>
                 </div>
-                <button class="btn btn-info control mt-2" type="button" ng-click="self.test()">
+                <button class="btn btn-info control mt-2" type="button" ng-click="self.test()" ng-show="self.event.active">
                     Пригласить друзей
                 </button>
             </div>
@@ -158,7 +158,7 @@
                     </select>
                 </div>
                 <div class="float-left mt-2">
-                    <button class="btn btn-lg btn-danger" type="button" ng-click="self.util.closeEvent()">
+                    <button class="btn btn-lg btn-danger" type="button" ng-click="self.closeEvent()">
                         Завершить
                     </button>
                 </div>

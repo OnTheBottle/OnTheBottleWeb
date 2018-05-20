@@ -88,6 +88,20 @@ angular.module('eventInfo').component('eventInfoComp', {
                 });
             };
 
+            self.closeEvent = function () {
+                EventFactory.closeEvent({
+                    id: self.event.id
+                }, function (data) {
+                    $window.location.href = '#!/event';
+                }, function (errResponse) {
+                    if (errResponse.data === 'Non-valid token') {
+                        $window.location.href = '/auth.html';
+                    } else {
+                        console.error('Error while close Event');
+                    }
+                });
+            };
+
             var checkAvatar = function (users) {
                 users.forEach(function (item) {
                     item.avatarUrl = item.avatarUrl === null ? 'images/userspictures/default-avatar.jpeg' : item.avatarUrl;
@@ -144,30 +158,6 @@ angular.module('eventInfo').component('eventInfoComp', {
 });
 
 /*
-                resetEventUpdate: function () {
-                    self.isUpdate = false;
-                    $scope.eventInfoForm.$setUntouched();
-                    $scope.eventInfoForm.$setPristine();
-                    self.title = '';
-                    self.text = '';
-                    self.startTime = '';
-                    self.endTime = '';
-                },
-                closeEvent: function () {
-                    self.isUpdate = false;
-                    angular.element('#myModalEvent').modal('hide');
-                    EventFactory.closeEvent({
-                        id: self.eventInfo.id
-                    }, function (data) {
-                        self.util.getEvents();
-                    }, function (errResponse) {
-                        if (errResponse.data === 'Non-valid token') {
-                            $window.location.href = '/auth.html';
-                        } else {
-                            console.error('Error while close Event');
-                        }
-                    });
-                }
             self.getUsersInfo = function () {
                 self.activeMenu = 'Users';
                 EventFactory.getUsersInfo(self.eventInfo.users, function (data) {
