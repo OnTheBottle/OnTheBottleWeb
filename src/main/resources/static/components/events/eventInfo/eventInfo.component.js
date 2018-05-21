@@ -141,7 +141,10 @@ angular.module('eventInfo').component('eventInfoComp', {
                     }, function (errResponse) {
                         if (errResponse.data === 'Non-valid token') {
                             $window.location.href = '/auth.html';
+                        } else if (errResponse.data === 'Doesn\'t exist event' ) {
+                            $window.location.href = '#!/event';
                         } else {
+                            console.log(errResponse.data.indexOf('JSON parse error'));
                             console.error('Error while read event');
                         }
                     });
