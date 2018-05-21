@@ -205,3 +205,9 @@
 .main-content .user-active .people_cell a {
     display: inline-grid;
 }
+
+.main-content .owner img{
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+}

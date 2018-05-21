@@ -100,21 +100,17 @@ angular.module('eventInfo').component('eventInfoComp', {
                 });
             };
 
-            var checkAvatar = function (users) {
-                users.forEach(function (item) {
-                    item.avatarUrl = item.avatarUrl === null ? 'images/userspictures/default-avatar.jpeg' : item.avatarUrl;
-                });
-                return users;
-            };
-
             var getEvent = function () {
                 return EventFactory.getEvent(
                     {id: $routeParams.id},
-                    function (data) {
-                        self.formatDate(data);
+                    function (event) {
+                        self.formatDate(event);
                         copyEventToUpdate(self.event);
+                        var infoOwner;
+
                         self.friendsPreliminary = UserEventFactory.getUsersInfo(
-                            data.friends, function (data) {
+                            event.friends, function (data) {
+                                infoOwner = setInfoOwner(data, event.owner);
                                 return checkAvatar(data);
                             }, function (errResponse) {
                                 if (errResponse.data === 'Non-valid token') {
@@ -126,7 +122,8 @@ angular.module('eventInfo').component('eventInfoComp', {
                         );
 
                         self.usersPreliminary = UserEventFactory.getUsersInfo(
-                            data.users, function (data) {
+                            event.users, function (data) {
+                                if (!infoOwner) setInfoOwner(data, event.owner);
                                 return checkAvatar(data);
                             }, function (errResponse) {
                                 if (errResponse.data === 'Non-valid token') {
@@ -146,6 +143,23 @@ angular.module('eventInfo').component('eventInfoComp', {
                             console.error('Error while read event');
                         }
                     });
+            };
+
+            var setInfoOwner = function (users, owner) {
+                users.forEach(function (item) {
+                    if (item.id === owner.id) {
+                        self.owner = item;
+                        return true;
+                    }
+                });
+                return false;
+            };
+
+            var checkAvatar = function (users) {
+                users.forEach(function (item) {
+                    item.avatarUrl = item.avatarUrl === null ? 'images/userspictures/default-avatar.jpeg' : item.avatarUrl;
+                });
+                return users;
             };
 
             var copyEventToUpdate = function (event) {

@@ -12,14 +12,14 @@
         <p>{{self.event.usersCounter}}</p>
     </div>
     <div class="btn-group control">
-        <div class="tooltip-element" ng-show="self.event.active && self.event.owner">
+        <div class="tooltip-element" ng-show="self.event.active && (self.event.owner.id === self.userId)">
             <button class="btn btn-info member" type="button" id="control" ng-click="self.control()">
                 {{self.event.member ? 'Вы участвуете' : 'Присоединится'}}
             </button>
             <span class="tooltiptext">Вы являетесь создателем ивента, выход из него приведет к передачи ивента случайному участнику (если вы единственный участник - закрытию ивента).</span>
         </div>
         <button class="btn btn-info" type="button" ng-click="self.control()" ng-class="{member : self.event.member}"
-                ng-show="self.event.active && !(self.event.owner)">
+                ng-show="self.event.active && !(self.event.owner.id === self.userId)">
             {{self.event.member ? 'Вы участвуете' : 'Присоединится'}}
         </button>
     </div>
