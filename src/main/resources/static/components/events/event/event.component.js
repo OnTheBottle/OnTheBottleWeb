@@ -16,8 +16,7 @@ angular.module('event').component('eventComp', {
             self.control = function () {
                 if (self.event.member) {
                     EventFactory.leaveEvent({
-                        eventId: self.event.id,
-                        userId: self.userId
+                        id: self.event.id
                     }, function (data) {
                         self.getEvents();
                     }, function (errResponse) {
@@ -29,8 +28,7 @@ angular.module('event').component('eventComp', {
                     });
                 } else {
                     EventFactory.joinEvent({
-                        eventId: self.event.id,
-                        userId: self.userId
+                        id: self.event.id
                     }, function (data) {
                         self.getEvents();
                     }, function (errResponse) {

@@ -20,7 +20,7 @@ angular.module('eventsApp').component('eventsComp', {
             self.util = {
                 getEvents: function () {
                     EventFactory.getEvents(
-                        {userId: self.userId, options: self.options},
+                        self.options,
                         function (data) {
                             self.formatDate(data);
                             self.events = data;

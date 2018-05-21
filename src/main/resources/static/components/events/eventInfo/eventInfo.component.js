@@ -19,8 +19,7 @@ angular.module('eventInfo').component('eventInfoComp', {
             self.control = function () {
                 if (self.event.member) {
                     EventFactory.leaveEvent({
-                        eventId: self.event.id,
-                        userId: self.userId
+                        id: self.event.id
                     }, function (data) {
                         self.event = getEvent();
                     }, function (errResponse) {
@@ -32,8 +31,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                     });
                 } else {
                     EventFactory.joinEvent({
-                        eventId: self.event.id,
-                        userId: self.userId
+                        id: self.event.id
                     }, function (data) {
                         self.event = getEvent();
                     }, function (errResponse) {
@@ -111,7 +109,7 @@ angular.module('eventInfo').component('eventInfoComp', {
 
             var getEvent = function () {
                 return EventFactory.getEvent(
-                    {eventId: $routeParams.id, userId: self.userId},
+                    {id: $routeParams.id},
                     function (data) {
                         self.formatDate(data);
                         copyEventToUpdate(self.event);
