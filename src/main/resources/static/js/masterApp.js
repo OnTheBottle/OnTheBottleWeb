@@ -25,6 +25,7 @@ var authId = '';
             'profileInfoApp',
             'userInfoApp',
             'newsApp',
+            'chatApp',
             'quitApp',
             'footerApp',
             'eventsApp',
@@ -32,7 +33,7 @@ var authId = '';
             'viewPlaceApp'
 
 
-])
+        ])
         .service('idStorage', function () {
             var _id = null;
             return {
@@ -46,7 +47,7 @@ var authId = '';
         })
         .controller('MainController', mainController);
 
-    function mainController($cookies, $window, $http,idStorage) {
+    function mainController($cookies, $window, $http, idStorage) {
 
         this.authId = '';
 
@@ -72,6 +73,7 @@ var authId = '';
         var token = parseJwt(tokenJwt);
         this.authId = token.userId;
         idStorage.setId(this.authId);
+
         function parseJwt(tokenJwt) {
             var base64Url = tokenJwt.split('.')[1];
             var base64 = base64Url.replace('-', '+').replace('_', '/');
