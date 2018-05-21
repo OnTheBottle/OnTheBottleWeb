@@ -12,6 +12,9 @@ angular.module('eventsApp').component('eventsComp', {
             self.options = {allEvents: 'true', activeEvents: 'true', ownerEvents: false};
             self.today = new Date();
             self.orderProp = 'startTime';
+            self.events = [];
+            self.isEvents = false;
+            var eventsPage = 0;
 
             self.$onInit = function () {
                 self.util.getEvents();
@@ -20,10 +23,19 @@ angular.module('eventsApp').component('eventsComp', {
             self.util = {
                 getEvents: function () {
                     EventFactory.getEvents(
-                        self.options,
+                        {options: self.options, eventsPage: eventsPage},
                         function (data) {
-                            self.formatDate(data);
-                            self.events = data;
+                            if (data[0] !== undefined) {
+                                self.formatDate(data);
+                                data.forEach(function (item) {
+                                    self.events[self.events.length] = item;
+                                });
+                                eventsPage += 1;
+                            } else {
+                                self.isEvents = false;
+                            }
+
+                            self.isEvents = self.events.length % 3 === 0;
                         }, function (errResponse) {
                             if (errResponse.data === 'Non-valid token') {
                                 $window.location.href = '/auth.html';
@@ -76,7 +88,7 @@ angular.module('eventsApp').component('eventsComp', {
             self.formatDate = function (events) {
                 events.forEach(function (item) {
                     item.startTime = new Date(item.startTime.replace(' ', 'T') + "Z");
-                    item.startTimeTemp = new Date(item.startTime).setHours(0,0,0,0);
+                    item.startTimeTemp = new Date(item.startTime).setHours(0, 0, 0, 0);
                 });
             };
         }]

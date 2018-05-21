@@ -297,3 +297,15 @@
     border: 5px solid transparent;
     border-top-color: black;
 }
+
+.main-content .load {
+    width: 3rem;
+    height: 3rem;
+    background: url(../../images/events/load.svg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.main-content .load:active {
+    transform: translatey(3px);
+    background-image: url("../../images/events/load.svg") !important;
+}

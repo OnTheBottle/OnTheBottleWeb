@@ -1,4 +1,12 @@
 - Добавить пагинацию данных из БД
+-- исправить баг со сменой фильтра
+-- исправить баг при выходе/вхождении в ивент
+-- сделать пагинацию при нативных запросах
+(https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.at-query /
+ Example 59. Declare native count queries for pagination at the query method by using @Query)
+
+- изменить сортировку на сортировку данных из бэка
+- изменить поиск на поиск данных на бэке
 - Добавить кеширование данных юзера
 
 - сделать отображение всех участников ивента

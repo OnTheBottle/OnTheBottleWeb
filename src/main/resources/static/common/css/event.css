@@ -59,6 +59,11 @@
     background-size: 100% 100%;
 }
 
+.main-content .btn-settings:active {
+    transform: translatey(3px);
+    background-image: url("../../images/events/dots.svg") !important;
+}
+
 .main-content .title-event .dropdown-item{
     font-size: 1.4rem;
 }

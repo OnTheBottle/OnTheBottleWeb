@@ -178,6 +178,10 @@
             <event-comp user-id="self.userId" get-events="self.util.getEvents" event="event"
                         ng-repeat="event in self.events | filter: search | orderBy:self.orderProp:true">
             </event-comp>
+            <div class="text-center">
+                <button type="button" class="btn load" ng-click="self.util.getEvents()" ng-show="self.isEvents">3</button>
+            </div>
+
 
             <div class="modal fade" id="myModalClosed" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
                  aria-hidden="true">
