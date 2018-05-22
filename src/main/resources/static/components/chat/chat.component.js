@@ -6,12 +6,20 @@
             controller: ['$http', chatController],
             controllerAs: 'model',
             bindings: {
-                userId: '='
+                authId: '='
             }
         });
 
     function chatController($http) {
 
+        var model = this;
+
+        model.$onInit = function () {
+        };
+
+
+
+/*
         var model = this;
 
         model.$onInit = function () {
@@ -135,5 +143,6 @@
 
 
         }
+*/
     }
 })();

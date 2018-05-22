@@ -25,7 +25,7 @@ angular.module('mainApp')
             }).when('/place', {
                 template: '<view-place-comp user-id="ctrl.authId"></view-place-comp>'
             }).when('/chat', {
-                template: '<chat-comp user-id="ctrl.authId"></chat-comp>'
+                template: '<chat-comp auth-id="ctrl.authId"></chat-comp>'
             }).otherwise({
                 redirectTo: '/news'
             })
