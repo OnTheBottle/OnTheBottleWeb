@@ -19,22 +19,6 @@
         model.$onInit = function () {
             model.checked = false;
             model.user.id = model.userId;
-            // console.log('profile-info - userId: ', model.user.id);
-            // $http({
-            //     method: "GET",
-            //     url: USER_PATH + "/showUsers",
-            //     params: model.user
-            // }).then(function mySuccess(response) {
-            //     model.user.name = response.data.name;
-            //     model.user.surname = response.data.surname;
-            //     model.user.age = response.data.age;
-            //     model.user.email = response.data.email;
-            //     model.user.country = response.data.country;
-            //     model.user.city = response.data.city;
-            //     model.user.avatarUrl = response.data.avatarUrl;
-            //     model.user.status = response.data.status;
-            // }, function myError(response) {
-            // });
             model.showUser();
         };
 
@@ -52,6 +36,7 @@
                 model.user.city = response.data.city;
                 model.user.avatarUrl = response.data.avatarUrl;
                 model.user.status = response.data.status;
+                model.user.info = response.data.info;
             }, function myError(response) {
             });
         };
