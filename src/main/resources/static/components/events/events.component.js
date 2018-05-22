@@ -12,8 +12,9 @@ angular.module('eventsApp').component('eventsComp', {
             self.options = {allEvents: 'true', activeEvents: 'true', ownerEvents: false};
             self.today = new Date();
             self.orderProp = 'startTime';
-            self.events = [];
             self.isEvents = false;
+
+            var eventsCount = 3;
             var eventsPage = 0;
 
             self.$onInit = function () {
@@ -22,6 +23,27 @@ angular.module('eventsApp').component('eventsComp', {
 
             self.util = {
                 getEvents: function () {
+                    eventsPage = 0;
+                    EventFactory.getEvents(
+                        {options: self.options, eventsPage: eventsPage},
+                        function (data) {
+                            if (data[0] !== undefined) {
+                                self.formatDate(data);
+                                self.events = data;
+                                self.isEvents = self.events.length % eventsCount === 0;
+                            } else {
+                                self.isEvents = false;
+                            }
+                        }, function (errResponse) {
+                            if (errResponse.data === 'Non-valid token') {
+                                $window.location.href = '/auth.html';
+                            } else {
+                                console.error('Error while read events');
+                            }
+                        });
+                },
+                getMoreEvents: function () {
+                    eventsPage += 1;
                     EventFactory.getEvents(
                         {options: self.options, eventsPage: eventsPage},
                         function (data) {
@@ -30,12 +52,10 @@ angular.module('eventsApp').component('eventsComp', {
                                 data.forEach(function (item) {
                                     self.events[self.events.length] = item;
                                 });
-                                eventsPage += 1;
+                                self.isEvents = self.events.length % eventsCount === 0;
                             } else {
                                 self.isEvents = false;
                             }
-
-                            self.isEvents = self.events.length % 3 === 0;
                         }, function (errResponse) {
                             if (errResponse.data === 'Non-valid token') {
                                 $window.location.href = '/auth.html';
