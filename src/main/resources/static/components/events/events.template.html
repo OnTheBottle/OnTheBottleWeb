@@ -6,12 +6,15 @@
             <button type="button" class="btn btn-block btn-create" data-toggle="modal" data-target="#myModal">
                 Создать ивент
             </button>
-            <form class="form-inline mb-4">
+            <form class="form-inline mb-4" name="searchEventForm" ng-submit="self.util.search()">
                 <div class="input-group shadow">
                     <div class="input-group-prepend">
                         <span class="input-group-text">&#9658;</span>
                     </div>
-                    <input type="text" class="form-control form-control-lg" placeholder="Поиск..." ng-model="search.title">
+                    <input type="text" class="form-control form-control-lg empty-input" placeholder="Поиск..." ng-model="self.search"
+                           name="search" ng-maxlength="40" ng-class="{errorInput : searchEventForm.search.$error.pattern}"
+                           ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
+                    title="Нажмите Enter для поиска">
                 </div>
             </form>
             <div id="calendar"></div>
@@ -36,8 +39,7 @@
                                     <input type="text" name="title" id="title"
                                            class="form-control form-control-lg" aria-describedby="titleEvent"
                                            placeholder="Title"
-                                           ng-model="self.title"
-                                           ng-minlength="3" ng-maxlength="40"
+                                           ng-model="self.title" ng-minlength="3" ng-maxlength="40"
                                            ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
                                            required>
                                     <p class="form-text text-danger"
@@ -179,7 +181,7 @@
                         ng-repeat="event in self.events">
             </event-comp>
             <div class="text-center">
-                <button type="button" class="btn load" ng-click="self.util.getMoreEvents()" ng-show="self.isEvents"></button>
+                <button type="button" class="btn load" ng-click="self.util.getMoreEvents()" ng-show="self.isMoreEvents"></button>
             </div>
 
 

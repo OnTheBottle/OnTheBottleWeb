@@ -20,11 +20,7 @@ angular.module('event').component('eventComp', {
                     }, function (data) {
                         self.getEvents();
                     }, function (errResponse) {
-                        if (errResponse.data === 'Non-valid token') {
-                            $window.location.href = '/auth.html';
-                        } else {
-                            console.error('Error while leave Event');
-                        }
+                        errResponseFunction(errResponse, 'Error while leave Event');
                     });
                 } else {
                     EventFactory.joinEvent({
@@ -32,15 +28,23 @@ angular.module('event').component('eventComp', {
                     }, function (data) {
                         self.getEvents();
                     }, function (errResponse) {
-                        angular.element('#myModalClosed').modal('show');
-                        if (errResponse.data === 'Non-valid token') {
-                            $window.location.href = '/auth.html';
+                        if (errResponse.data === 'Closed event' ) {
+                            angular.element('#myModalClosed').modal('show');
+                            $window.location.href = '#!/event';
                         } else {
-                            console.error('Error while leave Event');
+                            errResponseFunction(errResponse, 'Error while join Event');
                         }
                     });
                 }
             };
+
+            function errResponseFunction (errResponse, messageError) {
+                if (errResponse.data === 'Non-valid token') {
+                    $window.location.href = '/auth.html';
+                } else {
+                    console.error(messageError);
+                }
+            }
         }]
 });
 

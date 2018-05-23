@@ -23,11 +23,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                     }, function (data) {
                         self.event = getEvent();
                     }, function (errResponse) {
-                        if (errResponse.data === 'Non-valid token') {
-                            $window.location.href = '/auth.html';
-                        } else {
-                            console.error('Error while leave Event');
-                        }
+                        errResponseFunction(errResponse, 'Error while leave Event');
                     });
                 } else {
                     EventFactory.joinEvent({
@@ -36,22 +32,14 @@ angular.module('eventInfo').component('eventInfoComp', {
                         self.event = getEvent();
                     }, function (errResponse) {
                         angular.element('#myModalClosed').modal('show');
-                        if (errResponse.data === 'Non-valid token') {
-                            $window.location.href = '/auth.html';
-                        } else {
-                            console.error('Error while leave Event');
-                        }
+                        errResponseFunction(errResponse, 'Error while leave Event');
                     });
                 }
             };
 
             self.places = EventFactory.getPlaces({}, function (data) {
             }, function (errResponse) {
-                if (errResponse.data === 'Non-valid token') {
-                    $window.location.href = '/auth.html';
-                } else {
-                    console.error('Error while read places');
-                }
+                errResponseFunction(errResponse, 'Error while read places');
             });
 
             self.formatDate = function (event) {
@@ -78,11 +66,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                     self.activeMenu = 'Info';
                     self.event = getEvent();
                 }, function (errResponse) {
-                    if (errResponse.data === 'Non-valid token') {
-                        $window.location.href = '/auth.html';
-                    } else {
-                        console.error('Error while update Event');
-                    }
+                    errResponseFunction(errResponse, 'Error while update Event');
                 });
             };
 
@@ -92,11 +76,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                 }, function (data) {
                     $window.location.href = '#!/event';
                 }, function (errResponse) {
-                    if (errResponse.data === 'Non-valid token') {
-                        $window.location.href = '/auth.html';
-                    } else {
-                        console.error('Error while close Event');
-                    }
+                    errResponseFunction(errResponse, 'Error while close Event');
                 });
             };
 
@@ -113,11 +93,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                                 infoOwner = setInfoOwner(data, event.owner);
                                 return checkAvatar(data);
                             }, function (errResponse) {
-                                if (errResponse.data === 'Non-valid token') {
-                                    $window.location.href = '/auth.html';
-                                } else {
-                                    console.error('Error while read event');
-                                }
+                                errResponseFunction(errResponse, 'Error while read users info');
                             }
                         );
 
@@ -126,21 +102,14 @@ angular.module('eventInfo').component('eventInfoComp', {
                                 if (!infoOwner) setInfoOwner(data, event.owner);
                                 return checkAvatar(data);
                             }, function (errResponse) {
-                                if (errResponse.data === 'Non-valid token') {
-                                    $window.location.href = '/auth.html';
-                                } else {
-                                    console.error('Error while read event');
-                                }
+                                errResponseFunction(errResponse, 'Error while read users info');
                             }
                         );
                     }, function (errResponse) {
-                        if (errResponse.data === 'Non-valid token') {
-                            $window.location.href = '/auth.html';
-                        } else if (errResponse.data === 'Doesn\'t exist event' ) {
+                        if (errResponse.data === 'Doesn\'t exist event' ) {
                             $window.location.href = '#!/event';
                         } else {
-                            console.log(errResponse.data.indexOf('JSON parse error'));
-                            console.error('Error while read event');
+                            errResponseFunction(errResponse, 'Error while read event');
                         }
                     });
             };
@@ -169,22 +138,15 @@ angular.module('eventInfo').component('eventInfoComp', {
                 self.updateEndTime = event.endTime;
                 self.place = event.place.id;
             };
+
+            function errResponseFunction (errResponse, messageError) {
+                if (errResponse.data === 'Non-valid token') {
+                    $window.location.href = '/auth.html';
+                } else {
+                    console.error(messageError);
+                }
+            }
         }]
 });
-
-/*
-            self.getUsersInfo = function () {
-                self.activeMenu = 'Users';
-                EventFactory.getUsersInfo(self.eventInfo.users, function (data) {
-                    console.log(data);
-                }, function (errResponse) {
-                    if (errResponse.data === 'Non-valid token') {
-                        $window.location.href = '/auth.html';
-                    } else {
-                        console.error('Error while read user info');
-                    }
-                });
-            };
-* */
 
 

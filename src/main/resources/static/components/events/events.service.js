@@ -38,6 +38,11 @@ angular.module('eventsService').factory('EventFactory', ['$resource', '$cookies'
             closeEvent: {
                 params: {path: 'closeEvent', access_token: $cookies.get('access_token')},
                 method: "POST"
+            },
+            searchEvents: {
+                params: {path: 'searchEvents', access_token: $cookies.get('access_token')},
+                method: "POST",
+                isArray: true
             }
         });
     }

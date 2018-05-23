@@ -12,10 +12,11 @@ angular.module('eventsApp').component('eventsComp', {
             self.options = {allEvents: 'true', activeEvents: 'true', ownerEvents: false};
             self.today = new Date();
             self.sortType = 'startTime';
-            self.isEvents = false;
+            self.isMoreEvents = false;
 
             var eventsCount = 3;
             var eventsPage = 0;
+            var isSearch = false;
 
             self.$onInit = function () {
                 self.util.getEvents(self.sortType);
@@ -23,47 +24,59 @@ angular.module('eventsApp').component('eventsComp', {
 
             self.util = {
                 getEvents: function (sortType) {
-                    self.sortType = sortType;
+                    self.search = '';
+                    self.sortType = sortType || self.sortType;
+                    isSearch = false;
                     eventsPage = 0;
                     EventFactory.getEvents(
                         {options: self.options, eventsPage: eventsPage, sortType: self.sortType},
                         function (data) {
                             if (data[0] !== undefined) {
-                                self.formatDate(data);
+                                formatDate(data);
                                 self.events = data;
-                                self.isEvents = self.events.length % eventsCount === 0;
+                                self.isMoreEvents = self.events.length % eventsCount === 0;
                             } else {
-                                self.isEvents = false;
+                                self.isMoreEvents = false;
                             }
                         }, function (errResponse) {
-                            if (errResponse.data === 'Non-valid token') {
-                                $window.location.href = '/auth.html';
-                            } else {
-                                console.error('Error while read events');
-                            }
+                            errResponseFunction(errResponse, 'Error while read events');
                         });
                 },
                 getMoreEvents: function () {
                     eventsPage += 1;
-                    EventFactory.getEvents(
-                        {options: self.options, eventsPage: eventsPage, sortType: self.sortType},
-                        function (data) {
-                            if (data[0] !== undefined) {
-                                self.formatDate(data);
-                                data.forEach(function (item) {
-                                    self.events[self.events.length] = item;
-                                });
-                                self.isEvents = self.events.length % eventsCount === 0;
-                            } else {
-                                self.isEvents = false;
-                            }
-                        }, function (errResponse) {
-                            if (errResponse.data === 'Non-valid token') {
-                                $window.location.href = '/auth.html';
-                            } else {
-                                console.error('Error while read events');
-                            }
-                        });
+                    if (isSearch) {
+                        EventFactory.searchEvents(
+                            {searchQuery: self.search, eventsPage: eventsPage},
+                            function (data) {
+                                if (data[0] !== undefined) {
+                                    formatDate(data);
+                                    data.forEach(function (item) {
+                                        self.events[self.events.length] = item;
+                                    });
+                                    self.isMoreEvents = true;
+                                } else {
+                                    self.isMoreEvents = false;
+                                }
+                            }, function (errResponse) {
+                                errResponseFunction(errResponse, 'Error while search events');
+                            });
+                    } else {
+                        EventFactory.getEvents(
+                            {options: self.options, eventsPage: eventsPage, sortType: self.sortType},
+                            function (data) {
+                                if (data[0] !== undefined) {
+                                    formatDate(data);
+                                    data.forEach(function (item) {
+                                        self.events[self.events.length] = item;
+                                    });
+                                    self.isMoreEvents = self.events.length % eventsCount === 0;
+                                } else {
+                                    self.isMoreEvents = false;
+                                }
+                            }, function (errResponse) {
+                                errResponseFunction(errResponse, 'Error while read events');
+                            });
+                    }
                 },
                 createEvent: function () {
                     angular.element('#myModal').modal('hide');
@@ -79,11 +92,7 @@ angular.module('eventsApp').component('eventsComp', {
                         self.util.resetEvent();
                         self.util.getEvents();
                     }, function (errResponse) {
-                        if (errResponse.data === 'Non-valid token') {
-                            $window.location.href = '/auth.html';
-                        } else {
-                            console.error('Error while creating Event');
-                        }
+                        errResponseFunction(errResponse, 'Error while creating Event');
                     });
                 },
                 resetEvent: function () {
@@ -93,24 +102,54 @@ angular.module('eventsApp').component('eventsComp', {
                     self.text = '';
                     self.startTime = '';
                     self.endTime = '';
+                },
+                search: function () {
+                    if (self.search !== undefined) {
+                        eventsPage = 0;
+                        isSearch = true;
+                        EventFactory.searchEvents(
+                            {searchQuery: self.search, eventsPage: eventsPage},
+                            function (data) {
+                                if (data[0] !== undefined) {
+                                    formatDate(data);
+                                    self.events = data;
+                                    self.isMoreEvents = self.events.length % eventsCount === 0;
+                                } else {
+                                    self.events = [];
+                                    self.isMoreEvents = false;
+                                }
+                            }, function (errResponse) {
+                                errResponseFunction(errResponse, 'Error while search events');
+                            });
+                    }
+                }
+            };
+
+            self.keyPressed = function (keyEvent) {
+                if (keyEvent.keyCode === 13) {
+                    console.log('keyEvent', keyEvent);
                 }
             };
 
             self.places = EventFactory.getPlaces({}, function (data) {
                 self.place = data[0].id;
             }, function (errResponse) {
-                if (errResponse.data === 'Non-valid token') {
-                    $window.location.href = '/auth.html';
-                } else {
-                    console.error('Error while read places');
-                }
+                errResponseFunction(errResponse, 'Error while read places');
             });
 
-            self.formatDate = function (events) {
+            var formatDate = function (events) {
                 events.forEach(function (item) {
                     item.startTime = new Date(item.startTime.replace(' ', 'T') + "Z");
                     item.startTimeTemp = new Date(item.startTime).setHours(0, 0, 0, 0);
                 });
             };
+
+            function errResponseFunction (errResponse, messageError) {
+                if (errResponse.data === 'Non-valid token') {
+                    $window.location.href = '/auth.html';
+                } else {
+                    console.error(messageError);
+                }
+            }
         }]
 });

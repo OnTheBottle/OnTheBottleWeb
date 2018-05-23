@@ -14,6 +14,10 @@
     border-radius: 5px;
 }
 
+.main-content .errorInput {
+    border: 1px solid red;
+}
+
 .ui-datepicker,
 .ui-datepicker table,
 .ui-datepicker tr,
