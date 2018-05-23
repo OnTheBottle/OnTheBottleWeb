@@ -161,22 +161,22 @@
 
             <ul class="nav nav-tabs">
                 <p class="sort sort-text">Сортировать ивенты по: </p>
-                <li class="nav-item" ng-class="{active : self.orderProp === 'title'}">
-                    <a class="nav-link sort-text" ng-click="self.orderProp = 'title'" href="">названию</a>
+                <li class="nav-item" ng-class="{active : self.sortType === 'title'}">
+                    <a class="nav-link sort-text" ng-click="self.util.getEvents('title')" href="">названию</a>
                 </li>
-                <li class="nav-item" ng-class="{active : self.orderProp === 'startTime'}">
-                    <a class="nav-link sort-text" ng-click="self.orderProp = 'startTime'" href="">времени</a>
+                <li class="nav-item" ng-class="{active : self.sortType === 'startTime'}">
+                    <a class="nav-link sort-text" ng-click="self.util.getEvents('startTime')" href="">времени</a>
                 </li>
-                <li class="nav-item" ng-class="{active : self.orderProp === 'text'}">
-                    <a class="nav-link sort-text" ng-click="self.orderProp = 'text'" href="">описанию</a>
+                <li class="nav-item" ng-class="{active : self.sortType === 'text'}">
+                    <a class="nav-link sort-text" ng-click="self.util.getEvents('text')" href="">описанию</a>
                 </li>
-                <li class="nav-item" ng-class="{active : self.orderProp === 'users'}">
-                    <a class="nav-link sort-text" ng-click="self.orderProp = 'users'" href="">популярности</a>
+                <li class="nav-item" ng-class="{active : self.sortType === 'usersCounter'}">
+                    <a class="nav-link sort-text" ng-click="self.util.getEvents('usersCounter')" href="">популярности</a>
                 </li>
             </ul>
 
             <event-comp user-id="self.userId" get-events="self.util.getEvents" event="event"
-                        ng-repeat="event in self.events | filter: search | orderBy:self.orderProp:true">
+                        ng-repeat="event in self.events">
             </event-comp>
             <div class="text-center">
                 <button type="button" class="btn load" ng-click="self.util.getMoreEvents()" ng-show="self.isEvents"></button>

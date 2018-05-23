@@ -11,21 +11,22 @@ angular.module('eventsApp').component('eventsComp', {
             var self = this;
             self.options = {allEvents: 'true', activeEvents: 'true', ownerEvents: false};
             self.today = new Date();
-            self.orderProp = 'startTime';
+            self.sortType = 'startTime';
             self.isEvents = false;
 
             var eventsCount = 3;
             var eventsPage = 0;
 
             self.$onInit = function () {
-                self.util.getEvents();
+                self.util.getEvents(self.sortType);
             };
 
             self.util = {
-                getEvents: function () {
+                getEvents: function (sortType) {
+                    self.sortType = sortType;
                     eventsPage = 0;
                     EventFactory.getEvents(
-                        {options: self.options, eventsPage: eventsPage},
+                        {options: self.options, eventsPage: eventsPage, sortType: self.sortType},
                         function (data) {
                             if (data[0] !== undefined) {
                                 self.formatDate(data);
@@ -45,7 +46,7 @@ angular.module('eventsApp').component('eventsComp', {
                 getMoreEvents: function () {
                     eventsPage += 1;
                     EventFactory.getEvents(
-                        {options: self.options, eventsPage: eventsPage},
+                        {options: self.options, eventsPage: eventsPage, sortType: self.sortType},
                         function (data) {
                             if (data[0] !== undefined) {
                                 self.formatDate(data);
