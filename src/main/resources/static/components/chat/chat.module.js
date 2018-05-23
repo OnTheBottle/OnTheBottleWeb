@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('chatApp',['ngRoute','messageChatApp']);
+angular.module('chatApp',['ngRoute','roomChatApp','meetingsChatApp']);

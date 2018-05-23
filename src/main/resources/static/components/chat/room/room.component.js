@@ -1,44 +1,54 @@
 (function () {
     'use strict';
-    angular.module('messageChatApp')
-        .component('messageChatComp', {
-            templateUrl: 'components/chat/message/message.component.html',
-            controller: ['$http', '$cookies', messageChatController],
+    angular.module('roomChatApp')
+        .component('roomChatComp', {
+            templateUrl: 'components/chat/room/room.component.html',
+            controller: ['$http', '$cookies', '$localStorage', roomChatController],
             controllerAs: 'model',
             bindings: {
-                authId: '='
+                authId: '=',
+                interlocutorId: '<'
             }
         });
 
-    var stompClient = null;
-    var senderId = null;
-    var recipientId = null;
-    var token = null;
-    var chatChannel = null;
+    function roomChatController($http, $cookies, $localStorage) {
 
-    function messageChatController($http, $cookies) {
+        var cache = $localStorage;
+        var stompClient = null;
+        var senderId = null;
+        var recipientId = null;
+        var chatChannel = null;
 
         var model = this;
-        model.friends = [];
+        //model.friends = [];
 
         model.$onInit = function () {
-            token = $cookies.get('access_token');
-            getAllUserTest(); //DELETE LATER
         };
 
-        //DELETE LATER --------------------
-        function getAllUserTest() {
-            $http({
-                method: "POST",
-                url: USER_PATH + "/user/get_all"
-            }).then(function mySuccess(response) {
-                model.friends = response.data;
-            }, function myError(response) {
-                alert(response.statusText);
-            });
+        model.$onChanges = function () {
+            console.log("roomChatController $onChanges: Work");
+
+            disconnect();
+            if (model.interlocutorId) {
+                model.connect(model.authId, model.interlocutorId);
+            }
         }
 
-        //------------------------------------
+        /*
+                //DELETE LATER --------------------
+                function getAllUserTest() {
+                    $http({
+                        method: "POST",
+                        url: USER_PATH + "/user/get_all"
+                    }).then(function mySuccess(response) {
+                        model.friends = response.data;
+                    }, function myError(response) {
+                        alert(response.statusText);
+                    });
+                }
+
+                //------------------------------------
+        */
 
         model.connect = function (firstId, secondId) {
             senderId = firstId;
@@ -48,6 +58,13 @@
             stompClient = Stomp.over(socket);
             stompClient.connect({}, onOpen, onClose);
         };
+
+        function disconnect() {
+            if (stompClient !== null) {
+                stompClient.disconnect();
+            }
+            console.log("Disconnected");
+        }
 
         function onOpen(frame) {
             console.log('Connect is Ok! Frame is ', frame);
@@ -65,7 +82,7 @@
                 method: "POST",
                 url: MESSAGE_PATH + "/chat/private-chat/channel",
                 params: {
-                    token: token,
+                    token: cache.tokenJwt,
                     senderId: senderId,
                     recipientId: recipientId
                 }

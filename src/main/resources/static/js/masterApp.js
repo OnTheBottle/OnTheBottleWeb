@@ -5,8 +5,6 @@ const PLACE_PATH = 'http://127.0.0.1:8082';
 const MESSAGE_PATH = 'http://127.0.0.1:8083';
 const AUTH_HTML = 'auth.html';
 
-var authId = '';
-
 (function () {
     'use strict';
 
@@ -16,6 +14,7 @@ var authId = '';
             'ngResource',
             'ngCookies',
             'ngAnimate',
+            'ngStorage',
             'findApp',
             'addFriendsApp',
             'linkFriendsApp',
@@ -31,8 +30,6 @@ var authId = '';
             'eventsApp',
             'postsApp',
             'viewPlaceApp'
-
-
         ])
         .service('idStorage', function () {
             var _id = null;
@@ -47,15 +44,17 @@ var authId = '';
         })
         .controller('MainController', mainController);
 
-    function mainController($cookies, $window, $http, idStorage) {
+    function mainController($cookies, $window, $http, $localStorage, idStorage) {
 
-        this.authId = '';
+        var cache = $localStorage;
 
         var tokenJwt = $cookies.get('access_token');
-
         if (!tokenJwt) {
             $window.location.href = AUTH_HTML;
         }
+
+        this.authId = null;
+        cache.tokenJwt = tokenJwt;
 
         $http({
             method: "POST",
@@ -66,20 +65,38 @@ var authId = '';
                 $cookies.remove('access_token');
                 $window.location.href = AUTH_HTML;
             }
+            getFriends();
         }, function myError(response) {
             console.log('error Auth: ', response.statusText);
         });
 
         var token = parseJwt(tokenJwt);
-        this.authId = token.userId;
-        idStorage.setId(this.authId);
+        cache.authId = token.userId;
+        this.authId = cache.authId;
+        idStorage.setId(cache.authId);
 
         function parseJwt(tokenJwt) {
             var base64Url = tokenJwt.split('.')[1];
             var base64 = base64Url.replace('-', '+').replace('_', '/');
             return JSON.parse($window.atob(base64));
         }
+
+        function getFriends() {
+            $http({
+                method: "POST",
+                url: USER_PATH + "/friend/get_confirmed_friends",
+                params: {
+                    'access_token': cache.tokenJwt,
+                    'userId': cache.authId
+                }
+            }).then(function mySuccess(response) {
+                if (response.data !== null) {
+                    cache.friends = response.data;
+                }
+                console.log('getFriends cache.friends: ', cache.friends);
+            }, function myError(response) {
+                console.log('error getFriends: ', response.statusText);
+            });
+        }
     }
-
-
 })();
