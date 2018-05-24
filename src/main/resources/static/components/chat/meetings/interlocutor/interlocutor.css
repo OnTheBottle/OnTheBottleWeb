@@ -1,0 +1,13 @@
+.meetings-avatar {
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid  #b8daff;
+    border-radius: 10rem;
+}
+.meetings-text {
+    display: block;
+    width: 20rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

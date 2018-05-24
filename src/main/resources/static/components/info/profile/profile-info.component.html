@@ -43,9 +43,14 @@
                                    class="form-control" id="city">
                         </div>
                         <div>
-                            <label for="city">Status:</label>
+                            <label for="status">Status:</label>
                             <input type="text" ng-model="model.user.status" ng-disabled="!model.checked" name='status'
                                    class="form-control" id="status">
+                        </div>
+                        <div>
+                            <label for="info">Info:</label>
+                            <input type="text" ng-model="model.user.info" ng-disabled="!model.checked" name='info'
+                                   class="form-control" id="info">
                         </div>
                         <div>
                             <button type="button" ng-click="model.editUser()" ng-disabled="model.checked"

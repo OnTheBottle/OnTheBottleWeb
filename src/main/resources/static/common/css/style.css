@@ -1,10 +1,12 @@
 /*For header by Valera*/
 
 html {
-    font-size: 10px
+    font-size: 10px;
+    height:100%;
 }
 
 body {
+    height:100%;
     background-color: #eeeeee;
     font-size: 1.6rem;
     font-family: Arial, Tahoma, sans-serif;
@@ -122,6 +124,10 @@ body {
     color: #856404;
     background-color: #fff3cd;
     border-color: #ffeeba;
+}
+
+div.message-area {
+    height: 100%;
 }
 
 input.ng-invalid {

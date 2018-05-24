@@ -14,27 +14,12 @@
 
         var model = this;
         model.user = {};
+        model.tmpUser = {};
         // model.user.id = "e89faed1-f000-40ec-99d7-01c40e9d4e6b";
 
         model.$onInit = function () {
             model.checked = false;
             model.user.id = model.userId;
-            // console.log('profile-info - userId: ', model.user.id);
-            // $http({
-            //     method: "GET",
-            //     url: USER_PATH + "/showUsers",
-            //     params: model.user
-            // }).then(function mySuccess(response) {
-            //     model.user.name = response.data.name;
-            //     model.user.surname = response.data.surname;
-            //     model.user.age = response.data.age;
-            //     model.user.email = response.data.email;
-            //     model.user.country = response.data.country;
-            //     model.user.city = response.data.city;
-            //     model.user.avatarUrl = response.data.avatarUrl;
-            //     model.user.status = response.data.status;
-            // }, function myError(response) {
-            // });
             model.showUser();
         };
 
@@ -44,25 +29,28 @@
                 url: USER_PATH + "/showUsers",
                 params: model.user
             }).then(function mySuccess(response) {
-                model.user.name = response.data.name;
-                model.user.surname = response.data.surname;
-                model.user.age = response.data.age;
-                model.user.email = response.data.email;
-                model.user.country = response.data.country;
-                model.user.city = response.data.city;
-                model.user.avatarUrl = response.data.avatarUrl;
-                model.user.status = response.data.status;
+                // model.user.name = response.data.name;
+                // model.user.surname = response.data.surname;
+                // model.user.age = response.data.age;
+                // model.user.email = response.data.email;
+                // model.user.country = response.data.country;
+                // model.user.city = response.data.city;
+                // model.user.avatarUrl = response.data.avatarUrl;
+                // model.user.status = response.data.status;
+                // model.user.info = response.data.info;
+                model.user = model.myClone(response.data);
             }, function myError(response) {
             });
         };
 
         model.cancel = function () {
             model.checked = false;
-            model.showUser();
+            model.user = model.myClone(model.tmpUser);
         };
         
         model.editUser = function () {
             model.checked = true;
+            model.tmpUser = model.myClone(model.user);
         };
 
         model.saveEditUser = function(){
@@ -74,6 +62,20 @@
             }).then(function mySuccess(response) {
             }, function myError(response) {
             });
+        };
+
+        model.myClone = function (copyFrom) {
+            var copyTo = {};
+            copyTo.name = copyFrom.name;
+            copyTo.surname = copyFrom.surname;
+            copyTo.age = copyFrom.age;
+            copyTo.email = copyFrom.email;
+            copyTo.country = copyFrom.country;
+            copyTo.city = copyFrom.city;
+            copyTo.avatarUrl = copyFrom.avatarUrl;
+            copyTo.status = copyFrom.status;
+            copyTo.info = copyFrom.info;
+            return copyTo;
         }
 
     }
