@@ -51,9 +51,9 @@ angular.module('eventsApp').component('eventsComp', {
                                 if (data[0] !== undefined) {
                                     formatDate(data);
                                     data.forEach(function (item) {
-                                        self.events[self.events.length] = item;
+                                        self.events.push(item);
                                     });
-                                    self.isMoreEvents = true;
+                                    self.isMoreEvents = self.events.length % eventsCount === 0;
                                 } else {
                                     self.isMoreEvents = false;
                                 }
@@ -67,7 +67,7 @@ angular.module('eventsApp').component('eventsComp', {
                                 if (data[0] !== undefined) {
                                     formatDate(data);
                                     data.forEach(function (item) {
-                                        self.events[self.events.length] = item;
+                                        self.events.push(item);
                                     });
                                     self.isMoreEvents = self.events.length % eventsCount === 0;
                                 } else {
@@ -88,7 +88,7 @@ angular.module('eventsApp').component('eventsComp', {
                         endTime: self.endTime,
                         place: self.place,
                         owner: self.userId
-                    }, function (data) {
+                    }, function () {
                         self.util.resetEvent();
                         self.util.getEvents();
                     }, function (errResponse) {

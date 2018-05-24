@@ -55,6 +55,8 @@ const AUTH_HTML = 'auth.html';
 
         this.authId = null;
         cache.tokenJwt = tokenJwt;
+        cache.users = [];
+        cache.places = [];
 
         $http({
             method: "POST",

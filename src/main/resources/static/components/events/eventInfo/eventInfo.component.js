@@ -6,8 +6,8 @@ angular.module('eventInfo').component('eventInfoComp', {
     bindings: {
         userId: '='
     },
-    controller: ['$routeParams', '$window', '$scope', 'UserEventFactory', 'EventFactory',
-        function UserController($routeParams, $window, $scope, UserEventFactory, EventFactory) {
+    controller: ['$routeParams', '$window', '$scope', '$localStorage', 'UserEventFactory', 'EventFactory',
+        function UserController($routeParams, $window, $scope, $localStorage, UserEventFactory, EventFactory) {
             var self = this;
             self.activeMenu = 'Info';
             self.today = new Date();
@@ -20,7 +20,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                 if (self.event.member) {
                     EventFactory.leaveEvent({
                         id: self.event.id
-                    }, function (data) {
+                    }, function () {
                         self.event = getEvent();
                     }, function (errResponse) {
                         errResponseFunction(errResponse, 'Error while leave Event');
@@ -28,7 +28,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                 } else {
                     EventFactory.joinEvent({
                         id: self.event.id
-                    }, function (data) {
+                    }, function () {
                         self.event = getEvent();
                     }, function (errResponse) {
                         angular.element('#myModalClosed').modal('show');
@@ -62,7 +62,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                     startTime: self.updateStartTime,
                     endTime: self.updateEndTime,
                     place: self.place
-                }, function (data) {
+                }, function () {
                     self.activeMenu = 'Info';
                     self.event = getEvent();
                 }, function (errResponse) {
@@ -73,7 +73,7 @@ angular.module('eventInfo').component('eventInfoComp', {
             self.closeEvent = function () {
                 EventFactory.closeEvent({
                     id: self.event.id
-                }, function (data) {
+                }, function () {
                     $window.location.href = '#!/event';
                 }, function (errResponse) {
                     errResponseFunction(errResponse, 'Error while close Event');
@@ -84,29 +84,55 @@ angular.module('eventInfo').component('eventInfoComp', {
                 return EventFactory.getEvent(
                     {id: $routeParams.id},
                     function (event) {
+                        self.friendsPreliminary = [];
+                        self.usersPreliminary = [];
                         self.formatDate(event);
                         copyEventToUpdate(self.event);
                         var infoOwner;
 
-                        self.friendsPreliminary = UserEventFactory.getUsersInfo(
-                            event.friends, function (data) {
-                                infoOwner = setInfoOwner(data, event.owner);
-                                return checkAvatar(data);
-                            }, function (errResponse) {
-                                errResponseFunction(errResponse, 'Error while read users info');
-                            }
-                        );
+                        event.friends.forEach(function (eventFriend) {
+                            $localStorage.friends.forEach(function (friend) {
+                                if (eventFriend.id === friend.id) {
+                                    self.friendsPreliminary.push(friend);
+                                }
+                            });
+                        });
 
-                        self.usersPreliminary = UserEventFactory.getUsersInfo(
-                            event.users, function (data) {
-                                if (!infoOwner) setInfoOwner(data, event.owner);
-                                return checkAvatar(data);
-                            }, function (errResponse) {
-                                errResponseFunction(errResponse, 'Error while read users info');
+                        self.friendsPreliminary = checkAvatar(self.friendsPreliminary);
+                        infoOwner = setInfoOwner(self.friendsPreliminary, event.owner);
+
+                        var noInfoUsers = [];
+                        event.users.forEach(function (eventUser) {
+                            var isInfoUser = false;
+                            $localStorage.users.forEach(function (user) {
+                                if (eventUser.id === user.id) {
+                                    self.usersPreliminary.push(user);
+                                    isInfoUser = true;
+                                }
+                            });
+                            if (!isInfoUser) {
+                                noInfoUsers.push(eventUser);
                             }
-                        );
+                        });
+
+                        if (noInfoUsers.length !== 0) {
+                            UserEventFactory.getUsersInfo(
+                                noInfoUsers, function (data) {
+                                    data.forEach(function (user) {
+                                        self.usersPreliminary.push(user);
+                                        $localStorage.users.push(user);
+                                    });
+                                }, function (errResponse) {
+                                    errResponseFunction(errResponse, 'Error while read users info');
+                                }
+                            );
+                        }
+
+                        self.usersPreliminary = checkAvatar(self.usersPreliminary);
+                        if (!infoOwner) setInfoOwner(self.usersPreliminary, event.owner);
+
                     }, function (errResponse) {
-                        if (errResponse.data === 'Doesn\'t exist event' ) {
+                        if (errResponse.data === 'Doesn\'t exist event') {
                             $window.location.href = '#!/event';
                         } else {
                             errResponseFunction(errResponse, 'Error while read event');
@@ -139,7 +165,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                 self.place = event.place.id;
             };
 
-            function errResponseFunction (errResponse, messageError) {
+            function errResponseFunction(errResponse, messageError) {
                 if (errResponse.data === 'Non-valid token') {
                     $window.location.href = '/auth.html';
                 } else {
