@@ -25,7 +25,8 @@
                 <button type="button" class="btn btn-settings ml-2 dropdown-toggle" data-toggle="dropdown">
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <button type="button" class="dropdown-item" ng-show="self.event.active && (self.event.owner.id === self.userId)"
+                    <button type="button" class="dropdown-item"
+                            ng-show="self.event.active && (self.event.owner.id === self.userId)"
                             ng-click="self.activeMenu = 'Update'">Редактировать
                     </button>
                 </div>
@@ -44,21 +45,22 @@
         <div class="d-inline-block users-event ml-1">
             <div class="page_block text-center">
                 <div class="row justify-content-around">
-                    <div class="col-5 text-center block-count">
+                    <div class="col-5 text-center block-count" ng-click="self.showUsers('users')">
                         <p class="count">{{self.event.usersCounter}}</p>
                         <p class="count-label">{{self.event.active ? 'Идут' : 'Было'}}</p>
                     </div>
-                    <div class="col-5 text-center block-count" ng-show="self.event.active">
-                        <p class="count">110</p>
+                    <div class="col-5 text-center block-count" ng-click="self.showUsers('invited')" ng-show="self.event.active">
+                        <p class="count">Х</p>
                         <p class="count-label">Приглашены</p>
                     </div>
                 </div>
-                <button class="btn btn-info control mt-2" type="button" ng-click="self.test()" ng-show="self.event.active">
+                <button class="btn btn-info control mt-2" type="button" ng-click="self.test()"
+                        ng-show="self.event.active">
                     Пригласить друзей
                 </button>
             </div>
 
-            <div class="page_block mt-2 user-friend" ng-show="self.friendsPreliminary[0] != null">
+            <div class="page_block mt-2 user-friend" ng-show="self.friendsPreliminary[0] != null" ng-click="self.showUsers('friends')">
                 <p>Пойдет {{self.event.friendsCounter}} друг(а)</p>
                 <img ng-src="{{self.friendsPreliminary[0].avatarUrl}}" ng-show="self.friendsPreliminary[0] != null"
                      title="{{self.friendsPreliminary[0].name}} {{self.friendsPreliminary[0].surname}}">
@@ -67,7 +69,7 @@
             </div>
 
             <div class="page_block mt-2 user-active">
-                <p>Участники {{self.event.usersCounter}}</p>
+                <p class="people_cell" ng-click="self.showUsers('users')">Участники {{self.event.usersCounter}}</p>
                 <div class="d-inline-block people_cell text-center" title="{{friend.name}} {{friend.surname}}"
                      ng-repeat="friend in self.friendsPreliminary">
                     <a href="#!/userInfo/{{friend.id}}"><img ng-src="{{friend.avatarUrl}}">{{friend.name}}</a>
@@ -156,7 +158,8 @@
                     </p>
                 </div>
                 <div>
-                    <label for="placesUpdate" class="col-form-label col-form-label-lg font-italic">Выбирете место:</label>
+                    <label for="placesUpdate" class="col-form-label col-form-label-lg font-italic">Выбирете
+                        место:</label>
                     <select class="form-control form-control-lg custom-select" id="placesUpdate"
                             ng-options="place.id as place.title for place in self.places"
                             ng-model="self.event.place.id" required>
@@ -179,4 +182,59 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="eventUsers" tabindex="-1" role="dialog" aria-labelledby="eventUsersTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" ng-class="{active : self.sortType === 'users'}">
+                            <a class="nav-link sort-text" href="" ng-click="self.sortType = 'users'">Участники {{self.event.usersCounter}}</a>
+                        </li>
+                        <li class="nav-item" ng-class="{active : self.sortType === 'friends'}">
+                            <a class="nav-link sort-text" href="" ng-click="self.sortType = 'friends'">Друзья {{self.event.friendsCounter}}</a>
+                        </li>
+                        <li class="nav-item" ng-class="{active : self.sortType === 'invited'}" ng-show="self.event.active">
+                            <a class="nav-link sort-text" href="" ng-click="self.sortType = 'invited'">Приглашены Х</a>
+                        </li>
+                    </ul>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div ng-show="self.sortType === 'users'">
+                        <div class="d-inline-block people_cell text-center" title="{{friend.name}} {{friend.surname}}"
+                             ng-repeat="friend in self.friends">
+                            <a href="" ng-click="self.showUser(friend.id)"><img ng-src="{{friend.avatarUrl}}">{{friend.name}}
+                                {{friend.surname}}</a>
+                        </div>
+                        <div class="d-inline-block people_cell text-center" title="{{user.name}} {{user.surname}}"
+                             ng-repeat="user in self.users">
+                            <a href="" ng-click="self.showUser(user.id)"><img ng-src="{{user.avatarUrl}}">{{user.name}}
+                                {{user.surname}}</a>
+                        </div>
+                    </div>
+                    <div ng-show="self.sortType === 'friends'">
+                        <div class="d-inline-block people_cell text-center" title="{{friend.name}} {{friend.surname}}"
+                             ng-repeat="friend in self.friends">
+                            <a href="" ng-click="self.showUser(friend.id)"><img ng-src="{{friend.avatarUrl}}">{{friend.name}}
+                                {{friend.surname}}</a>
+                        </div>
+                    </div>
+                    <div ng-show="self.sortType === 'invited'">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-lg btn-danger" type="button" data-dismiss="modal">
+                        Ок
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

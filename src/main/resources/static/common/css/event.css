@@ -195,7 +195,7 @@
     right: 2.7rem;
 }
 
-.main-content .user-active img {
+.main-content .people_cell img {
     border-radius: 50%;
     margin: 0.5rem;
     width: 8.9rem;
@@ -203,11 +203,11 @@
     cursor: pointer;
 }
 
-.main-content .user-active .people_cell {
+.main-content .people_cell {
     cursor: pointer;
 }
 
-.main-content .user-active .people_cell a {
+.main-content .people_cell a {
     display: inline-grid;
 }
 
@@ -215,4 +215,22 @@
     border-radius: 50%;
     width: 6rem;
     height: 6rem;
+}
+
+.main-content .nav-tabs .nav-link {
+    color: black;
+}
+
+.main-content .nav-tabs .active {
+    border-left: grey solid 1px;
+    border-top: grey solid 1px;
+    border-right: grey solid 1px;
+}
+
+.main-content .sort-text {
+    font-size: 1.4rem;
+}
+
+.main-content .modal .close {
+    font-size: 2rem;
 }
