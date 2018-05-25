@@ -1,0 +1,13 @@
+.message-wrapper {
+    position: relative;
+    border: 1px solid #b8daff;
+    border-radius: 0.25rem;
+}
+
+.message-left {
+    background-color: rgba(255, 254, 243, 0.53) !important;
+}
+
+.message-right {
+    background-color: rgba(224, 255, 200, 0.7) !important;
+}
