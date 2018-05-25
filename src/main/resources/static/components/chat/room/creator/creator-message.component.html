@@ -1,0 +1,24 @@
+<!--
+<form id="messageForm" name="messageForm">
+    <div class="form-group input-group clearfix">
+        <input type="text" ng-model="model.content" placeholder="Type a message..."
+               autocomplete="off"
+               class="form-control"/>
+        <button type="button"
+                ng-click="model.sendMessage(model.content)"
+                class="primary">
+            Отправить
+        </button>
+    </div>
+</form>
+-->
+
+
+
+<!--<form class="form-control list-unstyled" ng-submit="model.sendMessage(model.content)">-->
+<form class="form-control list-unstyled">
+    <div class="input-group input-group-lg postText">
+        <input ng-model="model.content" type="text" class="form-control" placeholder="Написать сообщение..." value="" required>
+        <button ng-disabled="!model.content" class="btn btn-primary" ng-click="model.onClick()" type="submit">Отправить</button>
+    </div>
+</form>

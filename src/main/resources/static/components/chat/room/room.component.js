@@ -3,7 +3,7 @@
     angular.module('roomChatApp')
         .component('roomChatComp', {
             templateUrl: 'components/chat/room/room.component.html',
-            controller: ['$http', '$cookies', '$localStorage', roomChatController],
+            controller: ['$scope', '$http', '$cookies', '$route', '$localStorage', '$compile', roomChatController],
             controllerAs: 'model',
             bindings: {
                 authId: '=',
@@ -11,44 +11,42 @@
             }
         });
 
-    function roomChatController($http, $cookies, $localStorage) {
-
+    function roomChatController($scope, $http, $cookies, $route, $localStorage, $compile) {
         var cache = $localStorage;
+
+        //var socket = new SockJS(MESSAGE_PATH + '/ws');
+        //var socket = cache.websocket;
+        //console.log("roomChatController cache.websocket:", cache.websocket);
+
+
         var stompClient = null;
+        var chatChannel = null;
+        var channelId = null;
         var senderId = null;
         var recipientId = null;
-        var chatChannel = null;
+        var count = 0;
 
         var model = this;
-        //model.friends = [];
+        model.messages = [];
+        model.newMessages = [];
+        model.content = '';
+
 
         model.$onInit = function () {
+            //console.log("roomChatController $onInit: Work");
+
         };
 
         model.$onChanges = function () {
-            console.log("roomChatController $onChanges: Work");
+            //console.log("roomChatController $onChanges: Work");
 
             disconnect();
             if (model.interlocutorId) {
                 model.connect(model.authId, model.interlocutorId);
+            } else if (cache.interlocutorId) {
+                model.connect(model.authId, cache.interlocutorId);
             }
         }
-
-        /*
-                //DELETE LATER --------------------
-                function getAllUserTest() {
-                    $http({
-                        method: "POST",
-                        url: USER_PATH + "/user/get_all"
-                    }).then(function mySuccess(response) {
-                        model.friends = response.data;
-                    }, function myError(response) {
-                        alert(response.statusText);
-                    });
-                }
-
-                //------------------------------------
-        */
 
         model.connect = function (firstId, secondId) {
             senderId = firstId;
@@ -56,20 +54,22 @@
 
             var socket = new SockJS(MESSAGE_PATH + '/ws');
             stompClient = Stomp.over(socket);
+            stompClient.reconnect_delay = 5000;
+            stompClient.debug = null;
             stompClient.connect({}, onOpen, onClose);
+
         };
 
         function disconnect() {
             if (stompClient !== null) {
                 stompClient.disconnect();
             }
-            console.log("Disconnected");
+            //console.log("Disconnected");
         }
 
         function onOpen(frame) {
-            console.log('Connect is Ok! Frame is ', frame);
+            //console.log('Connect is Ok! Frame is ', frame);
             var chatSession = getChatChannel(senderId, recipientId);
-            console.log('onOpen chatSession:', chatSession);
         }
 
         function onClose(error) {
@@ -80,7 +80,7 @@
         function getChatChannel(senderId, recipientId) {
             $http({
                 method: "POST",
-                url: MESSAGE_PATH + "/chat/private-chat/channel",
+                url: MESSAGE_PATH + "/chat/channel/init",
                 params: {
                     token: cache.tokenJwt,
                     senderId: senderId,
@@ -91,83 +91,157 @@
 
         function onConnected(response) {
             chatChannel = response.data;
-            console.log('onConnected chatSession:', chatChannel);
+            channelId = chatChannel.channelId;
+            //console.log('onConnected chatSession:', chatChannel);
+            stompClient.subscribe('/topic/private.chat.' + channelId, onMessageReceived);
+            //clearRoom();
+            getMessages(channelId);
+        }
 
-            stompClient.subscribe('/topic/private.chat.' + chatChannel.channelId, onMessageReceived);
-            stompClient.send(
-                '/app/private.chat.' + chatChannel.channelId,
-                {},
-                JSON.stringify({
-                    senderId: senderId,
-                    recipientId: recipientId,
-                    content: 'I am here!!!'
-                })
-            )
+        /*
+                    stompClient.send(
+                        '/app/private.chat.' + chatChannel.channelId,
+                        {},
+                        JSON.stringify({
+                            senderId: senderId,
+                            recipientId: recipientId,
+                            content: 'I am here!!!'
+                        })
+                    )
+        */
 
+        function clearRoom() {
+            var messageArea = document.getElementById("messageArea");
+            messageArea.innerHTML = '';
+        }
+
+        function getMessages(channelId) {
+            $http({
+                method: "POST",
+                url: MESSAGE_PATH + "/chat/channel/getmessages",
+                params: {
+                    token: cache.tokenJwt,
+                    channelId: channelId
+                }
+            }).then(function (response) {
+                model.messages = response.data;
+                //console.log('roomChatController getMessages:', model.messages);
+            }, onError);
         }
 
         function onMessageReceived(payload) {
-            var messageDTO = JSON.parse(payload.body);
-            console.log('onMessageReceived message:', messageDTO);
-            console.log('onMessageReceived chatChannel:', chatChannel);
+            //model.messages.unshift(JSON.parse(payload.body));
+            //console.log('roomChatController onMessageReceived:', model.messages[0]);
+            model.authId = cache.authUser.id;
+            model.newMessages[count] = JSON.parse(payload.body);
+            //var arr = JSON.parse(payload.body);
+            //console.log('roomChatController onMessageReceived:', model.message);
 
-            var sender = {};
-            sender.id = messageDTO.senderId;
-            sender.content = messageDTO.content;
-            if (sender.id === chatChannel.firstUser.id) {
-                sender.avatar = chatChannel.firstUser.avatarUrl;
-                sender.name = chatChannel.firstUser.name;
-                sender.surname = chatChannel.firstUser.surname;
-                sender.backgroundColor = 'red';
-            }
-            else {
-                sender.avatar = chatChannel.secondUser.avatarUrl;
-                sender.name = chatChannel.secondUser.name;
-                sender.backgroundColor = 'blue';
-            }
+            angular.element(document.getElementById('space-for-message'))
+                .prepend($compile(
+                    '<message-chat-comp message="model.newMessages[' + count + ']"></message-chat-comp>'
+                )($scope));
+            //console.log('angular.element model.newMessages[', count, ']', model.newMessages[count]);
+            count++;
 
-            var messageElement = document.createElement('li');
-            messageElement.classList.add('chat-message');
 
-            //var x = document.createElement("IMG");
-            //document.getElementById("myImg").src = "hackanm.gif";
 
-            var avatarElement = document.createElement("IMG");
-            avatarElement.src = sender.avatar;
-            avatarElement.classList.add('chat-avatar');
-            var avatarText = document.createTextNode(sender.name);
-            avatarElement.appendChild(avatarText);
-            avatarElement.style['background-color'] = sender.backgroundColor;
-            messageElement.appendChild(avatarElement);
+/*
+            angular.element(document.getElementById('space-for-message'))
+                .prepend($compile(
+                    '<message-chat-comp ' +
+                    'message-id="' + arr.id + ' ' +
+                    'message-content="' + arr.content + ' ' +
+                    'message-time="' + arr.time + ' ' +
+                    '"></message-chat-comp>'
+                )($scope));
+*/
 
-            var usernameElement = document.createElement('span');
-            var usernameText = document.createTextNode(sender.name + ' ' + sender.surname);
-            usernameElement.appendChild(usernameText);
-            messageElement.appendChild(usernameElement);
 
-            var textElement = document.createElement('p');
-            var messageText = document.createTextNode(sender.content);
-            textElement.appendChild(messageText);
 
-            messageElement.appendChild(textElement);
 
-            var messageArea = document.getElementById("messageArea");
-            messageArea.prepend(messageElement);
-            //messageArea.appendChild(messageElement);
-            //messageArea.scrollTop = messageArea.scrollHeight;
+            //$route.reload();
+            /*
+                        var messageArea = document.getElementById("messageArea");
+                        var messageElement = document.createElement('li');
+                        messageElement.innerHTML = '111<message-chat-comp></message-chat-comp>2222';
+                        messageArea.prepend(messageElement);
+            */
+            //     //messageArea.appendChild(messageElement);
+
+            //console.log('roomChatController onMessageReceived:', model.message);
+            //console.log('roomChatController onMessageReceived:', model.messages);
         }
 
-        model.send = function (senderId, recipientId, content) {
+        // function onMessageReceived(payload) {
+        //     var messageDTO = JSON.parse(payload.body);
+        //     console.log('onMessageReceived message:', messageDTO);
+        //     console.log('onMessageReceived chatChannel:', chatChannel);
+        //
+        //     var sender = {};
+        //     sender.id = messageDTO.senderId;
+        //     sender.content = messageDTO.content;
+        //     if (sender.id === chatChannel.firstUser.id) {
+        //         sender.avatar = chatChannel.firstUser.avatarUrl;
+        //         sender.name = chatChannel.firstUser.name;
+        //         sender.surname = chatChannel.firstUser.surname;
+        //         sender.backgroundColor = 'red';
+        //     }
+        //     else {
+        //         sender.avatar = chatChannel.secondUser.avatarUrl;
+        //         sender.name = chatChannel.secondUser.name;
+        //         sender.backgroundColor = 'blue';
+        //     }
+        //
+        //     var messageElement = document.createElement('li');
+        //     messageElement.classList.add('chat-message');
+        //
+        //     //var x = document.createElement("IMG");
+        //     //document.getElementById("myImg").src = "hackanm.gif";
+        //
+        //     var avatarElement = document.createElement("IMG");
+        //     avatarElement.src = sender.avatar;
+        //     avatarElement.classList.add('chat-avatar');
+        //     var avatarText = document.createTextNode(sender.name);
+        //     avatarElement.appendChild(avatarText);
+        //     avatarElement.style['background-color'] = sender.backgroundColor;
+        //     messageElement.appendChild(avatarElement);
+        //
+        //     var usernameElement = document.createElement('span');
+        //     var usernameText = document.createTextNode(sender.name + ' ' + sender.surname);
+        //     usernameElement.appendChild(usernameText);
+        //     messageElement.appendChild(usernameElement);
+        //
+        //     var textElement = document.createElement('p');
+        //     var messageText = document.createTextNode(sender.content);
+        //     textElement.appendChild(messageText);
+        //
+        //     messageElement.appendChild(textElement);
+        //
+        //     var messageArea = document.getElementById("messageArea");
+        //     messageArea.prepend(messageElement);
+        //     //messageArea.appendChild(messageElement);
+        //     //messageArea.scrollTop = messageArea.scrollHeight;
+        // }
+
+
+        /*
+                model.sendMessage = function (content) {
+                    console.log('sendMessage:', content);
+                };
+        */
+
+
+        model.sendMessage = function (content) {
             stompClient.send(
-                '/app/private.chat.' + chatChannel.channelId,
+                '/app/private.chat.' + channelId,
                 {},
                 JSON.stringify({
                     senderId: senderId,
                     recipientId: recipientId,
                     content: content
                 })
-            )
-            model.content = '';
+            );
         };
 
         function onError(response) {

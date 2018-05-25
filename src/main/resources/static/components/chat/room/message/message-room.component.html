@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="components/chat/room/message/message-room.css" type="text/css">
+
+
+<div ng-hide="model.message.senderId == model.authId" class="container p-0">
+    <div class="row no-gutters justify-content-start">
+        <div class="col-10">
+            <div class="container p-0 mb-3 message-wrapper message-left">
+                <div class="row m-2">
+                    <div class="col-1 p-0 text-center align-self-center">
+                        <img src="{{model.sender.avatarUrl}}"
+                             class="meetings-avatar"
+                             alt="ava">
+                    </div>
+                    <div class="col p-0 pl-4 text-left align-self-center">
+                        <span>{{model.message.content}}</span>
+                    </div>
+                </div>
+                <div class="row m-2 align-self-center h6">
+                    <div class="col p-0 text-left">
+                        <span>{{model.sender.name}}</span>
+                    </div>
+                    <div class="col p-0 text-right">
+                        <span>{{model.message.time | date:'HH:mm MM/dd/yyyy'}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-hide="model.message.senderId != model.authId" class="container p-0">
+    <div class="row no-gutters justify-content-end">
+        <div class="col-10">
+            <div class="container p-0 mb-3 message-wrapper message-right">
+                <div class="row m-2">
+                    <div class="col p-0 pr-4 text-left align-self-center">
+                        <span>{{model.message.content}}</span>
+                    </div>
+                    <div class="col-1 p-0 mr-1 text-center align-self-center">
+                        <img src="{{model.sender.avatarUrl}}"
+                             class="meetings-avatar"
+                             alt="ava">
+                    </div>
+                </div>
+                <div class="row m-2 align-self-center h6">
+                    <div class="col p-0 text-left">
+                        <span>{{model.message.time | date:'HH:mm MM/dd/yyyy'}}</span>
+                    </div>
+                    <div class="col p-0 text-right">
+                        <span>{{model.sender.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
