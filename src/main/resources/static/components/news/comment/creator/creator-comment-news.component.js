@@ -6,7 +6,7 @@
             controller: ['$http', '$cookies', CreatorController],
             controllerAs: 'model',
             bindings: {
-                post: '<',
+                post: '<'
             }
         });
 
@@ -15,7 +15,12 @@
         var model = this;
 
         model.$onInit = function () {
-        }
+            //console.log('CreatorController $onInit: done');
+        };
+
+        model.$onChanges = function () {
+            //console.log('CreatorController $onChanges: done');
+        };
 
         model.addComment = function () {
             var access_token = $cookies.get('access_token');
@@ -37,8 +42,7 @@
             }, function myError(response) {
                 console.log(response.statusText, 'addComment: Sorry, I am tired');
             });
-        }
-
+        };
 
 
     }

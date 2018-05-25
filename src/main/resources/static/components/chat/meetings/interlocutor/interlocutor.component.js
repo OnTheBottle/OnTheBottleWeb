@@ -3,7 +3,7 @@
     angular.module('interlocutorChatApp')
         .component('interlocutorChatComp', {
             templateUrl: 'components/chat/meetings/interlocutor/interlocutor.component.html',
-            controller: ['$http', interlocutorController],
+            controller: ['$http', '$localStorage', interlocutorController],
             controllerAs: 'model',
             bindings: {
                 authId: '=',
@@ -12,13 +12,21 @@
             }
         });
 
-    function interlocutorController($http) {
+    function interlocutorController($http, $localStorage) {
 
         var model = this;
+        var cache = $localStorage;
 
         model.$onInit = function () {
-            console.log('interlocutorController model.authId: ', model.authId);
-            console.log('interlocutorController model.interlocutor: ', model.interlocutor);
+            if (cache.interlocutorId) {
+                if (cache.interlocutorId === model.interlocutor.id) {
+                    model.selected = true;
+                } else model.selected = false;
+            }
+        };
+
+        model.$onChanges = function () {
+            model.$onInit();
         }
 
     }

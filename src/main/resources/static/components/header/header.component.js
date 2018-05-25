@@ -1,5 +1,6 @@
 (function () {
     'use strict';
+
     angular.module('mainApp')
         .component('headerComp', {
             templateUrl: 'components/header/v2header.component.html',
@@ -12,6 +13,7 @@
 
     function HeaderController($http, $window, $cookies, $localStorage) {
 
+        var cache = $localStorage;
         var model = this;
         model.name = '';
         model.activeMenu = 'news';
@@ -28,7 +30,7 @@
             }).then(function mySuccess(response) {
                 model.name = response.data.name + ' ' + response.data.surname;
                 model.avatar = response.data.avatarUrl;
-                $localStorage.users.push(response.data);
+                cache.authUser = response.data;
             }, function myError(response) {
                 console.log('error get_by_id: ', response.statusText);
             });
@@ -40,8 +42,7 @@
 
         model.getProfile = function () {
             model.activeMenu = '';
-        };
-
+        }
         model.quit = function () {
             model.activeMenu = '';
             $cookies.remove('access_token');

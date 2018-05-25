@@ -18,7 +18,7 @@
         model.user = {};
 
         model.$onInit = function () {
-            console.log("showUser works");
+            //console.log("showUser works");
             model.requestData.id = $routeParams.id;
 
             $http({

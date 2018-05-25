@@ -178,6 +178,7 @@
 
 <div ng-show="model.isViewComments">
     <creator-comment-news-comp post="model.post"></creator-comment-news-comp>
-    <comment-news-comp user-id="model.userId" delete-comment="model.deleteComment" comment="comment" ng-repeat="comment in model.post.comments | orderBy : '-date'">
+    <comment-news-comp user-id="model.userId" delete-comment="model.deleteComment" comment="comment"
+                       ng-repeat="comment in model.post.comments | orderBy : '-date'">
     </comment-news-comp>
 </div>

@@ -4,6 +4,7 @@ const USER_PATH = 'http://127.0.0.1:8081';
 const PLACE_PATH = 'http://127.0.0.1:8082';
 const MESSAGE_PATH = 'http://127.0.0.1:8083';
 const AUTH_HTML = 'auth.html';
+const DEFAULT_AVATAR_PATH = 'images/userspictures/default-avatar.jpeg';
 
 (function () {
     'use strict';
@@ -77,6 +78,13 @@ const AUTH_HTML = 'auth.html';
         this.authId = cache.authId;
         idStorage.setId(cache.authId);
 
+        // var socket = new SockJS(MESSAGE_PATH + '/ws');
+        // var stompClient = Stomp.over(socket);
+        // stompClient.reconnect_delay = 5000;
+        // stompClient.debug = null;
+
+
+
         function parseJwt(tokenJwt) {
             var base64Url = tokenJwt.split('.')[1];
             var base64 = base64Url.replace('-', '+').replace('_', '/');
@@ -95,7 +103,7 @@ const AUTH_HTML = 'auth.html';
                 if (response.data !== null) {
                     cache.friends = response.data;
                 }
-                console.log('getFriends cache.friends: ', cache.friends);
+                //console.log('getFriends cache.friends: ', cache.friends);
             }, function myError(response) {
                 console.log('error getFriends: ', response.statusText);
             });

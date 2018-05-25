@@ -3,23 +3,25 @@
     angular.module('chatApp')
         .component('chatComp', {
             templateUrl: 'components/chat/chat.component.html',
-            controller: ['$http', chatController],
+            controller: ['$http', '$localStorage', '$route', chatController],
             controllerAs: 'model',
             bindings: {
                 authId: '='
             }
         });
 
-    function chatController($http) {
-
+    function chatController($http, $localStorage, $route) {
+        var cache = $localStorage;
         var model = this;
 
         model.$onInit = function () {
         };
 
         model.selectRoom = function (interlocutorId) {
-            console.log('chatController model.selectRoom:', interlocutorId);
+            //console.log('chatController model.selectRoom:', interlocutorId);
             model.interlocutorId = interlocutorId;
+            cache.interlocutorId = interlocutorId;
+            $route.reload();
         }
 
         /*

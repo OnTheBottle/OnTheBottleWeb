@@ -1,9 +1,10 @@
 .meetings-avatar {
     width: 4rem;
     height: 4rem;
-    border: 1px solid  #b8daff;
+    border: 1px solid #b8daff;
     border-radius: 10rem;
 }
+
 .meetings-text {
     display: block;
     width: 20rem;
@@ -11,3 +12,12 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+
+.active-interlocutor {
+    border: 3px solid #b8daff;
+    border-radius: 0.5rem;
+        background-color: rgba(224, 255, 200, 0.7);
+
+}
+

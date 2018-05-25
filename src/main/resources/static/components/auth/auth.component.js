@@ -41,7 +41,7 @@
                 }
             }, function myError(response) {
                 model.isAuthUser = false;
-                console.log('error Auth: ', response.statusText);
+                //console.log('error Auth: ', response.statusText);
             });
         }
 

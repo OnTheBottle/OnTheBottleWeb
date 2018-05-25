@@ -15,9 +15,9 @@
         var model = this;
 
         model.$onInit = function () {
-            console.log('findController model.userId: ', model.userId);
+            //console.log('findController model.userId: ', model.userId);
             model.whatToFind = $routeParams.whatToFind;
-            console.log('findController model.whatToFind: ', model.whatToFind);
+            //console.log('findController model.whatToFind: ', model.whatToFind);
         }
 
     }
