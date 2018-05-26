@@ -18,7 +18,6 @@
         model.user = {};
 
         model.$onInit = function () {
-            //console.log("showUser works");
             model.requestData.id = $routeParams.id;
 
             $http({
@@ -26,7 +25,6 @@
                 url: USER_PATH + "/showUsers",
                 params: model.requestData
             }).then(function mySuccess(response) {
-                // console.log('response userInfo: ', response.data.name);
                 model.user.name = response.data.name;
                 model.user.surname = response.data.surname;
                 model.user.age = response.data.age;
