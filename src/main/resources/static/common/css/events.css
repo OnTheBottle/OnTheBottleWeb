@@ -222,11 +222,16 @@
 }
 
 .main-content .event .people p {
+    position: relative;
     display: inline-block;
     margin: 0;
+    left: -5%;
 }
 
 .main-content .event .people img {
+    position: relative;
+    display: inline-block;
+    left: 10%;
     width: 100%;
     max-width: 14px;
     max-height: 14px;
@@ -235,7 +240,7 @@
 .main-content .event .control {
     position: absolute;
     bottom: 4px;
-    right: 45px;
+    right: 50px;
 }
 
 .main-content .event .control button {

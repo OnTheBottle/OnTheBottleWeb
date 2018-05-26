@@ -6,8 +6,8 @@ angular.module('eventInfo').component('eventInfoComp', {
     bindings: {
         userId: '='
     },
-    controller: ['$routeParams', '$window', '$scope', '$localStorage', 'UserEventFactory', 'EventFactory',
-        function UserController($routeParams, $window, $scope, $localStorage, UserEventFactory, EventFactory) {
+    controller: ['$routeParams', '$window', '$scope', '$localStorage', '$q', 'UserEventFactory', 'EventFactory',
+        function UserController($routeParams, $window, $scope, $localStorage, $q, UserEventFactory, EventFactory) {
             var self = this;
             self.activeMenu = 'Info';
             self.today = new Date();
@@ -80,6 +80,65 @@ angular.module('eventInfo').component('eventInfoComp', {
                 });
             };
 
+            self.showUsers = function (usersSort) {
+                self.sortType = usersSort;
+                self.friends = [];
+                self.users = [];
+
+                EventFactory.getAllUsers({
+                    id: self.event.id
+                }, function (data) {
+                    data.friends.forEach(function (eventFriend) {
+                        $localStorage.friends.forEach(function (friend) {
+                            if (eventFriend.id === friend.id) {
+                                self.friends.push(friend);
+                            }
+                        });
+                    });
+                    self.friends = checkAvatar(self.friends);
+
+                    var noInfoUsers = [];
+                    data.users.forEach(function (eventUser) {
+                        var isInfoUser = false;
+                        $localStorage.users.forEach(function (user) {
+                            if (eventUser.id === user.id) {
+                                self.users.push(user);
+                                isInfoUser = true;
+                            }
+                        });
+                        if (!isInfoUser) {
+                            noInfoUsers.push(eventUser);
+                        }
+                    });
+
+                    if (noInfoUsers.length !== 0) {
+                        UserEventFactory.getUsersInfo(
+                            noInfoUsers, function (data) {
+                                data.forEach(function (user) {
+                                    self.users.push(user);
+                                    $localStorage.users.push(user);
+                                });
+
+                                self.users = checkAvatar(self.usersPreliminary);
+                            }, function (errResponse) {
+                                errResponseFunction(errResponse, 'Error while read users info');
+                            }
+                        );
+                    }
+
+                    angular.element('#eventUsers').modal('show');
+                }, function (errResponse) {
+                    errResponseFunction(errResponse, 'Error while read users in Event');
+                });
+            };
+
+            self.showUser = function (id) {
+                angular.element('#eventUsers').modal('hide');
+                $window.setTimeout(function () {
+                    $window.location.href = '#!/userInfo/' + id;
+                }, 500);
+            };
+
             var getEvent = function () {
                 return EventFactory.getEvent(
                     {id: $routeParams.id},
@@ -122,15 +181,14 @@ angular.module('eventInfo').component('eventInfoComp', {
                                         self.usersPreliminary.push(user);
                                         $localStorage.users.push(user);
                                     });
+
+                                    self.usersPreliminary = checkAvatar(self.usersPreliminary);
+                                    if (!infoOwner) setInfoOwner(self.usersPreliminary, event.owner);
                                 }, function (errResponse) {
                                     errResponseFunction(errResponse, 'Error while read users info');
                                 }
                             );
                         }
-
-                        self.usersPreliminary = checkAvatar(self.usersPreliminary);
-                        if (!infoOwner) setInfoOwner(self.usersPreliminary, event.owner);
-
                     }, function (errResponse) {
                         if (errResponse.data === 'Doesn\'t exist event') {
                             $window.location.href = '#!/event';
