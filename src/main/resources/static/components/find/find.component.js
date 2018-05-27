@@ -21,7 +21,6 @@
             //console.log('findController model.whatToFind: ', model.whatToFind);
             model.request = {};
             model.request.search = model.whatToFind;
-            model.request.searchType = 'surname';
 
             $http({
                 method: 'POST',
