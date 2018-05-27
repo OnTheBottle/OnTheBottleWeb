@@ -19,6 +19,7 @@
 
         model.selectRoom = function (interlocutorId) {
             //console.log('chatController model.selectRoom:', interlocutorId);
+            if (interlocutorId === cache.interlocutorId) return;
             model.interlocutorId = interlocutorId;
             cache.interlocutorId = interlocutorId;
             $route.reload();

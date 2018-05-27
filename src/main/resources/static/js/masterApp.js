@@ -1,8 +1,13 @@
 'use strict';
 
-const USER_PATH = 'http://127.0.0.1:8081';
-const PLACE_PATH = 'http://127.0.0.1:8082';
-const MESSAGE_PATH = 'http://127.0.0.1:8083';
+
+
+const USER_PATH = location.protocol + '//' + location.hostname + ':8081';
+const PLACE_PATH = location.protocol + '//' + location.hostname + ':8082';
+const MESSAGE_PATH = location.protocol + '//' + location.hostname + ':8083';
+//const USER_PATH = 'http://127.0.0.1:8081';
+// const PLACE_PATH = 'http://127.0.0.1:8082';
+// const MESSAGE_PATH = 'http://127.0.0.1:8083';
 const AUTH_HTML = 'auth.html';
 const DEFAULT_AVATAR_PATH = 'images/userspictures/default-avatar.jpeg';
 
@@ -45,7 +50,7 @@ const DEFAULT_AVATAR_PATH = 'images/userspictures/default-avatar.jpeg';
         })
         .controller('MainController', mainController);
 
-    function mainController($cookies, $window, $http, $localStorage, idStorage) {
+    function mainController($cookies, $window, $http, $localStorage, idStorage, $rootScope) {
 
         var cache = $localStorage;
 
@@ -82,6 +87,7 @@ const DEFAULT_AVATAR_PATH = 'images/userspictures/default-avatar.jpeg';
         // var stompClient = Stomp.over(socket);
         // stompClient.reconnect_delay = 5000;
         // stompClient.debug = null;
+        //$rootScope.webSocket = new SockJS(MESSAGE_PATH + '/ws');
 
 
 

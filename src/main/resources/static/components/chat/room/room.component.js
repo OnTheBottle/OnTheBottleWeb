@@ -14,7 +14,7 @@
     function roomChatController($scope, $http, $cookies, $route, $localStorage, $compile) {
         var cache = $localStorage;
 
-        //var socket = new SockJS(MESSAGE_PATH + '/ws');
+        var socket = new SockJS(MESSAGE_PATH + '/ws');
         //var socket = cache.websocket;
         //console.log("roomChatController cache.websocket:", cache.websocket);
 
@@ -24,7 +24,7 @@
         var channelId = null;
         var senderId = null;
         var recipientId = null;
-        var count = 0;
+        var countNewMessage = 0;
 
         var model = this;
         model.messages = [];
@@ -33,26 +33,36 @@
 
 
         model.$onInit = function () {
-            //console.log("roomChatController $onInit: Work");
-
-        };
-
-        model.$onChanges = function () {
-            //console.log("roomChatController $onChanges: Work");
-
-            disconnect();
+            // console.log("roomChatController $onInit: Work");
+            countNewMessage = 0;
             if (model.interlocutorId) {
                 model.connect(model.authId, model.interlocutorId);
             } else if (cache.interlocutorId) {
                 model.connect(model.authId, cache.interlocutorId);
             }
-        }
+        };
+
+        /*
+                model.$onChanges = function () {
+                    console.log("roomChatController $onChanges: Work");
+
+                    disconnect();
+                    if (model.interlocutorId) {
+                        model.connect(model.authId, model.interlocutorId);
+                    } else if (cache.interlocutorId) {
+                        model.connect(model.authId, cache.interlocutorId);
+                    }
+                };
+        */
+
+        model.$onDestroy = function () {
+            disconnect();
+        };
 
         model.connect = function (firstId, secondId) {
             senderId = firstId;
             recipientId = secondId;
 
-            var socket = new SockJS(MESSAGE_PATH + '/ws');
             stompClient = Stomp.over(socket);
             stompClient.reconnect_delay = 5000;
             stompClient.debug = null;
@@ -64,7 +74,8 @@
             if (stompClient !== null) {
                 stompClient.disconnect();
             }
-            //console.log("Disconnected");
+            socket.close();
+            // console.log("Disconnected");
         }
 
         function onOpen(frame) {
@@ -73,8 +84,8 @@
         }
 
         function onClose(error) {
-            alert('You have disconnected, hit "OK" to reload.');
-            window.location.reload();
+            console.log('You have disconnected, hit "OK" to reload.');
+            //window.location.reload();
         }
 
         function getChatChannel(senderId, recipientId) {
@@ -133,31 +144,30 @@
             //model.messages.unshift(JSON.parse(payload.body));
             //console.log('roomChatController onMessageReceived:', model.messages[0]);
             model.authId = cache.authUser.id;
-            model.newMessages[count] = JSON.parse(payload.body);
+            model.newMessages[countNewMessage] = JSON.parse(payload.body);
             //var arr = JSON.parse(payload.body);
             //console.log('roomChatController onMessageReceived:', model.message);
-
+            // console.log('BEFORE: countNewMessage:', countNewMessage);
+            // console.log('BEFOR newMessage:', model.newMessages[countNewMessage]);
             angular.element(document.getElementById('space-for-message'))
                 .prepend($compile(
-                    '<message-chat-comp message="model.newMessages[' + count + ']"></message-chat-comp>'
+                    '<message-chat-comp message="model.newMessages[' + countNewMessage + ']"></message-chat-comp>'
                 )($scope));
             //console.log('angular.element model.newMessages[', count, ']', model.newMessages[count]);
-            count++;
+            countNewMessage++;
+            // console.log('AFTER: countNewMessage:', countNewMessage);
 
 
-
-/*
-            angular.element(document.getElementById('space-for-message'))
-                .prepend($compile(
-                    '<message-chat-comp ' +
-                    'message-id="' + arr.id + ' ' +
-                    'message-content="' + arr.content + ' ' +
-                    'message-time="' + arr.time + ' ' +
-                    '"></message-chat-comp>'
-                )($scope));
-*/
-
-
+            /*
+                        angular.element(document.getElementById('space-for-message'))
+                            .prepend($compile(
+                                '<message-chat-comp ' +
+                                'message-id="' + arr.id + ' ' +
+                                'message-content="' + arr.content + ' ' +
+                                'message-time="' + arr.time + ' ' +
+                                '"></message-chat-comp>'
+                            )($scope));
+            */
 
 
             //$route.reload();
