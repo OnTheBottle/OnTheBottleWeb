@@ -71,7 +71,7 @@
             </div>
 
             <div class="page_block mt-2 user-active">
-                <p class="mb-2" ng-click="self.showUsers('users')">Участники {{self.event.usersCounter}}</p>
+                <p class="pointer mb-2" ng-click="self.showUsers('users')">Участники {{self.event.usersCounter}}</p>
                 <div class="d-inline-block people_cell text-center" title="{{friend.name}} {{friend.surname}}"
                      ng-repeat="friend in self.friendsPreliminary">
                     <a href="#!/userInfo/{{friend.id}}"><img ng-src="{{friend.avatarUrl}}">{{friend.name}}</a>

@@ -105,6 +105,7 @@ angular.module('eventsApp').component('eventsComp', {
                 },
                 search: function () {
                     if (self.search !== undefined) {
+                        if (self.search.replace(' ','').length === 0) return;
                         eventsPage = 0;
                         isSearch = true;
                         EventFactory.searchEvents(

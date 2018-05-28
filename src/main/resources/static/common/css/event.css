@@ -22,11 +22,15 @@
     position: relative;
 }
 
-.page_block {
+.main-content .page_block {
     position: relative;
     background: snow;
     padding: 1rem;
     font-size: 1.4rem;
+}
+
+.main-content .pointer {
+    cursor: pointer;
 }
 
 .update-information .page_block {
