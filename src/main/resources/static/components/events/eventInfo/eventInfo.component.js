@@ -88,45 +88,59 @@ angular.module('eventInfo').component('eventInfoComp', {
                 EventFactory.getAllUsers({
                     id: self.event.id
                 }, function (data) {
-                    data.friends.forEach(function (eventFriend) {
-                        $localStorage.friends.forEach(function (friend) {
-                            if (eventFriend.id === friend.id) {
-                                self.friends.push(friend);
-                            }
-                        });
-                    });
-                    self.friends = checkAvatar(self.friends);
-
                     var noInfoUsers = [];
-                    data.users.forEach(function (eventUser) {
-                        var isInfoUser = false;
-                        $localStorage.users.forEach(function (user) {
-                            if (eventUser.id === user.id) {
-                                self.users.push(user);
-                                isInfoUser = true;
-                            }
-                        });
-                        if (!isInfoUser) {
-                            noInfoUsers.push(eventUser);
-                        }
-                    });
+                    var processShowUsers = $q.defer();
 
-                    if (noInfoUsers.length !== 0) {
-                        UserEventFactory.getUsersInfo(
-                            noInfoUsers, function (data) {
-                                data.forEach(function (user) {
-                                    self.users.push(user);
-                                    $localStorage.users.push(user);
+                    processShowUsers.promise
+                        .then(function () {
+                            data.friends.forEach(function (eventFriend) {
+                                $localStorage.friends.forEach(function (friend) {
+                                    if (eventFriend.id === friend.id) {
+                                        friend.avatarUrl = friend.avatarUrl || DEFAULT_AVATAR_PATH;
+                                        self.friends.push(friend);
+                                    }
                                 });
-
-                                self.users = checkAvatar(self.usersPreliminary);
-                            }, function (errResponse) {
-                                errResponseFunction(errResponse, 'Error while read users info');
+                            });
+                            return self.friends;
+                        })
+                        .then(function () {
+                            data.users.forEach(function (eventUser) {
+                                var isInfoUser = false;
+                                $localStorage.users.forEach(function (user) {
+                                    if (eventUser.id === user.id) {
+                                        user.avatarUrl = user.avatarUrl || DEFAULT_AVATAR_PATH;
+                                        self.users.push(user);
+                                        isInfoUser = true;
+                                    }
+                                });
+                                if (!isInfoUser) {
+                                    noInfoUsers.push(eventUser);
+                                }
+                            });
+                            return noInfoUsers;
+                        })
+                        .then(function (noInfoUsers) {
+                            if (noInfoUsers.length !== 0) {
+                                UserEventFactory.getUsersInfo(
+                                    noInfoUsers, function (data) {
+                                        data.forEach(function (user) {
+                                            user.avatarUrl = user.avatarUrl || DEFAULT_AVATAR_PATH;
+                                            self.users.push(user);
+                                            $localStorage.users.push(user);
+                                        });
+                                    }, function (errResponse) {
+                                        errResponseFunction(errResponse, 'Error while read users info');
+                                    }
+                                );
                             }
-                        );
-                    }
-
-                    angular.element('#eventUsers').modal('show');
+                            return self.users;
+                        })
+                        .then(function () {
+                            $window.setTimeout(function () {
+                                angular.element('#eventUsers').modal('show');
+                            }, 300);
+                        });
+                    processShowUsers.resolve();
                 }, function (errResponse) {
                     errResponseFunction(errResponse, 'Error while read users in Event');
                 });
@@ -152,12 +166,12 @@ angular.module('eventInfo').component('eventInfoComp', {
                         event.friends.forEach(function (eventFriend) {
                             $localStorage.friends.forEach(function (friend) {
                                 if (eventFriend.id === friend.id) {
+                                    friend.avatarUrl = friend.avatarUrl || DEFAULT_AVATAR_PATH;
                                     self.friendsPreliminary.push(friend);
                                 }
                             });
                         });
 
-                        self.friendsPreliminary = checkAvatar(self.friendsPreliminary);
                         infoOwner = setInfoOwner(self.friendsPreliminary, event.owner);
 
                         var noInfoUsers = [];
@@ -165,6 +179,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                             var isInfoUser = false;
                             $localStorage.users.forEach(function (user) {
                                 if (eventUser.id === user.id) {
+                                    user.avatarUrl = user.avatarUrl || DEFAULT_AVATAR_PATH;
                                     self.usersPreliminary.push(user);
                                     isInfoUser = true;
                                 }
@@ -178,11 +193,11 @@ angular.module('eventInfo').component('eventInfoComp', {
                             UserEventFactory.getUsersInfo(
                                 noInfoUsers, function (data) {
                                     data.forEach(function (user) {
+                                        user.avatarUrl = user.avatarUrl || DEFAULT_AVATAR_PATH;
                                         self.usersPreliminary.push(user);
                                         $localStorage.users.push(user);
                                     });
 
-                                    self.usersPreliminary = checkAvatar(self.usersPreliminary);
                                     if (!infoOwner) setInfoOwner(self.usersPreliminary, event.owner);
                                 }, function (errResponse) {
                                     errResponseFunction(errResponse, 'Error while read users info');
@@ -208,13 +223,6 @@ angular.module('eventInfo').component('eventInfoComp', {
                 return false;
             };
 
-            var checkAvatar = function (users) {
-                users.forEach(function (item) {
-                    item.avatarUrl = item.avatarUrl === null ? 'images/userspictures/default-avatar.jpeg' : item.avatarUrl;
-                });
-                return users;
-            };
-
             var copyEventToUpdate = function (event) {
                 self.updateTitle = event.title;
                 self.updateText = event.text;
@@ -225,7 +233,7 @@ angular.module('eventInfo').component('eventInfoComp', {
 
             function errResponseFunction(errResponse, messageError) {
                 if (errResponse.data === 'Non-valid token') {
-                    $window.location.href = '/auth.html';
+                    $window.location.href = AUTH_HTML;
                 } else {
                     console.error(messageError);
                 }

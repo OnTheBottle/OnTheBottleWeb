@@ -195,15 +195,21 @@
     right: 2.7rem;
 }
 
-.main-content .people_cell img {
-    border-radius: 50%;
-    margin: 0.5rem;
-    width: 8.9rem;
-    height: 8.9rem;
+.main-content .people_cell {
     cursor: pointer;
+    width: 32%;
+    margin: 0 auto;
 }
 
-.main-content .people_cell {
+.main-content .modal-body .people_cell {
+    width: 24%;
+}
+
+.main-content .people_cell img {
+    border-radius: 50%;
+    margin: 0 auto;
+    width: 8.9rem;
+    height: 8.9rem;
     cursor: pointer;
 }
 

@@ -49,7 +49,8 @@
                         <p class="count">{{self.event.usersCounter}}</p>
                         <p class="count-label">{{self.event.active ? 'Идут' : 'Было'}}</p>
                     </div>
-                    <div class="col-5 text-center block-count" ng-click="self.showUsers('invited')" ng-show="self.event.active">
+                    <div class="col-5 text-center block-count" ng-click="self.showUsers('invited')"
+                         ng-show="self.event.active">
                         <p class="count">Х</p>
                         <p class="count-label">Приглашены</p>
                     </div>
@@ -60,7 +61,8 @@
                 </button>
             </div>
 
-            <div class="page_block mt-2 user-friend" ng-show="self.friendsPreliminary[0] != null" ng-click="self.showUsers('friends')">
+            <div class="page_block mt-2 user-friend" ng-show="self.friendsPreliminary[0] != null"
+                 ng-click="self.showUsers('friends')">
                 <p>Пойдет {{self.event.friendsCounter}} друг(а)</p>
                 <img ng-src="{{self.friendsPreliminary[0].avatarUrl}}" ng-show="self.friendsPreliminary[0] != null"
                      title="{{self.friendsPreliminary[0].name}} {{self.friendsPreliminary[0].surname}}">
@@ -69,7 +71,7 @@
             </div>
 
             <div class="page_block mt-2 user-active">
-                <p class="people_cell" ng-click="self.showUsers('users')">Участники {{self.event.usersCounter}}</p>
+                <p class="mb-2" ng-click="self.showUsers('users')">Участники {{self.event.usersCounter}}</p>
                 <div class="d-inline-block people_cell text-center" title="{{friend.name}} {{friend.surname}}"
                      ng-repeat="friend in self.friendsPreliminary">
                     <a href="#!/userInfo/{{friend.id}}"><img ng-src="{{friend.avatarUrl}}">{{friend.name}}</a>
@@ -191,12 +193,15 @@
                 <div class="modal-header">
                     <ul class="nav nav-tabs">
                         <li class="nav-item" ng-class="{active : self.sortType === 'users'}">
-                            <a class="nav-link sort-text" href="" ng-click="self.sortType = 'users'">Участники {{self.event.usersCounter}}</a>
+                            <a class="nav-link sort-text" href="" ng-click="self.sortType = 'users'">Участники
+                                {{self.event.usersCounter}}</a>
                         </li>
                         <li class="nav-item" ng-class="{active : self.sortType === 'friends'}">
-                            <a class="nav-link sort-text" href="" ng-click="self.sortType = 'friends'">Друзья {{self.event.friendsCounter}}</a>
+                            <a class="nav-link sort-text" href="" ng-click="self.sortType = 'friends'">Друзья
+                                {{self.event.friendsCounter}}</a>
                         </li>
-                        <li class="nav-item" ng-class="{active : self.sortType === 'invited'}" ng-show="self.event.active">
+                        <li class="nav-item" ng-class="{active : self.sortType === 'invited'}"
+                            ng-show="self.event.active">
                             <a class="nav-link sort-text" href="" ng-click="self.sortType = 'invited'">Приглашены Х</a>
                         </li>
                     </ul>

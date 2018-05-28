@@ -5,11 +5,9 @@
 const USER_PATH = location.protocol + '//' + location.hostname + ':8081';
 const PLACE_PATH = location.protocol + '//' + location.hostname + ':8082';
 const MESSAGE_PATH = location.protocol + '//' + location.hostname + ':8083';
-//const USER_PATH = 'http://127.0.0.1:8081';
-// const PLACE_PATH = 'http://127.0.0.1:8082';
-// const MESSAGE_PATH = 'http://127.0.0.1:8083';
 const AUTH_HTML = 'auth.html';
 const DEFAULT_AVATAR_PATH = 'images/userspictures/default-avatar.jpeg';
+const TIME_TO_CLEAR_USER_INFO = 30;
 
 (function () {
     'use strict';
@@ -61,8 +59,6 @@ const DEFAULT_AVATAR_PATH = 'images/userspictures/default-avatar.jpeg';
 
         this.authId = null;
         cache.tokenJwt = tokenJwt;
-        cache.users = [];
-        cache.places = [];
 
         $http({
             method: "POST",
@@ -73,10 +69,22 @@ const DEFAULT_AVATAR_PATH = 'images/userspictures/default-avatar.jpeg';
                 $cookies.remove('access_token');
                 $window.location.href = AUTH_HTML;
             }
-            getFriends();
+            cache.friends = cache.friends || getFriends();
         }, function myError(response) {
             console.log('error Auth: ', response.statusText);
         });
+
+        cache.timeAddUsers = cache.timeAddUsers || new Date().valueOf();
+        var timeClearUsers = cache.timeAddUsers + TIME_TO_CLEAR_USER_INFO*60000;
+        if (timeClearUsers - new Date().valueOf() <= 0) {
+            cache.users = [];
+            getFriends();
+            cache.timeAddUsers = new Date().valueOf();
+        } else {
+            cache.users = cache.users || [];
+        }
+
+        cache.places = cache.places || [];
 
         var token = parseJwt(tokenJwt);
         cache.authId = token.userId;

@@ -4,7 +4,7 @@ angular.module('eventsService', ['ngResource', 'ngCookies']);
 
 angular.module('eventsService').factory('EventFactory', ['$resource', '$cookies',
     function ($resource, $cookies) {
-        return $resource('http://localhost:8083/:path', {}, {
+        return $resource(MESSAGE_PATH + '/:path', {}, {
             getPlaces: {
                 params: {path: 'getPlaces', access_token: $cookies.get('access_token')},
                 method: "GET",

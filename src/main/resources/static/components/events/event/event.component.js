@@ -40,7 +40,7 @@ angular.module('event').component('eventComp', {
 
             function errResponseFunction (errResponse, messageError) {
                 if (errResponse.data === 'Non-valid token') {
-                    $window.location.href = '/auth.html';
+                    $window.location.href = AUTH_HTML;
                 } else {
                     console.error(messageError);
                 }
