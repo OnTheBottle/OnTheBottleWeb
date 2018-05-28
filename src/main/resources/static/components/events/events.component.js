@@ -87,7 +87,8 @@ angular.module('eventsApp').component('eventsComp', {
                         startTime: self.startTime,
                         endTime: self.endTime,
                         place: self.place,
-                        owner: self.userId
+                        owner: self.userId,
+                        addPost: self.isAddPost
                     }, function () {
                         self.util.resetEvent();
                         self.util.getEvents();
