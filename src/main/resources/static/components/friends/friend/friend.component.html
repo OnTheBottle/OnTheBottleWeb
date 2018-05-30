@@ -13,19 +13,19 @@
                 </div>
             </a>
             <div ng-show="model.friend.friendStatus == 'confirmed'">
-                <button type="button" ng-click="model.denyRelation()" class="btn btn-danger pl-4 pr-4">Забыть</button>
+                <button type="button" ng-click="model.denyRelation(model.friend.id)" class="btn btn-danger pl-4 pr-4">Забыть</button>
             </div>
             <div ng-show="model.friend.friendStatus == 'requested'">
                 <button type="button" class="btn btn-default pl-4 pr-4">Приглашен</button>
             </div>
             <div ng-show="model.friend.friendStatus == 'notconfirmed'">
-                <button type="button" ng-click="model.confirmRelation()" class="btn btn-success pl-2 pr-2">Принять!
+                <button type="button" ng-click="model.confirmRelation(model.friend.id)" class="btn btn-success pl-2 pr-2">Принять!
                 </button>
-                <button type="button" ng-click="model.denyRelation()" class="btn btn-danger pl-2 pr-2">Отклонить
+                <button type="button" ng-click="model.denyRelation(model.friend.id)" class="btn btn-danger pl-2 pr-2">Отклонить
                 </button>
             </div>
             <div ng-show="model.friend.friendStatus == 'unknown'">
-                <button type="button" ng-click="model.invite()" class="btn btn-info pl-4 pr-4">Пригласить</button>
+                <button type="button" ng-click="model.invite(model.friend.id)" class="btn btn-info pl-4 pr-4">Пригласить</button>
             </div>
 
         </div>

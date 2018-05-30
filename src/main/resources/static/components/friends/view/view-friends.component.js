@@ -3,15 +3,15 @@
     angular.module('viewFriendsApp')
         .component('viewFriendsComp', {
             templateUrl: 'components/friends/view/view-friends.component.html',
-            controller: ['$http', '$cookies', viewController],
+            controller: ['$http', '$cookies', '$localStorage', viewController],
             controllerAs: 'model',
             bindings: {
                 userId: '='
             }
         });
 
-    function viewController($http, $cookies) {
-
+    function viewController($http, $cookies, $localStorage) {
+        var cache = $localStorage;
         var model = this;
 
         model.$onInit = function () {
@@ -28,6 +28,7 @@
                 }
             }).then(function mySuccess(response) {
                 model.friends = response.data;
+                cache.friends = response.data;
             }, function myError(response) {
                 console.log('Error response friends: ', response.statusText);
             });

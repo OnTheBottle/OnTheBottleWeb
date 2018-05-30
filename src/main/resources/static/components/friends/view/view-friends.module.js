@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('viewFriendsApp', ['ngRoute']);
+angular.module('viewFriendsApp', ['ngRoute', 'ngStorage']);

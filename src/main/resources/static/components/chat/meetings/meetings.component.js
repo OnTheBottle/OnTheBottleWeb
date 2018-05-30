@@ -14,9 +14,9 @@
     function meetingsController($http, $localStorage) {
 
         var model = this;
-        model.interlocutors = $localStorage.friends;
 
         model.$onInit = function () {
+            model.interlocutors = $localStorage.friends;
         }
 
     }

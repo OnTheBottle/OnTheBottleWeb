@@ -1,21 +1,22 @@
 <link rel="stylesheet" href="components/chat/meetings/interlocutor/interlocutor.css" type="text/css">
 
 <div class="container bg-light alert alert-info post-wrapper p-0 mb-3">
-    <a class="dropdown-item p-0" href="" ng-click="model.selectRoom(model.interlocutor.id)">
-    <div ng-class="model.selected ? 'active-interlocutor' : ''" class="row m-2">
-        <div class="col-2 p-0 text-center align-self-center">
-            <div>
-                <img ng-if="model.interlocutor.avatarUrl" src="{{model.interlocutor.avatarUrl}}"
-                     class="meetings-avatar"
-                     alt="ava">
-                <img ng-if="!model.interlocutor.avatarUrl" src="images/userspictures/default-avatar.jpeg"
-                     class="meetings-avatar" alt="ava">
+    <a ng-class="model.isUnreadMessage ? 'badge' : ''" data-badge={{model.unreadCount}} class="dropdown-item p-0" href=""
+       ng-click="model.selectRoom(model.interlocutor.id)">
+        <div ng-class="model.selected ? 'active-interlocutor' : ''" class="row m-2">
+            <div class="col-2 p-0 text-center align-self-center">
+                <div>
+                    <img ng-if="model.interlocutor.avatarUrl" src="{{model.interlocutor.avatarUrl}}"
+                         class="meetings-avatar"
+                         alt="ava">
+                    <img ng-if="!model.interlocutor.avatarUrl" src="images/userspictures/default-avatar.jpeg"
+                         class="meetings-avatar" alt="ava">
+                </div>
+            </div>
+            <div class="col-10 p-0 pl-2 text-left align-self-center">
+                <span class="meetings-text">{{model.interlocutor.name}} {{model.interlocutor.surname}}</span>
             </div>
         </div>
-        <div class="col-10 p-0 pl-2 text-left align-self-center">
-            <span class="meetings-text">{{model.interlocutor.name}} {{model.interlocutor.surname}}</span>
-        </div>
-    </div>
     </a>
 
 </div>

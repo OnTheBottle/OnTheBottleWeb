@@ -13,11 +13,29 @@
     text-overflow: ellipsis;
 }
 
-
 .active-interlocutor {
     border: 3px solid #b8daff;
     border-radius: 0.5rem;
-        background-color: rgba(224, 255, 200, 0.7);
+    background-color: rgba(224, 255, 200, 0.7);
 
 }
 
+.badge {
+    position: relative;
+}
+
+.badge[data-badge]:after {
+    content: attr(data-badge);
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 1.1em;
+    background: green;
+    color: white;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 27px;
+    border-radius: 50%;
+    box-shadow: 0 0 1px #333;
+}

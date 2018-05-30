@@ -15,37 +15,37 @@
         var model = this;
 
         model.$onInit = function () {
-        }
+        };
 
-        model.denyRelation = function () {
+        model.denyRelation = function (friendId) {
             $http({
                 method: "POST",
                 url: USER_PATH + "/friend/remove_relationship",
                 params: {
                     access_token: $cookies.get('access_token'),
-                    userId: model.friend.id
+                    userId: friendId
                 }
             }).then(function mySuccess(response) {
                 $route.reload();
             }, function myError(response) {
                 console.log('Error response friends: ', response.statusText);
             });
-        }
+        };
 
-        model.confirmRelation = function () {
+        model.confirmRelation = function (friendId) {
             $http({
                 method: "POST",
                 url: USER_PATH + "/friend/add_oneway_relation",
                 params: {
                     access_token: $cookies.get('access_token'),
-                    userId: model.friend.id
+                    userId: friendId
                 }
             }).then(function mySuccess(response) {
                 $route.reload();
             }, function myError(response) {
                 console.log('Error response friends: ', response.statusText);
             });
-        }
+        };
 
         model.invite = model.confirmRelation;
     }
