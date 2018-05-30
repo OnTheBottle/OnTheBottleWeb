@@ -90,7 +90,7 @@ angular.module('eventsApp').component('eventsComp', {
                         owner: self.userId,
                         addPost: self.isAddPost
                     }, function () {
-                        notification('Событие ' + self.title + ' созданно!');
+                        self.notification('Событие ' + self.title + ' созданно!');
                         self.util.resetEvent();
                         self.util.getEvents();
                     }, function (errResponse) {
@@ -107,7 +107,7 @@ angular.module('eventsApp').component('eventsComp', {
                 },
                 search: function () {
                     if (self.search !== undefined) {
-                        if (self.search.replace(' ','').length === 0) return;
+                        if (self.search.replace(' ', '').length === 0) return;
                         eventsPage = 0;
                         isSearch = true;
                         EventFactory.searchEvents(
@@ -140,6 +140,14 @@ angular.module('eventsApp').component('eventsComp', {
                 errResponseFunction(errResponse, 'Error while read places');
             });
 
+            self.notification = function (text) {
+                self.notificationText = text;
+                angular.element('#notification').modal('show');
+                $window.setTimeout(function () {
+                    angular.element('#notification').modal('hide');
+                }, 2000);
+            };
+
             var formatDate = function (events) {
                 events.forEach(function (item) {
                     item.startTime = new Date(item.startTime.replace(' ', 'T') + "Z");
@@ -147,20 +155,12 @@ angular.module('eventsApp').component('eventsComp', {
                 });
             };
 
-            function errResponseFunction (errResponse, messageError) {
+            function errResponseFunction(errResponse, messageError) {
                 if (errResponse.data === 'Non-valid token') {
                     $window.location.href = AUTH_HTML;
                 } else {
                     console.error(messageError);
                 }
-            }
-
-            function notification(text) {
-                self.notification = text;
-                angular.element('#notification').modal('show');
-                $window.setTimeout(function () {
-                    angular.element('#notification').modal('hide');
-                }, 2000);
             }
         }]
 });

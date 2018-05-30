@@ -16,7 +16,6 @@ angular.module('eventInfo').component('eventInfoComp', {
 
             self.$onInit = function () {
                 self.event = getEvent();
-                console.log($localStorage.users);
             };
 
             self.control = function () {
@@ -70,6 +69,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                 }, function () {
                     self.activeMenu = 'Info';
                     self.event = getEvent();
+                    notification('Ивент успешно обновлен!');
                 }, function (errResponse) {
                     errResponseFunction(errResponse, 'Error while update Event');
                 });

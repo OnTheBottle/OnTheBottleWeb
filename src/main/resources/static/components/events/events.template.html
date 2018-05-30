@@ -183,7 +183,7 @@
                 </li>
             </ul>
 
-            <event-comp user-id="self.userId" get-events="self.util.getEvents" event="event"
+            <event-comp user-id="self.userId" get-events="self.util.getEvents" notification="self.notification" event="event"
                         ng-repeat="event in self.events">
             </event-comp>
             <div class="text-center">
@@ -222,7 +222,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content notification">
                         <div class="modal-body notification">
-                            {{self.notification}}
+                            {{self.notificationText}}
                         </div>
                     </div>
                 </div>

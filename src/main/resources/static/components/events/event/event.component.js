@@ -6,7 +6,8 @@ angular.module('event').component('eventComp', {
     bindings: {
         userId: '=',
         event: '<',
-        getEvents: '='
+        getEvents: '=',
+        notification: '='
     },
     controller: ['EventFactory', '$window',
         function UserController(EventFactory, $window) {
@@ -17,7 +18,8 @@ angular.module('event').component('eventComp', {
                 if (self.event.member) {
                     EventFactory.leaveEvent({
                         id: self.event.id
-                    }, function (data) {
+                    }, function () {
+                        self.notification('Вы покинули ивент "' + self.event.title + '"');
                         self.getEvents();
                     }, function (errResponse) {
                         errResponseFunction(errResponse, 'Error while leave Event');
@@ -25,7 +27,8 @@ angular.module('event').component('eventComp', {
                 } else {
                     EventFactory.joinEvent({
                         id: self.event.id
-                    }, function (data) {
+                    }, function () {
+                        self.notification('Вы присоединились к ивенту "' + self.event.title + '"');
                         self.getEvents();
                     }, function (errResponse) {
                         if (errResponse.data === 'Closed event' ) {
