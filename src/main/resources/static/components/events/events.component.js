@@ -148,12 +148,12 @@ angular.module('eventsApp').component('eventsComp', {
                 }, 2000);
             };
 
-            var formatDate = function (events) {
+            function formatDate (events) {
                 events.forEach(function (item) {
                     item.startTime = new Date(item.startTime.replace(' ', 'T') + "Z");
                     item.startTimeTemp = new Date(item.startTime).setHours(0, 0, 0, 0);
                 });
-            };
+            }
 
             function errResponseFunction(errResponse, messageError) {
                 if (errResponse.data === 'Non-valid token') {

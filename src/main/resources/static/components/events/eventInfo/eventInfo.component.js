@@ -98,42 +98,23 @@ angular.module('eventInfo').component('eventInfoComp', {
 
                     processShowUsers.promise
                         .then(function () {
-                            data.friends.forEach(function (eventFriend) {
-                                var friend = $localStorage.users.getUser(eventFriend.id);
-                                self.friends.push(friend);
-                            });
-                            return self.friends;
-                        })
-                        .then(function () {
-                            data.users.forEach(function (eventUser) {
-                                var user = $localStorage.users.getUser(eventUser.id);
-                                if (user) {
-                                    self.users.push(user);
-                                } else {
-                                    noInfoUsers.push(eventUser);
-                                }
-                            });
+                            noInfoUsers = setUsersToArr(data.friends, self.friends);
                             return noInfoUsers;
                         })
                         .then(function (noInfoUsers) {
-                            if (noInfoUsers.length !== 0) {
-                                UserEventFactory.getUsersInfo(
-                                    noInfoUsers, function (data) {
-                                        data.forEach(function (user) {
-                                            $localStorage.users.addUser(user);
-                                            self.users.push(user);
-                                        });
-                                    }, function (errResponse) {
-                                        errResponseFunction(errResponse, 'Error while read users info');
-                                    }
-                                );
-                            }
-                            return self.users;
+                            if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.friends);
+                            return true;
                         })
                         .then(function () {
-                            $window.setTimeout(function () {
-                                angular.element('#eventUsers').modal('show');
-                            }, 300);
+                            noInfoUsers = setUsersToArr(data.users, self.users);
+                            return noInfoUsers;
+                        })
+                        .then(function (noInfoUsers) {
+                            if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.users);
+                            return true;
+                        })
+                        .then(function () {
+                            angular.element('#eventUsers').modal('show');
                         });
                     processShowUsers.resolve();
                 }, function (errResponse) {
@@ -174,7 +155,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                     });
             };
 
-            var getEvent = function () {
+            function getEvent () {
                 return EventFactory.getEvent(
                     {id: $routeParams.id},
                     function (event) {
@@ -183,38 +164,15 @@ angular.module('eventInfo').component('eventInfoComp', {
                         self.formatDate(event);
                         copyEventToUpdate(self.event);
                         var infoOwner;
+                        var noInfoUsers;
 
-                        event.friends.forEach(function (eventFriend) {
-                            var friend = $localStorage.users.getUser(eventFriend.id);
-                            self.friendsPreliminary.push(friend);
-                        });
-
+                        noInfoUsers = setUsersToArr(event.friends, self.friendsPreliminary);
+                        if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.friendsPreliminary);
                         infoOwner = setInfoOwner(self.friendsPreliminary, event.owner);
 
-                        var noInfoUsers = [];
-                        event.users.forEach(function (eventUser) {
-                            var user = $localStorage.users.getUser(eventUser.id);
-                            if (user) {
-                                self.usersPreliminary.push(user);
-                            } else {
-                                noInfoUsers.push(eventUser);
-                            }
-                        });
-
-                        if (noInfoUsers.length !== 0) {
-                            UserEventFactory.getUsersInfo(
-                                noInfoUsers, function (data) {
-                                    data.forEach(function (user) {
-                                        $localStorage.users.addUser(user);
-                                        self.usersPreliminary.push(user);
-                                    });
-
-                                    if (!infoOwner) setInfoOwner(self.usersPreliminary, event.owner);
-                                }, function (errResponse) {
-                                    errResponseFunction(errResponse, 'Error while read users info');
-                                }
-                            );
-                        }
+                        noInfoUsers = setUsersToArr(event.users, self.usersPreliminary);
+                        if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.usersPreliminary);
+                        if (!infoOwner) setInfoOwner(self.usersPreliminary, event.owner);
                     }, function (errResponse) {
                         if (errResponse.data === 'Doesn\'t exist event') {
                             $window.location.href = '#!/event';
@@ -222,9 +180,35 @@ angular.module('eventInfo').component('eventInfoComp', {
                             errResponseFunction(errResponse, 'Error while read event');
                         }
                     });
-            };
+            }
+            
+            function setUsersToArr(input, output) {
+                var noInfoUsers = [];
+                input.forEach(function (item) {
+                    var user = $localStorage.users.getUser(item.id);
+                    if (user) {
+                        output.push(user);
+                    } else {
+                        noInfoUsers.push(item);
+                    }
+                });
+                return noInfoUsers;
+            }
 
-            var setInfoOwner = function (users, owner) {
+            function getUsersInfo(input, output) {
+                UserEventFactory.getUsersInfo(
+                    input, function (data) {
+                        data.forEach(function (user) {
+                            $localStorage.users.addUser(user);
+                            output.push(user);
+                        });
+                    }, function (errResponse) {
+                        errResponseFunction(errResponse, 'Error while read users info');
+                    }
+                );
+            }
+
+            function setInfoOwner(users, owner) {
                 users.forEach(function (item) {
                     if (item.id === owner.id) {
                         self.owner = item;
@@ -232,15 +216,15 @@ angular.module('eventInfo').component('eventInfoComp', {
                     }
                 });
                 return false;
-            };
+            }
 
-            var copyEventToUpdate = function (event) {
+            function copyEventToUpdate(event) {
                 self.updateTitle = event.title;
                 self.updateText = event.text;
                 self.updateStartTime = event.startTime;
                 self.updateEndTime = event.endTime;
                 self.place = event.place.id;
-            };
+            }
 
             function errResponseFunction(errResponse, messageError) {
                 if (errResponse.data === 'Non-valid token') {
