@@ -31,7 +31,7 @@
                         model.sender.avatarUrl = cache.friends[i].avatarUrl;
                         model.sender.name = cache.friends[i].name + ' ' + cache.friends[i].surname;
                         isFind = true;
-                        return;
+                        break;
                     }
                 }
             }
@@ -53,6 +53,9 @@
             }).then(function mySuccess(response) {
                 model.sender.name = response.data.name + ' ' + response.data.surname;
                 model.sender.avatarUrl = response.data.avatarUrl;
+                // if (!model.sender.avatarUrl){
+                //     model.sender.avatarUrl = DEFAULT_AVATAR_PATH;
+                // }
             }, function myError(response) {
                 console.log('error get_by_id: ', response.statusText);
             });

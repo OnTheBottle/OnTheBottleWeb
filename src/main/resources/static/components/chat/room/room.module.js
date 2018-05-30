@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('roomChatApp',['ngRoute', 'ngStorage','messageChatApp','creatorChatApp','mainApp']);
+angular.module('roomChatApp', ['ngRoute', 'ngStorage', 'messageChatApp', 'creatorChatApp', 'mainApp']);

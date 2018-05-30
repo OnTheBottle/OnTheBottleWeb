@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('userInfoApp', ['ngRoute','viewFriendsApp']);
+angular.module('userInfoApp', ['ngRoute', 'viewFriendsApp', 'buttonFriendsApp']);
