@@ -1,7 +1,6 @@
 'use strict';
 
 
-
 const USER_PATH = location.protocol + '//' + location.hostname + ':8081';
 const PLACE_PATH = location.protocol + '//' + location.hostname + ':8082';
 const MESSAGE_PATH = location.protocol + '//' + location.hostname + ':8083';
@@ -61,6 +60,35 @@ const TIME_TO_CLEAR_USER_INFO = 30;
         this.authId = null;
         cache.tokenJwt = tokenJwt;
 
+        cache.users = {
+            users: cache.users.users || [],
+            count: cache.users.count || 0,
+            addUser: function (user) {
+                user.avatarUrl = user.avatarUrl || DEFAULT_AVATAR_PATH;
+                if (this.count < 100) {
+                    this.users[this.count] = user;
+                    this.count++;
+                } else {
+                    this.count = 0;
+                    this.users[this.count] = user;
+                }
+            },
+            getUser: function (id) {
+                var user = false;
+                this.users.forEach(function (item) {
+                    if (item.id === id) {
+                        user = item;
+                        return true;
+                    }
+                });
+                return user;
+            },
+            resetUsers: function () {
+                this.count = 0;
+                this.users = [];
+            }
+        };
+
         $http({
             method: "POST",
             url: USER_PATH + "/auth/verify",
@@ -70,19 +98,19 @@ const TIME_TO_CLEAR_USER_INFO = 30;
                 $cookies.remove('access_token');
                 $window.location.href = AUTH_HTML;
             }
-            cache.friends = cache.friends || getFriends();
+            getFriends();
         }, function myError(response) {
             console.log('error Auth: ', response.statusText);
         });
 
         cache.timeAddUsers = cache.timeAddUsers || new Date().valueOf();
-        var timeClearUsers = cache.timeAddUsers + TIME_TO_CLEAR_USER_INFO*60000;
+        var timeClearUsers = cache.timeAddUsers + TIME_TO_CLEAR_USER_INFO * 60000;
         if (timeClearUsers - new Date().valueOf() <= 0) {
-            cache.users = [];
-            getFriends();
+            cache.users.resetUsers();
             cache.timeAddUsers = new Date().valueOf();
-        } else {
-            cache.users = cache.users || [];
+            cache.friends.forEach(function (user) {
+                cache.users.addUser(user);
+            });
         }
 
         cache.places = cache.places || [];
@@ -97,7 +125,6 @@ const TIME_TO_CLEAR_USER_INFO = 30;
         // stompClient.reconnect_delay = 5000;
         // stompClient.debug = null;
         //$rootScope.webSocket = new SockJS(MESSAGE_PATH + '/ws');
-
 
 
         function parseJwt(tokenJwt) {

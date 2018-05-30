@@ -16,6 +16,7 @@ angular.module('eventInfo').component('eventInfoComp', {
 
             self.$onInit = function () {
                 self.event = getEvent();
+                console.log($localStorage.users);
             };
 
             self.control = function () {
@@ -98,26 +99,17 @@ angular.module('eventInfo').component('eventInfoComp', {
                     processShowUsers.promise
                         .then(function () {
                             data.friends.forEach(function (eventFriend) {
-                                $localStorage.friends.forEach(function (friend) {
-                                    if (eventFriend.id === friend.id) {
-                                        friend.avatarUrl = friend.avatarUrl || DEFAULT_AVATAR_PATH;
-                                        self.friends.push(friend);
-                                    }
-                                });
+                                var friend = $localStorage.users.getUser(eventFriend.id);
+                                self.friends.push(friend);
                             });
                             return self.friends;
                         })
                         .then(function () {
                             data.users.forEach(function (eventUser) {
-                                var isInfoUser = false;
-                                $localStorage.users.forEach(function (user) {
-                                    if (eventUser.id === user.id) {
-                                        user.avatarUrl = user.avatarUrl || DEFAULT_AVATAR_PATH;
-                                        self.users.push(user);
-                                        isInfoUser = true;
-                                    }
-                                });
-                                if (!isInfoUser) {
+                                var user = $localStorage.users.getUser(eventUser.id);
+                                if (user) {
+                                    self.users.push(user);
+                                } else {
                                     noInfoUsers.push(eventUser);
                                 }
                             });
@@ -128,9 +120,8 @@ angular.module('eventInfo').component('eventInfoComp', {
                                 UserEventFactory.getUsersInfo(
                                     noInfoUsers, function (data) {
                                         data.forEach(function (user) {
-                                            user.avatarUrl = user.avatarUrl || DEFAULT_AVATAR_PATH;
+                                            $localStorage.users.addUser(user);
                                             self.users.push(user);
-                                            $localStorage.users.push(user);
                                         });
                                     }, function (errResponse) {
                                         errResponseFunction(errResponse, 'Error while read users info');
@@ -174,13 +165,13 @@ angular.module('eventInfo').component('eventInfoComp', {
                     title: 'Я участвую вивенте: ' + self.event.title
                 };
 
-               PostFactory.createPost(
+                PostFactory.createPost(
                     post
-                , function () {
-                       notification('Сообщение успешно опубликованно');
-                }, function (errResponse) {
-                    errResponseFunction(errResponse, 'Error while creating Post');
-                });
+                    , function () {
+                        notification('Сообщение успешно опубликованно');
+                    }, function (errResponse) {
+                        errResponseFunction(errResponse, 'Error while creating Post');
+                    });
             };
 
             var getEvent = function () {
@@ -194,27 +185,18 @@ angular.module('eventInfo').component('eventInfoComp', {
                         var infoOwner;
 
                         event.friends.forEach(function (eventFriend) {
-                            $localStorage.friends.forEach(function (friend) {
-                                if (eventFriend.id === friend.id) {
-                                    friend.avatarUrl = friend.avatarUrl || DEFAULT_AVATAR_PATH;
-                                    self.friendsPreliminary.push(friend);
-                                }
-                            });
+                            var friend = $localStorage.users.getUser(eventFriend.id);
+                            self.friendsPreliminary.push(friend);
                         });
 
                         infoOwner = setInfoOwner(self.friendsPreliminary, event.owner);
 
                         var noInfoUsers = [];
                         event.users.forEach(function (eventUser) {
-                            var isInfoUser = false;
-                            $localStorage.users.forEach(function (user) {
-                                if (eventUser.id === user.id) {
-                                    user.avatarUrl = user.avatarUrl || DEFAULT_AVATAR_PATH;
-                                    self.usersPreliminary.push(user);
-                                    isInfoUser = true;
-                                }
-                            });
-                            if (!isInfoUser) {
+                            var user = $localStorage.users.getUser(eventUser.id);
+                            if (user) {
+                                self.usersPreliminary.push(user);
+                            } else {
                                 noInfoUsers.push(eventUser);
                             }
                         });
@@ -223,9 +205,8 @@ angular.module('eventInfo').component('eventInfoComp', {
                             UserEventFactory.getUsersInfo(
                                 noInfoUsers, function (data) {
                                     data.forEach(function (user) {
-                                        user.avatarUrl = user.avatarUrl || DEFAULT_AVATAR_PATH;
+                                        $localStorage.users.addUser(user);
                                         self.usersPreliminary.push(user);
-                                        $localStorage.users.push(user);
                                     });
 
                                     if (!infoOwner) setInfoOwner(self.usersPreliminary, event.owner);
