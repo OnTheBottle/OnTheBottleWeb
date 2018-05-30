@@ -7,7 +7,9 @@ angular.module('eventInfo').component('eventInfoComp', {
         userId: '='
     },
     controller: ['$routeParams', '$window', '$scope', '$localStorage', '$q', 'UserEventFactory', 'EventFactory',
-        function UserController($routeParams, $window, $scope, $localStorage, $q, UserEventFactory, EventFactory) {
+        'PostFactory',
+        function UserController($routeParams, $window, $scope, $localStorage, $q, UserEventFactory, EventFactory,
+                                PostFactory) {
             var self = this;
             self.activeMenu = 'Info';
             self.today = new Date();
@@ -21,6 +23,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                     EventFactory.leaveEvent({
                         id: self.event.id
                     }, function () {
+                        notification('Вы покинули ивент "' + self.event.title + '"');
                         self.event = getEvent();
                     }, function (errResponse) {
                         errResponseFunction(errResponse, 'Error while leave Event');
@@ -29,6 +32,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                     EventFactory.joinEvent({
                         id: self.event.id
                     }, function () {
+                        notification('Вы присоединились к ивенту "' + self.event.title + '"');
                         self.event = getEvent();
                     }, function (errResponse) {
                         angular.element('#myModalClosed').modal('show');
@@ -153,6 +157,32 @@ angular.module('eventInfo').component('eventInfoComp', {
                 }, 500);
             };
 
+            self.shareFriends = function () {
+                var day = formatTime(self.event.startTime.getDate());
+                var month = formatTime(self.event.startTime.getMonth());
+                var hours = formatTime(self.event.startTime.getHours());
+                var minutes = formatTime(self.event.startTime.getMinutes());
+                var seconds = formatTime(self.event.startTime.getSeconds());
+
+                var post = {
+                    id: null,
+                    user_id: self.userId,
+                    security: 'Anybody views a post',
+                    text: 'Я иду ' + day + '.' + month + ' в ' + hours + ':' + minutes + ':' + seconds +
+                    ' в ' + self.event.place.title + '.' +
+                    ' Подробности по ссылке: http://localhost:8080/master.html#!/eventInfo/' + self.event.id,
+                    title: 'Я участвую вивенте: ' + self.event.title
+                };
+
+               PostFactory.createPost(
+                    post
+                , function () {
+                       notification('Сообщение успешно опубликованно');
+                }, function (errResponse) {
+                    errResponseFunction(errResponse, 'Error while creating Post');
+                });
+            };
+
             var getEvent = function () {
                 return EventFactory.getEvent(
                     {id: $routeParams.id},
@@ -237,6 +267,18 @@ angular.module('eventInfo').component('eventInfoComp', {
                 } else {
                     console.error(messageError);
                 }
+            }
+
+            function formatTime(time) {
+                return time >= 10 ? time : '0' + time;
+            }
+
+            function notification(text) {
+                self.notification = text;
+                angular.element('#notification').modal('show');
+                $window.setTimeout(function () {
+                    angular.element('#notification').modal('hide');
+                }, 2000);
             }
         }]
 });

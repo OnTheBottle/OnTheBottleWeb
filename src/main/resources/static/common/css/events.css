@@ -318,3 +318,10 @@
     transform: translatey(3px);
     background-image: url("../../images/events/load.svg") !important;
 }
+
+.main-content .notification {
+    border-radius: 0.7rem;
+    background: black;
+    font-size: 1.4rem;
+    color: snow;
+}

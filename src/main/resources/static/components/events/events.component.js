@@ -90,6 +90,7 @@ angular.module('eventsApp').component('eventsComp', {
                         owner: self.userId,
                         addPost: self.isAddPost
                     }, function () {
+                        notification('Событие ' + self.title + ' созданно!');
                         self.util.resetEvent();
                         self.util.getEvents();
                     }, function (errResponse) {
@@ -152,6 +153,14 @@ angular.module('eventsApp').component('eventsComp', {
                 } else {
                     console.error(messageError);
                 }
+            }
+
+            function notification(text) {
+                self.notification = text;
+                angular.element('#notification').modal('show');
+                $window.setTimeout(function () {
+                    angular.element('#notification').modal('hide');
+                }, 2000);
             }
         }]
 });

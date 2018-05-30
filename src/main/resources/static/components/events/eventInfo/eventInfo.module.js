@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('eventInfo',['ngRoute', 'ngStorage', 'eventsService', 'usersService']);
+angular.module('eventInfo',['ngRoute', 'ngStorage', 'eventsService', 'usersService', 'post']);

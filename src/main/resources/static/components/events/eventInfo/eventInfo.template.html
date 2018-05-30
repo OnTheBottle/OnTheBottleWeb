@@ -21,12 +21,15 @@
                 {{self.event.member ? 'Вы участвуете' : 'Присоединится'}}
             </button>
 
-            <div class="dropdown">
+            <div class="dropdown" ng-show="self.event.member && self.event.active">
                 <button type="button" class="btn btn-settings ml-2 dropdown-toggle" data-toggle="dropdown">
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                     <button type="button" class="dropdown-item"
-                            ng-show="self.event.active && (self.event.owner.id === self.userId)"
+                            ng-click="self.shareFriends()">Рассказать друзьям
+                    </button>
+                    <button type="button" class="dropdown-item"
+                            ng-show="self.event.owner.id === self.userId"
                             ng-click="self.activeMenu = 'Update'">Редактировать
                     </button>
                 </div>
@@ -238,6 +241,17 @@
                     <button class="btn btn-lg btn-danger" type="button" data-dismiss="modal">
                         Ок
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="notification" tabindex="-1" role="dialog" aria-labelledby="notificationTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content notification">
+                <div class="modal-body notification">
+                    {{self.notification}}
                 </div>
             </div>
         </div>
