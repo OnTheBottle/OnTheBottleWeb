@@ -32,8 +32,8 @@
 .ui-datepicker {
     display: none;
     width: 100%;
-    padding: 7px;
-    margin-bottom: 5px;
+    padding: .7rem;
+    margin-bottom: .5rem;
     cursor: default;
     text-transform: uppercase;
     font-size: 1.4rem;
@@ -43,7 +43,7 @@
 
 .ui-datepicker-header {
     position: relative;
-    padding-bottom: 5px;
+    padding-bottom: .5rem;
     border-bottom: 1px solid #d6d6d6;
 }
 
@@ -55,22 +55,22 @@
     position: relative;
     color: #565656;
     font-size: 1.5rem;
-    padding-right: 13px;
+    padding-right: 1.3rem;
 }
 
 .ui-datepicker-year {
     color: #565656;
     font-size: 1.5rem;
-    padding-left: 5px;
+    padding-left: .5rem;
 }
 
 .ui-datepicker-month:before {
     display: block;
     position: absolute;
-    top: 5px;
+    top: .5rem;
     right: 0;
-    width: 7px;
-    height: 7px;
+    width: .7rem;
+    height: .7rem;
     content: '';
     background: linear-gradient(to top, #8f8a8f 0%, #8f8e8c 100%);
     border-radius: 50%;
@@ -79,7 +79,7 @@
 .ui-datepicker-prev,
 .ui-datepicker-next {
     position: absolute;
-    padding: 5px 0;
+    padding: .5rem 0;
     cursor: pointer;
 }
 
@@ -96,19 +96,19 @@
 .ui-datepicker-prev span,
 .ui-datepicker-next span {
     display: block;
-    width: 10px;
-    height: 10px;
+    width: 1rem;
+    height: 1rem;
     text-indent: -9999px;
 }
 
 .ui-datepicker-prev span {
     background: url(../../images/events/arrow_prev.svg) no-repeat center;
-    background-size: 10px 10px;
+    background-size: 1rem 1rem;
 }
 
 .ui-datepicker-next span {
     background: url(../../images/events/arrow_next.svg) no-repeat center;
-    background-size: 10px 10px;
+    background-size: 1rem 1rem;
 }
 
 .ui-datepicker-prev-hover span {
@@ -124,8 +124,8 @@
 }
 
 .ui-datepicker-calendar th {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
     text-align: center;
     font-weight: normal;
     font-size: 1.2rem;
@@ -140,7 +140,7 @@
     display: block;
     outline: none;
     text-decoration: none;
-    padding: 0.05rem;
+    padding: .05rem;
     color: #8f8e8c;
     border: 1px solid transparent;
 }
@@ -160,14 +160,14 @@
     background-color: snow;
     border: 1px solid black;
     border-radius: 10px;
-    margin: 10px 0;
-    padding: 5px;
+    margin: 1rem 0;
+    padding: .5rem;
     overflow: hidden;
 }
 
 .main-content .event .pub-img {
-    width: 110px;
-    height: 110px;
+    width: 11rem;
+    height: 11rem;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -194,7 +194,7 @@
 .main-content .event .people {
     font-size: 1.4rem;
     padding: 0;
-    margin: 0 10px;
+    margin: 0 1rem;
 }
 
 .main-content .event .description {
@@ -208,15 +208,15 @@
 
 .main-content .event .time {
     position: absolute;
-    bottom: 4px;
-    left: 100px;
+    bottom: .4rem;
+    left: 10rem;
     color: #000000;
 }
 
 .main-content .event .people {
     position: absolute;
-    bottom: 6px;
-    right: 3px;
+    bottom: .6rem;
+    right: .3rem;
     color: #000000;
     vertical-align: middle;
 }
@@ -233,19 +233,19 @@
     display: inline-block;
     left: 10%;
     width: 100%;
-    max-width: 14px;
-    max-height: 14px;
+    max-width: 1.4rem;
+    max-height: 1.4rem;
 }
 
 .main-content .event .control {
     position: absolute;
-    bottom: 4px;
-    right: 50px;
+    bottom: .4rem;
+    right: 5rem;
 }
 
 .main-content .event .control button {
     background: #00A5E3;
-    width: 110px;
+    width: 11rem;
     font-size: 1.3rem;
 }
 
@@ -290,7 +290,7 @@
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 0.5rem 0;
+    padding: .5rem 0;
     margin: -9rem 0 0 -16rem;
 
     position: absolute;
@@ -302,7 +302,7 @@
     position: absolute;
     top: 100%;
     left: 70%;
-    margin-left: -5px;
+    margin-left: -.5rem;
     border: 5px solid transparent;
     border-top-color: black;
 }
@@ -316,11 +316,11 @@
 
 .main-content .load:active {
     transform: translatey(3px);
-    background-image: url("../../images/events/load.svg") !important;
+    background-image: url(../../images/events/load.svg) !important;
 }
 
 .main-content .notification {
-    border-radius: 0.7rem;
+    border-radius: .7rem;
     background: black;
     font-size: 1.4rem;
     color: snow;

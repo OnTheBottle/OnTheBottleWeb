@@ -9,7 +9,7 @@
 
 .main-content .img_wrap {
     width: 100%;
-    height: 200px;
+    height: 20rem;
 }
 
 .main-content .img_wrap img {
@@ -45,7 +45,7 @@
 
 .main-content .title-event .control {
     background: #00A5E3;
-    width: 125px;
+    width: 12.5rem;
     font-size: 1.4rem;
 }
 
@@ -84,7 +84,7 @@
     color: snow;
     text-align: center;
     border-radius: 6px;
-    padding: 0.5rem 0;
+    padding: .5rem 0;
     margin: -9rem 0 0 -16rem;
 
     position: absolute;
@@ -96,7 +96,7 @@
     position: absolute;
     top: 100%;
     left: 70%;
-    margin-left: -5px;
+    margin-left: -.5rem;
     border: 5px solid transparent;
     border-top-color: black;
 }
@@ -108,7 +108,7 @@
 .main-content .event-description,
 .main-content .event-time,
 .main-content .event-place {
-    padding-left: 25px;
+    padding-left: 2.5rem;
 }
 
 .main-content .event-description p,
@@ -123,9 +123,9 @@
     display: block;
     position: absolute;
     content: '';
-    width: 20px;
-    height: 20px;
-    margin: 1px 0 0 -25px;
+    width: 2rem;
+    height: 2rem;
+    margin: .1rem 0 0 -2.5rem;
 }
 
 .main-content .event-description:before {
@@ -191,7 +191,7 @@
     width: 2.7rem;
     height: 2.7rem;
     right: 1rem;
-    top: 0.7rem
+    top: .7rem
 }
 
 .main-content .users-event .user-friend img:first-of-type {
@@ -246,7 +246,7 @@
 }
 
 .main-content .notification {
-    border-radius: 0.7rem;
+    border-radius: .7rem;
     background: black;
     font-size: 1.4rem;
     color: snow;

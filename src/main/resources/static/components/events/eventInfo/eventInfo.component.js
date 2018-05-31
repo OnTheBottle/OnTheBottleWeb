@@ -138,7 +138,7 @@ angular.module('eventInfo').component('eventInfoComp', {
 
                 var post = {
                     id: null,
-                    user_id: self.userId,
+                    userId: self.userId,
                     security: 'Anybody views a post',
                     text: 'Я иду ' + day + '.' + month + ' в ' + hours + ':' + minutes + ':' + seconds +
                     ' в ' + self.event.place.title + '.' +
