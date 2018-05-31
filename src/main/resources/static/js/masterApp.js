@@ -61,8 +61,8 @@ const TIME_TO_CLEAR_USER_INFO = 30;
         cache.tokenJwt = tokenJwt;
 
         cache.users = {
-            users: cache.users.users || [],
-            count: cache.users.count || 0,
+            users: cache.users === undefined ? [] : cache.users.users,
+            count: cache.users === undefined ? 0 : cache.users.count,
             addUser: function (user) {
                 user.avatarUrl = user.avatarUrl || DEFAULT_AVATAR_PATH;
                 if (this.count < 100) {
