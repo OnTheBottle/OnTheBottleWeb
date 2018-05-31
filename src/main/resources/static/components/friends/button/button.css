@@ -1,0 +1,8 @@
+div#smallButton {
+    position:absolute;
+    /*width:100px;*/
+    /*height:100px;*/
+    /*background:red;*/
+    left:3px;
+    top:3px;
+}

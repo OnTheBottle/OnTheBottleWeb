@@ -14,6 +14,8 @@ angular.module('mainApp')
                 template: '<user-info-comp auth-id="ctrl.authId"></user-info-comp>'
             }).when('/friend', {
                 template: '<view-friends-comp user-id="ctrl.authId"></view-friends-comp>'
+            }).when('/link-friend', {
+                template: '<link-friends-comp></view-friends-comp>'
             }).when('/event', {
                 template: '<events-comp user-id="ctrl.authId"></events-comp>'
             }).when('/eventInfo/:id', {

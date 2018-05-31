@@ -7,21 +7,21 @@
             <p class="text-info h2 text-center">Запрос из строки поиска: {{model.whatToFind}}</p>
             <!--end your HTML-->
             <!--<div class="row">-->
-                <!--<div class="col-md-5">-->
-                    <!--<div ng-repeat="person in model.listOfPersons">-->
-                        <!--<div class="alert alert-info bg-light">-->
-                            <!--<img src="{{person.avatarUrl}}">-->
-                            <!--{{person.name}} {{person.surname}}-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div class="col-md-5">-->
+            <!--<div ng-repeat="person in model.listOfPersons">-->
+            <!--<div class="alert alert-info bg-light">-->
+            <!--<img src="{{person.avatarUrl}}">-->
+            <!--{{person.name}} {{person.surname}}-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
             <!--</div>-->
 
 
             <div class="row">
                 <div ng-repeat="person in model.listOfPersons">
-                    <a class="dropdown-item p-0" href="#!/userInfo/{{person.id}}">
-                        <div class="alert alert-info bg-light m-3">
+                    <div class="alert alert-info bg-light m-3">
+                        <a class="dropdown-item p-0" href="#!/userInfo/{{person.id}}">
                             <div>
                                 <img ng-if="person.avatarUrl" src="{{person.avatarUrl}}" class="friend-avatar"
                                      alt="ava">
@@ -31,8 +31,11 @@
                             <div class="pb-1">
                                 {{person.name}} {{person.surname}}
                             </div>
+                        </a>
+                        <div>
+                            <button-friends-comp size="small" user-id="person.id"></button-friends-comp>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
             <!--{{model.listOfPersons}}-->
