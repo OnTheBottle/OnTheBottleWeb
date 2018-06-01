@@ -66,7 +66,7 @@
 
             <div class="page_block mt-2 user-friend" ng-show="self.friendsPreliminary[0] != null"
                  ng-click="self.showUsers('friends')">
-                <p>Пойдет {{self.event.friendsCounter}} друг(а)</p>
+                <p>{{self.event.active ? 'Пойдет' : 'Было'}} {{self.event.friendsCounter}} друг(а)</p>
                 <img ng-src="{{self.friendsPreliminary[0].avatarUrl}}" ng-show="self.friendsPreliminary[0] != null"
                      title="{{self.friendsPreliminary[0].name}} {{self.friendsPreliminary[0].surname}}">
                 <img ng-src="{{self.friendsPreliminary[1].avatarUrl}}" ng-show="self.friendsPreliminary[1] != null"
