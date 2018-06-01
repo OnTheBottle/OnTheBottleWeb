@@ -26,7 +26,12 @@ angular.module('eventInfo').component('eventInfoComp', {
                         notification('Вы покинули ивент "' + self.event.title + '"');
                         self.event = getEvent();
                     }, function (errResponse) {
-                        errResponseFunction(errResponse, 'Error while leave Event');
+                        if (errResponse.data === 'Closed event' ) {
+                            self.notification('Ивент уже закончен :(');
+                            self.event = getEvent();
+                        } else {
+                            errResponseFunction(errResponse, 'Error while leave Event');
+                        }
                     });
                 } else {
                     EventFactory.joinEvent({
@@ -35,8 +40,12 @@ angular.module('eventInfo').component('eventInfoComp', {
                         notification('Вы присоединились к ивенту "' + self.event.title + '"');
                         self.event = getEvent();
                     }, function (errResponse) {
-                        angular.element('#myModalClosed').modal('show');
-                        errResponseFunction(errResponse, 'Error while leave Event');
+                        if (errResponse.data === 'Closed event' ) {
+                            self.notification('Ивент уже закончен :(');
+                            self.event = getEvent();
+                        } else {
+                            errResponseFunction(errResponse, 'Error while leave Event');
+                        }
                     });
                 }
             };
