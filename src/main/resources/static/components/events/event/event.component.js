@@ -22,7 +22,12 @@ angular.module('event').component('eventComp', {
                         self.notification('Вы покинули ивент "' + self.event.title + '"');
                         self.getEvents();
                     }, function (errResponse) {
-                        errResponseFunction(errResponse, 'Error while leave Event');
+                        if (errResponse.data === 'Closed event' ) {
+                            self.notification('Ивент уже закончен :(');
+                            self.getEvents();
+                        } else {
+                            errResponseFunction(errResponse, 'Error while leave Event');
+                        }
                     });
                 } else {
                     EventFactory.joinEvent({
@@ -32,8 +37,8 @@ angular.module('event').component('eventComp', {
                         self.getEvents();
                     }, function (errResponse) {
                         if (errResponse.data === 'Closed event' ) {
-                            angular.element('#myModalClosed').modal('show');
-                            $window.location.href = '#!/event';
+                            self.notification('Ивент уже закончен :(');
+                            self.getEvents();
                         } else {
                             errResponseFunction(errResponse, 'Error while join Event');
                         }
