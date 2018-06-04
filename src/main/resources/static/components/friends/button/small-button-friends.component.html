@@ -1,25 +1,16 @@
 <link rel="stylesheet" href="components/friends/button/button.css" type="text/css">
 
-<script>
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
-
 <div id="smallButton">
-    <div ng-show="model.user.friendStatus == 'confirmed'">
+    <div ng-show="model.user.friendStatus == 'confirmed'" title="Удалить из друзей">
         <button type="button" ng-click="model.denyRelation(model.user.id)"
-                data-toggle="tooltip" data-placement="top" title="Удалить из друзей"
                 class="btn btn-danger p-0 pl-2 pr-2">-</button>
     </div>
-    <div ng-show="model.user.friendStatus == 'requested'">
+    <div ng-show="model.user.friendStatus == 'requested'" title="Запрос еще не рассмотрен">
         <button type="button"
-                data-toggle="tooltip" data-placement="top" title="Запрос еще не рессмотрен"
                 class="btn btn-default p-0 pl-2 pr-2">?</button>
     </div>
-    <div ng-show="model.user.friendStatus == 'unknown'">
+    <div ng-show="model.user.friendStatus == 'unknown'" title="Пригласить в друзья">
         <button type="button" ng-click="model.invite(model.user.id)"
-                data-toggle="tooltip" data-placement="top" title="Пригласить в друзья"
                 class="btn btn-info p-0 pl-2 pr-2">+</button>
     </div>
 </div>
