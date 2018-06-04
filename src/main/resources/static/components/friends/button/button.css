@@ -1,5 +1,30 @@
-div#smallButton {
-    position:absolute;
-    right:0.5rem;
-    top:0.1rem;
+/*div#smallButton {*/
+    /*position:absolute;*/
+    /*right:0.5rem;*/
+    /*top:0.1rem;*/
+/*}*/
+
+.tooltip {
+    border-bottom: 1px dotted #0077AA;
+    cursor: help;
+}
+
+.tooltip::after {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 8px 8px 8px 0px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    color: #FFF;
+    content: attr(data-tooltip); /* Главная часть кода, определяющая содержимое всплывающей подсказки */
+    margin-top: -24px;
+    opacity: 0; /* Наш элемент прозрачен... */
+    padding: 3px 7px;
+    position: absolute;
+    visibility: hidden; /* ...и скрыт. */
+
+    transition: all 0.4s ease-in-out; /* Добавить плавности по вкусу */
+}
+
+.tooltip:hover::after {
+    opacity: 1; /* Показываем его */
+    visibility: visible;
 }
