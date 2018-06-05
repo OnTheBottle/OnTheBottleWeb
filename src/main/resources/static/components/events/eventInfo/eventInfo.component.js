@@ -15,7 +15,16 @@ angular.module('eventInfo').component('eventInfoComp', {
             self.today = new Date();
 
             self.$onInit = function () {
-                self.event = getEvent();
+                var process = $q.defer();
+                console.log($localStorage.users);
+                process.promise
+                    .then(function () {
+                        return getEvent();
+                    })
+                    .then(function (event) {
+                        self.event = event;
+                    });
+                process.resolve();
             };
 
             self.control = function () {
@@ -112,7 +121,6 @@ angular.module('eventInfo').component('eventInfoComp', {
                         })
                         .then(function (noInfoUsers) {
                             if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.friends);
-                            return true;
                         })
                         .then(function () {
                             noInfoUsers = setUsersToArr(data.users, self.users);
@@ -120,7 +128,6 @@ angular.module('eventInfo').component('eventInfoComp', {
                         })
                         .then(function (noInfoUsers) {
                             if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.users);
-                            return true;
                         })
                         .then(function () {
                             angular.element('#eventUsers').modal('show');
@@ -171,18 +178,36 @@ angular.module('eventInfo').component('eventInfoComp', {
                     function (event) {
                         self.friendsPreliminary = [];
                         self.usersPreliminary = [];
-                        self.formatDate(event);
-                        copyEventToUpdate(self.event);
                         var infoOwner;
                         var noInfoUsers;
+                        var processShowEvent = $q.defer();
 
-                        noInfoUsers = setUsersToArr(event.friends, self.friendsPreliminary);
-                        if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.friendsPreliminary);
-                        infoOwner = setInfoOwner(self.friendsPreliminary, event.owner);
-
-                        noInfoUsers = setUsersToArr(event.users, self.usersPreliminary);
-                        if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.usersPreliminary);
-                        if (!infoOwner) setInfoOwner(self.usersPreliminary, event.owner);
+                        processShowEvent.promise
+                            .then(function () {
+                                self.formatDate(event);
+                                copyEventToUpdate(self.event);
+                            })
+                            .then(function () {
+                                noInfoUsers = setUsersToArr(event.friends, self.friendsPreliminary);
+                                return noInfoUsers;
+                            })
+                            .then(function (noInfoUsers) {
+                                if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.friendsPreliminary);
+                            })
+                            .then(function () {
+                                infoOwner = setInfoOwner(self.friendsPreliminary, event.owner);
+                            })
+                            .then(function () {
+                                noInfoUsers = setUsersToArr(event.users, self.usersPreliminary);
+                                return noInfoUsers;
+                            })
+                            .then(function (noInfoUsers) {
+                                if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.usersPreliminary);
+                            })
+                            .then(function () {
+                                if (!infoOwner) setInfoOwner(self.usersPreliminary, event.owner);
+                            });
+                        processShowEvent.resolve();
                     }, function (errResponse) {
                         if (errResponse.data === 'Doesn\'t exist event') {
                             $window.location.href = '#!/event';
