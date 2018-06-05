@@ -1,23 +1,20 @@
 'use strict';
 
-angular.module('comment').factory('CommentFactory', ['$resource',
-    function ($resource) {
-        return $resource('http://localhost:8083/getComment', {}, {
-            getComment: {method: "GET"},
+angular.module('comment').factory('CommentFactory', ['$resource', '$cookies',
+    function ($resource, $cookies) {
+        return $resource(MESSAGE_PATH + '/:path', {}, {
             getComments: {
-                url: 'http://localhost:8083/getComments',
+                params: {path: 'getComments', access_token: $cookies.get('access_token'), postId: '@postId'},
                 method: "GET",
                 isArray: true
             },
             createComment: {
-                url: 'http://localhost:8083/:path',
-                params: {path: 'saveComment'},
-                method: "POST",
-                isArray: true
+                params: {path: 'saveComment', access_token: $cookies.get('access_token')},
+                method: "POST"
             },
             deleteComment: {
-                url: 'http://localhost:8083/deleteComment',
-                method: "POST"
+                params: {path: 'deleteComment', access_token: $cookies.get('access_token'), commentId: '@commentId'},
+                method: "Delete"
             }
         });
     }

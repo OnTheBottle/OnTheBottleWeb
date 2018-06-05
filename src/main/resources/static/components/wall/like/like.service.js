@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('like').factory('LikeFactory', ['$resource',
-    function ($resource) {
-        return $resource('http://localhost:8083/:path', {}, {
+angular.module('like').factory('LikeFactory', ['$resource', '$cookies',
+    function ($resource, $cookies) {
+        return $resource(MESSAGE_PATH + '/:path', {}, {
             addLike: {
-                params: {path: 'addLike'},
+                params: {path: 'addLike', access_token: $cookies.get('access_token')},
                 method: "Post",
                 transformResponse: function (data, headers, statusCode) {
                     console.log(statusCode);
@@ -16,9 +16,13 @@ angular.module('like').factory('LikeFactory', ['$resource',
                 }
             },
             getLikes: {
-                url: 'http://localhost:8083/getLikes',
+                params: {path: 'getLikes', access_token: $cookies.get('access_token'), postId: '@postId'},
                 method: "GET",
                 isArray: true
+            },
+            deleteLike:{
+                params: {path: 'deleteLike', access_token: $cookies.get('access_token'), likeId: '@likeId', postId:'@postId'},
+                method: "DELETE",
             }
         });
     }

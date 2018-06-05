@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('like', ['ngRoute', 'ngResource']);
+angular.module('like', ['ngRoute', 'ngResource', 'ngCookies']);

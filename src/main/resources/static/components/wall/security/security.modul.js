@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('security', ['ngRoute', 'ngResource']);
+angular.module('security', ['ngRoute', 'ngResource', 'ngCookies']);

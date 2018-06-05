@@ -1,43 +1,57 @@
 'use strict';
 
-angular.module('post').factory('PostFactory', ['$resource',
-    function ($resource) {
-        return $resource('http://localhost:8083/getPost', {}, {
-            getPost: {method: "GET"},
+angular.module('post').factory('PostFactory', ['$resource', '$cookies',
+    function ($resource, $cookies) {
+        return $resource(MESSAGE_PATH + '/:path', {}, {
             getPosts: {
-                url: 'http://localhost:8083/getPosts',
+                params: {path: 'getPosts', access_token: $cookies.get('access_token'), userId: '@Id'},
                 method: "GET",
                 isArray: true
             },
             createPost: {
-                url: 'http://localhost:8083/:path',
-                params: {path: 'savePost'},
+                params: {path: 'savePost', access_token: $cookies.get('access_token')},
                 method: "POST"
             },
             rewritePost: {
-                url: 'http://localhost:8083/:path',
-                params: {path: 'updatePost'},
+                params: {path: 'updatePost', access_token: $cookies.get('access_token')},
                 method: "POST"
             },
             dropPost: {
-                url: 'http://localhost:8083/deletePost',
+                params: {path: 'deletePost', access_token: $cookies.get('access_token'), postId: '@postId'},
                 method: "DELETE"
             },
-            getPostsFriend:{
-                url: 'http://localhost:8083/getPostsFriend',
+            getPostsFriend: {
+                params: {path: 'getPostsFriend', access_token: $cookies.get('access_token'), userId: '@userId'},
                 method: "GET",
                 isArray: true
             },
-            savePostToWall:{
-                url: 'http://localhost:8083/:path',
-                params: {path: 'savePostToMyWall'},
+            savePostToWall: {
+                params: {
+                    path: 'savePostToMyWall',
+                    access_token: $cookies.get('access_token'),
+                    postId: '@postId',
+                    saverId: '@saverId'
+                },
                 method: "POST"
             },
-            dropFromWall:{
-                url: 'http://localhost:8083/:path',
-                params: {path: 'dropFromWall'},
+            dropFromWall: {
+                params: {
+                    path: 'dropFromWall',
+                    access_token: $cookies.get('access_token'),
+                    postId: '@postId',
+                    saverId: '@saverId'
+                },
                 method: "DELETE"
-
+            },
+            getMorePosts: {
+                params: {
+                    path: 'getMorePosts',
+                    access_token: $cookies.get('access_token'),
+                    lastPostId: '@lastPostId',
+                    userId: '@userId'
+                },
+                method: "GET",
+                isArray: true
             }
         });
     }

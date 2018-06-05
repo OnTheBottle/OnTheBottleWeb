@@ -1,0 +1,32 @@
+
+<link href="common/css/dropzone/dropzone.css" rel="stylesheet"/>
+    <script type="text/javascript">
+        Dropzone.autoDiscover = false;
+    </script>
+
+<div ng-cloak>
+<div class="col-xs-6 col-xs-offset-3" >
+
+        <form action="" class="dropzone" dropzone="" id="dropzone">
+            <div class="dz-default dz-message text-center" style="font-size: 3rem">
+                Drop files here or click on area to add files
+            </div>
+        </form>
+
+    <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+         aria-valuemax="100" aria-valuenow="0" style="opacity: 0;">
+        <div class="progress-bar progress-bar-success " style="width:0%;" data-dz-uploadprogress></div>
+    </div>
+
+    <div class="pull-right">
+        <button class="start btn btn-success" ng-click="$ctrl.uploadFile()" ng-hide="$ctrl.showUpload">Upload File</button>
+        <button class="btn btn-danger" ng-click="$ctrl.reset()"ng-hide="$ctrl.showReset">Reset Dropzone</button>
+    </div>
+
+</div>
+</div>
+
+<!-- Load Dropzone JS -->
+
+
+

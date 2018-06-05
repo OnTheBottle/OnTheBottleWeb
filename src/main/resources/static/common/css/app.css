@@ -229,6 +229,96 @@ li {
     border: 2px solid;
     border-color: blueviolet;
 }
-#editPost .modal-footer button{
+
+#editPost .modal-footer button {
     font-size: 1.4rem;
+}
+
+.thumb img {
+    -webkit-filter: grayscale(0);
+    filter: none;
+    border: 1px solid #0056b3;
+    margin-top: 1rem;
+}
+
+.thumb img:hover {
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+}
+
+.tooltip {
+    border-bottom: 1px dotted #0077AA;
+    cursor: help;
+}
+
+.tooltip::after {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 8px 8px 8px 0px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    color: #FFF;
+    content: attr(data-tooltip); /* Главная часть кода, определяющая содержимое всплывающей подсказки */
+    margin-top: -24px;
+    opacity: 0; /* Наш элемент прозрачен... */
+    padding: 3px 7px;
+    position: absolute;
+    visibility: hidden; /* ...и скрыт. */
+
+    transition: all 0.4s ease-in-out; /* Добавить плавности по вкусу */
+}
+
+.tooltip:hover::after {
+    opacity: 1; /* Показываем его */
+    visibility: visible;
+}
+
+.podskazka {
+    display: inline;
+    position: relative;
+}
+
+.podskazka:hover:after {
+    background: #333;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    bottom: 32px;
+    color: #fff;
+    content: attr(titled);
+    font-size: 1.4rem;
+    left: 20%;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: auto;
+
+}
+
+.podskazka:hover:before { /* Добавляем стрелочку внизу блока всплывающей подсказки */
+    border: solid;
+    border-color: rgba(0, 0, 0, 0.5) transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 26px;
+    content: "";
+    left: 50%;
+    position: absolute;
+    z-index: 99;
+}
+
+.modalBtn .btn {
+    background: transparent;
+}
+
+.updown {
+    position: fixed;
+    top: 44rem;
+    left: 44rem;
+}
+
+.upup {
+    position: fixed;
+    top: 35rem;
+    left: 44rem;
+}
+
+.scrollElements a{
+    color: #00A5E3;
 }

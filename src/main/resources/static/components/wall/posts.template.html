@@ -1,11 +1,16 @@
 <link rel="stylesheet" href="common/css/app.css" type="text/css">
 
 
-<div class="container-fluid">
+<div class="container-fluid posts">
     <div class="row">
         <div class="user col-md-4">
             <user-ok></user-ok>
+            <div class="scrollElements">
+                <a href="" ng-click="$ctrl.gotoTop()" class="upup podskazka" titled="scroll up"><i class="fas fa-caret-up fa-lg"></i></a>
+                <a href="" ng-click="$ctrl.gotoDown()" class="updown podskazka" titled="scroll down"><i class="fas fa-caret-down fa-lg"></i></a>
+            </div>
         </div>
+
         <div class="posts col-md-8">
             <div class="card searchBody">
                 <div class="card-body poisk container-fluid">
@@ -16,7 +21,8 @@
                         </div>
                         <div class="col-md-6">
                             Sort by:
-                            <select class="sort" ng-model="$ctrl.orderProp" title="Change sort option">
+                            <select class="sort podskazka" ng-model="$ctrl.orderProp" titled="Change sort option">
+                                <option value="none">None</option>
                                 <option value="title">Title</option>
                                 <option value="date">Date</option>
                             </select>
@@ -26,7 +32,7 @@
             </div>
             <div class="posts">
                 <div ng-show="$ctrl.showForm">
-                    <form class="post-text" name="myForm" ng-submit="$ctrl.submit()">
+                    <div class="post-text" name="myForm">
                         <input class="id" ng-show="postid" ng-model="$ctrl.post.id"/>
                         <div class="card profile-info bg-white ">
                             <input type="text" class="form-control add-title-input" ng-model="$ctrl.post.title"
@@ -35,62 +41,75 @@
                                       class="form-control input-group-lg p-text-area" rows="2"
                                       placeholder="Whats in your mind today?">
                             </textarea>
+                            <div class="addImage" ng-show="showAreaImage">
+
+                                <file-comp state="$ctrl.stan" stata="stat"
+                                           set-uploads-files="$ctrl.setUploadFiles"></file-comp>
+                            </div>
                             <div class="card-footer fishki container-fluid cardEdit ">
                                 <div class="row">
                                     <div class="col-md-5 btn-group vcenter cnopki">
-                                        <button type="button" class="btn" title="Add your place on map"><i
-                                                class="fas fa-map-marker-alt fa-lg "></i>
+                                        <button type="button" class="btn podskazka" titled="Add your place on map">
+                                            <i class="fas fa-map-marker-alt fa-lg "></i>
                                         </button>
-                                        <button type="button" class="btn" title="Add images"><i
-                                                class="fas fa-camera-retro fa-lg "></i>
+                                        <button type="button" class="btn podskazka" titled="Add images"
+                                                ng-click="showAreaImage = ! showAreaImage">
+                                            <i class="fas fa-camera-retro fa-lg "></i>
                                         </button>
-                                        <button type="button" class="btn" title="Add video"><i
-                                                class="fas fa-film fa-lg "></i></button>
-                                        <button type="button" class="btn" title="Add sound "><i
-                                                class="fas fa-microphone fa-lg "></i></button>
+                                        <button type="button" class="btn podskazka" titled="Add video">
+                                            <i class="fas fa-film fa-lg "></i></button>
+                                        <button type="button" class="btn podskazka" titled="Add sound ">
+                                            <i class="fas fa-microphone fa-lg "></i></button>
                                     </div>
                                     <div class="col-md-5  container vcenter">
                                         <div class="row">
                                             <div class="col-md-3 vcenter">
-                                                <p class="eye"><i class="fas fa-eye fa-lg"></i></p>
+                                                <p class="eye podskazka" titled="vision"
+                                                   ng-switch="$ctrl.post.security.id"><i ng-switch-when="1"
+                                                                                         class="fas fa-globe fa-lg"></i>
+                                                    <i ng-switch-when="2" class="fas fa-users fa-lg"></i>
+                                                    <i ng-switch-when="3" class="fas fa-user-secret fa-lg"></i>
+                                                </p>
                                             </div>
-                                            <div class="col-md-9 vcenter">
+                                            <div class="col-md-9 vcenter ">
                                                 <label for="Select1">
-                                                    <select class="form-control select" id="Select1" style="padding: 0"
+                                                    <select class="form-control select " id="Select1" style="padding: 0"
 
                                                             ng-options="security.description for security in $ctrl.securities track by security.id"
-                                                            ng-model="$ctrl.post.security.description">
+                                                            ng-model="$ctrl.post.security">
                                                     </select>
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2 btn-group text-left vcenter">
-                                        <button type="submit" class="btn" data-toggle="tooltip" data-placement="top"
-                                                title="{{!$ctrl.post.id ? 'Add' : 'Update'}}"
-                                                value="{{!$ctrl.post.id ? 'Add' : 'Update'}}"
-                                                ng-click="$ctrl.submit"><i class="far fa-paper-plane fa-lg "></i>
+                                        <button type="button" class="btn podskazka" titled="Add post"
+                                                ng-click="$ctrl.download()"><i class="far fa-paper-plane fa-lg "></i>
                                         </button>
-                                        <button type="button" data-toggle="tooltip" data-placement="top"
-                                                title="Clean form"
-                                                class="btn"
-                                                ng-click="$ctrl.reset()"><i class="fas fa-undo-alt fa-lg"></i>
+                                        <button class="btn podskazka" titled="Clean form" type="button"
+                                                ng-click="$ctrl.resetAll()">
+                                            <i class="fas fa-undo-alt fa-lg"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
 
-                <div class="posts list">
-                    <post post="post" get-posts="$ctrl.fetchPosts()"
-                          set-likes-user="$ctrl.setLikesUser" bn-show="$ctrl.whoUser" useride="$ctrl.userid"
-                          edit-post="$ctrl.edit"
-                          ng-repeat="post in $ctrl.posts| filter:$ctrl.getPosts|orderBy:$ctrl.orderProp"></post>
+                <div class="posts list" infinite-scroll='$ctrl.loadMore()' infinite-scroll-distance='0'
+                     infinite-scroll-disabled="$ctrl.scroll" infinite-scroll-immediate-check="true"
+                     infinite-scroll-use-document-bottom="true">
+                    <post post="post" delete-post="$ctrl.deletePost"
+                          set-likes-user="$ctrl.setLikesUser" bn-show="$ctrl.whoUser" wall-user-id="$ctrl.userid"
+                          edit-post="$ctrl.edit" open-image="$ctrl.openImage"
+                          ng-repeat="post in $ctrl.posts| filter:$ctrl.getPosts|orderBy:$ctrl.orderProp"
+                          last="$last" likes="post.likes"></post>
+                    <div id="scrolList" class="text-center fa-3x" ng-show="$ctrl.wait">
+                        <span class="podskazka" titled="Посты на подходе"><i class="fas fa-spinner fa-pulse"></i></span>
+                    </div>
                 </div>
-
-                <div class="post-load-more text-center">
+                <div class="post-load-more text-center" id="bottom">
                     <div class="modal fade" id="listLikes" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
                          aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -171,30 +190,28 @@
                                                     {{security.description}}
                                                 </option>
                                             </select>
-
-
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-md-6 btn-group text-left">
-                                                <button type="button" class="btn" title="Add your place on map"><i
+                                            <div class="col-md-6 btn-group text-left modalBtn">
+                                                <button type="button" class="btn podskazka"
+                                                        titled="Add your place on map"><i
                                                         class="fas fa-map-marker-alt fa-lg "></i>
                                                 </button>
-                                                <button type="button" class="btn" title="Add images"><i
+                                                <button type="button" class="btn podskazka" titled="Add images"><i
                                                         class="fas fa-camera-retro fa-lg "></i>
                                                 </button>
-                                                <button type="button" class="btn" title="Add video"><i
+                                                <button type="button" class="btn podskazka" titled="Add video"><i
                                                         class="fas fa-film fa-lg "></i></button>
-                                                <button type="button" class="btn" title="Add sound "><i
+                                                <button type="button" class="btn podskazka" titled="Add sound "><i
                                                         class="fas fa-microphone fa-lg "></i></button>
                                             </div>
-                                            <div class="col-md-6 btn-group" style="padding-left: 12rem">
-                                                <button type="button" class="btn"
-                                                        data-placement="top"
-                                                        title="Update"
+                                            <div class="col-md-6 btn-group modalBtn" style="padding-left: 12rem">
+                                                <button type="button" class="btn podskazka"
+                                                        titled="Update"
                                                         ng-click="$ctrl.update()"><i class="far fa-edit fa-lg"></i>&nbsp
                                                     Update
                                                 </button>
@@ -205,10 +222,6 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" title="Show more posts"
-                            class="btn "><i class="fas fa-spinner fa-lg "></i> 4
-                    </button>
-
                 </div>
             </div>
         </div>
