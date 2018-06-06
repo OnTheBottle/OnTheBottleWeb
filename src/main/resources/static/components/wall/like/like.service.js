@@ -13,7 +13,8 @@ angular.module('like').factory('LikeFactory', ['$resource', '$cookies',
                         responseStatusCode: statusCode
                     };
                     return finalResponse;
-                }
+                },
+
             },
             getLikes: {
                 params: {path: 'getLikes', access_token: $cookies.get('access_token'), postId: '@postId'},
@@ -21,8 +22,9 @@ angular.module('like').factory('LikeFactory', ['$resource', '$cookies',
                 isArray: true
             },
             deleteLike:{
-                params: {path: 'deleteLike', access_token: $cookies.get('access_token'), likeId: '@likeId', postId:'@postId'},
+                params: {path: 'deleteLike', access_token: $cookies.get('access_token'), likeId: '@likeId'},
                 method: "DELETE",
+                isArray: true
             }
         });
     }

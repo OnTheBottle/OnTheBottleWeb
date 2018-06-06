@@ -6,8 +6,8 @@
         <div class="user col-md-4">
             <user-ok></user-ok>
             <div class="scrollElements">
-                <a href="" ng-click="$ctrl.gotoTop()" class="upup podskazka" titled="scroll up"><i class="fas fa-caret-up fa-lg"></i></a>
-                <a href="" ng-click="$ctrl.gotoDown()" class="updown podskazka" titled="scroll down"><i class="fas fa-caret-down fa-lg"></i></a>
+                <a href="" ng-click="$ctrl.gotoTop()" class="upup" ><i class="fas fa-caret-up fa-lg"></i></a>
+                <a href="" ng-click="$ctrl.gotoDown()" class="updown" ><i class="fas fa-caret-down fa-lg"></i></a>
             </div>
         </div>
 
@@ -104,7 +104,7 @@
                           set-likes-user="$ctrl.setLikesUser" bn-show="$ctrl.whoUser" wall-user-id="$ctrl.userid"
                           edit-post="$ctrl.edit" open-image="$ctrl.openImage"
                           ng-repeat="post in $ctrl.posts| filter:$ctrl.getPosts|orderBy:$ctrl.orderProp"
-                          last="$last" likes="post.likes"></post>
+                          last="$last" ></post>
                     <div id="scrolList" class="text-center fa-3x" ng-show="$ctrl.wait">
                         <span class="podskazka" titled="Посты на подходе"><i class="fas fa-spinner fa-pulse"></i></span>
                     </div>
@@ -115,7 +115,7 @@
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content ">
                                 <div class="modal-header">
-                                    <H4 class="text-center" style="margin: 0 auto;">Information about users, hwo add
+                                    <H4 class="text-center" style="margin: 0 auto;">Пользователи,оценившие пост оценкой &nbsp
                                         "{{$ctrl.stat}}"</H4>
                                 </div>
                                 <div class="modal-body">

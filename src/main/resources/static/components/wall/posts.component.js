@@ -147,10 +147,6 @@ angular.module('postsApp').component('postsComp', {
                 });
             }
 
-            this.fetchPosts = function () {
-                changePostsFor()
-            };
-
             self.deletePost = function (id) {
 
                 for (var i = self.posts.length - 1; i >= 0; i--) {
@@ -240,7 +236,6 @@ angular.module('postsApp').component('postsComp', {
             };
 
             self.setUploadFiles = function (files) {
-                console.log(files);
                 self.files = files;
                 submit();
             };
@@ -288,10 +283,9 @@ angular.module('postsApp').component('postsComp', {
                         self.wait = true;
                         var length = self.posts.length;
                         var lastPost = self.posts[self.posts.length - 1];
-                        console.log(length);
-                        PostFactory.getMorePosts({lastPostId: lastPost.id, userId: self.userid}, function (data) {
+                       PostFactory.getMorePosts({lastPostId: lastPost.id, userId: self.userid}, function (data) {
 
-                                console.log('догрузились посты', data);
+
                                 if (data.length < 5) {
                                     self.scroll = true;
                                 }
@@ -308,22 +302,22 @@ angular.module('postsApp').component('postsComp', {
                                 console.error('Error while fetching posts', errResponce);
                             });
                     }
-                    console.log("конец страницы");
+
                 }
             });
 
-            self.showDown=true;
-            self.showTop=false;
-            self.gotoTop=function (){
+            self.showDown = true;
+            self.showTop = false;
+            self.gotoTop = function () {
                 $("body,html").animate({
-                    scrollTop:0
+                    scrollTop: 0
                 }, 800);
             };
 
-            self.gotoDown = function() {
-                $("html, body").animate({ scrollTop: $(document).height() }, "slow");
-              //  return false;
-                };
+            self.gotoDown = function () {
+                $("html, body").animate({scrollTop: $(document).height()}, "slow");
+                //  return false;
+            };
 
 
         }

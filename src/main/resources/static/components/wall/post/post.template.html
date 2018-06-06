@@ -1,5 +1,5 @@
 <div class="card post"
-     ng-init="$ctrl.getUser($ctrl.post.user.id,$ctrl.post.id,$ctrl.post.uploadFiles,$ctrl.likes,$ctrl.post.comments)">
+     ng-init="$ctrl.getUser($ctrl.post.user.id,$ctrl.post.id,$ctrl.post.uploadFiles,$ctrl.post.likes,$ctrl.post.comments)">
 
     <div class="card-header container-fluid" style="background-color: white">
         <div class="header row">
@@ -85,14 +85,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 text-center">
-                            <div ng-if="$ctrl.showBtnLike">
-                                <button ng-if="$ctrl.showBtnLike" class="btn podskazka" type="button" ng-click="$ctrl.deleteLike()"
-                                        titled="Удалить оценку"><i ng-if="$ctrl.showBtnLike" class="far fa-thumbs-up fa-lg"></i>
+                            <div ng-if="$ctrl.likeUser">
+                                <button  class="btn podskazka" type="button" ng-click="$ctrl.deleteLike('like')"
+                                        titled="Удалить оценку"><i class="fas fa-thumbs-up fa-lg"></i>
                                 </button>
                             </div>
-                            <div ng-if="!$ctrl.showBtnLike">
-                                <button ng-if="!$ctrl.showBtnLike" class="btn podskazka" type="button" ng-click="$ctrl.like($ctrl.post.id)"
-                                        titled="Добавить лайк"><i ng-if="!$ctrl.showBtnLike" class="fas fa-thumbs-up fa-lg"></i>
+                            <div ng-if="!$ctrl.likeUser">
+                                <button class="btn podskazka" type="button" ng-click="$ctrl.like($ctrl.post.id)"
+                                        titled="Добавить лайк"><i class="far fa-thumbs-up fa-lg"></i>
                                 </button>
                             </div>
                             <div>
@@ -103,14 +103,14 @@
                             </div>
                         </div>
                         <div class="col-md-6 text-center">
-                            <div>
-                                <button ng-if="$ctrl.showBtnDislike" class="btn podskazka" type="button"
-                                        ng-click="$ctrl.deleteLike()"
-                                        titled="Удалить оценку"><i class="far fa-thumbs-up fa-lg"></i>
+                            <div ng-if="$ctrl.dislikeUser">
+                                <button  class="btn podskazka" type="button" ng-click="$ctrl.deleteLike('dislike')"
+                                         titled="Удалить оценку"><i class="fas fa-thumbs-down fa-lg"></i>
                                 </button>
-                                <button ng-if="!$ctrl.showBtnDislike" class="btn podskazka" type="button"
-                                        ng-click="$ctrl.dislike($ctrl.post.id)"
-                                        titled="Добавить дизлайк"><i class="fas fa-thumbs-down fa-lg"></i>
+                            </div>
+                            <div ng-if="!$ctrl.dislikeUser">
+                                <button  class="btn podskazka" type="button" ng-click="$ctrl.dislike($ctrl.post.id)"
+                                         titled="Добавить дизлайк"><i class="far fa-thumbs-down fa-lg"></i>
                                 </button>
                             </div>
                             <div>
@@ -125,10 +125,16 @@
 
             </div>
             <div class="col-md-4 text-center">
-                <div>
-                    <button class="btn podskazka" type="button"
-                            titled="Add your comment..." ng-click="$ctrl.focus()"><i
+                <div ng-if="$ctrl.stateComment">
+                    <button  class="btn podskazka" type="button"
+                            titled="Добавить комментарий" ng-click="$ctrl.focus()"><i
                             class="fas fa-comments fa-lg"></i> Comment
+                    </button>
+                </div>
+                <div ng-if="!$ctrl.stateComment">
+                    <button  class="btn podskazka" type="button"
+                            titled="Добавить комментарий" ng-click="$ctrl.focus()"><i
+                            class="far fa-comments fa-lg"></i> Comment
                     </button>
                 </div>
                 <div>
@@ -170,7 +176,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content ">
                 <div class="modal-header ">
-                    <H3>Your regard will be added some times before</H3>
+                    <H3>Вы уже оценили пост</H3>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <i class="fas fa-times fa-lg"></i>
                     </button>

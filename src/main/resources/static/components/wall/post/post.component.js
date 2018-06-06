@@ -18,11 +18,6 @@ angular.module('post')
                 self.countDislike = 0;
                 self.comments = [];
                 self.images = [];
-                console.log('likes', self.likesFromPost);
-//    self.length=function () {
-//    if(!self.comments){return 0}
-//    else{return self.comments.length}
-//};
                 self.description = function (string) {
                     if (string === "Anybody views a post") {
                         return 'globe'
@@ -40,10 +35,11 @@ angular.module('post')
                     self.comments = comments;
                     self.images = images;
                     self.likesFromPost = likes;
-                    console.log('likes on-init',likes);
+                    console.log('self.likes', self.likesFromPost);
+                    showStates(self.likesFromPost);
+                    showStateComment(self.comments);
                     self.user = $localStorage.users.getUser(id);
-                    self.showStateButtonLike(likes);
-                    self.showStateButtonDislike(likes);
+
                     if (!self.user) {
                         UsersIdEmptyInfo.setId(id);
                     }
@@ -53,8 +49,40 @@ angular.module('post')
                             UsersIdEmptyInfo.setId(idUserLike)
                         }
                     });
-                    counter(postId);
                 };
+
+                function showStates(likesArray) {
+                    if (likesArray.length === 0) {
+                        self.dislikeUser = false;
+                        self.likeUser = false;
+                    }
+
+                    var countDislikes = 0;
+                    var countLikes = 0;
+
+                    likesArray.forEach(function (like) {
+                        if (like.status === "dislike") {
+                            countDislikes++;
+                            if (like.user.id === $localStorage.authId) {
+                                self.dislikeUser = true;
+                            }
+                            else {
+                                self.dislikeUser = false;
+                            }
+                        }
+                        if (like.status === "like") {
+                            countLikes++;
+                            if (like.user.id === $localStorage.authId) {
+                                self.likeUser = true;
+                            }
+                            else {
+                                self.likeUser = false;
+                            }
+                        }
+                    });
+                    self.countLike = countLikes;
+                    self.countDislike = countDislikes;
+                }
 
                 self.focus = function () {
                     var id = self.random;
@@ -82,6 +110,19 @@ angular.module('post')
                     }
                 };
 
+                function showStateComment(array) {
+
+                    array.forEach(function (t) {
+                        if (t.user.id === $localStorage.authId) {
+                            self.stateComment = true;
+
+                        } else {
+                            self.stateComment = false;
+                        }
+                    });
+
+                }
+
                 this.dropComment = function (commentId) {
                     for (var i = self.comments.length - 1; i >= 0; i--) {
                         if (self.comments[i].id === commentId) {
@@ -92,7 +133,6 @@ angular.module('post')
 
                 this.keyPressed = function (keyEvent, post_id) {
                     if (keyEvent.keyCode === 13) {
-                        console.log('comm', self.commenting);
                         submitComment(post_id, self.commenting);
                     }
                 };
@@ -108,7 +148,6 @@ angular.module('post')
                             comment: comment
                         }, function (data) {
                             resetComment(data);
-                            console.log('Created comment');
                         }, function (errResponse) {
                             console.error('Error while creating Comment', errResponse);
                         })
@@ -117,6 +156,8 @@ angular.module('post')
 
                 function resetComment(data) {
                     self.comments.push(data);
+                    console.log('comments', self.comments);
+                    showStateComment(self.comments);
                     self.commenting = '';
                 }
 
@@ -125,71 +166,48 @@ angular.module('post')
                         function (data, headers, statusCode) {
                             if (statusCode === 204) {
                                 $('#warning').modal('show');
-                                self.warning = "your regard will be added some times before";
+                                self.warning = "Вы уже оценили пост";
                             }
                             if (statusCode === 200) {
-                                var respLikes = data.data;
-                                for (var a = self.likesFromPost.length - 1; a >= 0; a--) {
-                                    for (var i = respLikes.length - 1; i >= 0; i--) {
-                                        if (self.likesFromPost[a].id === respLikes[i].id) {
-                                            self.likesFromPost.push(self.likesFromPost[a]);
-                                        }
-                                    }
-                                }
-                                self.countLike = +1;
-                                self.warning = 'like added';
+
+                                var likesResponce = JSON.parse(data.data);
+                                //  console.log('parseJson',a);
+                                //  self.likeUser=true;
+                                //  self.countLike ++;
+                                self.likesFromPost = likesResponce;
+                                showStates(likesResponce);
                             }
                         }, function (errResponse) {
                             console.error('Error while adding like', errResponse);
                         })
                 };
-
                 self.warning = '';
-                self.showBtnLike=null;
-                self.showStateButtonLike = function (likeArray) {
-                    var likes = [];
-                    likes = likeArray;
-                    var count = 0;
-                    for (var a = 0; a++; a <= likes.length) {
-                        if (likes[a].user.id === $localStorage.authId) {
-                            if (likes[a].status === 'like') {
-                                count++;
-                            }
-                        }
-                    }
-                    if (count > 0) {
-                        self.showBtnLike=true;
-                    }
-                    else {
-                        self.showBtnLike = false;
-                    }
-                  };
 
-                self.showBtnDislike=null;
-                self.showStateButtonDislike = function (likeArray) {
-                    var likes = [];
-                    likes = likeArray;
-                    var count = 0;
-                    for (var a = 0; a++; a <= likes.length) {
-                        if (likes[a].user.id === $localStorage.authId) {
-                            if (likes[a].status === 'dislike') {
-                                count++;
-                            }
-                        }
-                    }
-                    if (count > 0) {
-                        self.showBtnDislike= true;
-                    }
-                    else {
-                        self.showBtnDislike= false;
-                    }
-                };
-
-                self.deleteLike = function () {
+                self.deleteLike = function (state) {
                     for (var a = self.likesFromPost.length - 1; a >= 0; a--) {
                         if (self.likesFromPost[a].user.id === $localStorage.authId) {
                             LikeFactory.deleteLike({likeId: self.likesFromPost[a].id}, function (data) {
-                                self.likesFromPost.slice(a, 1);
+                                if (data.length === 0) {
+                                    showStates(data);
+                                    self.likesFromPost = [];
+                                }
+                                else {
+                                    self.likesFromPost = JSON.parse(data);
+
+                                    showStates(data);
+                                }
+
+
+                                //         self.likesFromPost = data;
+                                //         if(state==='like'){
+                                //             self.likeUser=false;
+                                //             self.countLike --;
+                                //         }
+                                //         if(state==='dislike'){
+                                //             self.dislikeUser=false;
+                                //             self.countDislike --;
+                                //         }
+                                //showStates(self.likesFromPost);
                             }, function (errResponse) {
                                 console.error('Error while deleting Post', errResponse);
                             })
@@ -197,21 +215,20 @@ angular.module('post')
                     }
                 };
 
-
                 this.dislike = function (id) {
                     LikeFactory.addLike({postId: id, userId: self.userid, status: 'dislike'},
                         function (data, headers, statusCode) {
                             if (statusCode === 204) {
                                 $('#warning').modal('show');
-                                self.warning = "your regard will be added some times before";
-
+                                self.warning = "Вы уже оценили пост";
                             }
                             if (statusCode === 200) {
-
-                                self.likesFromPost = data.data;
-                                console.log('likes', self.likesFromPost);
-                                self.countDislike = +1;
-                                self.warning = 'dislike added';
+                                var likesResponce = JSON.parse(data.data);
+                                self.likesFromPost = likesResponce;
+                                showStates(likesResponce);
+                                //   self.likesFromPost=data.data;
+                                //  self.dislikeUser=true;
+                                //  self.countDislike ++;
                             }
                         }, function (errResponse) {
                             console.error('Error while adding dislike', errResponse);
@@ -223,31 +240,15 @@ angular.module('post')
                 };
 
                 this.open = function (id, stats) {
-                    console.log('open with', id);
                     information(id, stats);
                 };
-
-                function counter(id) {
-                    var countL = 0;
-                    var countD = 0;
-                    self.likesFromPost.forEach(function (value) {
-                        if (value.status === 'like') {
-                            countL++
-                        }
-                        else {
-                            countD++
-                        }
-                    });
-                    self.countLike = countL;
-                    self.countDislike = countD;
-                }
 
                 self.statLike = 'like';
                 self.statDislike = 'dislike';
 
                 function information(id, stats) {
                     var likesUser = [];
-                    console.log('likes', self.likesFromPost);
+                    console.log(self.likesFromPost);
                     self.likesFromPost.forEach(function (value) {
                             if (value.status === stats) {
                                 var likeData = {};
@@ -317,18 +318,6 @@ angular.module('post')
                     self.openImage(self.images, index);
                 };
 
-
-                //            self.lengthImages = function () {
-                //                if(!self.images){
-                //                    return false;
-                //                }
-                //                if (self.images.length === 1) {
-                //                   return true;
-                //                } else {
-                //                    return false;
-                //                }
-                //            };
-
             }],
 
         bindings: {
@@ -341,8 +330,6 @@ angular.module('post')
             editPost: '=',
             openImage: '=',
             last: '<',
-            likes:'<'
         }
-
     });
 
