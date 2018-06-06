@@ -16,7 +16,7 @@ angular.module('eventsApp').component('eventsComp', {
             self.scroll = true;
             self.wait = false;
 
-            var eventsCount = 6;
+            var eventsCount = 7;
             var eventsPage = 0;
             var isSearch = false;
 

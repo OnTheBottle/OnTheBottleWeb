@@ -47,6 +47,11 @@ angular.module('eventsService').factory('EventFactory', ['$resource', '$cookies'
             getAllUsers: {
                 params: {path: 'getAllUsers', access_token: $cookies.get('access_token')},
                 method: "POST"
+            },
+            getEventsFromUser: {
+                params: {path: 'getEventsFromUser', access_token: $cookies.get('access_token')},
+                method: "POST",
+                isArray: true
             }
         });
     }

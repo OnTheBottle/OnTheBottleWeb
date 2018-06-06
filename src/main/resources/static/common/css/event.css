@@ -2,6 +2,10 @@
     border-radius: 5px;
 }
 
+.modal-dialog {
+    max-width: 50rem;
+}
+
 .main-content .row,
 .main-content p {
     margin: 0;

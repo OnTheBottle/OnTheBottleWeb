@@ -3,23 +3,23 @@
     angular.module('userInfoApp')
         .component('userInfoComp', {
             templateUrl: 'components/info/user/user-info.component.html',
-            controller: ['$routeParams', '$http', InfoController],
+            controller: ['$routeParams', '$http', 'EventFactory', InfoController],
             controllerAs: 'model',
             bindings: {
                 authId: '='
             }
         });
 
-    function InfoController($routeParams, $http) {
+    function InfoController($routeParams, $http, EventFactory) {
 
         var model = this;
         model.requestData = {};
         model.requestData.id = '';
         model.user = {};
+        model.events = [];
 
         model.$onInit = function () {
             model.requestData.id = $routeParams.id;
-
             $http({
                 method: "GET",
                 url: USER_PATH + "/showUsers",
@@ -41,6 +41,22 @@
                 model.user.info = response.data.info;
             }, function myError(response) {
             });
+        };
+
+        model.getEvents = function () {
+            model.isEvents = true;
+
+            if (model.events.length === 0) {
+                EventFactory.getEventsFromUser(
+                    {id: $routeParams.id},
+                    function (data) {
+                        if (data[0] !== undefined) {
+                            model.events = data;
+                        }
+                    }, function () {
+                        console.error('Error while read events');
+                    });
+            }
         }
     }
 })();

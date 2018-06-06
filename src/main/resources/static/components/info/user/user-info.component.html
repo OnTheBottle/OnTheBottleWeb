@@ -46,6 +46,20 @@
         <a href="" class="bg-light alert alert-info dropdown-item" ng-click="model.iView = false">Скрыть друзей</a>
         <view-friends-comp user-id="model.requestData.id"></view-friends-comp>
     </div>
+
+    <link rel="stylesheet" href="common/css/events.css" type="text/css">
+    <div class="eventsUser">
+        <div class="container text-info text-center h4" ng-hide="model.isEvents">
+            <a href="" class="bg-light alert alert-info dropdown-item" ng-click="model.getEvents()">Показать ивенты</a>
+        </div>
+        <div class="container text-info text-center h4" ng-hide="!model.isEvents">
+            <a href="" class="bg-light alert alert-info dropdown-item" ng-click="model.isEvents = false">Скрыть
+                ивенты</a>
+            <event-comp user-id="self.userId" notification="self.notification" event="event"
+                        ng-repeat="event in model.events | orderBy:'startTime':true">
+            </event-comp>
+        </div>
+    </div>
     <div>
         <user-news-comp auth-id="model.authId" user-id="model.requestData.id"></user-news-comp>
     </div>

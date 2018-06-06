@@ -2,6 +2,10 @@
     border-radius: 5px;
 }
 
+.modal-dialog {
+    max-width: 50rem;
+}
+
 .main-content .btn-create {
     border: 1px solid #4c4c4c;
     margin: 1rem 0;
@@ -202,7 +206,6 @@
     position: absolute;
     top: 52%;
     left: 55%;
-    margin-right: -50%;
     transform: translate(-50%, -50%)
 }
 
@@ -324,4 +327,83 @@
     background: black;
     font-size: 1.4rem;
     color: snow;
+}
+
+.eventsUser .event {
+    position: relative;
+    width: 28%;
+    height: 20rem;
+    display: inline-block;
+    background-color: snow;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: .5rem;
+    overflow: hidden;
+    text-align: center;
+    margin: .5rem 1% .5rem 0;
+}
+
+.eventsUser .event .pub-img {
+    width: 13rem;
+    height: 13rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.eventsUser .event .title-event {
+    cursor: pointer;
+    margin: 0.5rem 0;
+}
+
+.eventsUser .event .title-event a {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: black;
+}
+
+.eventsUser .event .time,
+.eventsUser .event .people {
+    font-size: 1.4rem;
+    padding: 0;
+    margin: 0 1rem;
+}
+
+.eventsUser .event .description {
+    display: none;
+}
+
+.eventsUser .event .time {
+    position: absolute;
+    bottom: .4rem;
+    color: #000000;
+}
+
+.eventsUser .event .people {
+    position: absolute;
+    top: .6rem;
+    left: .3rem;
+    color: #000000;
+    vertical-align: middle;
+}
+
+.eventsUser .event .people p {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    left: -5%;
+}
+
+.eventsUser .event .people img {
+    position: relative;
+    display: inline-block;
+    left: 10%;
+    width: 100%;
+    max-width: 1.4rem;
+    max-height: 1.4rem;
+}
+
+.eventsUser .event .control {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
 }
