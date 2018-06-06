@@ -13,8 +13,10 @@ angular.module('eventsApp').component('eventsComp', {
             self.today = new Date();
             self.sortType = 'startTime';
             self.isMoreEvents = false;
+            self.scroll = true;
+            self.wait = false;
 
-            var eventsCount = 3;
+            var eventsCount = 6;
             var eventsPage = 0;
             var isSearch = false;
 
@@ -34,49 +36,13 @@ angular.module('eventsApp').component('eventsComp', {
                             if (data[0] !== undefined) {
                                 formatDate(data);
                                 self.events = data;
-                                self.isMoreEvents = self.events.length % eventsCount === 0;
+                                self.scroll = self.events.length % eventsCount === 0;
                             } else {
-                                self.isMoreEvents = false;
+                                self.scroll = false;
                             }
                         }, function (errResponse) {
                             errResponseFunction(errResponse, 'Error while read events');
                         });
-                },
-                getMoreEvents: function () {
-                    eventsPage += 1;
-                    if (isSearch) {
-                        EventFactory.searchEvents(
-                            {searchQuery: self.search, eventsPage: eventsPage},
-                            function (data) {
-                                if (data[0] !== undefined) {
-                                    formatDate(data);
-                                    data.forEach(function (item) {
-                                        self.events.push(item);
-                                    });
-                                    self.isMoreEvents = self.events.length % eventsCount === 0;
-                                } else {
-                                    self.isMoreEvents = false;
-                                }
-                            }, function (errResponse) {
-                                errResponseFunction(errResponse, 'Error while search events');
-                            });
-                    } else {
-                        EventFactory.getEvents(
-                            {options: self.options, eventsPage: eventsPage, sortType: self.sortType},
-                            function (data) {
-                                if (data[0] !== undefined) {
-                                    formatDate(data);
-                                    data.forEach(function (item) {
-                                        self.events.push(item);
-                                    });
-                                    self.isMoreEvents = self.events.length % eventsCount === 0;
-                                } else {
-                                    self.isMoreEvents = false;
-                                }
-                            }, function (errResponse) {
-                                errResponseFunction(errResponse, 'Error while read events');
-                            });
-                    }
                 },
                 createEvent: function () {
                     angular.element('#myModal').modal('hide');
@@ -116,10 +82,10 @@ angular.module('eventsApp').component('eventsComp', {
                                 if (data[0] !== undefined) {
                                     formatDate(data);
                                     self.events = data;
-                                    self.isMoreEvents = self.events.length % eventsCount === 0;
+                                    self.scroll = self.events.length % eventsCount === 0;
                                 } else {
                                     self.events = [];
-                                    self.isMoreEvents = false;
+                                    self.scroll = false;
                                 }
                             }, function (errResponse) {
                                 errResponseFunction(errResponse, 'Error while search events');
@@ -148,7 +114,7 @@ angular.module('eventsApp').component('eventsComp', {
                 }, 2000);
             };
 
-            function formatDate (events) {
+            function formatDate(events) {
                 events.forEach(function (item) {
                     item.startTime = new Date(item.startTime.replace(' ', 'T') + "Z");
                     item.startTimeTemp = new Date(item.startTime).setHours(0, 0, 0, 0);
@@ -162,5 +128,52 @@ angular.module('eventsApp').component('eventsComp', {
                     console.error(messageError);
                 }
             }
+
+            $(window).scroll(function () {
+                if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                    if (self.scroll === true) {
+                        self.scroll = false;
+                        self.wait = true;
+                        eventsPage += 1;
+
+                        if (isSearch) {
+                            EventFactory.searchEvents(
+                                {searchQuery: self.search, eventsPage: eventsPage},
+                                function (data) {
+                                    self.wait = false;
+                                    if (data[0] !== undefined) {
+                                        formatDate(data);
+                                        data.forEach(function (item) {
+                                            self.events.push(item);
+                                        });
+                                        self.scroll = self.events.length % eventsCount === 0;
+                                    } else {
+                                        self.scroll = false;
+                                    }
+                                }, function (errResponse) {
+                                    errResponseFunction(errResponse, 'Error while search events');
+                                });
+                        } else {
+                            EventFactory.getEvents(
+                                {options: self.options, eventsPage: eventsPage, sortType: self.sortType},
+                                function (data) {
+                                    if (data[0] !== undefined) {
+                                        self.wait = false;
+                                        formatDate(data);
+                                        data.forEach(function (item) {
+                                            self.events.push(item);
+                                        });
+                                        self.scroll = self.events.length % eventsCount === 0;
+                                    } else {
+                                        self.scroll = false;
+                                    }
+                                }, function (errResponse) {
+                                    errResponseFunction(errResponse, 'Error while read events');
+                                });
+                        }
+                    }
+
+                }
+            });
         }]
 });

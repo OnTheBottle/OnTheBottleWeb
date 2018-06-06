@@ -186,9 +186,8 @@
             <event-comp user-id="self.userId" get-events="self.util.getEvents" notification="self.notification" event="event"
                         ng-repeat="event in self.events">
             </event-comp>
-            <div class="text-center">
-                <button type="button" class="btn load" ng-click="self.util.getMoreEvents()" ng-show="self.isMoreEvents"
-                title="Показать больше ивентов"></button>
+            <div id="scrolList" class="text-center fa-3x" ng-click="self.util.getMoreEvents()" ng-show="self.wait">
+                <i class="fas fa-spinner fa-pulse"></i>
             </div>
 
             <div class="modal fade" id="notification" tabindex="-1" role="dialog" aria-labelledby="notificationTitle"

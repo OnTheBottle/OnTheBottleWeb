@@ -16,7 +16,6 @@ angular.module('eventInfo').component('eventInfoComp', {
 
             self.$onInit = function () {
                 var process = $q.defer();
-                console.log($localStorage.users);
                 process.promise
                     .then(function () {
                         return getEvent();
