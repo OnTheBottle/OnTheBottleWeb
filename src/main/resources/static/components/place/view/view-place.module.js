@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('viewPlaceApp', []);
+angular.module('viewPlaceApp', ['ngRoute', 'placesService']);

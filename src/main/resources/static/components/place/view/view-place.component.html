@@ -1,7 +1,9 @@
-<div class="container-fluid">
+<link rel="stylesheet" href="common/css/place.css" type="text/css">
+
+<div class="container main-content">
     <div class="row justify-content-center">
         <div class="col-4">
-            <form name="createPlaceForm" id="createPlaceForm" ng-submit="">
+            <form name="createPlaceForm" id="createPlaceForm" ng-submit="self.createPlace()">
                 <div class="form-group">
                     <label for="title" class="col-form-label font-italic">Название места:</label>
                     <input type="text" name="title" id="title"
@@ -75,8 +77,8 @@
                            ng-model="self.image" ng-minlength="3" ng-maxlength="40">
                 </div>
 
-                <button class="btn btn-lg btn-secondary" type="button" data-dismiss="modal"
-                        ng-click="">
+                <button class="btn btn-lg btn-secondary" type="button"
+                        ng-click="self.resetPlace()">
                     Сбросить
                 </button>
                 <button class="btn btn-lg btn-primary" type="submit"
@@ -84,6 +86,16 @@
                     Создать
                 </button>
             </form>
+        </div>
+    </div>
+    <div class="modal fade" id="notification" tabindex="-1" role="dialog" aria-labelledby="notificationTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content notification">
+                <div class="modal-body notification">
+                    {{self.notificationText}}
+                </div>
+            </div>
         </div>
     </div>
 </div>
