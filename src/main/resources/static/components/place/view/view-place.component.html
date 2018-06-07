@@ -1,12 +1,89 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <form name="createPlaceForm" id="createPlaceForm" ng-submit="">
+                <div class="form-group">
+                    <label for="title" class="col-form-label font-italic">Название места:</label>
+                    <input type="text" name="title" id="title"
+                           class="form-control form-control-lg" aria-describedby="titlePlace"
+                           placeholder="Title"
+                           ng-model="self.title" ng-minlength="3" ng-maxlength="40"
+                           ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
+                           required>
+                    <p class="form-text text-danger"
+                       ng-show="createPlaceForm.title.$dirty && createPlaceForm.title.$error.minlength || createPlaceForm.title.$error.maxlength  && !(createPlaceForm.title.$error.$invalid)">
+                        В названии должно присутствовать более от 3 до 40 символов
+                    </p>
+                    <p class="form-text text-danger"
+                       ng-show="createPlaceForm.title.$dirty && createPlaceForm.title.$error.pattern">
+                        Присутствуют недопустимые символы
+                    </p>
+                    <p class="form-text text-danger"
+                       ng-show="createPlaceForm.title.$touched && createPlaceForm.title.$invalid && !(createPlaceForm.title.$error.pattern) && !(createPlaceForm.title.$error.minlength)">
+                        Поле должно быть заполненным
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="col-form-label font-italic">Описание места:</label>
+                    <textarea type="text" name="description" class="form-control form-control-lg"
+                              id="description"
+                              aria-describedby="descriptionEvent" placeholder="Description"
+                              ng-model="self.text"
+                              ng-pattern='/^(?!.*@.*$)(?!.*#.*$)(?!.*\$.*$)(?!.*%.*$)(?!.*\^.*$)(?!.*&.*$)(?!.*_.*$)(?!.*\+.*$)(?!.*=.*$)(?!.*\{.*$)(?!.*\}.*$)(?!.*\[.*$)(?!.*\].*$)(.*)$/'
+                              rows="5" required></textarea>
+                    <p class="form-text text-danger"
+                       ng-show="createPlaceForm.description.$dirty && createPlaceForm.description.$error.pattern">
+                        Присутствуют недопустимые символы
+                    </p>
+                    <p class="form-text text-danger"
+                       ng-show="createPlaceForm.description.$touched && createPlaceForm.description.$invalid">
+                        Поле должно быть заполненным
+                    </p>
+                </div>
+                <div>
+                    <label for="startTime" class="col-form-label font-italic">Время открытия:</label>
+                    <input type="time" name="startTime" class="form-control form-control-lg"
+                           id="startTime" ng-model="self.startTime"
+                           required>
+                    <p class="form-text text-danger"
+                       ng-show="createPlaceForm.startTime.$touched && createPlaceForm.startTime.$invalid && !(createPlaceForm.startTime.$error.min)">
+                        Поле должно быть заполненным
+                    </p>
+                    <label for="endTime" class="col-form-label font-italic">Время закрытия:</label>
+                    <input type="time" name="endTime" class="form-control form-control-lg"
+                           id="endTime"
+                           ng-model="self.endTime"
+                           required>
+                    <p class="form-text text-danger"
+                       ng-show="createPlaceForm.endTime.$touched && createPlaceForm.endTime.$invalid  && !(createPlaceForm.endTime.$error.min)">
+                        Поле должно быть заполненным
+                    </p>
+                </div>
+                <div>
+                    <label for="typePlace" class="col-form-label col-form-label-lg font-italic">Выбирете тип
+                        места:</label>
+                    <select class="form-control form-control-lg custom-select" id="typePlace"
+                            ng-options="typePlace.id as typePlace.title for typePlace in self.typesPlace"
+                            ng-model="self.typePlace" required>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="image" class="col-form-label font-italic">Изображение места:</label>
+                    <input type="text" name="title" id="image"
+                           class="form-control form-control-lg" aria-describedby="imagePlace"
+                           placeholder="image"
+                           ng-model="self.image" ng-minlength="3" ng-maxlength="40">
+                </div>
 
-
-            <!--Write your HTML here-->
-            <p class="text-info h2 text-center">View Place</p>
-
-
-
+                <button class="btn btn-lg btn-secondary" type="button" data-dismiss="modal"
+                        ng-click="">
+                    Сбросить
+                </button>
+                <button class="btn btn-lg btn-primary" type="submit"
+                        ng-disabled="createPlaceForm.$invalid">
+                    Создать
+                </button>
+            </form>
         </div>
+    </div>
 </div>
