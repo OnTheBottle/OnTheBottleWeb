@@ -9,9 +9,10 @@
 
     function viewController(PlaceFactory, $window, $scope) {
         var self = this;
+        self.image = '/images/places/';
 
         self.$onInit = function () {
-
+            self.places = getPlaces();
         };
 
         self.createPlace = function () {
@@ -24,9 +25,10 @@
                 type: self.typePlace,
                 image: self.image
             }, function () {
+                self.showCreatePlace = false;
                 notification('Место ' + self.title + ' созданно!');
                 self.resetPlace();
-                //self.getEvents();
+                self.places = getPlaces();
             }, function (errResponse) {
                 errResponseFunction(errResponse, 'Error while creating Place');
             });
@@ -47,6 +49,13 @@
             self.endTime = '';
             self.image = '';
         };
+
+        function getPlaces() {
+            return PlaceFactory.getPlaces({}, function (data) {
+            }, function (errResponse) {
+                errResponseFunction(errResponse, 'Error while read places');
+            });
+        }
 
         function errResponseFunction(errResponse, messageError) {
             if (errResponse.data === 'Non-valid token') {

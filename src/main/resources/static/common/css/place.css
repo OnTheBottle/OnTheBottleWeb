@@ -4,3 +4,18 @@
     font-size: 1.4rem;
     color: snow;
 }
+
+.main-content .card {
+    min-width: 26rem;
+    margin-top: 1rem;
+}
+
+.main-content .card-img-top {
+    min-width: 35rem;
+    min-height: 23rem;
+}
+
+.main-content .card-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
