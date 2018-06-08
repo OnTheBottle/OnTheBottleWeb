@@ -105,7 +105,8 @@
                 <p class="card-text" title="Описание">{{place.text}}</p>
                 <div class="text-right">
                     <p class="card-text" title="Время работы">
-                        <small class="text-muted">Заведение работает: {{(place.startTime === '00:00:00') && (place.endTime === '00:00:00') ?
+                        <small class="text-muted">Заведение работает: {{(place.startTime === '00:00:00') &&
+                            (place.endTime === '00:00:00') ?
                             'круглосуточно' : 'с ' + place.startTime + " до " + place.endTime}}
                         </small>
                     </p>
@@ -115,8 +116,8 @@
                 <small class="text-muted">{{place.type.title}}</small>
             </div>
         </div>
-        </div>
     </div>
+
 
     <div class="modal fade" id="notification" tabindex="-1" role="dialog" aria-labelledby="notificationTitle"
          aria-hidden="true">

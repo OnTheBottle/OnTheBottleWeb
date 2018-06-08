@@ -47,7 +47,7 @@
             self.text = '';
             self.startTime = '';
             self.endTime = '';
-            self.image = '';
+            self.image = '/images/places/';
         };
 
         function getPlaces() {
