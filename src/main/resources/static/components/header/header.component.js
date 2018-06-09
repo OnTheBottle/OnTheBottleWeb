@@ -29,7 +29,13 @@
                 params: {'userId': model.userId}
             }).then(function mySuccess(response) {
                 model.name = response.data.name + ' ' + response.data.surname;
-                model.avatar = response.data.avatarUrl;
+
+                if(response.data.avatarUrl===null){
+                    model.avatar="images/userspictures/default-avatar.jpeg"
+                }
+                else{
+                    model.avatar =response.data.avatarUrl ;
+                }
                 cache.authUser = response.data;
             }, function myError(response) {
                 console.log('error get_by_id: ', response.statusText);
@@ -42,7 +48,7 @@
 
         model.getProfile = function () {
             model.activeMenu = '';
-        }
+        };
         model.quit = function () {
             model.activeMenu = '';
             $cookies.remove('access_token');

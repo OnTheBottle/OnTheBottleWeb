@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('eventsApp',['ngRoute', 'ngAnimate', 'event', 'eventInfo', 'eventsService', 'placesService']);
+angular.module('eventsApp',['ngRoute', 'ngAnimate', 'event', 'eventInfo', 'eventsService', 'placesService', 'post']);

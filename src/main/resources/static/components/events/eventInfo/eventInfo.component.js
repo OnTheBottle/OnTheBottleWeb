@@ -157,13 +157,12 @@ angular.module('eventInfo').component('eventInfoComp', {
                     text: 'Я иду ' + day + '.' + month + ' в ' + hours + ':' + minutes + ':' + seconds +
                     ' в ' + self.event.place.title + '.' +
                     ' Подробности по ссылке: http://localhost:8080/master.html#!/eventInfo/' + self.event.id,
-                    title: 'Я участвую вивенте: ' + self.event.title,
+                    title: 'Я участвую в ивенте: ' + self.event.title,
                     uploadFiles: []
                 };
 
                 PostFactory.createPost(
-                    post
-                    , function () {
+                    post, function () {
                         notification('Сообщение успешно опубликованно');
                     }, function (errResponse) {
                         errResponseFunction(errResponse, 'Error while creating Post');

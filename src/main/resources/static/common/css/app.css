@@ -3,9 +3,40 @@
     vertical-align: center !important;
 }
 
+.posts-body {
+    padding-right: 1rem;
+}
+
+.scrollElements {
+    padding-right: 0;
+    padding-left: 1rem;
+}
+
+.posts {
+    padding-left: 0;
+    padding-right: 10rem;
+}
+
+.postsUser {
+
+}
+
+.postsUserInfo {
+    border: 2px solid;
+    border-color: #00A5E3;
+    border-radius: 1rem;
+    font-size: 1.4rem;
+
+}
+
+.user {
+    padding-left: 1.5rem;
+    padding-right: 0;
+}
+
 .profile-info .card-footer {
-    background-color: #e2c7e2;
-    border-color: blueviolet;
+
+    border-color: #00A5E3;
     height: 6rem;
 }
 
@@ -22,15 +53,22 @@ li {
 .post {
     margin-top: 10px;
     border: 2px solid;
-    border-color: blueviolet;
+    border-color: #00A5E3;
 }
 
-.card-text {
-    padding: 10px;
+.text-post-text {
+    padding: 0;
+    border-left: 2px solid;
+    border-left-color: gainsboro;
+    padding-left: 1rem;
 }
 
 .stats {
     padding: 10px;
+}
+
+.post {
+    background: url(../../images/forPages/dust_scratches.png);
 }
 
 .post .card-footer {
@@ -58,7 +96,7 @@ li {
 }
 
 .likeButton {
-    background-color: #e2c7e2;
+    background-color: transparent;
     height: 6rem;
     width: 7rem;
     padding: 0;
@@ -70,14 +108,15 @@ li {
 }
 
 .add-comment-input {
+    border-radius: 0;
     border-top: 1px solid;
-    border-top-color: blueviolet;
+    border-top-color: #00A5E3;
     border-bottom: 1px solid;
-    border-bottom-color: blueviolet;
+    border-bottom-color: #00A5E3;
 }
 
 .bordered {
-    border: 1px solid darkorchid;
+    border: 1px solid #00A5E3;
     border-radius: 140px;
     margin-bottom: 0
 }
@@ -98,12 +137,12 @@ li {
 }
 
 .cardEdit .btn {
-    background-color: #e2c7e2;
+    background-color: transparent;
     font-size: 1.4rem;
 }
 
 .stats .btn {
-    background-color: white;
+    background-color: transparent;
     font-size: 1.4rem;
 }
 
@@ -114,16 +153,54 @@ li {
 
 .title {
     font-family: 'Anton', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    color: #0056b3;
+}
+
+.image-user img {
+    width: auto;
+    height: 8rem;
+}
+
+.timePost {
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 1.4rem;
+}
+
+.visionPost {
+    padding-left: 0;
+}
+
+.visionPost img {
+    width: 2.5rem;
+    height: auto;
+}
+
+.meta {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.menu {
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .userData {
-    font-size: 1.8rem;
+
     font-family: 'Abril Fatface', cursive;
+    margin-bottom: 0;
+}
+
+.userData a {
+    font-size: 1.8rem;
 }
 
 .stats {
     font-size: 1.6rem;
+    border-top: 1px solid;
+    border-top-color: #00A5E3;
 }
 
 .example2 {
@@ -140,31 +217,31 @@ li {
 
 .likeArea {
     border-bottom: 1px solid;
-    border-bottom-color: blueviolet;
+    border-bottom-color: #00A5E3;
     border-top: 1px solid;
-    border-top-color: blueviolet;
+    border-top-color: #00A5E3;
 }
 
 .card-header {
     border-bottom: 1px solid;
-    border-bottom-color: blueviolet;
+    border-bottom-color: #00A5E3;
 }
 
 .card-footer {
-    background-color: #e2c7e2;
+
 }
 
 .post-text {
     border: 2px solid;
-    border-color: blueviolet;
+    border-color: #00A5E3;
 }
 
 #example1 {
     border-top: 1px solid;
-    border-top-color: blueviolet;
+    border-top-color: #00A5E3;
     border-left: 0;
     border-bottom: 1px solid;
-    border-bottom-color: blueviolet;
+    border-bottom-color: #00A5E3;
     border-right: 0;
     font-size: 1.4rem;
 
@@ -181,8 +258,9 @@ li {
 .searchBody {
     margin-bottom: 1rem;
     border: 2px solid;
-    border-color: blueviolet;
+    border-color: #00A5E3;
     height: 6rem;
+
 }
 
 .select {
@@ -199,7 +277,7 @@ li {
     vertical-align: middle;
 }
 
-.cnopki btn {
+.cnopki button {
     font-size: 1.4rem;
 }
 
@@ -210,13 +288,13 @@ li {
 .search {
     height: 2.5rem;
     border: 2px solid;
-    border-color: blueviolet;
+    border-color: #00A5E3;
 }
 
 .sort {
     height: 2.5rem;
     border: 2px solid;
-    border-color: blueviolet;
+    border-color: #00A5E3;
 }
 
 .poisk {
@@ -227,7 +305,7 @@ li {
 
 #Select1 {
     border: 2px solid;
-    border-color: blueviolet;
+    border-color: #00A5E3;
 }
 
 #editPost .modal-footer button {
@@ -253,7 +331,7 @@ li {
 
 .tooltip::after {
     background: rgba(0, 0, 0, 0.8);
-    border-radius: 8px 8px 8px 0px;
+    border-radius: 8px 8px 8px 0;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
     color: #FFF;
     content: attr(data-tooltip); /* Главная часть кода, определяющая содержимое всплывающей подсказки */
@@ -309,16 +387,20 @@ li {
 
 .updown {
     position: fixed;
-    top: 44rem;
-    left: 44rem;
+    top: 50rem;
+
 }
 
 .upup {
     position: fixed;
-    top: 35rem;
-    left: 44rem;
+    top: 20rem;
+
 }
 
-.scrollElements a{
+.scrollElements {
+    margin: 0;
+}
+
+.scrollElements a {
     color: #00A5E3;
 }

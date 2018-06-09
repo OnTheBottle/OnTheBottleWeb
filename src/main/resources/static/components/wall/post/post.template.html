@@ -1,33 +1,43 @@
 <div class="card post"
-     ng-init="$ctrl.getUser($ctrl.post.user.id,$ctrl.post.id,$ctrl.post.uploadFiles,$ctrl.post.likes,$ctrl.post.comments)">
+     ng-init="$ctrl.getUser($ctrl.post.user.id,$ctrl.post.id,$ctrl.post.uploadFiles,$ctrl.post.likes,$ctrl.post.comments,$ctrl.post.date)">
 
-    <div class="card-header container-fluid" style="background-color: white">
+    <div class="card-header container-fluid" style="padding-bottom: 0">
+
         <div class="header row">
-            <div class="image col-md-3">
+            <div class="image-user col-md-2">
                 <img class="avatar rounded-circle img-fluid" src="{{$ctrl.user.avatarUrl}}"
                      alt="user profile image">
             </div>
             <div class="meta col-md-7 ">
                 <div ng-show="userId">
-                    <input type="text" ng-model="$ctrl.userId" value="{{$ctrl.post.user.id}}"/>
+                    <label for="userPost">
+                        <input id="userPost" type="text" ng-model="$ctrl.userId" value="{{$ctrl.post.user.id}}"/>
+                    </label>
                 </div>
 
                 <div class="titlePost">
-                    <p class="userData">
-                        <a class="post-user-name" href="#!/userInfo/{{$ctrl.userid}}">
+                    <p class="userData align-self-center">
+                        <a class="post-user-name align-self-center" href="#!/userInfo/{{$ctrl.userid}}">
                             {{$ctrl.user.name}}&nbsp {{$ctrl.user.surname}}</a></p>
-                    <p class="title">{{$ctrl.post.title}}</p>
                 </div>
-                <div ng-switch="$ctrl.description($ctrl.post.security.description)">
-                    <p ng-switch-when="globe">{{$ctrl.post.date}}&nbsp &nbsp<i class="fas fa-globe"
-                                                                               title="Anybody views a post"></i></p>
-                    <p ng-switch-when="friend">{{$ctrl.post.date}}&nbsp &nbsp<i class="fas fa-users"
-                                                                                title="Friends view a post"></i></p>
-                    <p ng-switch-when="self">{{$ctrl.post.date}}&nbsp &nbsp<i class="fas fa-user-secret"
-                                                                              title="Only owner views a post"></i></p>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4 timePost align-self-center">
+                            <time am-time-ago="$ctrl.dateUTCTOlocal" ng-if="$ctrl.watch"></time>
+                            <time ng-if="!$ctrl.watch">{{$ctrl.format}}</time>
+                        </div>
+                        <div class="col-sm-8 text-left visionPost" ng-switch="$ctrl.description($ctrl.post.security.description)">
+                            <a ng-switch-when="globe"><img ng-src="images/forPages/earth.svg" title="пост виден всем"></a>
+
+                            <a ng-switch-when="friend"><i class="fas fa-users fa-lg" title="пост виден друзьям"></i></a>
+                            <a ng-switch-when="self"><i class="fas fa-user-secret fa-lg"
+                                                        title="пост виден только мне"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="menu col-md-2">
+            <div class="menu col-md-3">
                 <div class="dropdown postsSet">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <i class="fas fa-ellipsis-h fa-lg"></i>
@@ -40,11 +50,11 @@
                         </a>
                         <a class="dropdown-item" href="" ng-show="$ctrl.showEditButton($ctrl.post.user.id)"
                            ng-click="$ctrl.edit($ctrl.post.id)">
-                            <i class="fas fa-pencil-alt fa-lg"></i>&nbsp Edit
+                            <i class="fas fa-pencil-alt fa-lg"></i>&nbsp Редактировать
                         </a>
                         <a class="dropdown-item" href="" ng-show="$ctrl.showSaveButton($ctrl.post.user.id)"
                            ng-click="$ctrl.PostToMyWall($ctrl.post.id)">
-                            <i class="far fa-copy fa-lg"></i>&nbsp Save
+                            <i class="far fa-copy fa-lg"></i>&nbsp Сохранить на стену
                         </a>
                     </div>
                 </div>
@@ -56,7 +66,7 @@
     <div class="card-img-top image">
 
         <div class="text-center" ng-if="$ctrl.lengthImages()">
-            <img class="img-fluid" ng-repeat="image in $ctrl.images" src="{{image.url}}"/>
+            <img class="img-fluid" ng-repeat="image in $ctrl.images" ng-src="{{image.url}}"/>
         </div>
 
         <div class="container text-center " ng-if="!$ctrl.lengthImages()">
@@ -72,7 +82,8 @@
 
     </div>
     <div class="card-body">
-        <div class="card-text">
+        <div class="card-text text-post-text">
+            <p class="title"><i class="far fa-circle"></i>&nbsp{{$ctrl.post.title}}</p>
             <p ng-bind="$ctrl.post.text"></p>
             <div class="post id" ng-show="postid">
                 <p ng-bind="$ctrl.post.id"></p>
@@ -85,97 +96,110 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 text-center">
-                            <div ng-if="$ctrl.likeUser">
-                                <button  class="btn podskazka" type="button" ng-click="$ctrl.deleteLike('like')"
-                                        titled="Удалить оценку"><i class="fas fa-thumbs-up fa-lg"></i>
-                                </button>
-                            </div>
-                            <div ng-if="!$ctrl.likeUser">
-                                <button class="btn podskazka" type="button" ng-click="$ctrl.like($ctrl.post.id)"
-                                        titled="Добавить лайк"><i class="far fa-thumbs-up fa-lg"></i>
-                                </button>
-                            </div>
-                            <div>
-                                <a href="" style="color:#007bff"
-                                   ng-click="$ctrl.open($ctrl.post.id,$ctrl.statLike)">
-                                    {{$ctrl.countLike}}
-                                </a>
+                            <div class="row">
+                                <div class="col-sm-6 text-right align-self-center" style="padding-right: 0">
+                                    <div ng-if="$ctrl.likeUser">
+                                        <button class="btn podskazka" type="button" ng-click="$ctrl.deleteLike('like')"
+                                                titled="Удалить оценку"><i class="fas fa-thumbs-up fa-lg"></i>
+                                        </button>
+                                    </div>
+                                    <div ng-if="!$ctrl.likeUser">
+                                        <button class="btn podskazka" type="button" ng-click="$ctrl.like($ctrl.post.id)"
+                                                titled="Добавить лайк"><i class="far fa-thumbs-up fa-lg"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 text-left align-self-center" style="padding-left: 0">
+                                    <a href="" style="color:#007bff" title="инфо"
+                                       ng-click="$ctrl.open($ctrl.post.id,$ctrl.statLike)">
+                                        /{{$ctrl.countLike}}
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 text-center">
-                            <div ng-if="$ctrl.dislikeUser">
-                                <button  class="btn podskazka" type="button" ng-click="$ctrl.deleteLike('dislike')"
-                                         titled="Удалить оценку"><i class="fas fa-thumbs-down fa-lg"></i>
-                                </button>
-                            </div>
-                            <div ng-if="!$ctrl.dislikeUser">
-                                <button  class="btn podskazka" type="button" ng-click="$ctrl.dislike($ctrl.post.id)"
-                                         titled="Добавить дизлайк"><i class="far fa-thumbs-down fa-lg"></i>
-                                </button>
-                            </div>
-                            <div>
-                                <a href="" style="color:#007bff"
-                                   ng-click="$ctrl.open($ctrl.post.id,$ctrl.statDislike)">
-                                    {{$ctrl.countDislike}}
-                                </a>
+                            <div class="row">
+                                <div class="col-sm-6 text-right align-self-center" style="padding-right: 0">
+                                    <div ng-if="$ctrl.dislikeUser">
+                                        <button class="btn podskazka" type="button"
+                                                ng-click="$ctrl.deleteLike('dislike')"
+                                                titled="Удалить оценку"><i class="fas fa-thumbs-down fa-lg"></i>
+                                        </button>
+                                    </div>
+                                    <div ng-if="!$ctrl.dislikeUser">
+                                        <button class="btn podskazka" type="button"
+                                                ng-click="$ctrl.dislike($ctrl.post.id)"
+                                                titled="Добавить дизлайк"><i class="far fa-thumbs-down fa-lg"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 text-left align-self-center" style="padding-left: 0">
+                                    <a href="" style="color:#007bff" title="инфо"
+                                       ng-click="$ctrl.open($ctrl.post.id,$ctrl.statDislike)">
+                                        /{{$ctrl.countDislike}}
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-            <div class="col-md-4 text-center">
-                <div ng-if="$ctrl.stateComment">
-                    <button  class="btn podskazka" type="button"
-                            titled="Добавить комментарий" ng-click="$ctrl.focus()"><i
-                            class="fas fa-comments fa-lg"></i> Comment
-                    </button>
-                </div>
-                <div ng-if="!$ctrl.stateComment">
-                    <button  class="btn podskazka" type="button"
-                            titled="Добавить комментарий" ng-click="$ctrl.focus()"><i
-                            class="far fa-comments fa-lg"></i> Comment
-                    </button>
-                </div>
-                <div>
-                    <div>
-                        <a href="" style="color:#007bff"
-                           ng-click="showComments = ! showComments">
-                            {{$ctrl.comments.length}}
-                        </a>
+            <div class="col-md-5 text-center" style="padding-left: 0">
+                <div class="container" style="padding-left: 0">
+                    <div class="row">
+                        <div class="col-sm-7 text-right align-self-center" style="padding-right: 0;padding-left: 0">
+                            <div ng-if="$ctrl.stateComment">
+                                <button class="btn podskazka" type="button"
+                                        titled="Добавить комментарий" ng-click="$ctrl.focus()"><i
+                                        class="fas fa-comments fa-lg"></i>&nbsp Комментировать
+                                </button>
+                            </div>
+                            <div ng-if="!$ctrl.stateComment">
+                                <button class="btn podskazka" type="button"
+                                        titled="Добавить комментарий" ng-click="$ctrl.focus()"><i
+                                        class="far fa-comments fa-lg"></i>&nbsp Комментировать
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 text-left align-self-center" style="padding-right: 0;padding-left: 0">
+                            <a href="" style="color:#007bff"
+                               ng-click="showComments = ! showComments">
+                                / {{$ctrl.comments.length}}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 text-center">
+            <div class="col-md-3 text-center">
                 <button type="button" class="btn podskazka"
                         titled="Share..."><i
-                        class="far fa-share-square fa-lg"></i> Share
+                        class="far fa-share-square fa-lg"></i> Поделиться
                 </button>
             </div>
         </div>
     </div>
     <div class="card-footer">
         <div class="comments list" ng-show="showComments">
-            <comment comment="comment" last-post="$ctrl.last"
-                     ng-repeat="comment in $ctrl.comments" last-comment="$last"
+            <comment comment="comment" ng-repeat="comment in $ctrl.comments"
                      drop-comment="$ctrl.dropComment"></comment>
         </div>
     </div>
-    <div class="container-fluid text-center border-top" ng-click="showComments = ! showComments">
+    <div class="container-fluid text-center" ng-click="showComments = ! showComments">
         <span ng-if="showComments"><i class="fas fa-caret-up"></i></span>
         <span ng-if="!showComments"><i class="fas fa-caret-down"></i></span>
     </div>
     <form name="commentForm" ng-submit="$ctrl.submitComment()">
-        <input id="{{$ctrl.random}}" class="form-control add-comment-input example2" placeholder="Add a comment..."
+        <input id="{{$ctrl.random}}" class="form-control add-comment-input example2"
+               placeholder="Add a comment..."
                ng-model="$ctrl.commenting"
                type="text" ng-keypress="$ctrl.keyPressed($event,$ctrl.post.id)"/>
-        <p class="key">Press ..Enter.. to commit...</p>
+        <p class="key">Комментировать...Enter</p>
     </form>
     <div class="modal fade" id="warning" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
          aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content ">
-                <div class="modal-header ">
+                <div class="modal-header text-center">
                     <H3>Вы уже оценили пост</H3>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <i class="fas fa-times fa-lg"></i>
