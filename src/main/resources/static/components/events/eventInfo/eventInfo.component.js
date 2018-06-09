@@ -162,8 +162,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                 };
 
                 PostFactory.createPost(
-                    post
-                    , function () {
+                    post, function () {
                         notification('Сообщение успешно опубликованно');
                     }, function (errResponse) {
                         errResponseFunction(errResponse, 'Error while creating Post');

@@ -6,8 +6,8 @@ angular.module('eventsApp').component('eventsComp', {
     bindings: {
         userId: '='
     },
-    controller: ['EventFactory', 'PlaceFactory', '$scope', '$window', '$q', '$localStorage',
-        function UserController(EventFactory, PlaceFactory, $scope, $window, $q, $localStorage) {
+    controller: ['EventFactory', 'PlaceFactory', 'PostFactory', '$scope', '$window', '$q', '$localStorage',
+        function UserController(EventFactory, PlaceFactory, PostFactory, $scope, $window, $q, $localStorage) {
             var self = this;
             self.options = {allEvents: 'true', activeEvents: 'true', ownerEvents: false};
             self.today = new Date();
@@ -60,8 +60,7 @@ angular.module('eventsApp').component('eventsComp', {
                         startTime: self.startTime,
                         endTime: self.endTime,
                         place: self.place,
-                        owner: self.userId,
-                        addPost: self.isAddPost
+                        owner: self.userId
                     }, function () {
                         self.notification('Событие ' + self.title + ' созданно!');
                         self.util.resetEvent();
@@ -69,6 +68,9 @@ angular.module('eventsApp').component('eventsComp', {
                     }, function (errResponse) {
                         errResponseFunction(errResponse, 'Error while creating Event');
                     });
+                    if (self.isAddPost) {
+                        shareFriends();
+                    }
                 },
                 resetEvent: function () {
                     $scope.createEventForm.$setUntouched();
@@ -115,6 +117,35 @@ angular.module('eventsApp').component('eventsComp', {
                     angular.element('#notification').modal('hide');
                 }, 2000);
             };
+
+            function shareFriends() {
+                var day = formatTime(self.startTime.getDate());
+                var month = formatTime(self.startTime.getMonth());
+                var hours = formatTime(self.startTime.getHours());
+                var minutes = formatTime(self.startTime.getMinutes());
+                var seconds = formatTime(self.startTime.getSeconds());
+
+                var post = {
+                    id: null,
+                    userId: self.userId,
+                    security: 'Anybody views a post',
+                    text: 'Я собираю людей ' + day + '.' + month + ' в ' + hours + ':' + minutes + ':' + seconds +
+                    '. Собираемся в  ' + $localStorage.places.getPlace(self.place).title + '.',
+                    title: 'Я создал ивент: ' + self.title,
+                    uploadFiles: []
+                };
+
+                PostFactory.createPost(
+                    post, function () {
+                        notification('Сообщение успешно опубликованно');
+                    }, function (errResponse) {
+                        errResponseFunction(errResponse, 'Error while creating Post');
+                    });
+            }
+
+            function formatTime(time) {
+                return time >= 10 ? time : '0' + time;
+            }
 
             function getPlaces() {
                 self.places = PlaceFactory.getPlacesInfo([], function (data) {

@@ -84,7 +84,7 @@
                     <a href="#!/userInfo/{{user.id}}"><img ng-src="{{user.avatarUrl}}">{{user.name}}</a>
                 </div>
             </div>
-            <div class="page_block mt-2 owner" ng-show="self.owner !== undefined">
+            <div class="page_block mt-2 owner" ng-show="self.event.owner !== null">
                 <p class="mb-2">Создатель</p>
                 <a href="#!/userInfo/{{self.owner.id}}"><img ng-src="{{self.owner.avatarUrl}}" class="mr-2">
                     {{self.owner.name}} {{self.owner.surname}}</a>

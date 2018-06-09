@@ -170,8 +170,6 @@ const TIME_TO_CLEAR_CACHE_INFO = 30;
             });
         }
 
-        //cache.users.resetUsers();
-
         var token = parseJwt(tokenJwt);
         cache.authId = token.userId;
         this.authId = cache.authId;
