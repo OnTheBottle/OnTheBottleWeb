@@ -1,28 +1,39 @@
-<div class="comment container-fluid p-2" id="$ctrl.comment.id" ng-init="$ctrl.getUser($ctrl.comment.user.id,$ctrl.lastComment,$ctrl.lastPost)">
+<div class="comment container-fluid p-2" id="$ctrl.comment.id" ng-init="$ctrl.getStartInfo($ctrl.comment.user.id,$ctrl.comment.date)">
         <div class="comment-head p-2 container">
         <div class="row">
             <div class="comment-avatar col-md-2 d-flex align-items-center text-right"
                  style="padding-right: 0">
                 <a class="p-2" href="#">
-                    <img class="avatar rounded-circle p-2 img-fluid" src="{{$ctrl.user.avatarUrl}}"
+                    <img class="avatar rounded-circle p-2 img-fluid" ng-src="{{$ctrl.user.avatarUrl}}"
                          alt="avatar"></a>
             </div>
             <div class="comment-meta col-md-10 d-flex align-items-center text-left"
                  style="margin-bottom: 0">
-                <p class="bordered bg-white p-2">
-                    <a href="#">&nbsp{{$ctrl.user.name}}&nbsp{{$ctrl.user.surname}} &nbsp</a>
-                    &nbsp{{$ctrl.comment.text}}&nbsp
-                </p>
-                <button class="btn podskazka" type="button"
-                        ng-show="$ctrl.buttonDeleteCommentIsActive($ctrl.comment.user.id)"
-                        titled="Delete Comment"
-                        ng-click="$ctrl.deleteComment($ctrl.comment.id)"
-                        style="background: transparent;font-size: 1.4rem"><i
-                        class="fas fa-trash-alt fa-lg"></i></button>
+                <div class="container">
+                    <div class="row">
+                        <div></div>
+                    </div>
+                </div>
+                <div>
+                    <p class="bordered bg-white p-2">
+                        <a href="#">&nbsp{{$ctrl.user.name}}&nbsp{{$ctrl.user.surname}} &nbsp</a>
+                        &nbsp{{$ctrl.comment.text}}&nbsp
+                    </p>
+                    <button class="btn podskazka" type="button"
+                            ng-show="$ctrl.buttonDeleteCommentIsActive($ctrl.comment.user.id)"
+                            titled="Delete Comment"
+                            ng-click="$ctrl.deleteComment($ctrl.comment.id)"
+                            style="background: transparent;font-size: 1.4rem"><i class="fas fa-trash-alt fa-lg"></i></button>
+                </div>
+                <div>
+                    <p class="time" style="margin-bottom: 0">&nbsp{{$ctrl.format}}</p>
+                </div>
+
+
             </div>
         </div>
     </div>
     <div class="comment-body">
-        <p class="time" style="margin-bottom: 0">&nbsp{{$ctrl.comment.date}}</p>
+
     </div>
 </div>

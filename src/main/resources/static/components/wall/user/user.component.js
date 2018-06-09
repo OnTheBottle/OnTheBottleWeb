@@ -21,7 +21,7 @@ angular.module('userOk')
                 setIdUsersEmpty: function () {
                     massivId = [];
                 },
-                getUsersId: function(){
+                getUsersId: function () {
                     return massivId;
                 }
             }
@@ -29,58 +29,50 @@ angular.module('userOk')
     )
     .component('userOk', {
         templateUrl: 'components/wall/user/user.template.html',
-        controller: ['$routeParams', 'UserFactory', 'idStorage', 'UserEventFactory', '$localStorage',
-            function UserController($routeParams, UserFactory, idStorage, UserEventFactory, $localStorage) {
+        controller: ['$routeParams', 'UserFactory', 'idStorage', '$localStorage', '$resource', '$q', 'UsersIdEmptyInfo',
+            function UserController($routeParams, UserFactory, idStorage, $localStorage, $resource, $q, UsersIdEmptyInfo) {
                 var self = this;
-                self.userid = null;
+                self.userId = null;
                 self.user = {};
                 change();
+                var defer = $q.defer();
+                var promise = defer.promise;
 
-                self.getFriendsInfo = function () {
-                    self.user=$localStorage.users.getUser(self.userid);
-   //                 var userAuth = $localStorage.authUser;
-   //                 self.arrayId = [];
-   //                 var usersId = userAuth.friendsId;
-   //                 console.log('usersId', usersId);
-   //                 usersId.forEach(function (value) {
-   //                     var user = {id: value};
-   //                     self.arrayId.push(user);
-   //                 });
-   //                 self.arrayId.push({id: self.userid});
-   //                 console.log('arrayId', self.arrayId);
-   //                 UserFactory.getSmallInfoAboutUsers(self.arrayId, function (data) {
-   //                         data.forEach(function (userFriend) {
-   //                             var user = {};
-   //                             user = $localStorage.users.getUser(userFriend.id);
-   //                             if (!user) {
-   //                                 $localStorage.users.addUser(userFriend);
-   //                             }
-   //                         });
-   //                         var userAuth = $localStorage.users.getUser(self.userid);
-   //                         self.user = userAuth;
-   //                     },
-   //                     function (errResponce) {
-   //                         console.error('Error ');
-   //                     });
-                };
 
                 function change() {
                     if ($routeParams.id) {
-                        self.userid = $routeParams.id;
+                        self.userId = $routeParams.id;
                         console.log("on change userId routeParams=", self.userid);
-                        //   self.user = $localStorage.users.getUser(self.userid);
+                        getInfo();
                     }
                     else {
-                        self.userid = idStorage.getId();
-                        //     self.user=$localStorage.
-                        console.log("on change userId idStorage=", self.userid);
-
-                        //  self.user = $localStorage.getUser(self.userid);
+                        self.userId = idStorage.getId();
                         console.log("on change user idStorage=", self.user);
+                        getInfo();
                     }
                 }
 
-                // self.user = UserFactory.getUsr({userId: self.userid});
+                function getInfo() {
+                    var userId = self.userId;
+                    self.user = $localStorage.authUser;
+                    if (!self.user.avatarUrl) {
+                        self.user.avatarUrl = "images/userspictures/default-avatar.jpeg"
+                    }
+                    if (!self.user) {
+                        UsersIdEmptyInfo.setId(userId);
+                        promise.then(function (val) {
+                            self.user = val;
+                        });
+                        UserFactory.getUser({userId: userId}, function (user) {
+                            if (!user.avatarUrl) {
+                                user.avatarUrl = "images/userspictures/default-avatar.jpeg"
+                            }
+                            defer.resolve(self.user = user);
+                        }, function (errResponce) {
+                            console.error('Error,havent user', errResponce);
+                        })
+                    }
+                }
             }],
         bindings: {}
 

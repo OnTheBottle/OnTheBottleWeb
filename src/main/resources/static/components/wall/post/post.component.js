@@ -3,11 +3,10 @@
 angular.module('post')
     .component('post', {
         templateUrl: 'components/wall/post/post.template.html',
-        controller: ['$routeParams', 'LikeFactory', 'PostFactory', 'CommentFactory', 'UserFactory', 'idStorage', 'Lightbox', '$localStorage', 'UsersIdEmptyInfo',
-            function PostController($routeParams, LikeFactory, PostFactory, CommentFactory, UserFactory, idStorage, Lightbox, $localStorage, UsersIdEmptyInfo) {
+        controller: ['$routeParams', 'LikeFactory', 'PostFactory', 'CommentFactory', 'UserFactory', 'idStorage', 'Lightbox', '$localStorage', 'UsersIdEmptyInfo', '$resource', '$q', '$window', '$timeout', '$scope', '$interval',
+            function PostController($routeParams, LikeFactory, PostFactory, CommentFactory, UserFactory, idStorage, Lightbox, $localStorage, UsersIdEmptyInfo, $resource, $q, $window, $timeout, $scope, $interval) {
                 var self = this;
                 self.userid = idStorage.getId();
-                //      self.user = {name: '', surname: '', avatarUrl: ''};
                 self.user = {};
                 self.commenting = '';
                 self.comment = {id: null, user_id: self.userid, post_id: null, comment: ''};
@@ -18,6 +17,30 @@ angular.module('post')
                 self.countDislike = 0;
                 self.comments = [];
                 self.images = [];
+                var defer = $q.defer();
+                var promise = defer.promise;
+                var postUserId = null;
+                var usersIdComment = [];
+                moment.locale('ru');
+                self.differ = null;
+                self.datePost = null;
+                self.dateUTCTOlocal = null;
+                self.format = null;
+
+                var a = $interval(function () {
+                    differ();
+                }, 3600000);
+
+                function differ() {
+                    self.differ = moment(new Date()).diff(self.datePost, 'h');
+                    if (self.differ < 23) {
+                        self.watch = true;
+                    }
+                    else {
+                        self.watch = false;
+                    }
+                }
+
                 self.description = function (string) {
                     if (string === "Anybody views a post") {
                         return 'globe'
@@ -31,25 +54,37 @@ angular.module('post')
                 };
                 random();
 
-                self.getUser = function (id, postId, images, likes, comments) {
+                self.getUser = function (id, postId, images, likes, comments, date) {
+                    var dateP = moment(date, "MM-YYYY-DD HH:mm:ss");
+                    self.datePost = dateP;
+                    var datel = convertUTCDateToLocalDate(new Date(dateP));
+                    var t = datel.toLocaleString();
+                    self.dateUTCTOlocal = moment(t, "DD.MM.YYYY, HH:mm:ss");
+                    self.format = self.dateUTCTOlocal.format(' D MMM в HH:mm ');
+                    self.user = $localStorage.users.getUser(id);
+                    differ();
+
+                    if (!self.user) {
+                        postUserId = id;
+                        promise.then(function (val) {
+                            self.user = val;
+                        });
+                    }
                     self.comments = comments;
                     self.images = images;
                     self.likesFromPost = likes;
-                    console.log('self.likes', self.likesFromPost);
                     showStates(self.likesFromPost);
                     showStateComment(self.comments);
-                    self.user = $localStorage.users.getUser(id);
-
-                    if (!self.user) {
-                        UsersIdEmptyInfo.setId(id);
-                    }
-                    self.likesFromPost.forEach(function (like) {
-                        var idUserLike = like.user.id;
-                        if (!$localStorage.users.getUser(idUserLike)) {
-                            UsersIdEmptyInfo.setId(idUserLike)
-                        }
-                    });
                 };
+
+                function convertUTCDateToLocalDate(date) {
+                    var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+                    var offset = date.getTimezoneOffset() / 60;
+                    var hours = date.getHours();
+                    newDate.setHours(hours - offset);
+                    return newDate;
+                }
+
 
                 function showStates(likesArray) {
                     if (likesArray.length === 0) {
@@ -95,7 +130,7 @@ angular.module('post')
                 }
 
                 this.dropPost = function (id, del) {
-                    if (del === 'Delete') {
+                    if (del === 'Удалить') {
                         PostFactory.dropPost({postId: id}, function (data) {
                             self.deletePost(id);
                         }, function (errResponse) {
@@ -166,14 +201,10 @@ angular.module('post')
                         function (data, headers, statusCode) {
                             if (statusCode === 204) {
                                 $('#warning').modal('show');
-                                self.warning = "Вы уже оценили пост";
                             }
                             if (statusCode === 200) {
 
                                 var likesResponce = JSON.parse(data.data);
-                                //  console.log('parseJson',a);
-                                //  self.likeUser=true;
-                                //  self.countLike ++;
                                 self.likesFromPost = likesResponce;
                                 showStates(likesResponce);
                             }
@@ -181,7 +212,7 @@ angular.module('post')
                             console.error('Error while adding like', errResponse);
                         })
                 };
-                self.warning = '';
+
 
                 self.deleteLike = function (state) {
                     for (var a = self.likesFromPost.length - 1; a >= 0; a--) {
@@ -196,18 +227,6 @@ angular.module('post')
 
                                     showStates(data);
                                 }
-
-
-                                //         self.likesFromPost = data;
-                                //         if(state==='like'){
-                                //             self.likeUser=false;
-                                //             self.countLike --;
-                                //         }
-                                //         if(state==='dislike'){
-                                //             self.dislikeUser=false;
-                                //             self.countDislike --;
-                                //         }
-                                //showStates(self.likesFromPost);
                             }, function (errResponse) {
                                 console.error('Error while deleting Post', errResponse);
                             })
@@ -220,15 +239,11 @@ angular.module('post')
                         function (data, headers, statusCode) {
                             if (statusCode === 204) {
                                 $('#warning').modal('show');
-                                self.warning = "Вы уже оценили пост";
                             }
                             if (statusCode === 200) {
                                 var likesResponce = JSON.parse(data.data);
                                 self.likesFromPost = likesResponce;
                                 showStates(likesResponce);
-                                //   self.likesFromPost=data.data;
-                                //  self.dislikeUser=true;
-                                //  self.countDislike ++;
                             }
                         }, function (errResponse) {
                             console.error('Error while adding dislike', errResponse);
@@ -246,19 +261,31 @@ angular.module('post')
                 self.statLike = 'like';
                 self.statDislike = 'dislike';
 
-                function information(id, stats) {
+                function information(postId, stats) {
                     var likesUser = [];
-                    console.log(self.likesFromPost);
+                    var usersNoInfo = [];
+
+
                     self.likesFromPost.forEach(function (value) {
-                            if (value.status === stats) {
-                                var likeData = {};
-                                var user = $localStorage.users.getUser(value.user.id);
-                                likeData.userName = user.name;
-                                likeData.userSurname = user.surname;
-                                likeData.userAvatarUrl = user.avatarUrl;
-                                likeData.status = value.status;
-                                likesUser.push(likeData);
+                        if (value.status === stats) {
+                            var userLike = $localStorage.users.getUser(value.user.id);
+                            if (!userLike) {
+                                usersNoInfo.push({id: value.user.id});
+                            } else {
+                                likesUser.push(userLike);
                             }
+
+                        }
+                    });
+
+                    UserFactory.getUsersInfo(usersNoInfo, function (users) {
+                            users.forEach(function (user) {
+                                $localStorage.users.addUser(user);
+                                likesUser.push(user);
+                            });
+
+                        }, function (errResponce) {
+                            console.error('Error,havent user', errResponce);
                         }
                     );
                     getLikesUser(likesUser, stats);
@@ -304,9 +331,9 @@ angular.module('post')
 
                 self.changeDelete = function (id) {
                     if (id === $localStorage.authId) {
-                        return 'Delete';
+                        return 'Удалить';
                     } else {
-                        return 'Delete from Wall';
+                        return 'Удалить из стены';
                     }
                 };
 
@@ -318,8 +345,35 @@ angular.module('post')
                     self.openImage(self.images, index);
                 };
 
-            }],
+                var broadcast = $scope.$on('parent', function (event, data) {
+                    if (data === 'true') {
+                        defer.resolve($localStorage.users.getUser(postUserId));
+                        getCommentsUserId();
+                        broadcast()
+                    }
+                });
 
+                function getCommentsUserId() {
+                    self.comments.forEach(function (value) {
+                        if (!$localStorage.users.getUser(value.user.id)) {
+                            usersIdComment.push({id: value.user.id});
+                        }
+                    });
+                    if (usersIdComment.length > 0) {
+                        UserFactory.getUsersInfo(usersIdComment, function (users) {
+                                users.forEach(function (user) {
+                                    $localStorage.users.addUser(user);
+
+                                });
+                                $scope.$broadcast('post', 'true');
+                            }, function (errResponce) {
+                                console.error('Error,havent user', errResponce);
+                            }
+                        );
+
+                    }
+                }
+            }],
         bindings: {
             deletePost: '=',
             orderProp: '=',
@@ -329,7 +383,8 @@ angular.module('post')
             wallUserId: '<',
             editPost: '=',
             openImage: '=',
-            last: '<',
+            addUsers: '='
         }
-    });
+    })
+;
 
