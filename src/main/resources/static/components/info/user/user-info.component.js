@@ -3,14 +3,14 @@
     angular.module('userInfoApp')
         .component('userInfoComp', {
             templateUrl: 'components/info/user/user-info.component.html',
-            controller: ['$routeParams', '$http', 'EventFactory', InfoController],
+            controller: ['$routeParams', '$http', 'EventFactory', '$localStorage', InfoController],
             controllerAs: 'model',
             bindings: {
                 authId: '='
             }
         });
 
-    function InfoController($routeParams, $http, EventFactory) {
+    function InfoController($routeParams, $http, EventFactory, $localStorage) {
 
         var model = this;
         model.requestData = {};
@@ -51,7 +51,10 @@
                     {id: $routeParams.id},
                     function (data) {
                         if (data[0] !== undefined) {
-                            model.events = data;
+                            data.forEach(function (event) {
+                                event.place = $localStorage.places.getPlace(event.place.id);
+                                model.events.push(event);
+                            });
                         }
                     }, function () {
                         console.error('Error while read events');
