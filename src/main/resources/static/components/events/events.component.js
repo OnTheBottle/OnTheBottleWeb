@@ -6,22 +6,28 @@ angular.module('eventsApp').component('eventsComp', {
     bindings: {
         userId: '='
     },
-    controller: ['EventFactory', '$scope', '$window',
-        function UserController(EventFactory, $scope, $window) {
+    controller: ['EventFactory', 'PlaceFactory', '$scope', '$window', '$q', '$localStorage',
+        function UserController(EventFactory, PlaceFactory, $scope, $window, $q, $localStorage) {
             var self = this;
             self.options = {allEvents: 'true', activeEvents: 'true', ownerEvents: false};
             self.today = new Date();
             self.sortType = 'startTime';
             self.isMoreEvents = false;
             self.scroll = true;
-            self.wait = false;
+            self.places = [];
+            var process = $q.defer();
 
             var eventsCount = 7;
             var eventsPage = 0;
             var isSearch = false;
 
             self.$onInit = function () {
-                self.util.getEvents(self.sortType);
+                self.wait = false;
+                getPlaces();
+                process.promise
+                    .then(function () {
+                        self.util.getEvents(self.sortType);
+                    });
             };
 
             self.util = {
@@ -35,6 +41,7 @@ angular.module('eventsApp').component('eventsComp', {
                         function (data) {
                             if (data[0] !== undefined) {
                                 formatDate(data);
+                                setPlaceInfo(data);
                                 self.events = data;
                                 self.scroll = self.events.length % eventsCount === 0;
                             } else {
@@ -100,11 +107,6 @@ angular.module('eventsApp').component('eventsComp', {
                 }
             };
 
-            self.places = EventFactory.getPlaces({}, function (data) {
-                self.place = data[0].id;
-            }, function (errResponse) {
-                errResponseFunction(errResponse, 'Error while read places');
-            });
 
             self.notification = function (text) {
                 self.notificationText = text;
@@ -113,6 +115,15 @@ angular.module('eventsApp').component('eventsComp', {
                     angular.element('#notification').modal('hide');
                 }, 2000);
             };
+
+            function getPlaces() {
+                self.places = PlaceFactory.getPlacesInfo([], function (data) {
+                    self.place = data[0].id;
+                    setPlacesToCache(data);
+                }, function (errResponse) {
+                    errResponseFunction(errResponse, 'Error while read places');
+                });
+            }
 
             function formatDate(events) {
                 events.forEach(function (item) {
@@ -127,6 +138,19 @@ angular.module('eventsApp').component('eventsComp', {
                 } else {
                     console.error(messageError);
                 }
+            }
+
+            function setPlacesToCache(input) {
+                input.forEach(function (item) {
+                    $localStorage.places.addPlace(item);
+                });
+                process.resolve();
+            }
+
+            function setPlaceInfo(events) {
+                events.forEach(function (event) {
+                    event.place = $localStorage.places.getPlace(event.place.id);
+                });
             }
 
             $(window).scroll(function () {
@@ -175,5 +199,7 @@ angular.module('eventsApp').component('eventsComp', {
 
                 }
             });
-        }]
+        }
+
+    ]
 });

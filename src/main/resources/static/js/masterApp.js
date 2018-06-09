@@ -6,7 +6,8 @@ const PLACE_PATH = location.protocol + '//' + location.hostname + ':8082';
 const MESSAGE_PATH = location.protocol + '//' + location.hostname + ':8083';
 const AUTH_HTML = 'auth.html';
 const DEFAULT_AVATAR_PATH = 'images/userspictures/default-avatar.jpeg';
-const TIME_TO_CLEAR_USER_INFO = 30;
+const DEFAULT_BAR_AVATAR_PATH = 'images/place/default.jpg';
+const TIME_TO_CLEAR_CACHE_INFO = 30;
 
 (function () {
     'use strict';
@@ -74,18 +75,73 @@ const TIME_TO_CLEAR_USER_INFO = 30;
                 }
             },
             getUser: function (id) {
+                var BreakException = {};
                 var user = false;
-                this.users.forEach(function (item) {
-                    if (item.id === id) {
-                        user = item;
-                        return true;
-                    }
-                });
+                try {
+                    this.users.forEach(function (item) {
+                        if (item.id === id) {
+                            user = item;
+                            throw BreakException;
+                        }
+                    });
+                } catch (e) {
+                    if (e !== BreakException) throw e;
+                }
+
                 return user;
             },
             resetUsers: function () {
                 this.count = 0;
                 this.users = [];
+            }
+        };
+
+        cache.places = {
+            places: cache.places === undefined ? [] : cache.places.places,
+            count: cache.places === undefined ? 0 : cache.places.count,
+            addPlace: function (place) {
+                var BreakException = {};
+                var exist = false;
+                try {
+                    this.places.forEach(function (item) {
+                        if (item.id === place.id) {
+                            exist = true;
+                            throw BreakException;
+                        }
+                    });
+                } catch (e) {
+                    if (e !== BreakException) throw e;
+                }
+
+                if (!exist) {
+                    place.image = place.image || DEFAULT_BAR_AVATAR_PATH;
+                    if (cache.places.count < 100) {
+                        cache.places.places[cache.places.count] = place;
+                        cache.places.count++;
+                    } else {
+                        cache.places.count = 0;
+                        cache.places.places[cache.places.count] = place;
+                    }
+                }
+            },
+            getPlace: function (id) {
+                var place = false;
+                var BreakException = {};
+                try {
+                    this.places.forEach(function (item) {
+                        if (item.id === id) {
+                            place = item;
+                            throw BreakException;
+                        }
+                    });
+                } catch (e) {
+                    if (e !== BreakException) throw e;
+                }
+                return place;
+            },
+            resetPlaces: function () {
+                this.count = 0;
+                this.places = [];
             }
         };
 
@@ -103,17 +159,16 @@ const TIME_TO_CLEAR_USER_INFO = 30;
             console.log('error Auth: ', response.statusText);
         });
 
-        cache.timeAddUsers = cache.timeAddUsers || new Date().valueOf();
-        var timeClearUsers = cache.timeAddUsers + TIME_TO_CLEAR_USER_INFO * 60000;
+        cache.timeAddCache = cache.timeAddCache || new Date().valueOf();
+        var timeClearUsers = cache.timeAddCache + TIME_TO_CLEAR_CACHE_INFO * 60000;
         if (timeClearUsers - new Date().valueOf() <= 0) {
             cache.users.resetUsers();
-            cache.timeAddUsers = new Date().valueOf();
+            cache.places.resetPlaces();
+            cache.timeAddCache = new Date().valueOf();
             cache.friends.forEach(function (user) {
                 cache.users.addUser(user);
             });
         }
-
-        cache.places = cache.places || [];
 
         var token = parseJwt(tokenJwt);
         cache.authId = token.userId;

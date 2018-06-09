@@ -186,7 +186,7 @@
             <event-comp user-id="self.userId" get-events="self.util.getEvents" notification="self.notification" event="event"
                         ng-repeat="event in self.events">
             </event-comp>
-            <div id="scrolList" class="text-center fa-3x" ng-click="self.util.getMoreEvents()" ng-show="self.wait">
+            <div id="scrolList" class="text-center fa-3x" ng-show="self.wait">
                 <i class="fas fa-spinner fa-pulse"></i>
             </div>
 

@@ -18,6 +18,11 @@ angular.module('placesService').factory('PlaceFactory', ['$resource', '$cookies'
                 params: {path: 'getPlaces', access_token: $cookies.get('access_token')},
                 method: "GET",
                 isArray: true
+            },
+            getPlacesInfo: {
+                params: {path: 'getPlacesInfo', access_token: $cookies.get('access_token')},
+                method: "POST",
+                isArray: true
             }
         });
     }

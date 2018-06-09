@@ -7,23 +7,21 @@ angular.module('eventInfo').component('eventInfoComp', {
         userId: '='
     },
     controller: ['$routeParams', '$window', '$scope', '$localStorage', '$q', 'UserEventFactory', 'EventFactory',
-        'PostFactory',
+        'PostFactory', 'PlaceFactory',
         function UserController($routeParams, $window, $scope, $localStorage, $q, UserEventFactory, EventFactory,
-                                PostFactory) {
+                                PostFactory, PlaceFactory) {
             var self = this;
             self.activeMenu = 'Info';
             self.today = new Date();
+            var process = $q.defer();
+            var processShowEvent = $q.defer();
 
             self.$onInit = function () {
-                var process = $q.defer();
+                var event = getEvent();
                 process.promise
                     .then(function () {
-                        return getEvent();
-                    })
-                    .then(function (event) {
                         self.event = event;
                     });
-                process.resolve();
             };
 
             self.control = function () {
@@ -58,7 +56,8 @@ angular.module('eventInfo').component('eventInfoComp', {
                 }
             };
 
-            self.places = EventFactory.getPlaces({}, function (data) {
+            self.places = PlaceFactory.getPlacesInfo([], function (data) {
+                setPlacesToCache(data);
             }, function (errResponse) {
                 errResponseFunction(errResponse, 'Error while read places');
             });
@@ -179,12 +178,12 @@ angular.module('eventInfo').component('eventInfoComp', {
                         self.usersPreliminary = [];
                         var infoOwner;
                         var noInfoUsers;
-                        var processShowEvent = $q.defer();
 
                         processShowEvent.promise
                             .then(function () {
+                                event.place = $localStorage.places.getPlace(event.place.id);
                                 self.formatDate(event);
-                                copyEventToUpdate(self.event);
+                                copyEventToUpdate(event);
                             })
                             .then(function () {
                                 noInfoUsers = setUsersToArr(event.friends, self.friendsPreliminary);
@@ -206,7 +205,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                             .then(function () {
                                 if (!infoOwner) setInfoOwner(self.usersPreliminary, event.owner);
                             });
-                        processShowEvent.resolve();
+                        process.resolve();
                     }, function (errResponse) {
                         if (errResponse.data === 'Doesn\'t exist event') {
                             $window.location.href = '#!/event';
@@ -278,6 +277,13 @@ angular.module('eventInfo').component('eventInfoComp', {
                 $window.setTimeout(function () {
                     angular.element('#notification').modal('hide');
                 }, 2000);
+            }
+
+            function setPlacesToCache(input) {
+                input.forEach(function (item) {
+                    $localStorage.places.addPlace(item);
+                });
+                processShowEvent.resolve();
             }
         }]
 });

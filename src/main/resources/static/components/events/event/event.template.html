@@ -1,5 +1,5 @@
 <div class="event">
-    <a href="#!/eventInfo/{{self.event.id}}"><img class="pub-img" ng-src="{{self.event.place.avatar}}"></a>
+    <a href="#!/eventInfo/{{self.event.id}}"><img class="pub-img" ng-src="{{self.event.place.image}}"></a>
     <div class="title-event"><a href="#!/eventInfo/{{self.event.id}}">{{self.event.title}}</a></div>
     <p class="description">{{self.event.text | cut:true:330:' ...'}}</p>
     <p class="time">{{self.event.active ? (self.event.startTimeTemp === self.today ?
