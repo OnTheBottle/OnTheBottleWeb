@@ -32,5 +32,25 @@
             });
 
         };
+
+        model.setOrderRule = function (rule) {
+            if (model.orderRule == rule) {
+                model.orderRule = '-' + rule;
+            } else {
+                model.orderRule = rule;
+            }
+        };
+
+        // model.filter('ageRange', function () {
+        //     return function (item) {
+        //         var goals = [];
+        //         for (var i = 0; i < item.length; i++) {
+        //             if (item[i].age >= model.ageFrom && item[i].age <= model.ageTo) {
+        //                 goals.push(item[i]);
+        //             }
+        //         }
+        //         return goals;
+        //     };
+        // })
     }
 })();

@@ -1,11 +1,42 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-init="model.orderRule = 'name'">
     <div class="row">
         <div class="container-fluid">
             <!--Write your HTML here-->
             <p class="text-info h2 text-center">Поиск</p>
-
+            <div class="row justify-content-md-center alert alert-info bg-light">
+                <div class="col-md-5">
+                    <span>Сортировка:</span>
+                    <button type="button" ng-click="model.setOrderRule('name')" class="btn btn-outline-info btn-lg">имя
+                        <i class="fas fa-sort-up" ng-show="model.orderRule == 'name'"></i>
+                        <i class="fas fa-sort-down" ng-show="model.orderRule == '-name'"></i>
+                    </button>
+                    <button type="button" ng-click="model.setOrderRule('surname')" class="btn btn-outline-info btn-lg">
+                        фамилия
+                        <i class="fas fa-sort-up" ng-show="model.orderRule == 'surname'"></i>
+                        <i class="fas fa-sort-down" ng-show="model.orderRule == '-surname'"></i>
+                    </button>
+                    <button type="button" ng-click="model.setOrderRule('age')" class="btn btn-outline-info btn-lg">
+                        возраст
+                        <i class="fas fa-sort-up" ng-show="model.orderRule == 'age'"></i>
+                        <i class="fas fa-sort-down" ng-show="model.orderRule == '-age'"></i>
+                    </button>
+                </div>
+                <!--<div class="col-md-5">-->
+                    <!--<span>Возраст </span>-->
+                    <!--<select ng-model="model.ageFrom">-->
+                        <!--<option value="">&#45;&#45; от &#45;&#45;</option>-->
+                        <!--<option ng-repeat="n in model.n">{{n}}</option>-->
+                    <!--</select>-->
+                    <!--<span>до</span>-->
+                    <!--<select ng-model="model.ageTo">-->
+                        <!--<option value="">&#45;&#45; до &#45;&#45;</option>-->
+                        <!--<option ng-repeat="n in model.n">{{n}}</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            </div>
             <div class="row justify-content-md-center">
-                <div ng-repeat="person in model.listOfPersons" class="col-md-3">
+                <div ng-repeat="person in model.listOfPersons|orderBy: model.orderRule"
+                     class="col-md-3">
 
                     <div class="alert alert-info bg-light m-2">
                         <a class="dropdown-item p-0" href="#!/userInfo/{{person.id}}">
@@ -20,7 +51,8 @@
                             </div>
                         </a>
                         <div>
-                            <button-friends-comp size="small" user-id="person.id"></button-friends-comp>
+                            <button-friends-comp size="small" user-id="person.id"
+                                                 style="position: absolute; right: 0.5rem; top:0.1rem;"></button-friends-comp>
                         </div>
                     </div>
                 </div>
