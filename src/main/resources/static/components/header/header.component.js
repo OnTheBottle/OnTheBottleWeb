@@ -1,26 +1,44 @@
+'use strict';
+
 (function () {
     'use strict';
 
     angular.module('mainApp')
         .component('headerComp', {
             templateUrl: 'components/header/v2header.component.html',
-            controller: ['$http', '$window', '$cookies', '$localStorage', HeaderController],
+            controller: ['$http', '$window', '$cookies', '$localStorage', '$interval', HeaderController],
             controllerAs: 'model',
             bindings: {
                 userId: '='
             }
         });
 
-    function HeaderController($http, $window, $cookies, $localStorage) {
+    function HeaderController($http, $window, $cookies, $localStorage, $interval) {
 
         var cache = $localStorage;
         var model = this;
         model.name = '';
         model.activeMenu = 'news';
+        model.chatNotifier = cache.notifiers.chat.newMessageCounter;
+
+        //console.log('webSocket.onmessage cache.notifiers: ', cache.notifiers);
 
         model.$onInit = function () {
             model.getUser();
+
+            $interval(function () {
+                model.chatNotifier = cache.notifiers.chat.newMessageCounter;
+                //console.log('webSocket.onmessage cache.notifiers: ', cache.notifiers);
+            }, 1000);
+
         };
+
+/*
+        model.$doCheck = function () {
+            model.notifier = cache.notifiers.chat.newMessageCounter;
+            console.log('$onChanges model.notifier: ', model.notifier);
+        };
+*/
 
         model.getUser = function () {
             $http({

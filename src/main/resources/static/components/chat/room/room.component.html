@@ -4,7 +4,7 @@
 
 
             <div class="pb-3">
-                <creator-chat-comp send-message="model.sendMessage"></creator-chat-comp>
+                <creator-chat-comp ng-show="model.isConnection" send-message="model.sendMessage"></creator-chat-comp>
             </div>
 
             <div>

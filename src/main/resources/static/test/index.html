@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+<button onclick="connect()">Connect</button>
+<div>----------</div>
+<button onclick="sendObj()">send object</button>
+<div id="#greetings"></div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+
+    function connect() {
+        ws = new WebSocket('ws://localhost:8083/api');
+
+        ws.onopen = function (ev) {
+            console.log("Connected", ev);
+        };
+
+        ws.onclose = function (ev) {
+            console.log("Disconnected", ev);
+        }
+
+        ws.onmessage = function (data) {
+            //console.log('message from back: ', data);
+            console.log('message from back: ', data.data);
+            showGreeting(data.data);
+        }
+    }
+
+    function disconnect() {
+        if (ws != null) {
+            ws.close();
+        }
+        console.log("Disconnected");
+    }
+
+    function sendObj() {
+        var obj = {
+            name: 'Alex',
+            surname: 'Assa',
+            age: '19'
+        };
+        ws.send(JSON.stringify(obj));
+    }
+
+    function sendName() {
+        ws.send($("#name").val());
+    }
+
+    function showGreeting(message) {
+        $("#greetings").append(" " + message + "");
+    }
+</script>
+</html>

@@ -7,7 +7,8 @@
             controllerAs: 'model',
             bindings: {
                 authId: '=',
-                selectRoom: '<'
+                selectRoom: '<',
+                selectedInterlocutor: '<'
             }
         });
 

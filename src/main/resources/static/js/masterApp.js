@@ -9,6 +9,9 @@ const DEFAULT_AVATAR_PATH = 'images/userspictures/default-avatar.jpeg';
 const DEFAULT_BAR_AVATAR_PATH = 'images/place/default.jpg';
 const TIME_TO_CLEAR_CACHE_INFO = 30;
 
+var webSocket = null;
+
+
 (function () {
     'use strict';
 
@@ -20,6 +23,7 @@ const TIME_TO_CLEAR_CACHE_INFO = 30;
             'ngAnimate',
             'ngStorage',
             'findApp',
+            'socketService',
             //'addFriendsApp',
             'linkFriendsApp',
             'friendApp',
@@ -49,7 +53,7 @@ const TIME_TO_CLEAR_CACHE_INFO = 30;
         })
         .controller('MainController', mainController);
 
-    function mainController($cookies, $window, $http, $localStorage, idStorage, $rootScope) {
+    function mainController($cookies, $window, $http, $localStorage, idStorage, $rootScope, SocketService) {
 
         var cache = $localStorage;
 
@@ -59,7 +63,9 @@ const TIME_TO_CLEAR_CACHE_INFO = 30;
         }
 
         this.authId = null;
+
         cache.tokenJwt = tokenJwt;
+        cache.interlocutorId = null;
 
         cache.users = {
             users: cache.users === undefined ? [] : cache.users.users,
@@ -174,6 +180,9 @@ const TIME_TO_CLEAR_CACHE_INFO = 30;
         cache.authId = token.userId;
         this.authId = cache.authId;
         idStorage.setId(cache.authId);
+
+        //this.notifiers.chat.newMessageCounter = cache.notifiers.chat.newMessageCounter;
+        //this.notifiers.chat.newMessageCounter = 5;
 
         // var socket = new SockJS(MESSAGE_PATH + '/ws');
         // var stompClient = Stomp.over(socket);

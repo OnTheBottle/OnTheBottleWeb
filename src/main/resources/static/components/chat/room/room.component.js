@@ -27,10 +27,11 @@
         model.messages = [];
         model.newMessages = [];
         model.content = '';
-
+        model.isConnection = false;
 
         model.$onInit = function () {
             // console.log("roomChatController $onInit: Work");
+
             countNewMessage = 0;
             if (model.interlocutorId) {
                 model.connect(model.authId, model.interlocutorId);
@@ -85,6 +86,7 @@
         }
 
         function onConnected(response) {
+            model.isConnection = true;
             chatChannel = response.data;
             channelId = chatChannel.channelId;
             cache.channelId = channelId;

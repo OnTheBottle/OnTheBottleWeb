@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="components/chat/meetings/interlocutor/interlocutor.css" type="text/css">
 
 <div class="container bg-light alert alert-info post-wrapper p-0 mb-3">
-    <a ng-class="model.isUnreadMessage ? 'badge' : ''" data-badge={{model.unreadCount}} class="dropdown-item p-0" href=""
+    <a ng-class="model.isUnreadMessage ? 'badge' : ''" data-badge={{model.unreadCount}} class="dropdown-item p-0"
+       href=""
        ng-click="model.selectRoom(model.interlocutor.id)">
         <div ng-class="model.selected ? 'active-interlocutor' : ''" class="row m-2">
             <div class="col-2 p-0 text-center align-self-center">
@@ -13,8 +14,9 @@
                          class="meetings-avatar" alt="ava">
                 </div>
             </div>
-            <div class="col-10 p-0 pl-2 text-left align-self-center">
-                <span class="meetings-text">{{model.interlocutor.name}} {{model.interlocutor.surname}}</span>
+            <div class="col-10 p-0 pl-2 text-left align-self-center meetings-text">
+                {{model.interlocutor.name}} {{model.interlocutor.surname}}
+                <span class="font-weight-bold" ng-show="model.chatNotifier > 0">({{model.chatNotifier}})</span>
             </div>
         </div>
     </a>

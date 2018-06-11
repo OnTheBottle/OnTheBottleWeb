@@ -2,10 +2,21 @@
     <div class="row justify-content-center h-100">
         <!--<div class="col-1 col-xl-2"></div>-->
         <div class="col-3 col-xl-3">
-            <meetings-chat-comp select-room="model.selectRoom" auth-id="model.authId"></meetings-chat-comp>
+            <meetings-chat-comp select-room="model.selectRoom" auth-id="model.authId" selected-interlocutor="model.selectedInterlocutor"></meetings-chat-comp>
         </div>
         <div class="col-7 col-xl-6">
-            <room-chat-comp interlocutor-id="model.interlocutorId" auth-id="model.authId"></room-chat-comp>
+            <div id="space-for-room">
+                <div class="container bg-light alert alert-info post-wrapper pl-0 pr-0 mb-3">
+                    <div class="row m-0">
+                        <div class="col text-center align-self-center">
+                            <div class="pb-3">
+                                <div ng-hide="model.isConnection"><<< Выберите друга для общения</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<room-chat-comp interlocutor-id="model.interlocutorId" auth-id="model.authId"></room-chat-comp>-->
         </div>
         <!--<div class="col-1 col-xl-2"></div>-->
     </div>
