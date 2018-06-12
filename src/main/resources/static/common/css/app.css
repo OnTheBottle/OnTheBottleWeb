@@ -22,11 +22,15 @@
 }
 
 .postsUserInfo {
+    background: url(../../images/forPages/dust_scratches.png);
     border: 2px solid;
     border-color: #00A5E3;
     border-radius: 1rem;
     font-size: 1.4rem;
+}
 
+.postsUserInfo .card-footer{
+    border-top: 1px solid #00A5E3;
 }
 
 .user {
@@ -312,7 +316,7 @@ li {
     font-size: 1.4rem;
 }
 
-.thumb img {
+.thumb  {
     -webkit-filter: grayscale(0);
     filter: none;
     border: 1px solid #0056b3;
@@ -404,3 +408,41 @@ li {
 .scrollElements a {
     color: #00A5E3;
 }
+
+.everyImage{
+    display:inline-block;
+    margin-top:0.5%;
+    margin-left:0.5%;
+    margin-right: 0.5%;
+}
+.img-thumbnail{
+    border-color:#00A5E3;
+}
+
+.cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width:400px;
+    height:250px;
+    margin-top: 1rem;
+    border:  solid 1px;
+    border-color:#00A5E3;
+}
+
+.modalAvatar{
+    width:740px;
+    height:390px;
+    margin-top: 1rem;
+    border:solid 1px #00A5E3;
+}
+
+.userModal button{
+    background: transparent;
+    font-size: 1.4rem;
+}
+
+.addFoto{
+    background: transparent;
+    font-size: 1.8rem;
+}
+

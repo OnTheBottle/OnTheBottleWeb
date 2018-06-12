@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('userOk', ['ngRoute', 'ngResource','ngStorage','ngCookies']);
+angular.module('userOk', ['ngRoute', 'ngResource','ngStorage','ngCookies','avatarDownload']);

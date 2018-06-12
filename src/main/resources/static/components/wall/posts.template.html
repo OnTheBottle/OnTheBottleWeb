@@ -4,7 +4,7 @@
 <div class="container-fluid posts-body">
     <div class="row">
         <div class="user col-md-4">
-            <user-ok></user-ok>
+            <user-ok set-avatar-to-posts="$ctrl.setAvatarToPosts"></user-ok>
         </div>
 
         <div class="scrollElements col-md-1 ">
@@ -59,7 +59,7 @@
                                         </button>
                                         <button type="button" class="btn podskazka" titled="добавить изображение"
                                                 ng-click="showAreaImage = ! showAreaImage">
-                                            <i class="fas fa-camera-retro fa-lg "></i>
+                                            <i class="fas fa-images fa-lg"></i>
                                         </button>
                                         <button type="button" class="btn podskazka" titled="добавить видео">
                                             <i class="fas fa-film fa-lg "></i></button>
@@ -102,12 +102,10 @@
                     </div>
                 </div>
 
-                <div class="postslist" infinite-scroll='$ctrl.loadMore()' infinite-scroll-distance='0'
-                     infinite-scroll-disabled="$ctrl.scroll" infinite-scroll-immediate-check="true"
-                     infinite-scroll-use-document-bottom="true">
+                <div class="postslist">
                     <post post="post" delete-post="$ctrl.deletePost"
                           set-likes-user="$ctrl.setLikesUser" bn-show="$ctrl.whoUser" wall-user-id="$ctrl.userid"
-                          edit-post="$ctrl.edit" open-image="$ctrl.openImage"
+                          edit-post="$ctrl.edit" open-image="$ctrl.openImage" uploadFiles="$ctrl.post.uploadFiles"
                           ng-repeat="post in $ctrl.posts| filter:$ctrl.getPosts|orderBy:$ctrl.orderProp">
                     </post>
                     <div id="scrolList" class="text-center fa-3x" ng-show="$ctrl.wait">

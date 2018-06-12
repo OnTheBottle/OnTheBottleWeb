@@ -103,61 +103,6 @@ angular.module('postsApp').component('postsComp', {
                     })
             }
 
-            //
-            //
-            //  var usersIdLikes = [];
-            //  self.posts.
-            //
-            //      var id = user.id;
-            //      ;
-            //      var postComments = value.comments;
-            //      var postLikes = value.likes;
-            //      postComments.forEach(function (value) {
-            //          var userComment = value.user;
-            //          var idUserComment = userComment.id;
-            //          usersIdComment.push(idUserComment);
-            //      });
-            //      postLikes.forEach(function (value) {
-            //          var userLike = value.user;
-            //          var idUserLike = userLike.id;
-            //          usersIdLikes.push(idUserLike);
-            //                      });
-            //                  });
-            //                  var bufferArray = [...new
-            //                  Set([...usersIdPosts,...usersIdComment
-            //              ])]
-            //                  ;
-            //                  var usersId = [...new
-            //                  Set([...bufferArray,...usersIdLikes
-            //              ])]
-            //                  ;
-            //                  self.usersToCache(usersId);
-            //              },
-            //              function (errResponce) {
-            //                  console.error('Error while fetching posts');
-
-
-            //         self.usersToCache = function (usersId) {
-            //             self.arrayId = [];
-            //             usersId.forEach(function (value) {
-            //                 var user = {id: value};
-            //                 if(!$localStorage.users.getUser(value)){
-            //                     self.arrayId.push(user);
-            //                 }
-//
-            //             });
-            //             if(self.arrayId){
-            //             UserFactory.getUsersInfo(self.arrayId, function (data) {
-            //                     var users = data;
-            //                     users.forEach(function (userPost) {
-            //                         var user = $localStorage.users.getUser(userPost.id);
-            //                         if (!user) {
-            //                             $localStorage.users.addUser(userPost);
-            //                         }
-            //                     });
-            //                 },
-
-
             function securities() {
                 SecurityFactory.getSecurities(function (data) {
                     self.securities = data;
@@ -182,24 +127,31 @@ angular.module('postsApp').component('postsComp', {
                     title: self.post.title,
                     uploadFiles: self.files
                 }, function (data) {
+
                     if (data.user.id === $localStorage.authUser.id) {
                         data.user = $localStorage.authUser;
+                        if (!data.user.avatarUrl) {
+                            data.user.avatarUrl = "images/userspictures/default-avatar.jpeg";
+                        }
                     }
                     else {
                         UserFactory.getSmallInfo({userId: data.user.id}, function (data) {
-                               if(!$localStorage.users.getUser(data.id)){
-                                   $localStorage.users.addUser(data)
-                               }
-                              self.post.user=data
+                                if (!$localStorage.users.getUser(data.id)) {
+                                    if (!data.avatarUrl) {
+                                        data.avatarUrl = "images/userspictures/default-avatar.jpeg";
+                                    }
+                                    $localStorage.users.addUser(data)
+                                }
+                                //  self.post.user = data
                             }, function (errResponce) {
                                 console.error('Error while get UserInfo', errResponce);
                             }
                         )
                     }
+
                     self.posts.unshift(data);
-                    reset();
+
                     self.resetAll();
-                    //    changePostsFor();
                 }, function (errResponse) {
                     console.error('Error while creating Post', errResponse);
                 })
@@ -254,6 +206,7 @@ angular.module('postsApp').component('postsComp', {
             self.resetAll = function () {
                 self.stan = true;
                 angular.element(document.querySelector("file-comp")).attr("stata", "reset");
+                reset();
             };
 
             self.download = function () {
@@ -266,46 +219,8 @@ angular.module('postsApp').component('postsComp', {
                 submit();
             };
 
-            //     self.scroll = function(state){
-            //         if(self.posts.length===0){
-            //             return true;
-            //         }
-            //         if(state){
-            //             return state;
-            //         }
-            //         else{
-            //             return false;
-            //         }
-            //     };
-            //
-            self.loadMore = function () {
-                //        self.scroll = true;
-                //        var length = self.posts.length;
-                //        var lastPost = self.posts[self.posts.length - 1];
-                //        console.log(length);
-                //        PostFactory.getMorePosts({lastPostId: lastPost.id, userId: self.userid}, function (data) {
-//
-                //                console.log('догрузились посты', data);
-                //                if (data.length < 5) {
-                //                    self.scroll = true;
-                //                }
-                //                else {
-                //                    self.scroll = false;
-                //                }
-                //                data.forEach(function (post) {
-                //                    self.posts.push(post);
-//
-                //                })
-                //            },
-                //            function (errResponce) {
-                //                console.error('Error while fetching posts', errResponce);
-                //            })
-            };
-
             $(window).scroll(function () {
-                //           if ($(document).height() > 3000) {
-                //               self.addUsers()
-                //           }
+
                 if ($(window).scrollTop() === $(document).height() - $(window).height()) {
                     if (self.scroll === false) {
                         self.scroll = true;
@@ -347,6 +262,10 @@ angular.module('postsApp').component('postsComp', {
             self.gotoDown = function () {
                 $("html, body").animate({scrollTop: $(document).height()}, "slow");
             };
+
+            self.setAvatarToPosts = function (url) {
+                $scope.$broadcast('postAddAvatar', url);
+            }
         }
     ],
     bindings: {}

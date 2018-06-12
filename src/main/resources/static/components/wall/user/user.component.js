@@ -73,7 +73,22 @@ angular.module('userOk')
                         })
                     }
                 }
+
+                self.setAvatarUrl = function (url) {
+                    self.user.avatarUrl = url;
+                    $localStorage.authUser.avatarUrl = url;
+                    UserFactory.updateUser({avatarUrl: url, userId: $localStorage.authUser.id}, function () {
+                        self.setAvatarToPosts(url);
+                        console.log('Avatar adding success');
+                    }, function (errResponce) {
+                        console.log('Error while added avatar', errResponce)
+                    })
+                }
+
+
             }],
-        bindings: {}
+        bindings: {
+            setAvatarToPosts:'='
+        }
 
     });

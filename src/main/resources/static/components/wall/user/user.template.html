@@ -1,8 +1,8 @@
-<div class="card postsUserInfo mb-3" >
+<div class="card postsUserInfo mb-3">
     <div class="card-header">About</div>
     <div class="card-body text-secondary">
-        <h5 class="card-title">{{$ctrl.user.name}}&nbsp
-            {{$ctrl.user.surname}}</h5>
+        <h2 class="card-title">{{$ctrl.user.name}}&nbsp
+            {{$ctrl.user.surname}}</h2>
         <p class="card-text rounded-circle-lg">
             <img class="rounded-circle-lg" src="{{$ctrl.user.avatarUrl}}"
                  alt="{{$ctrl.user.name}}">
@@ -10,5 +10,8 @@
         <p class="card-text">{{$ctrl.user.status}}</p>
         <p class="card-text">{{$ctrl.user.age}} years old</p>
         <p class="card-text">{{$ctrl.user.city}}, {{$ctrl.user.country}}</p>
+    </div>
+    <div class="card-footer text-center">
+        <avatar-download set-avatar-url="$ctrl.setAvatarUrl"></avatar-download>
     </div>
 </div>

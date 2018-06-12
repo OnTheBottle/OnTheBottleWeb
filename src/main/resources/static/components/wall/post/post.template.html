@@ -5,7 +5,7 @@
 
         <div class="header row">
             <div class="image-user col-md-2">
-                <img class="avatar rounded-circle img-fluid" src="{{$ctrl.user.avatarUrl}}"
+                <img class="avatar rounded-circle img-fluid" ng-src="{{$ctrl.user.avatarUrl}}"
                      alt="user profile image">
             </div>
             <div class="meta col-md-7 ">
@@ -27,8 +27,10 @@
                             <time am-time-ago="$ctrl.dateUTCTOlocal" ng-if="$ctrl.watch"></time>
                             <time ng-if="!$ctrl.watch">{{$ctrl.format}}</time>
                         </div>
-                        <div class="col-sm-8 text-left visionPost" ng-switch="$ctrl.description($ctrl.post.security.description)">
-                            <a ng-switch-when="globe"><img ng-src="images/forPages/earth.svg" title="пост виден всем"></a>
+                        <div class="col-sm-8 text-left visionPost"
+                             ng-switch="$ctrl.description($ctrl.post.security.description)">
+                            <a ng-switch-when="globe"><img ng-src="images/forPages/earth.svg"
+                                                           title="пост виден всем"></a>
 
                             <a ng-switch-when="friend"><i class="fas fa-users fa-lg" title="пост виден друзьям"></i></a>
                             <a ng-switch-when="self"><i class="fas fa-user-secret fa-lg"
@@ -63,24 +65,38 @@
     </div>
 
 
-    <div class="card-img-top image">
+    <div class="card-img image">
 
-        <div class="text-center" ng-if="$ctrl.lengthImages()">
-            <img class="img-fluid" ng-repeat="image in $ctrl.images" ng-src="{{image.url}}"/>
-        </div>
 
-        <div class="container text-center " ng-if="!$ctrl.lengthImages()">
-            <div class="row">
-                <div class="col-md thumb" ng-repeat="image in $ctrl.images">
-                    <a ng-click="$ctrl.openLightboxModal($index)">
-                        <img ng-src="{{image.url}}" class="img-thumbnail ">
+                <div class="everyImage img-thumbnail" style={{$ctrl.style}} ng-repeat="image in $ctrl.images">
+
+                    <a class="fancybox" data-fancybox="{{$ctrl.group}}" ng-href="{{image.url}}">
+                        <img class="img-fluid" ng-src="{{image.url}}"/>
                     </a>
+
                 </div>
-            </div>
-        </div>
 
 
     </div>
+
+
+    <!--ng-click="$ctrl.openImageFancybox()"
+            <div class="container text-center " ng-if="$ctrl.imagesA">
+                <div class="row">
+                    <div class="col-md thumb" ng-repeat="image in $ctrl.images">
+                        <a ng-click="$ctrl.openLightboxModal($index)">
+                            <img ng-src="{{image.url}}" class="img-thumbnail "/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    -->
+    <!--   <div ng-repeat="image in $ctrl.images">
+           <a id="{{$index}}" ng-href="{{image.url}}" fancyboxable>
+               <img ng-src="{{image.url}}"/>
+           </a></div> -->
+
+
     <div class="card-body">
         <div class="card-text text-post-text">
             <p class="title"><i class="far fa-circle"></i>&nbsp{{$ctrl.post.title}}</p>
