@@ -32,7 +32,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                         notification('Вы покинули ивент "' + self.event.title + '"');
                         self.event = getEvent();
                     }, function (errResponse) {
-                        if (errResponse.data === 'Closed event' ) {
+                        if (errResponse.data === 'Closed event') {
                             self.notification('Ивент уже закончен :(');
                             self.event = getEvent();
                         } else {
@@ -46,7 +46,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                         notification('Вы присоединились к ивенту "' + self.event.title + '"');
                         self.event = getEvent();
                     }, function (errResponse) {
-                        if (errResponse.data === 'Closed event' ) {
+                        if (errResponse.data === 'Closed event') {
                             self.notification('Ивент уже закончен :(');
                             self.event = getEvent();
                         } else {
@@ -109,26 +109,22 @@ angular.module('eventInfo').component('eventInfoComp', {
                 EventFactory.getAllUsers({
                     id: self.event.id
                 }, function (data) {
+                    var noInfoFriends = [];
                     var noInfoUsers = [];
                     var processShowUsers = $q.defer();
 
                     processShowUsers.promise
                         .then(function () {
-                            noInfoUsers = setUsersToArr(data.friends, self.friends);
-                            return noInfoUsers;
-                        })
-                        .then(function (noInfoUsers) {
-                            if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.friends);
+                            noInfoFriends = setUsersToArr(data.friends, self.friends);
                         })
                         .then(function () {
                             noInfoUsers = setUsersToArr(data.users, self.users);
-                            return noInfoUsers;
-                        })
-                        .then(function (noInfoUsers) {
-                            if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.users);
                         })
                         .then(function () {
-                            angular.element('#eventUsers').modal('show');
+                            $q.all([getUsersInfo(noInfoFriends, self.friends),
+                                getUsersInfo(noInfoUsers, self.users)]).then(function () {
+                                angular.element('#eventUsers').modal('show');
+                            });
                         });
                     processShowUsers.resolve();
                 }, function (errResponse) {
@@ -168,13 +164,14 @@ angular.module('eventInfo').component('eventInfoComp', {
                     });
             };
 
-            function getEvent () {
+            function getEvent() {
                 return EventFactory.getEvent(
                     {id: $routeParams.id},
                     function (event) {
                         self.friendsPreliminary = [];
                         self.usersPreliminary = [];
                         var infoOwner;
+                        var noInfoFriends;
                         var noInfoUsers;
 
                         processShowEvent.promise
@@ -184,26 +181,25 @@ angular.module('eventInfo').component('eventInfoComp', {
                                 copyEventToUpdate(event);
                             })
                             .then(function () {
-                                noInfoUsers = setUsersToArr(event.friends, self.friendsPreliminary);
-                                return noInfoUsers;
-                            })
-                            .then(function (noInfoUsers) {
-                                if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.friendsPreliminary);
-                            })
-                            .then(function () {
-                                infoOwner = setInfoOwner(self.friendsPreliminary, event.owner);
+                                noInfoFriends = setUsersToArr(event.friends, self.friendsPreliminary);
                             })
                             .then(function () {
                                 noInfoUsers = setUsersToArr(event.users, self.usersPreliminary);
-                                return noInfoUsers;
-                            })
-                            .then(function (noInfoUsers) {
-                                if (noInfoUsers.length !== 0) getUsersInfo(noInfoUsers, self.usersPreliminary);
                             })
                             .then(function () {
-                                if (!infoOwner) setInfoOwner(self.usersPreliminary, event.owner);
+                                $q.all([getUsersInfo(noInfoFriends, self.friendsPreliminary),
+                                    getUsersInfo(noInfoUsers, self.usersPreliminary)]).then(function (result) {
+                                    result[0].$promise.then(function (data) {
+                                        infoOwner = setInfoOwner(data, event.owner);
+                                        if (!infoOwner) {
+                                            result[1].$promise.then(function (data) {
+                                                infoOwner = setInfoOwner(data, event.owner);
+                                            });
+                                        }
+                                    });
+                                });
+                                process.resolve();
                             });
-                        process.resolve();
                     }, function (errResponse) {
                         if (errResponse.data === 'Doesn\'t exist event') {
                             $window.location.href = '#!/event';
@@ -212,7 +208,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                         }
                     });
             }
-            
+
             function setUsersToArr(input, output) {
                 var noInfoUsers = [];
                 input.forEach(function (item) {
@@ -227,7 +223,7 @@ angular.module('eventInfo').component('eventInfoComp', {
             }
 
             function getUsersInfo(input, output) {
-                UserEventFactory.getUsersInfo(
+                return UserEventFactory.getUsersInfo(
                     input, function (data) {
                         data.forEach(function (user) {
                             $localStorage.users.addUser(user);
@@ -240,13 +236,14 @@ angular.module('eventInfo').component('eventInfoComp', {
             }
 
             function setInfoOwner(users, owner) {
+                var info = false;
                 users.forEach(function (item) {
                     if (item.id === owner.id) {
                         self.owner = item;
-                        return true;
+                        info = true;
                     }
                 });
-                return false;
+                return info;
             }
 
             function copyEventToUpdate(event) {
