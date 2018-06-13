@@ -164,6 +164,10 @@ angular.module('eventInfo').component('eventInfoComp', {
                     });
             };
 
+            self.invite = function () {
+                notification("Будет добавленно в следующем обновлении");
+            };
+
             function getEvent() {
                 return EventFactory.getEvent(
                     {id: $routeParams.id},
@@ -189,16 +193,15 @@ angular.module('eventInfo').component('eventInfoComp', {
                             .then(function () {
                                 $q.all([getUsersInfo(noInfoFriends, self.friendsPreliminary),
                                     getUsersInfo(noInfoUsers, self.usersPreliminary)]).then(function (result) {
-                                    result[0].$promise.then(function (data) {
-                                        infoOwner = setInfoOwner(data, event.owner);
+                                    result[0].$promise.then(function () {
+                                        infoOwner = setInfoOwner(self.friendsPreliminary, event.owner);
                                         if (!infoOwner) {
-                                            result[1].$promise.then(function (data) {
-                                                infoOwner = setInfoOwner(data, event.owner);
+                                            result[1].$promise.then(function () {
+                                                infoOwner = setInfoOwner(self.usersPreliminary, event.owner);
                                             });
                                         }
                                     });
                                 });
-                                process.resolve();
                             });
                     }, function (errResponse) {
                         if (errResponse.data === 'Doesn\'t exist event') {
@@ -241,6 +244,7 @@ angular.module('eventInfo').component('eventInfoComp', {
                     if (item.id === owner.id) {
                         self.owner = item;
                         info = true;
+                        process.resolve();
                     }
                 });
                 return info;

@@ -54,12 +54,12 @@
                     </div>
                     <div class="col-5 text-center block-count" ng-click="self.showUsers('invited')"
                          ng-show="self.event.active">
-                        <p class="count">Х</p>
+                        <p class="count">0</p>
                         <p class="count-label">Приглашены</p>
                     </div>
                 </div>
-                <button class="btn btn-info control mt-2" type="button" ng-click="self.test()"
-                        ng-show="self.event.active">
+                <button class="btn btn-info control mt-2" type="button" ng-click="self.invite()"
+                        ng-show="self.event.member && self.event.active">
                     Пригласить друзей
                 </button>
             </div>
@@ -205,7 +205,7 @@
                         </li>
                         <li class="nav-item" ng-class="{active : self.sortType === 'invited'}"
                             ng-show="self.event.active">
-                            <a class="nav-link sort-text" href="" ng-click="self.sortType = 'invited'">Приглашены Х</a>
+                            <a class="nav-link sort-text" href="" ng-click="self.sortType = 'invited'">Приглашены 0</a>
                         </li>
                     </ul>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
