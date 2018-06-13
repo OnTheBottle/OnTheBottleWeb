@@ -40,6 +40,7 @@ angular.module('eventsApp').component('eventsComp', {
                         {options: self.options, eventsPage: eventsPage, sortType: self.sortType},
                         function (data) {
                             if (data[0] !== undefined) {
+                                self.wait = false;
                                 formatDate(data);
                                 setPlaceInfo(data);
                                 self.events = data;
@@ -90,6 +91,7 @@ angular.module('eventsApp').component('eventsComp', {
                             function (data) {
                                 if (data[0] !== undefined) {
                                     formatDate(data);
+                                    setPlaceInfo(data);
                                     self.events = data;
                                     self.scroll = self.events.length % eventsCount === 0;
                                 } else {
@@ -123,13 +125,12 @@ angular.module('eventsApp').component('eventsComp', {
                 var month = formatTime(self.startTime.getMonth());
                 var hours = formatTime(self.startTime.getHours());
                 var minutes = formatTime(self.startTime.getMinutes());
-                var seconds = formatTime(self.startTime.getSeconds());
 
                 var post = {
                     id: null,
                     userId: self.userId,
                     security: 'Anybody views a post',
-                    text: 'Я собираю людей ' + day + '.' + month + ' в ' + hours + ':' + minutes + ':' + seconds +
+                    text: 'Я собираю людей ' + day + '.' + month + ' в ' + hours + ':' + minutes +
                     '. Собираемся в  ' + $localStorage.places.getPlace(self.place).title + '.',
                     title: 'Я создал ивент: ' + self.title,
                     uploadFiles: []
@@ -198,7 +199,9 @@ angular.module('eventsApp').component('eventsComp', {
                                     self.wait = false;
                                     if (data[0] !== undefined) {
                                         formatDate(data);
+                                        setPlaceInfo(data);
                                         data.forEach(function (item) {
+                                            //item.place = $localStorage.places.getPlace(item.place.id);
                                             self.events.push(item);
                                         });
                                         self.scroll = self.events.length % eventsCount === 0;
@@ -215,6 +218,7 @@ angular.module('eventsApp').component('eventsComp', {
                                     if (data[0] !== undefined) {
                                         self.wait = false;
                                         formatDate(data);
+                                        setPlaceInfo(data);
                                         data.forEach(function (item) {
                                             self.events.push(item);
                                         });

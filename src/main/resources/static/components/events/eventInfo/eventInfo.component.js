@@ -148,15 +148,14 @@ angular.module('eventInfo').component('eventInfoComp', {
                 var month = formatTime(self.event.startTime.getMonth());
                 var hours = formatTime(self.event.startTime.getHours());
                 var minutes = formatTime(self.event.startTime.getMinutes());
-                var seconds = formatTime(self.event.startTime.getSeconds());
 
                 var post = {
                     id: null,
                     userId: self.userId,
                     security: 'Anybody views a post',
-                    text: 'Я иду ' + day + '.' + month + ' в ' + hours + ':' + minutes + ':' + seconds +
-                    ' в ' + self.event.place.title + '.' +
-                    ' Подробности по ссылке: http://localhost:8080/master.html#!/eventInfo/' + self.event.id,
+                    text: 'Я иду ' + day + '.' + month + ' в ' + hours + ':' + minutes + ':' + ' в ' +
+                    self.event.place.title + '.' + ' Подробности по ссылке: http://localhost:8080/master.html#!/eventInfo/'
+                    + self.event.id,
                     title: 'Я участвую в ивенте: ' + self.event.title,
                     uploadFiles: []
                 };
