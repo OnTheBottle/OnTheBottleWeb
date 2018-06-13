@@ -1,0 +1,37 @@
+<button type="button " class="btn addFoto podskazka" titled="Добавить фото" data-toggle="modal" data-target="#userImageDownload">
+    <i class="fas fa-camera-retro fa-lg"></i></button>
+<div class="modal fade" id="userImageDownload" tabindex="-1" role="dialog" aria-labelledby="myModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modalAvatar">
+            <div class="modal-header text-center">
+                <h3 class="modal-title">Создайте свой аватар:</h3>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div>Выберите фото:&nbsp<input type="file" id="fileInput"/></div>
+                            <div class="cropArea ">
+                                <img-crop image="myImage" area-type="square"
+                                          area-min-size="100/100" result-image="myCroppedImage"></img-crop>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>Итоговый результат:</div>
+                            <div><img ng-src="{{myCroppedImage}}"/></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer userModal">
+                <button class="btn podskazka" titled="Сохранить" type="button" ng-click="$ctrl.download()" data-dismiss="modal">
+                    <i class="far fa-save fa-lg"></i>
+                </button>
+                <button class="btn podskazka" titled="Закрыть/Отмена" type="button" ng-click="$ctrl.close()" data-dismiss="modal">
+                    <i class="fas fa-times-circle fa-lg"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

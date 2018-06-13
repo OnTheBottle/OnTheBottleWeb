@@ -5,7 +5,7 @@ const USER_PATH = location.protocol + '//' + location.hostname + ':8081';
 const PLACE_PATH = location.protocol + '//' + location.hostname + ':8082';
 const MESSAGE_PATH = location.protocol + '//' + location.hostname + ':8083';
 const AUTH_HTML = 'auth.html';
-const DEFAULT_AVATAR_PATH = 'images/userspictures/default-avatar.jpeg';
+const DEFAULT_AVATAR_PATH = "images/userspictures/default-avatar.jpeg";
 const DEFAULT_BAR_AVATAR_PATH = 'images/place/default.jpg';
 const TIME_TO_CLEAR_CACHE_INFO = 30;
 

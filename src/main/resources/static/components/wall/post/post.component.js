@@ -11,12 +11,10 @@ angular.module('post')
                 self.commenting = '';
                 self.comment = {id: null, user_id: self.userid, post_id: null, comment: ''};
                 self.random = '';
-                self.images = [];
                 self.likesFromPost = [];
                 self.countLike = 0;
                 self.countDislike = 0;
                 self.comments = [];
-                self.images = [];
                 var defer = $q.defer();
                 var promise = defer.promise;
                 var postUserId = null;
@@ -61,17 +59,48 @@ angular.module('post')
                     var t = datel.toLocaleString();
                     self.dateUTCTOlocal = moment(t, "DD.MM.YYYY, HH:mm:ss");
                     self.format = self.dateUTCTOlocal.format(' D MMM в HH:mm ');
-                    self.user = $localStorage.users.getUser(id);
-                    differ();
+                    if (images) {
+                        var imagesPost = [];
+                        images.forEach(function (img) {
+                            var image = {};
+                            image.url = img.url;
+                            image.name = img.name;
+                            image.id = img.id;
+                            image.size = img.size;
+                            image.type = img.type;
+                            image.location = img.location;
+                            imagesPost.push(image);
 
-                    if (!self.user) {
+                        });
+                        var width = (100 - 1 - (1 * images.length - 1)) / images.length + "%";
+                        self.group = Math.floor(Math.random() * 100000);
+                        self.style = "width:" + width + ";height:auto";
+                        var element = angular.element(document.querySelector(".everyImage"))
+                        element.css("width", width);
+                        element.css("height", "auto");
+
+                        self.images = imagesPost;
+
+                    }
+
+
+                    differ();
+                    if ($localStorage.users.getUser(id)) {
+                        var userFromLocal = $localStorage.users.getUser(id);
+                        if (!userFromLocal.avatarUrl) {
+                            userFromLocal.avatarUrl = "images/userspictures/default-avatar.jpeg";
+                        }
+                        self.user = userFromLocal;
+                    } else {
                         postUserId = id;
                         promise.then(function (val) {
                             self.user = val;
                         });
                     }
+
                     self.comments = comments;
-                    self.images = images;
+                    //    self.images = images;
+                    //     showimages(self.images);
                     self.likesFromPost = likes;
                     showStates(self.likesFromPost);
                     showStateComment(self.comments);
@@ -87,36 +116,43 @@ angular.module('post')
 
 
                 function showStates(likesArray) {
-                    if (likesArray.length === 0) {
+                    if (!likesArray) {
                         self.dislikeUser = false;
                         self.likeUser = false;
                     }
+                    else {
+                        if (likesArray.length === 0) {
 
-                    var countDislikes = 0;
-                    var countLikes = 0;
+                            self.dislikeUser = false;
+                            self.likeUser = false;
+                        }
 
-                    likesArray.forEach(function (like) {
-                        if (like.status === "dislike") {
-                            countDislikes++;
-                            if (like.user.id === $localStorage.authId) {
-                                self.dislikeUser = true;
+                        var countDislikes = 0;
+                        var countLikes = 0;
+
+                        likesArray.forEach(function (like) {
+                            if (like.status === "dislike") {
+                                countDislikes++;
+                                if (like.user.id === $localStorage.authId) {
+                                    self.dislikeUser = true;
+                                }
+                                else {
+                                    self.dislikeUser = false;
+                                }
                             }
-                            else {
-                                self.dislikeUser = false;
+                            if (like.status === "like") {
+                                countLikes++;
+                                if (like.user.id === $localStorage.authId) {
+                                    self.likeUser = true;
+                                }
+                                else {
+                                    self.likeUser = false;
+                                }
                             }
-                        }
-                        if (like.status === "like") {
-                            countLikes++;
-                            if (like.user.id === $localStorage.authId) {
-                                self.likeUser = true;
-                            }
-                            else {
-                                self.likeUser = false;
-                            }
-                        }
-                    });
-                    self.countLike = countLikes;
-                    self.countDislike = countDislikes;
+                        });
+                        self.countLike = countLikes;
+                        self.countDislike = countDislikes;
+                    }
                 }
 
                 self.focus = function () {
@@ -146,16 +182,16 @@ angular.module('post')
                 };
 
                 function showStateComment(array) {
+                    if (array) {
+                        array.forEach(function (t) {
+                            if (t.user.id === $localStorage.authId) {
+                                self.stateComment = true;
 
-                    array.forEach(function (t) {
-                        if (t.user.id === $localStorage.authId) {
-                            self.stateComment = true;
-
-                        } else {
-                            self.stateComment = false;
-                        }
-                    });
-
+                            } else {
+                                self.stateComment = false;
+                            }
+                        });
+                    }
                 }
 
                 this.dropComment = function (commentId) {
@@ -373,6 +409,13 @@ angular.module('post')
 
                     }
                 }
+
+                var addAvatar = $scope.$on('postAddAvatar', function (event, data) {
+                    console.log(data);
+                    self.user.avatarUrl = data;
+                    addAvatar();
+
+                });
             }],
         bindings: {
             deletePost: '=',
@@ -383,8 +426,9 @@ angular.module('post')
             wallUserId: '<',
             editPost: '=',
             openImage: '=',
-            addUsers: '='
+            addUsers: '=',
+            uploadFiles: '='
         }
-    })
-;
+    });
+
 

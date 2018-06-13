@@ -15,6 +15,10 @@ angular.module('userOk').factory('UserFactory', ['$resource', '$cookies',
             getUser: {
                 params: {path: 'getUser', access_token: $cookies.get('access_token')},
                 method: "GET"
+            },
+            updateUser:{
+               params: {path: 'addAvatarUrl', access_token: $cookies.get('access_token'),avatarUrl:"@avatarUrl",userId:"@userId"},
+                method:"POST"
             }
         });
     }
