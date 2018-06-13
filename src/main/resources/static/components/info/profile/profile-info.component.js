@@ -10,7 +10,7 @@
             }
         });
 
-     function profileController($http) {
+    function profileController($http) {
 
         var model = this;
         model.user = {};
@@ -29,15 +29,6 @@
                 url: USER_PATH + "/showUsers",
                 params: model.user
             }).then(function mySuccess(response) {
-                // model.user.name = response.data.name;
-                // model.user.surname = response.data.surname;
-                // model.user.age = response.data.age;
-                // model.user.email = response.data.email;
-                // model.user.country = response.data.country;
-                // model.user.city = response.data.city;
-                // model.user.avatarUrl = response.data.avatarUrl;
-                // model.user.status = response.data.status;
-                // model.user.info = response.data.info;
                 model.user = model.myClone(response.data);
             }, function myError(response) {
             });
@@ -47,13 +38,13 @@
             model.checked = false;
             model.user = model.myClone(model.tmpUser);
         };
-        
+
         model.editUser = function () {
             model.checked = true;
             model.tmpUser = model.myClone(model.user);
         };
 
-        model.saveEditUser = function(){
+        model.saveEditUser = function () {
             model.checked = false;
             $http({
                 method: "POST",
@@ -75,8 +66,8 @@
             copyTo.avatarUrl = copyFrom.avatarUrl;
             copyTo.status = copyFrom.status;
             copyTo.info = copyFrom.info;
+            copyTo.id = model.userId;
             return copyTo;
         }
-
     }
 })();
