@@ -31,6 +31,8 @@
                 model.user.email = response.data.email;
                 model.user.country = response.data.country;
                 model.user.city = response.data.city;
+                model.user.deleted = response.data.deleted;
+                model.user.password = response.data.password;
                 if (response.data.avatarUrl) {
                     model.user.avatarUrl = response.data.avatarUrl;
                 }
