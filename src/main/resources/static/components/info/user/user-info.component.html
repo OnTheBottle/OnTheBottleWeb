@@ -1,10 +1,16 @@
-<div class="container-fluid" ng-init="model.iView = false">
+<div class="row justify-content-center" ng-show="model.user.deleted">
+    <div class="col-md-5 img-container">
+        <p class="text-center text-primary h2">Пользователь удалил свою страницу</p>
+        <img src="images/userspictures/deleted-avatar.jpg"
+             class="" alt="ava">
+    </div>
+</div>
+<div class="container-fluid" ng-init="model.iView = false" ng-show="!model.user.deleted">
     <div class="row">
         <div class="container-fluid">
             <!--Write your HTML here-->
             <p class="text-info h2 text-center">Информация о пользователе</p>
-
-            <div class="row justify-content-md-center">
+            <div class="row justify-content-md-center" ng-show="!model.user.deleted">
                 <div class="col-md-3 img-container">
                     <img src="{{model.user.avatarUrl}}" class="" alt="face">
                 </div>

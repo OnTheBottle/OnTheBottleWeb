@@ -32,6 +32,7 @@
                 model.user.country = response.data.country;
                 model.user.city = response.data.city;
                 model.user.deleted = response.data.deleted;
+                console.log(model.user.deleted);
                 model.user.password = response.data.password;
                 if (response.data.avatarUrl) {
                     model.user.avatarUrl = response.data.avatarUrl;
