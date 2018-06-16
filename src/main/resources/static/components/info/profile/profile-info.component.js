@@ -15,6 +15,7 @@
         var model = this;
         model.user = {};
         model.tmpUser = {};
+        model.deleteResumeRequest = {};
         // model.user.id = "e89faed1-f000-40ec-99d7-01c40e9d4e6b";
 
         model.$onInit = function () {
@@ -30,6 +31,7 @@
                 params: model.user
             }).then(function mySuccess(response) {
                 model.user = model.myClone(response.data);
+                model.user.deleted = response.data.deleted;
             }, function myError(response) {
             });
         };
@@ -66,8 +68,22 @@
             copyTo.avatarUrl = copyFrom.avatarUrl;
             copyTo.status = copyFrom.status;
             copyTo.info = copyFrom.info;
+            copyTo.password = copyFrom.password;
             copyTo.id = model.userId;
             return copyTo;
+        }
+
+        model.deleteResumeProfile = function () {
+            model.user.deleted = !model.user.deleted;
+            model.deleteResumeRequest.id = model.userId;
+            model.deleteResumeRequest.deleted = model.user.deleted;
+            $http({
+                method: "POST",
+                url: USER_PATH + "/deleteResumeProfile",
+                params: model.deleteResumeRequest
+            }).then(function mySuccess(response) {
+            }, function myError(response) {
+            });
         }
     }
 })();
