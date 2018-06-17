@@ -7,10 +7,12 @@
         <div ng-class="model.selected ? 'active-interlocutor' : ''" class="row m-2">
             <div class="col-2 p-0 text-center align-self-center">
                 <div>
-                    <img ng-if="model.interlocutor.avatarUrl" src="{{model.interlocutor.avatarUrl}}"
+                    <img ng-if="model.interlocutor.avatarUrl && !model.interlocutor.deleted" src="{{model.interlocutor.avatarUrl}}"
                          class="meetings-avatar"
                          alt="ava">
-                    <img ng-if="!model.interlocutor.avatarUrl" src="images/userspictures/default-avatar.jpeg"
+                    <img ng-if="!model.interlocutor.avatarUrl && !model.interlocutor.deleted" src="images/userspictures/default-avatar.jpeg"
+                         class="meetings-avatar" alt="ava">
+                    <img ng-if="model.interlocutor.deleted" src="images/userspictures/deleted-avatar.jpg"
                          class="meetings-avatar" alt="ava">
                 </div>
             </div>
