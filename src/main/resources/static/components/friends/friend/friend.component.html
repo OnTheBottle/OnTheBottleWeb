@@ -3,28 +3,30 @@
         <div class="col p-1">
             <a class="dropdown-item p-0" href="#!/userInfo/{{model.friend.id}}">
                 <div>
-                    <img ng-if="model.friend.avatarUrl" ng-src="{{model.friend.avatarUrl}}" class="friend-avatar"
+                    <img ng-if="model.friend.avatarUrl && !model.friend.deleted" ng-src="{{model.friend.avatarUrl}}" class="friend-avatar"
                          alt="ava">
-                    <img ng-if="!model.friend.avatarUrl" src="images/userspictures/default-avatar.jpeg"
+                    <img ng-if="!model.friend.avatarUrl && !model.friend.deleted" src="images/userspictures/default-avatar.jpeg"
+                         class="friend-avatar" alt="ava">
+                    <img ng-if="model.friend.deleted" src="images/userspictures/deleted-avatar.jpg"
                          class="friend-avatar" alt="ava">
                 </div>
                 <div class="pb-1">
                     {{model.friend.name}} {{model.friend.surname}}
                 </div>
             </a>
-            <div ng-show="model.friend.friendStatus == 'confirmed'">
+            <div ng-show="model.friend.friendStatus == 'confirmed' && !model.friend.deleted">
                 <button type="button" ng-click="model.denyRelation(model.friend.id)" class="btn btn-danger pl-4 pr-4">Забыть</button>
             </div>
-            <div ng-show="model.friend.friendStatus == 'requested'">
+            <div ng-show="model.friend.friendStatus == 'requested' && !model.friend.deleted">
                 <button type="button" class="btn btn-default pl-4 pr-4">Приглашен</button>
             </div>
-            <div ng-show="model.friend.friendStatus == 'notconfirmed'">
+            <div ng-show="model.friend.friendStatus == 'notconfirmed' && !model.friend.deleted">
                 <button type="button" ng-click="model.confirmRelation(model.friend.id)" class="btn btn-success pl-2 pr-2">Принять!
                 </button>
                 <button type="button" ng-click="model.denyRelation(model.friend.id)" class="btn btn-danger pl-2 pr-2">Отклонить
                 </button>
             </div>
-            <div ng-show="model.friend.friendStatus == 'unknown'">
+            <div ng-show="model.friend.friendStatus == 'unknown' && !model.friend.deleted">
                 <button type="button" ng-click="model.invite(model.friend.id)" class="btn btn-info pl-4 pr-4">Пригласить</button>
             </div>
 
