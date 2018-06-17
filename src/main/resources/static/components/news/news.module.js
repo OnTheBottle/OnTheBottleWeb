@@ -11,8 +11,11 @@ function adapterPostArray(friends, posts, userId) {
         obj.ownerId = friend.id;
         obj.ownerName = friend.name + ' ' + friend.surname;
         obj.ownerAvatar = 'images/userspictures/default-avatar.jpeg';
-        if (friend.avatarUrl) {
+        if (friend.avatarUrl && !friend.deleted) {
             obj.ownerAvatar = friend.avatarUrl;
+        }
+        if (friend.deleted){
+            obj.ownerAvatar = 'images/userspictures/deleted-avatar.jpg';
         }
         obj.title = posts[x].title;
         obj.date = posts[x].date;
