@@ -35,6 +35,9 @@
                 <a class="nav-link" href="#!/chat" ng-click="model.checkActive('chat')">
                     Чат<span class="font-weight-bold" ng-show="model.chatNotifier > 0">({{model.chatNotifier}})</span></a>
             </li>
+            <li class="nav-item" ng-class="(model.activeMenu === 'roulette') ? 'active h2' : ''">
+                <a class="nav-link" href="#!/roulette" ng-click="model.checkActive('roulette')">Наливайка</a>
+            </li>
         </ul>
         <!--
                 <audio controls="controls" loop><source src="common/music/samogonochka.mp3" type="audio/mpeg" /></audio>

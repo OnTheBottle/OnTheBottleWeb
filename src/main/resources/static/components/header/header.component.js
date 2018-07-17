@@ -5,7 +5,7 @@
 
     angular.module('mainApp')
         .component('headerComp', {
-            templateUrl: 'components/header/v2header.component.html',
+            templateUrl: 'components/header/header.component.html',
             controller: ['$http', '$window', '$cookies', '$localStorage', '$interval', HeaderController],
             controllerAs: 'model',
             bindings: {

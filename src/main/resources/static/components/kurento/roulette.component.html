@@ -1,0 +1,148 @@
+<!--<script src="components/kurento/demo-console.js"></script>-->
+<script src="common/lib/kurento-utils.js"></script>
+<script src="common/lib/ekko-lightbox.min.js"></script>
+<script src="common/lib/draggabilly.pkgd.min.js"></script>
+<script src="common/lib/adapter.js"></script>
+
+
+<div class="container-fluid mt-3">
+    <div class="row text-center">
+        <div class="col-1">
+        </div>
+        <div class="col-10">
+            <div class="row justify-content-center">
+                <div id="videoBig">
+                    <video id="videoOutput" autoplay width="640px" height="480px"
+                           poster="images/ico/drink640.jpg"></video>
+                </div>
+                <div id="videoSmall">
+                    <video id="videoInput" autoplay width="240px" height="180px"
+                           poster="images/ico/drinksmall.jpg"></video>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <!--
+                                <form class="form-control list-unstyled" ng-submit="model.call()">
+                                    <label class="control-label">Peer</label>
+                                    <div class="input-group input-group-lg postText">
+                                        <input ng-model="model.peerName" id="peer" type="text" class="form-control"
+                                               placeholder="Написать имя..." value="" required>
+                                        <button ng-disabled="!model.peerName" id="call" class="btn btn-primary" type="submit">Register
+                                        </button>
+                                    </div>
+                                </form>
+                -->
+                <input ng-model="model.registerName" id="name" hidden>
+                <!--
+                                <button id="register" ng-click="model.register()" class="btn btn-primary mr-3" type="submit">
+                                    Регистрация
+                                </button>
+                -->
+                <button id="call" ng-click="model.call()" class="btn btn-primary m-3" type="submit">Случайный гость
+                </button>
+                <button id="terminate" ng-click="model.stop()" class="btn btn-danger m-3" type="submit">Отключиться
+                </button>
+            </div>
+        </div>
+        <div class="col-1">
+        </div>
+    </div>
+</div>
+
+
+<!--<link rel="stylesheet" href="webjars/bootstrap/dist/css/bootstrap.min.css">-->
+<!--<link rel="stylesheet" href="/ekko-lightbox.min.css">-->
+<!--<link rel="stylesheet" href="webjars/demo-console/index.css">-->
+<!--<link rel="stylesheet" href="components/kurento/roulette.css">-->
+
+<!--<script src="webjars/jquery/dist/jquery.min.js"></script>-->
+<!--<script src="webjars/bootstrap/dist/js/bootstrap.min.js"></script>-->
+<!--<script src="webjars/ekko-lightbox/dist/ekko-lightbox.min.js"></script>-->
+<!--<script src="webjars/draggabilly/draggabilly.pkgd.min.js"></script>-->
+<!--<script src="webjars/webrtc-adapter/release/adapter.js"></script>-->
+
+<!--
+<script src="webjars/demo-console/index.js"></script>
+<script src="js/kurento-utils.js"></script>
+-->
+
+<!--<script src="js/index.js"></script>-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="row">
+                <!--
+                                <div class="col-md-6">
+                                    <div class="row post-body align-items-center m-0 p-0 ">
+                                        <form class="form-control list-unstyled" ng-submit="model.register()">
+                                            <label class="control-label">Name</label>
+                                            <div class="input-group input-group-lg postText">
+                                                <input ng-model="model.registerName" id="name" type="text" class="form-control"
+                                                       placeholder="Написать имя..." value="" required>
+                                                <button ng-disabled="!model.registerName"  id="register" class="btn btn-primary" type="submit">Register
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                -->
+            </div>
+            <!--
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row post-body align-items-center m-0 p-0 ">
+                                    <form class="form-control list-unstyled" ng-submit="model.call()">
+                                        <label class="control-label">Peer</label>
+                                        <div class="input-group input-group-lg postText">
+                                            <input ng-model="model.peerName" id="peer" type="text" class="form-control"
+                                                   placeholder="Написать имя..." value="" required>
+                                            <button ng-disabled="!model.peerName" id="call" class="btn btn-primary" type="submit">Register
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+            -->
+
+            <!--
+                        <br/> <br/> <label class="control-label" for="peer">Peer</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input id="peer_old" name="peer" class="form-control" type="text"
+                                       onkeydown="if (event.keyCode == 13) call();">
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <a id="call" href="#" class="btn btn-success"><span
+                                        class="glyphicon glyphicon-play"></span> Call</a> <a id="terminate"
+                                                                                             href="#" class="btn btn-danger"><span
+                                    class="glyphicon glyphicon-stop"></span> Stop</a>
+                            </div>
+                        </div>
+            -->
+
+
+            <!--
+                        <br/> <label class="control-label" for="console">Console</label><br>
+                        <br>
+                        <div id="console" class="democonsole">
+                            <ul></ul>
+                        </div>
+                    </div>
+            -->
+
+
+            <!--
+                    <div class="col-md-7">
+                        <div id="videoBig">
+                            <video id="videoOutput" autoplay width="640px" height="480px"
+                                   poster="images/ico/webrtc.png"></video>
+                        </div>
+                        <div id="videoSmall">
+                            <video id="videoInput" autoplay width="240px" height="180px"
+                                   poster="images/ico/webrtc.png"></video>
+                        </div>
+            -->
+        </div>
+    </div>
+</div>
